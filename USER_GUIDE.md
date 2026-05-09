@@ -73,6 +73,20 @@ Skills also activate automatically based on what you're doing — designing an A
 
 ## Quick Start
 
+### Prerequisite: Install Context7
+
+Before working on this project, install or update [Context7](https://github.com/upstash/context7) to access the latest documentation and API references for any library or framework you'll be using.
+
+**Install or update Context7:**
+
+```bash
+npx ctx7@latest setup
+```
+
+This will install Context7 with official skill definitions. If you already have Context7 installed, this command will update it to the latest version.
+
+For more details, see the [official installation guide](https://github.com/upstash/context7#installation).
+
 <details>
 <summary><b>Claude Code (recommended)</b></summary>
 
