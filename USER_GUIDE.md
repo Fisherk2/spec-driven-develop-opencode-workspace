@@ -1,4 +1,6 @@
-# Agent Skills
+# Complete Reference Guide
+
+> **New to this project?** Start with [getting-started.md](docs/ai-agent-setup/getting-started.md) for a quick introduction.
 
 **Production-grade engineering skills for AI coding agents.**
 
@@ -69,119 +71,44 @@ flowchart LR
 
 Skills also activate automatically based on what you're doing — designing an API triggers `api-and-interface-design`, building UI triggers `frontend-ui-engineering`, and so on.
 
+### Using the Meta-Skill
+
+Start with `@skills/using-agent-skills/SKILL.md` to discover which skill applies to your current task. This meta-skill contains:
+
+- A **flowchart** that maps task types to the appropriate skill
+- **Core operating behaviors** (surface assumptions, manage confusion, push back when warranted, enforce simplicity)
+- **Failure modes** to avoid
+- **Lifecycle sequences** for complete features
+
 ---
 
 ## Quick Start
 
-### Prerequisite: Install Context7
+For step-by-step setup instructions, see the [getting-started.md](docs/ai-agent-setup/getting-started.md) guide.
 
-Before working on this project, install or update [Context7](https://github.com/upstash/context7) to access the latest documentation and API references for any library or framework you'll be using.
-
-**Install or update Context7:**
+**TL;DR:**
 
 ```bash
+# 1. Install Context7 for documentation
 npx ctx7@latest setup
+
+# 2. Start with the meta-skill
+Use @skills/using-agent-skills/SKILL.md
+
+# 3. Load essential skills for your task
+Load @skills/spec-driven-development/SKILL.md    # Define
+Load @skills/test-driven-development/SKILL.md    # Build
+Load @skills/code-review-and-quality/SKILL.md   # Review
+
+# 4. Use commands for workflow automation
+/spec → /plan → /build → /test → /review → /ship
 ```
-
-This will install Context7 with official skill definitions. If you already have Context7 installed, this command will update it to the latest version.
-
-For more details, see the [official installation guide](https://github.com/upstash/context7#installation).
-
-> **Important for CLI+Skills users:** After installing Context7, use the `find-docs` skill to fetch up-to-date documentation for any library, framework, SDK, or cloud service. This skill is automatically invoked when you ask about API syntax, configuration options, or how to use a specific technology.
-
-<details>
-<summary><b>Claude Code (recommended)</b></summary>
-
-**Marketplace install:**
-
-```
-/plugin marketplace add addyosmani/agent-skills
-/plugin install agent-skills@addy-agent-skills
-```
-
-> **SSH errors?** The marketplace clones repos via SSH. If you don't have SSH keys set up on GitHub, either [add your SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) or use the full HTTPS URL to force the HTTPS cloning:
-> ```bash
-> /plugin marketplace add https://github.com/addyosmani/agent-skills.git
-> /plugin install agent-skills@addy-agent-skills
-> ```
-
-**Local / development:**
-
-```bash
-git clone https://github.com/addyosmani/agent-skills.git
-claude --plugin-dir /path/to/agent-skills
-```
-
-</details>
-
-<details>
-<summary><b>Cursor</b></summary>
-
-Copy any `SKILL.md` into `.cursor/rules/`, or reference the full `skills/` directory. See [docs/cursor-setup.md](docs/cursor-setup.md).
-
-</details>
-
-<details>
-<summary><b>Gemini CLI</b></summary>
-
-Install as native skills for auto-discovery, or add to `GEMINI.md` for persistent context. See [docs/gemini-cli-setup.md](docs/gemini-cli-setup.md).
-
-**Install from the repo:**
-
-```bash
-gemini skills install https://github.com/addyosmani/agent-skills.git --path skills
-```
-
-**Install from a local clone:**
-
-```bash
-gemini skills install ./agent-skills/skills/
-```
-
-</details>
-
-<details>
-<summary><b>Windsurf</b></summary>
-
-Add skill contents to your Windsurf rules configuration. See [docs/windsurf-setup.md](docs/windsurf-setup.md).
-
-</details>
-
-<details>
-<summary><b>OpenCode</b></summary>
-
-Uses agent-driven skill execution via AGENTS.md and the `skill` tool.
-
-See [docs/opencode-setup.md](docs/opencode-setup.md).
-
-</details>
-
-<details>
-<summary><b>GitHub Copilot</b></summary>
-
-Use agent definitions from `agents/` as Copilot personas and skill content in `.github/copilot-instructions.md`. See [docs/copilot-setup.md](docs/copilot-setup.md).
-
-</details>
-
-<details>
-  <summary><b>Kiro IDE & CLI </b></summary>
-  Skills for Kiro reside under ".kiro/skills/" and can be stored under Project or Global level. Kiro also supports Agents.md. See Kiro docs at https://kiro.dev/docs/skills/
-</details>
-
-<details>
-<summary><b>Codex / Other Agents</b></summary>
-
-Skills are plain Markdown - they work with any agent that accepts system prompts or instruction files. See [docs/getting-started.md](docs/getting-started.md).
-
-</details>
-
-
 
 ---
 
-## All 20 Skills
+## All 21 Skills
 
-The commands above are the entry points. Under the hood, they activate these 20 skills — each one a structured workflow with steps, verification gates, and anti-rationalization tables. You can also reference any skill directly.
+The commands above are the entry points. Under the hood, they activate these 21 skills — each one a structured workflow with steps, verification gates, and anti-rationalization tables. You can also reference any skill directly.
 
 ### Define - Clarify what to build
 
@@ -237,13 +164,42 @@ The commands above are the entry points. Under the hood, they activate these 20 
 
 ## Agent Personas
 
+> **For detailed information on how agents work, see [AGENTS_GUIDE.md](AGENTS_GUIDE.md).**
+
 Pre-configured specialist personas for targeted reviews:
 
-| Agent | Role | Perspective |
-|-------|------|-------------|
-| [code-reviewer](agents/code-reviewer.md) | Senior Staff Engineer | Five-axis code review with "would a staff engineer approve this?" standard |
-| [test-engineer](agents/test-engineer.md) | QA Specialist | Test strategy, coverage analysis, and the Prove-It pattern |
-| [security-auditor](agents/security-auditor.md) | Security Engineer | Vulnerability detection, threat modeling, OWASP assessment |
+| Agent | Role | Perspective | Use When |
+|-------|------|-------------|----------|
+| [code-reviewer](agents/code-reviewer.md) | Senior Staff Engineer | Five-axis code review with "would a staff engineer approve this?" standard | Before merging any change |
+| [test-engineer](agents/test-engineer.md) | QA Specialist | Test strategy, coverage analysis, and the Prove-It pattern | Writing tests or analyzing coverage |
+| [security-auditor](agents/security-auditor.md) | Security Engineer | Vulnerability detection, threat modeling, OWASP assessment | Security-sensitive changes |
+
+### When to Use Each
+
+- **Direct invocation**: When you want one perspective on a single artifact
+  - "Review this PR" → invoke `code-reviewer`
+  - "Check for security issues" → invoke `security-auditor`
+  - "What tests are missing?" → invoke `test-engineer`
+
+- **Via commands**: When there's a repeatable workflow
+  - `/review` → wraps `code-reviewer` with the project's review skill
+  - `/ship` → fans out to all three personas in parallel, then synthesizes reports
+
+### How Personas Relate to Skills and Commands
+
+Three composable layers, each with a distinct job:
+
+| Layer | What it is | Example | Composition role |
+|-------|-----------|---------|------------------|
+| **Skill** | A workflow with steps and exit criteria | `code-review-and-quality` | The *how* — mandatory hops when an intent matches |
+| **Persona** | A role with a perspective and output format | `code-reviewer` | The *who* — adopts a viewpoint, produces a report |
+| **Command** | A user-facing entry point | `/review`, `/ship` | The *when* — composes personas and skills |
+
+**Rules:**
+- **Personas do not invoke other personas.** Skills are mandatory hops inside a persona's workflow.
+- The only multi-persona pattern endorsed is **parallel fan-out with a merge step** — used by `/ship` to run all three personas concurrently.
+
+> **For detailed orchestration patterns and decision matrix, see [AGENTS_GUIDE.md](AGENTS_GUIDE.md).**
 
 ---
 
@@ -294,224 +250,102 @@ Every skill follows a consistent anatomy:
 ## Project Structure
 
 ```
-agent-skills/
-├── skills/                            # 20 core skills (SKILL.md per directory)
-│   ├── idea-refine/                   #   Define
-│   ├── spec-driven-development/       #   Define
-│   ├── planning-and-task-breakdown/   #   Plan
-│   ├── incremental-implementation/    #   Build
-│   ├── context-engineering/           #   Build
-│   ├── source-driven-development/     #   Build
-│   ├── frontend-ui-engineering/       #   Build
-│   ├── test-driven-development/       #   Build
-│   ├── api-and-interface-design/      #   Build
-│   ├── browser-testing-with-devtools/ #   Verify
-│   ├── debugging-and-error-recovery/  #   Verify
-│   ├── code-review-and-quality/       #   Review
-│   ├── code-simplification/          #   Review
-│   ├── security-and-hardening/        #   Review
-│   ├── performance-optimization/      #   Review
-│   ├── git-workflow-and-versioning/   #   Ship
-│   ├── ci-cd-and-automation/          #   Ship
-│   ├── deprecation-and-migration/     #   Ship
-│   ├── documentation-and-adrs/        #   Ship
-│   ├── shipping-and-launch/           #   Ship
-│   └── using-agent-skills/            #   Meta: how to use this pack
-├── agents/                            # 3 specialist personas
-├── references/                        # 4 supplementary checklists
-├── hooks/                             # Session lifecycle hooks
-├── .claude/commands/                  # 7 slash commands (Claude Code)
-├── .gemini/commands/                  # 7 slash commands (Gemini CLI)
-└── docs/                              # Setup guides per tool
+plantilla-dev-ai/
+├── skills/                              # 21 core skills (SKILL.md per directory)
+│   ├── idea-refine/                     #   Define
+│   ├── spec-driven-development/         #   Define
+│   ├── planning-and-task-breakdown/     #   Plan
+│   ├── incremental-implementation/      #   Build
+│   ├── context-engineering/             #   Build
+│   ├── source-driven-development/       #   Build
+│   ├── frontend-ui-engineering/          #   Build
+│   ├── test-driven-development/         #   Build
+│   ├── api-and-interface-design/        #   Build
+│   ├── browser-testing-with-devtools/   #   Verify
+│   ├── debugging-and-error-recovery/    #   Verify
+│   ├── code-review-and-quality/         #   Review
+│   ├── code-simplification/             #   Review
+│   ├── security-and-hardening/          #   Review
+│   ├── performance-optimization/         #   Review
+│   ├── git-workflow-and-versioning/     #   Ship
+│   ├── ci-cd-and-automation/            #   Ship
+│   ├── deprecation-and-migration/       #   Ship
+│   ├── documentation-and-adrs/           #   Ship
+│   ├── shipping-and-launch/             #   Ship
+│   └── using-agent-skills/              #   Meta: skill discovery and invocation
+├── agents/                              # 3 specialist personas
+│   ├── code-reviewer.md                 #   Senior Staff Engineer
+│   ├── security-auditor.md              #   Security Engineer
+│   └── test-engineer.md                 #   QA Specialist
+├── .opencode/commands/                  # 7 custom slash commands for OpenCode
+├── .claude/commands/                    # 7 slash commands for Claude Code
+├── references/                          # 5 supplementary checklists
+│   ├── testing-patterns.md
+│   ├── security-checklist.md
+│   ├── performance-checklist.md
+│   ├── accessibility-checklist.md
+│   └── orchestration-patterns.md
+├── docs/ai-agent-setup/                # Setup guides and documentation
+│   ├── getting-started.md               #   Quick start guide
+│   ├── opencode-setup.md                #   OpenCode integration
+│   ├── prompt-anatomy.md                #   Prompt templates
+│   ├── skill-anatomy.md                #   Skill creation guide
+│   └── *.md                            #   Platform-specific guides
+├── hooks/                               # Session lifecycle hooks
+├── .gemini/commands/                    # 7 slash commands for Gemini CLI
+├── USER_GUIDE.md                        # This file - complete reference
+└── AGENTS_GUIDE.md                      # Agent personas and orchestration
 ```
 
 ---
 
-## OpenCode Agent Configuration
+## Template-Specific Tools
 
-This section provides guidance to AI coding agents (Claude Code, Cursor, Copilot, Antigravity, etc.) when working with code in this repository.
+This template includes tools that enhance AI-assisted development:
 
-### Repository Overview
+### Context7 (ctx7)
 
-A collection of skills for Claude.ai and Claude Code for senior software engineers. Skills are packaged instructions and scripts that extend Claude and your coding agents capabilities.
+**Purpose:** Fetch up-to-date documentation for any library, framework, or SDK.
 
-### OpenCode Integration
-
-OpenCode uses a **skill-driven execution model** powered by the `skill` tool and this repository's `/skills` directory.
-
-#### Core Rules
-
-- If a task matches a skill, you MUST invoke it
-- Skills are located in `skills/<skill-name>/SKILL.md`
-- Never implement directly if a skill applies
-- Always follow the skill instructions exactly (do not partially apply them)
-
-#### Intent → Skill Mapping
-
-The agent should automatically map user intent to skills:
-
-- Feature / new functionality → `spec-driven-development`, then `incremental-implementation`, `test-driven-development`
-- Planning / breakdown → `planning-and-task-breakdown`
-- Bug / failure / unexpected behavior → `debugging-and-error-recovery`
-- Code review → `code-review-and-quality`
-- Refactoring / simplification → `code-simplification`
-- API or interface design → `api-and-interface-design`
-- UI work → `frontend-ui-engineering`
-
-#### Lifecycle Mapping (Implicit Commands)
-
-OpenCode does not support slash commands like `/spec` or `/plan`.
-
-Instead, the agent must internally follow this lifecycle:
-
-- DEFINE → `spec-driven-development`
-- PLAN → `planning-and-task-breakdown`
-- BUILD → `incremental-implementation` + `test-driven-development`
-- VERIFY → `debugging-and-error-recovery`
-- REVIEW → `code-review-and-quality`
-- SHIP → `shipping-and-launch`
-
-#### Execution Model
-
-For every request:
-
-1. Determine if any skill applies (even 1% chance)
-2. Invoke the appropriate skill using the `skill` tool
-3. Follow the skill workflow strictly
-4. Only proceed to implementation after required steps (spec, plan, etc.) are complete
-
-#### Anti-Rationalization
-
-The following thoughts are incorrect and must be ignored:
-
-- "This is too small for a skill"
-- "I can just quickly implement this"
-- "I'll gather context first"
-
-Correct behavior:
-
-- Always check for and use skills first
-
-This ensures OpenCode behaves similarly to Claude Code with full workflow enforcement.
-
-### Orchestration: Personas, Skills, and Commands
-
-This repo has three composable layers. They have different jobs and should not be confused:
-
-- **Skills** (`skills/<name>/SKILL.md`) — workflows with steps and exit criteria. The *how*. Mandatory hops when an intent matches.
-- **Personas** (`agents/<role>.md`) — roles with a perspective and an output format. The *who*.
-- **Slash commands** (`.claude/commands/*.md`) — user-facing entry points. The *when*. The orchestration layer.
-
-Composition rule: **the user (or a slash command) is the orchestrator. Personas do not invoke other personas.** A persona may invoke skills.
-
-The only multi-persona orchestration pattern this repo endorses is **parallel fan-out with a merge step** — used by `/ship` to run `code-reviewer`, `security-auditor`, and `test-engineer` concurrently and synthesize their reports. Do not build a "router" persona that decides which other persona to call; that's the job of slash commands and intent mapping.
-
-See [agents/README.md](agents/README.md) for the decision matrix and [references/orchestration-patterns.md](references/orchestration-patterns.md) for the full pattern catalog.
-
-**Claude Code interop:** the personas in `agents/` work as Claude Code subagents (auto-discovered from this plugin's `agents/` directory) and as Agent Teams teammates (referenced by name when spawning). Two platform constraints align with our rules: subagents cannot spawn other subagents, and teams cannot nest. Plugin agents silently ignore the `hooks`, `mcpServers`, and `permissionMode` frontmatter fields.
-
-### Creating a New Skill
-
-#### Directory Structure
-
-```
-skills/
-  {skill-name}/           # kebab-case directory name
-    SKILL.md              # Required: skill definition
-    scripts/              # Required: executable scripts
-      {script-name}.sh    # Bash scripts (preferred)
-  {skill-name}.zip        # Required: packaged for distribution
+**Installation:**
+```bash
+npx ctx7@latest setup
 ```
 
-#### Naming Conventions
+**Usage:** The `find-docs` skill is automatically invoked when you ask about API syntax, configuration options, or how to use a specific technology. You can also use it directly:
 
-- **Skill directory**: `kebab-case` (e.g. `web-quality`)
-- **SKILL.md**: Always uppercase, always this exact filename
-- **Scripts**: `kebab-case.sh` (e.g., `deploy.sh`, `fetch-logs.sh`)
-- **Zip file**: Must match directory name exactly: `{skill-name}.zip`
+```bash
+npx ctx7@latest library <library-name> "<query>"
+npx ctx7@latest docs <library-id> "<query>"
+```
 
-#### SKILL.md Format
+### Available Skills
 
-```markdown
----
-name: {skill-name}
-description: {One sentence describing when to use this skill. Include trigger phrases like "Deploy my app", "Check logs", etc.}
+This template includes several skills for documentation and development:
+
+| Skill | Purpose | Use When |
+|-------|---------|----------|
+| `find-docs` | Retrieve up-to-date documentation using Context7 | Asking about libraries, frameworks, or APIs |
+| `source-driven-development` | Ground implementation in official docs | Building with any framework or library |
+
 ---
 
-# {Skill Title}
+## Creating a New Skill
 
-{Brief description of what the skill does.}
+For detailed guidance on creating new skills, see these documents:
 
-## How It Works
+| Document | Covers |
+|----------|--------|
+| [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md) | Complete skill anatomy: file structure, SKILL.md format, frontmatter, standard sections, writing principles |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Quality bar, structure requirements, what to do and what not to do when adding skills |
 
-{Numbered list explaining the skill's workflow}
-
-## Usage
-
-```bash
-bash /mnt/skills/user/{skill-name}/scripts/{script}.sh [args]
-```
-
-**Arguments:**
-- `arg1` - Description (defaults to X)
-
-**Examples:**
-{Show 2-3 common usage patterns}
-
-## Output
-
-{Show example output users will see}
-
-## Present Results to User
-
-{Template for how Claude should format results when presenting to users}
-
-## Troubleshooting
-
-{Common issues and solutions, especially network/permissions errors}
-```
-
-#### Best Practices for Context Efficiency
-
-Skills are loaded on-demand — only the skill name and description are loaded at startup. The full `SKILL.md` loads into context only when the agent decides the skill is relevant. To minimize context usage:
-
-- **Keep SKILL.md under 500 lines** — put detailed reference material in separate files
-- **Write specific descriptions** — helps the agent know exactly when to activate the skill
-- **Use progressive disclosure** — reference supporting files that get read only when needed
-- **Prefer scripts over inline code** — script execution doesn't consume context (only output does)
-- **File references work one level deep** — link directly from SKILL.md to supporting files
-
-#### Script Requirements
-
-- Use `#!/bin/bash` shebang
-- Use `set -e` for fail-fast behavior
-- Write status messages to stderr: `echo "Message" >&2`
-- Write machine-readable output (JSON) to stdout
-- Include a cleanup trap for temp files
-- Reference the script path as `/mnt/skills/user/{skill-name}/scripts/{script}.sh`
-
-#### Creating the Zip Package
-
-After creating or updating a skill:
-
-```bash
-cd skills
-zip -r {skill-name}.zip {skill-name}/
-```
-
-#### End-User Installation
-
-Document these two installation methods for users:
-
-**Claude Code:**
-```bash
-cp -r skills/{skill-name} ~/.claude/skills/
-```
-
-**claude.ai:**
-Add the skill to project knowledge or paste SKILL.md contents into the conversation.
-
-If the skill requires network access, instruct users to add required domains at `claude.ai/settings/capabilities`.
+**Quick reference:**
+- Create `skills/{skill-name}/SKILL.md` with kebab-case naming
+- Include YAML frontmatter with `name` and `description` (include "Use when" triggers)
+- Follow standard sections: Overview, When to Use, Process, Rationalizations, Red Flags, Verification
+- Keep SKILL.md under 500 lines; use progressive disclosure for detailed content
+- Reference other skills instead of duplicating content
+- Put reference material in `references/` at project root, not inside skill directories
 
 ---
 
@@ -536,3 +370,39 @@ See [docs/skill-anatomy.md](docs/skill-anatomy.md) for the format specification 
 ## License
 
 MIT - use these skills in your projects, teams, and tools.
+
+---
+
+## Related Documentation
+
+For specialized topics, see these guides:
+
+### Getting Started
+| Document | Covers |
+|----------|--------|
+| [getting-started.md](docs/ai-agent-setup/getting-started.md) | Quick start guide for new users |
+| [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md) | Complete guide for creating new skills |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution guidelines and quality standards |
+
+### Agent Configuration
+| Document | Covers |
+|----------|--------|
+| [AGENTS_GUIDE.md](AGENTS_GUIDE.md) | How agent personas work, orchestration patterns, and decision matrix |
+| [agents/README.md](agents/README.md) | Agent personas decision matrix |
+| [references/orchestration-patterns.md](references/orchestration-patterns.md) | Full pattern catalog for agent orchestration |
+
+### Platform Setup
+| Document | Covers |
+|----------|--------|
+| [docs/ai-agent-setup/opencode-setup.md](docs/ai-agent-setup/opencode-setup.md) | OpenCode-specific setup and integration |
+| [docs/ai-agent-setup/prompt-anatomy.md](docs/ai-agent-setup/prompt-anatomy.md) | Prompt templates and workflow for AI agents |
+| [docs/ai-agent-setup/cursor-setup.md](docs/ai-agent-setup/cursor-setup.md) | Cursor IDE integration |
+| [docs/ai-agent-setup/windsurf-setup.md](docs/ai-agent-setup/windsurf-setup.md) | Windsurf IDE integration |
+
+### Reference Checklists
+| Document | Covers |
+|----------|--------|
+| [references/testing-patterns.md](references/testing-patterns.md) | Test structure, naming, mocking, examples |
+| [references/security-checklist.md](references/security-checklist.md) | Security best practices, OWASP Top 10 |
+| [references/performance-checklist.md](references/performance-checklist.md) | Core Web Vitals, performance optimization |
+| [references/accessibility-checklist.md](references/accessibility-checklist.md) | WCAG 2.1 AA, keyboard nav, screen readers |
