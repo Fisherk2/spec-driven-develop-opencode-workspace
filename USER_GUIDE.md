@@ -4,13 +4,51 @@
 
 Skills encode the workflows, quality gates, and best practices that senior engineers use when building software. These ones are packaged so AI agents follow them consistently across every phase of development.
 
-```
-  DEFINE          PLAN           BUILD          VERIFY         REVIEW          SHIP
- ┌──────┐      ┌──────┐      ┌──────┐      ┌──────┐      ┌──────┐      ┌──────┐
- │ Idea │ ───▶ │ Spec │ ───▶ │ Code │ ───▶ │ Test │ ───▶ │  QA  │ ───▶ │  Go  │
- │Refine│      │  PRD │      │ Impl │      │Debug │      │ Gate │      │ Live │
- └──────┘      └──────┘      └──────┘      └──────┘      └──────┘      └──────┘
-  /spec          /plan          /build        /test         /review       /ship
+```mermaid
+flowchart LR
+    subgraph Define["DEFINE"]
+        direction TB
+        A["Idea<br/>Refine"]
+    end
+    
+    subgraph Plan["PLAN"]
+        direction TB
+        B["Spec<br/>PRD"]
+    end
+    
+    subgraph Build["BUILD"]
+        direction TB
+        C["Code<br/>Impl"]
+    end
+    
+    subgraph Verify["VERIFY"]
+        direction TB
+        D["Test<br/>Debug"]
+    end
+    
+    subgraph Review["REVIEW"]
+        direction TB
+        E["QA<br/>Gate"]
+    end
+    
+    subgraph Ship["SHIP"]
+        direction TB
+        F["Go<br/>Live"]
+    end
+
+    A -->|" /spec "| B
+    B -->|" /plan "| C
+    C -->|" /build "| D
+    D -->|" /test "| E
+    E -->|" /review "| F
+    F -->|" /ship "| G["Go Live"]
+
+    style Define fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style Plan fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style Build fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style Verify fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style Review fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style Ship fill:#f9f9f9,stroke:#333,stroke-width:2px
 ```
 
 ---
