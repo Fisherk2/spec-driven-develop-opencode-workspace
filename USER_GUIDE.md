@@ -173,6 +173,7 @@ Pre-configured specialist personas for targeted reviews:
 | [code-reviewer](agents/code-reviewer.md) | Senior Staff Engineer | Five-axis code review with "would a staff engineer approve this?" standard | Before merging any change |
 | [test-engineer](agents/test-engineer.md) | QA Specialist | Test strategy, coverage analysis, and the Prove-It pattern | Writing tests or analyzing coverage |
 | [security-auditor](agents/security-auditor.md) | Security Engineer | Vulnerability detection, threat modeling, OWASP assessment | Security-sensitive changes |
+| [analysis](agents/analysis.md) | Architect of Specifications | Spec-Driven Analysis, planning, and design | Before writing code — analyze, design, or plan |
 
 ### When to Use Each
 
@@ -180,6 +181,7 @@ Pre-configured specialist personas for targeted reviews:
   - "Review this PR" → invoke `code-reviewer`
   - "Check for security issues" → invoke `security-auditor`
   - "What tests are missing?" → invoke `test-engineer`
+  - "Analyze this feature and create a plan" → invoke `analysis`
 
 - **Via commands**: When there's a repeatable workflow
   - `/review` → wraps `code-reviewer` with the project's review skill
@@ -273,10 +275,11 @@ plantilla-dev-ai/
 │   ├── documentation-and-adrs/           #   Ship
 │   ├── shipping-and-launch/             #   Ship
 │   └── using-agent-skills/              #   Meta: skill discovery and invocation
-├── agents/                              # 3 specialist personas
+├── agents/                              # 4 specialist personas
 │   ├── code-reviewer.md                 #   Senior Staff Engineer
 │   ├── security-auditor.md              #   Security Engineer
-│   └── test-engineer.md                 #   QA Specialist
+│   ├── test-engineer.md                 #   QA Specialist
+│   └── analysis.md                      #   Architect of Specifications
 ├── .opencode/commands/                  # 7 custom slash commands for OpenCode
 ├── .claude/commands/                    # 7 slash commands for Claude Code
 ├── references/                          # 5 supplementary checklists
