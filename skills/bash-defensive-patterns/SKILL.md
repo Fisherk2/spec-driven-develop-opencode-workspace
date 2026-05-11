@@ -515,6 +515,39 @@ check_dependencies() {
 check_dependencies
 ```
 
+## Common Rationalizations
+
+| Rationalization | Rebuttal |
+|---|---|
+| “It’s just a quick script, it doesn’t need error handling” | Quick scripts become long‑lived scripts. Strict mode costs one line. |
+| “I’ll add safety later” | Later never comes. Add `set -Eeuo pipefail` now or debug silent failures at 3am. |
+| “Quoting every variable is overkill” | Unquoted variables cause word‑splitting and globbing bugs that are hard to reproduce. |
+| “trap is only for advanced scripts” | A single `trap … EXIT` prevents leaving temp files behind. It’s the bare minimum. |
+| “Dry‑run is unnecessary for this task” | Dry‑run is the cheapest way to validate logic before touching production. |
+| “My script is simple enough to not need logging” | Without logging, failures produce no forensic evidence. Add structured logging. |
+
+## Red Flags
+
+- Using `set -e` without `set -o pipefail` — the script may continue past a pipeline failure.
+- Forgetting to quote `"$@"` — arguments with spaces will be split.
+- Using backticks instead of `$()` — backticks have subtle escaping rules.
+- Using `rm -rf` without checking the variable is set — can delete the wrong directory.
+- Hard‑coding paths instead of using `SCRIPT_DIR` — script breaks when moved.
+- Calling `exit 1` without a cleanup trap — temp files are left behind.
+
+## Verification
+
+After applying this skill, confirm:
+
+1. [ ] `set -Eeuo pipefail` is present at the top of every script.
+2. [ ] Every variable expansion is quoted: `"$var"`.
+3. [ ] A `trap` handler cleans up temporary resources on `EXIT` / `ERR`.
+4. [ ] Input arguments are validated before use.
+5. [ ] `command -v` is used instead of `which` for dependency checks.
+6. [ ] Functions return meaningful exit codes (0 / non‑zero).
+7. [ ] The script runs correctly with `shellcheck` (or the project’s linter).
+8. [ ] Dry‑run mode is supported for destructive operations.
+
 ## Best Practices Summary
 
 1. **Always use strict mode** - `set -Eeuo pipefail`

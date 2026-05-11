@@ -90,6 +90,37 @@ MANAGING DATA ACCESS
 
 **Rule of thumb:** Start with Transaction Script. Refactor to Domain Model when procedural code becomes hard to maintain.
 
+## Common Rationalizations
+
+| Rationalization | Rebuttal |
+|---|---|
+| “I’ll use a pattern just in case we need it later” | Premature abstraction adds complexity with no payoff. Wait until you see the actual variation point. |
+| “This pattern is the ‘correct’ way to do it” | Patterns are tools, not rules. The “correct” solution is the simplest one that works. |
+| “Singleton is harmless for this config object” | Singleton is global state. It couples tests, hides dependencies, and prevents parallel execution. Inject the config instead. |
+| “We need Abstract Factory for this” | Abstract Factory is rarely needed. A plain factory function or a `Map<string, Creator>` is usually enough. |
+| “Patterns make the code professional” | Professional code is readable and testable. Forcing a pattern where it doesn’t fit does the opposite. |
+| “I don’t need tests, the pattern guarantees correctness” | No pattern guarantees correctness. Test the behavior, not the structure. |
+
+## Red Flags
+
+- Classes named `XxxManager`, `XxxUtil`, or `XxxHelper` — likely violating SRP.
+- Interfaces with a single implementation and no plan for a second — premature abstraction.
+- Factory classes that only `new` up objects without logic — YAGNI; inline the constructor call.
+- Deep inheritance hierarchies (> 3 levels) — favor composition over inheritance.
+- Singleton used to “share state” across the app — inject dependencies instead.
+- Switch‑on‑type statements that keep growing — time for Strategy or polymorphism.
+
+## Verification
+
+After applying this skill, confirm:
+
+1. [ ] Every pattern solves a concrete, current problem — not a hypothetical future one.
+2. [ ] A simpler alternative (function, config, conditional) was considered and ruled out.
+3. [ ] The pattern does not increase test complexity (tests remain simple and isolated).
+4. [ ] Team‑mates unfamiliar with the pattern can read the code and understand the intent.
+5. [ ] No pattern creates hidden global state or temporal coupling.
+6. [ ] Removing the pattern would not break the system — verifying loose coupling.
+
 ## Quick Reference
 
 ### Tier 1: Essential Patterns (Master First)

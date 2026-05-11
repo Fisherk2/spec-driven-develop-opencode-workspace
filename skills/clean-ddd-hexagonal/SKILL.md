@@ -135,6 +135,40 @@ src/
 
 **DDD is collaborative.** Modeling sessions with domain experts are as important as the code patterns.
 
+## Common Rationalizations
+
+| Rationalization | Rebuttal |
+|---|---|
+| “It’s just CRUD, it doesn’t need DDD” | Even CRUD benefits from bounded contexts and repository abstractions. Start simple, keep the ports. |
+| “I’ll add the ports later” | Without ports, the infrastructure leaks into the domain. Refactoring later is 10× more expensive. |
+| “My team is small, we don’t need layers” | Small teams benefit most — layers protect against bad refactors when context is lost. |
+| “This is a prototype, architecture doesn’t matter” | Prototypes that succeed become production. Keep clean boundaries from day one. |
+| “Event Sourcing is the right choice for audit trails” | Event Sourcing adds major complexity. Start with a simple outbox table, evolve only if needed. |
+| “One repository per table is standard” | Repositories belong to aggregates, not tables. One repo per aggregate preserves consistency boundaries. |
+
+## Red Flags
+
+- Domain layer importing ORM, HTTP, or serialization libraries — violates the Dependency Rule.
+- Controllers or HTTP handlers calling repositories directly — bypasses the application layer.
+- Entities with public setters — invites anemic domain models.
+- Cross‑aggregate transactions — indicates wrong aggregate boundaries.
+- Value objects that can be mutated after creation — they must be immutable.
+- A single aggregate with more than 10 entities — too large, split it.
+- `Repository<User>` and `Repository<Order>` instead of `UserRepository` and `OrderRepository` — missing aggregate context.
+
+## Verification
+
+After applying this skill, confirm:
+
+1. [ ] Domain layer has zero external dependencies (no DB, HTTP, or framework imports).
+2. [ ] Every use case is reachable through a port interface.
+3. [ ] Infrastructure adapters implement domain ports, not the reverse.
+4. [ ] Repositories are defined per aggregate, not per table.
+5. [ ] Aggregates reference each other only by ID.
+6. [ ] All domain events are named in past tense (`OrderPlaced`, not `PlaceOrder`).
+7. [ ] The application can be tested without a real database (in‑memory adapters work).
+8. [ ] No circular dependencies exist between layers (verify with architecture tests).
+
 ## Reference Documentation
 
 | File | Purpose |

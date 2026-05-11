@@ -71,6 +71,36 @@ Every README needs at minimum:
 2. **Description** - What + why in 1-2 sentences  
 3. **Usage** - How to use it (examples help)
 
+## Common Rationalizations
+
+| Rationalization | Rebuttal |
+|---|---|
+| “Nobody reads the README anyway” | READMEs are the first thing users and contributors see. A bad README costs adoption. |
+| “I’ll write the README after the code is done” | READMEs written after the fact miss context and are rarely accurate. Write as you build. |
+| “A single paragraph is enough” | One paragraph works for a config file. Open‑source projects need install, usage, and contribution docs. |
+| “README is just for setup instructions” | READMEs also communicate architecture decisions, design intent, and troubleshooting. |
+| “Templates are too rigid for my project” | Templates are starting points. Adapt sections to your audience — don’t skip them entirely. |
+
+## Red Flags
+
+- No “Description” section — the reader can’t tell what the project does.
+- No “Usage” section — the reader can’t tell how to run it.
+- Out‑of‑date install instructions — indicates the README is stale.
+- Walls of text with no code examples — readers scan examples first.
+- Missing license for open‑source projects — blocks adoption.
+- Overly long README with everything in one file — use progressive disclosure (link to deeper docs).
+
+## Verification
+
+After applying this skill, confirm:
+
+1. [ ] The README answers “What does this project do?” within the first paragraph.
+2. [ ] The README includes a working **Usage** section with at least one example.
+3. [ ] All commands and code blocks are copy‑pasteable and tested.
+4. [ ] The audience is identified (OSS / internal / personal / config) and the content matches.
+5. [ ] Outdated or stale sections have been updated or flagged.
+6. [ ] For OSS projects: contributing guidelines, license, and install instructions are present.
+
 ## References
 
 - `section-checklist.md` - Which sections to include by project type

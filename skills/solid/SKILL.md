@@ -244,6 +244,17 @@ After the code works:
 4. [ ] Are names still accurate after changes?
 5. [ ] Would a junior understand this in 6 months?
 
+## Common Rationalizations
+
+| Rationalization | Rebuttal |
+|---|---|
+| “I’ll add tests after the feature is done” | Tests written after the fact validate the implementation, not the design. TDD drives better design. |
+| “This class is too small, it doesn’t need to follow SRP” | A class with one reason to change is never too small. Small classes compose well. |
+| “I don’t need interfaces, there’s only one implementation” | Interfaces decouple the caller from the concrete type. Add the interface — the second implementation may never come, but testability improves now. |
+| “Primitives are fine for this domain value” | Primitive obsession spreads. Every `string userId`, `number price`, or `string email` is a bug waiting to happen. Wrap them. |
+| “Refactoring is risky, I’ll leave it as is” | Not refactoring is the bigger risk — the code hardens and becomes unchangeable. Cover it with tests, then refactor. |
+| “DRY means I should deduplicate immediately” | Wait for the third occurrence (Rule of Three). Premature DRY creates wrong abstractions. |
+
 ## Red Flags - Stop and Rethink
 
 - Writing code without a test
@@ -256,6 +267,19 @@ After the code works:
 - Adding features "just in case"
 - Depending on concrete implementations
 - God classes that know everything
+
+## Verification
+
+After applying this skill, confirm:
+
+1. [ ] Every class has a single, clearly named responsibility.
+2. [ ] All tests pass (Red‑Green‑Refactor was followed).
+3. [ ] No class depends on concrete implementations — interfaces or abstractions are used where the behaviour may vary.
+4. [ ] No method exceeds 10 lines; no class exceeds 50 lines (or the project’s agreed limit).
+5. [ ] Every primitive that represents a domain concept is wrapped in a value object.
+6. [ ] The dependency inversion rule is respected: high‑level modules do not depend on low‑level modules.
+7. [ ] Code compiles with zero warnings at the project’s strictness level.
+8. [ ] A junior developer reading the code in 6 months would understand the intent without comments.
 
 ## Remember
 

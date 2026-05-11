@@ -217,6 +217,25 @@ Identify instructions that should be removed entirely.
 
 ---
 
+## Common Rationalizations
+
+| Rationalization | Rebuttal |
+|---|---|
+| “My AGENTS.md is fine, I know what’s in it” | What’s obvious to you now will be opaque in 3 months. Progressive disclosure helps future you (and other agents). |
+| “Splitting into files is more work than keeping one file” | The split is one‑time work. Every future session saves tokens by loading only what’s needed. |
+| “I’ll keep the root file comprehensive so the agent has all the context” | An agent with 500 lines of instructions wastes context and misses the important parts. Keep the root minimal. |
+| “The contradictions aren’t a problem — the agent will figure it out” | Contradictions cause unpredictable behaviour. Resolve them or the agent will pick one at random. |
+| “I don’t need to delete vague instructions, they don’t hurt” | Vague instructions consume token budget and dilute actionable rules. Delete or sharpen them. |
+
+## Red Flags
+
+- The root file exceeds 100 lines — almost certainly contains content that should be split.
+- Instructions contradict each other (e.g. “use semicolons” vs “no semicolons”).
+- The file repeats information the agent already knows (e.g. “use TypeScript” in a .ts project).
+- Instructions describe default behaviour of the language or framework (e.g. “use descriptive names”).
+- The file has no clear categories — everything is in one flat list.
+- The file contains setup instructions that are already covered by a `README.md` or `CONTRIBUTING.md`.
+
 ## Anti-Patterns
 
 | Avoid | Why | Instead |
