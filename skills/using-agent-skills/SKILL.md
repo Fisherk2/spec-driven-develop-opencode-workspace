@@ -33,7 +33,15 @@ Task arrives
     ├── Committing/branching? ─────────→ git-workflow-and-versioning
     ├── CI/CD pipeline work? ──────────→ ci-cd-and-automation
     ├── Writing docs/ADRs? ───────────→ documentation-and-adrs
-    └── Deploying/launching? ─────────→ shipping-and-launch
+    ├── Deploying/launching? ─────────→ shipping-and-launch
+    │
+    │   ── Skill Extras ──────────────── (load explicitly with `Load @skills/...`)
+    ├── AGENTS.md too long/contradictory? → agent-md-refactor
+    ├── Writing robust shell scripts? ───→ bash-defensive-patterns
+    ├── Designing backend architecture? ─→ clean-ddd-hexagonal
+    ├── Improving README? ───────────────→ crafting-effective-readmes
+    ├── Solving design problems? ────────→ design-patterns
+    └── Applying SOLID/clean code? ──────→ solid
 ```
 
 ## Core Operating Behaviors
@@ -172,3 +180,9 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 | Ship | ci-cd-and-automation | Automated quality gates on every change |
 | Ship | documentation-and-adrs | Document the why, not just the what |
 | Ship | shipping-and-launch | Pre-launch checklist, monitoring, rollback plan |
+| Extra | agent-md-refactor | Refactor bloated agent instruction files (progressive disclosure) |
+| Extra | bash-defensive-patterns | Defensive Bash scripting (strict mode, traps, safe variables) |
+| Extra | clean-ddd-hexagonal | Clean Architecture + DDD + Hexagonal patterns |
+| Extra | crafting-effective-readmes | README writing tailored to audience (OSS, internal, config) |
+| Extra | design-patterns | GoF and enterprise design patterns for recurring problems |
+| Extra | solid | SOLID principles, TDD, clean code, professional software design |

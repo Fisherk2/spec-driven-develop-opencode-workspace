@@ -106,9 +106,9 @@ Load @skills/code-review-and-quality/SKILL.md   # Review
 
 ---
 
-## All 21 Skills
+## All 21 Base Skills
 
-The commands above are the entry points. Under the hood, they activate these 21 skills — each one a structured workflow with steps, verification gates, and anti-rationalization tables. You can also reference any skill directly.
+The commands above are the entry points. Under the hood, they activate these 21 base skills — each one a structured workflow with steps, verification gates, and anti-rationalization tables. You can also reference any base skill or the Skill Extras below directly.
 
 ### Define - Clarify what to build
 
@@ -159,6 +159,19 @@ The commands above are the entry points. Under the hood, they activate these 21 
 | [deprecation-and-migration](skills/deprecation-and-migration/SKILL.md) | Code-as-liability mindset, compulsory vs advisory deprecation, migration patterns, zombie code removal | Removing old systems, migrating users, or sunsetting features |
 | [documentation-and-adrs](skills/documentation-and-adrs/SKILL.md) | Architecture Decision Records, API docs, inline documentation standards - document the *why* | Making architectural decisions, changing APIs, or shipping features |
 | [shipping-and-launch](skills/shipping-and-launch/SKILL.md) | Pre-launch checklists, feature flag lifecycle, staged rollouts, rollback procedures, monitoring setup | Preparing to deploy to production |
+
+### Skill Extras
+
+Additional skills that extend the template across multiple phases. Skill Extras are **loaded explicitly** by the agent when the task matches their trigger conditions — they do not activate automatically via slash commands. Load them with `Load @skills/<skill-name>/SKILL.md`.
+
+| Skill | What It Does | Use When |
+|-------|-------------|----------|
+| [agent-md-refactor](skills/agent-md-refactor/SKILL.md) | Refactor bloated agent instruction files (AGENTS.md, CLAUDE.md) following progressive disclosure | Your AGENTS.md is too long, contradictory, or hard to maintain |
+| [bash-defensive-patterns](skills/bash-defensive-patterns/SKILL.md) | Apply defensive Bash scripting patterns (strict mode, traps, safe variable handling) | Writing robust shell scripts, CI/CD pipelines, or system utilities |
+| [clean-ddd-hexagonal](skills/clean-ddd-hexagonal/SKILL.md) | Combine Clean Architecture, DDD tactical patterns, and Hexagonal ports/adapters | Designing APIs, microservices, or complex backend domains |
+| [crafting-effective-readmes](skills/crafting-effective-readmes/SKILL.md) | Write or improve READMEs matching your audience (OSS, internal, personal, config) | Writing or improving README files |
+| [design-patterns](skills/design-patterns/SKILL.md) | Apply GoF and enterprise design patterns matching the problem context | Solving recurring design problems, refactoring, or reviewing structure |
+| [solid](skills/solid/SKILL.md) | Apply SOLID principles, TDD, clean code, and professional software design | Writing, refactoring, or reviewing any code |
 
 ---
 
@@ -274,7 +287,13 @@ plantilla-dev-ai/
 │   ├── deprecation-and-migration/       #   Ship
 │   ├── documentation-and-adrs/           #   Ship
 │   ├── shipping-and-launch/             #   Ship
-│   └── using-agent-skills/              #   Meta: skill discovery and invocation
+│   ├── using-agent-skills/              #   Meta: skill discovery and invocation
+│   ├── agent-md-refactor/               #   Skill Extra: refactor agent instruction files
+│   ├── bash-defensive-patterns/         #   Skill Extra: defensive Bash scripting
+│   ├── clean-ddd-hexagonal/             #   Skill Extra: Clean Architecture + DDD + Hexagonal
+│   ├── crafting-effective-readmes/      #   Skill Extra: README writing guidance
+│   ├── design-patterns/                 #   Skill Extra: GoF and enterprise patterns
+│   └── solid/                           #   Skill Extra: SOLID principles and clean code
 ├── agents/                              # 4 specialist personas
 │   ├── code-reviewer.md                 #   Senior Staff Engineer
 │   ├── security-auditor.md              #   Security Engineer
@@ -282,7 +301,7 @@ plantilla-dev-ai/
 │   └── analysis.md                      #   Architect of Specifications
 ├── .opencode/commands/                  # 7 custom slash commands for OpenCode
 ├── .claude/commands/                    # 7 slash commands for Claude Code
-├── references/                          # 5 supplementary checklists
+├── references/                          # 30+ supplementary checklists and references
 │   ├── testing-patterns.md
 │   ├── security-checklist.md
 │   ├── performance-checklist.md
@@ -330,6 +349,12 @@ This template includes several skills for documentation and development:
 |-------|---------|----------|
 | `find-docs` | Retrieve up-to-date documentation using Context7 | Asking about libraries, frameworks, or APIs |
 | `source-driven-development` | Ground implementation in official docs | Building with any framework or library |
+| `crafting-effective-readmes` | Write or improve READMEs for any project type | Writing or improving README files |
+| `design-patterns` | Apply GoF and enterprise design patterns | Solving recurring design problems |
+| `solid` | Apply SOLID principles and clean code | Writing, refactoring, or reviewing code |
+| `clean-ddd-hexagonal` | Clean Architecture + DDD + Hexagonal patterns | Designing APIs, microservices, or complex backends |
+| `bash-defensive-patterns` | Defensive Bash scripting (strict mode, traps, safe variable handling) | Writing robust shell scripts or CI/CD pipelines |
+| `agent-md-refactor` | Refactor bloated agent instruction files | Your AGENTS.md is too long or contradictory |
 
 ---
 
