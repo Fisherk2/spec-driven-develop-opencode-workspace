@@ -4,7 +4,39 @@
 
 **Production-grade engineering skills for AI coding agents.**
 
-Skills encode the workflows, quality gates, and best practices that senior engineers use when building software. These ones are packaged so AI agents follow them consistently across every phase of development.
+## Table of Contents
+
+- [Complete Reference Guide](#complete-reference-guide)
+  - [Table of Contents](#table-of-contents)
+  - [Commands](#commands)
+    - [Using the Meta-Skill](#using-the-meta-skill)
+  - [Quick Start](#quick-start)
+  - [All 21 Base Skills](#all-21-base-skills)
+    - [Define - Clarify what to build](#define---clarify-what-to-build)
+    - [Plan - Break it down](#plan---break-it-down)
+    - [Build - Write the code](#build---write-the-code)
+    - [Verify - Prove it works](#verify---prove-it-works)
+    - [Review - Quality gates before merge](#review---quality-gates-before-merge)
+    - [Ship - Deploy with confidence](#ship---deploy-with-confidence)
+    - [Skill Extras](#skill-extras)
+  - [Agent Personas](#agent-personas)
+    - [When to Use Each](#when-to-use-each)
+    - [How Personas Relate to Skills and Commands](#how-personas-relate-to-skills-and-commands)
+  - [Reference Checklists](#reference-checklists)
+  - [How Skills Work](#how-skills-work)
+  - [Project Structure](#project-structure)
+  - [Template-Specific Tools](#template-specific-tools)
+    - [Context7 (ctx7)](#context7-ctx7)
+    - [Available Skills](#available-skills)
+  - [Creating a New Skill](#creating-a-new-skill)
+  - [Why Agent Skills?](#why-agent-skills)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Related Documentation](#related-documentation)
+    - [Getting Started](#getting-started)
+    - [Agent Configuration](#agent-configuration)
+    - [Platform Setup](#platform-setup)
+    - [Reference Checklists](#reference-checklists-1)
 
 ```mermaid
 flowchart LR

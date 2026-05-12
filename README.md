@@ -73,7 +73,7 @@ flowchart LR
 |-----|-------------|
 | [Inicio Rápido](docs/ai-agent-setup/getting-started.md) | Guía de 5 pasos para nuevos usuarios |
 | [Guía Completa](USER_GUIDE.md) | Referencia detallada de todos los skills |
-| [Guía de Agentes](docs/ai-agent-setup/AGENTS_GUIDE.md) | Personas de agentes y orquestación |
+| [Guía de Agentes](AGENTS_GUIDE.md) | Personas de agentes y orquestación |
 | [Contribuir](CONTRIBUTING.md) | Directrices de contribución (Español) |
 
 ## Herramientas de la Plantilla

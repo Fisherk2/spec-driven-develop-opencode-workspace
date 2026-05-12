@@ -1,6 +1,6 @@
 # Getting Started
 
-> **Looking for the complete reference guide?** See [USER_GUIDE.md](USER_GUIDE.md) for the full documentation.
+> **Looking for the complete reference guide?** See [USER_GUIDE.md](../USER_GUIDE.md) for the full documentation.
 
 **Production-grade engineering skills for AI coding agents.** Skills encode workflows, quality gates, and best practices that senior engineers use when building software.
 
@@ -72,7 +72,7 @@ Don't load all skills at once — it wastes context. Load skills relevant to the
 ## Next Steps
 
 For detailed information on:
-- **All 20 skills** → See [USER_GUIDE.md](USER_GUIDE.md#all-20-skills)
-- **Agent personas** → See [AGENTS_GUIDE.md](AGENTS_GUIDE.md)
-- **OpenCode setup** → See [docs/ai-agent-setup/opencode-setup.md](docs/ai-agent-setup/opencode-setup.md)
-- **Creating new skills** → See [USER_GUIDE.md](USER_GUIDE.md#creating-a-new-skill)
+- **All 21 skills** → See [USER_GUIDE.md](../USER_GUIDE.md#all-21-base-skills)
+- **Agent personas** → See [AGENTS_GUIDE.md](../AGENTS_GUIDE.md)
+- **OpenCode setup** → See [opencode-setup.md](opencode-setup.md)
+- **Creating new skills** → See [USER_GUIDE.md](../USER_GUIDE.md#creating-a-new-skill)
