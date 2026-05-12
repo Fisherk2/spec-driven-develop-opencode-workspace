@@ -7,18 +7,29 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Sin Lanzar]
 
+## [1.1.2] - 2026-05-12
+
+### Agregado
+
+- `docs/` - Corrección de hipervínculos referenciales a ficheros del proyecto y adición de tabla de contenidos (ToC) a la guía de usuarios.
+
+### Corregido
+
+- `docs/` - Arreglos en la guía de cómo redactar un prompt para agentes IA (mejora de claridad y consistencia).
+
 ## [1.1.1] - 2026-05-12
 
 ### Agregado
 
 - `agents/analysis.md` - Establece pautas restrictivas para prevenir la invocación de la herramienta `edit`:
+  - Sección `TOOL RESTRICTIONS (ENFORCED)` con tabla de herramientas prohibidas
   - Directrices en `ROLE & DIRECTIVE` que refuerzan el "ANALYSIS MODE"
   - Ejemplo práctico de respuesta ante solicitudes de construcción
   - Reglas de interacción actualizadas (Edit/Write/Patch → proveer plan)
 
 ### Corregido
 
-- `specs/design/DESIGN.md` - Corrige nombre del fichero (estaba escrito como `DESING.md`)
+- `specs/design/DESING.md` - Corrige nombre del fichero (estaba escrito como `DESING.md`)
 
 ## [1.1.0] - 2026-05-11
 
