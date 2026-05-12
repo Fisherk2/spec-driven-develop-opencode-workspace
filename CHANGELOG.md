@@ -7,8 +7,107 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Sin Lanzar]
 
+## [1.1.0] - 2026-05-11
+
 ### Agregado
-- Marcador de posición para cambios futuros
+
+#### Nuevos Skills (6 adicionales, total: 27)
+
+**Arquitectura y Diseño:**
+- `clean-ddd-hexagonal` - Clean Architecture + DDD + Hexagonal para backend services
+- `design-patterns` - 20+ patrones de diseño documentados (Adapter, Builder, Command, Composite, Decorator, DTO, Facade, Factory, Identity-Map, Lazy-Load, Mediator, Observer, Proxy, Repository, Service-Layer, State, Strategy, Template-Method, Unit-of-Work, Chain-of-Responsibility)
+- `solid` - Principios SOLID aplicados al desarrollo profesional
+- `bash-defensive-patterns` - Patrones defensivos para scripts en Bash production-grade
+- `crafting-effective-readmes` - Creación de READMEs efectivos con templates (OSS, internal, personal)
+- `agent-md-refactor` - Refactorización de AGENTS.md siguiendo progressive disclosure
+
+#### Nuevas Referencias Técnicas (20+ documentos)
+
+**Código Limpio:**
+- `code-smells.md` - Catálogo de code smells
+- `comments-formatting.md` - Disciplina de comentarios y formato
+- `error-handling.md` - Patrones de manejo de errores
+- `functions-and-methods.md` - Diseño de funciones pequeñas
+- `naming-conventions.md` - Convenciones de nomenclatura
+- `testing-principles.md` - Principios de testing
+
+**Arquitectura:**
+- `architecture.md` - Principios arquitectónicos
+- `complexity.md` - Gestión de complejidad
+- `object-design.md` - Diseño orientado a objetos
+- `solid-principles.md` - Referencia completa SOLID
+- `tdd.md` - Test-Driven Development
+
+**DDD y Patrones Arquitectónicos:**
+- `CHEATSHEET.md` - Referencia rápida DDD
+- `CQRS-EVENTS.md` - CQRS y Domain Events
+- `DDD-STRATEGIC.md` - Strategic DDD (Bounded Contexts, Ubiquitous Language)
+- `DDD-TACTICAL.md` - Tactical DDD (Aggregates, Value Objects, Repositories)
+- `HEXAGONAL.md` - Arquitectura Hexagonal (Ports & Adapters)
+- `LAYERS.md` - Arquitectura en Capas
+- `TESTING.md` - Estrategias de testing en DDD
+
+**READMEs:**
+- `art-of-readme.md` - El arte de hacer README
+- `make-a-readme.md` - Guía práctica de READMEs
+- `standard-readme-spec.md` - Especificación Standard README
+- `standard-readme-example-maximal.md` - Ejemplo completo
+- `standard-readme-example-minimal.md` - Ejemplo mínimo
+
+#### Nuevo Agente Especialista
+
+- `analysis` - Agente de análisis con modo `ask-user-question` para diagnosticar y resolver problemas técnicos
+
+#### Archivos de Proyecto Base
+
+- `.env.example` - Plantilla de variables de entorno
+- `.gitmessage` - Plantilla para mensajes de commit
+- `Dockerfile` - Configuración Docker base
+- `docker-compose.yml` - Orquestación de contenedores
+- `Makefile` - Comandos make para automatización
+- `WORKFLOW.md` - Documentación del flujo de trabajo
+- `requirements.txt` - Dependencias Python base
+- `scripts/build.sh` - Script de build
+- `scripts/lint.sh` - Script de linting
+- `scripts/setup.sh` - Script de setup inicial
+- `scripts/test.sh` - Script de testing
+- `docs/API_REFERENCE.md` - Referencia de API
+- `docs/ARCHITECTURE.md` - Documentación arquitectónica
+- `docs/SETUP.md` - Guía de configuración
+- `specs/design/DESING.md` - Especificaciones de diseño
+- `specs/design/components.md` - Documentación de componentes
+- `specs/design/style-guide.md` - Guía de estilos
+- `specs/design/user-flow.md` - Flujos de usuario
+
+#### Expansión de .gitignore
+
+Nuevas secciones agregadas al `.gitignore`:
+
+- **Docker y Contenedores:** `.docker/`, `docker-compose.override.yml`, `*.kubeconfig`
+- **Lenguajes Adicionales:** Go (vendor/), Rust (target/), Java/Maven (target/, .mvn/), Ruby (vendor/bundle/)
+- **Frameworks Web:** Next.js (.next/), Vite/Webpack (dist/), Laravel (storage/*.key), Django (*.pot, *.mo)
+- **Cloud e Infraestructura:** AWS (.aws/credentials), SSH (*.pem, *.key), GCP (service-account*.json), Terraform (*.tfstate, .terraform/)
+- **Testing y Coverage:** `.nyc_output/`, `lcov.info`, `junit/`, `allure-results/`
+- **Entornos Locales:** `local.properties`, `local.gradle`, `*.local`, `*.override`
+
+### Cambiado
+
+- `USER_GUIDE.md` - Actualizada con información sobre skills adicionales y flujo de invocación
+- `AGENTS_GUIDE.md` - Actualizada según guía de contribución con agente de análisis
+- `skills/using-agent-skills/SKILL.md` - Mejorada la detección contextual de skills
+- Skills existentes (6) - Modificados para seguir lineamientos de la guía de contribución:
+  - `agent-md-refactor`, `bash-defensive-patterns`, `clean-ddd-hexagonal`
+  - `crafting-effective-readmes`, `design-patterns`, `solid`
+- Árbol de archivos del proyecto - Establecida estructura definitiva de directorios
+- `AGENTS.md` - Añadida referencia a skills disponibles
+
+### Removido
+
+- `skills/e2e-testing-patterns` - Eliminado (ya existe skill específica para TDD: `test-driven-development`)
+
+### Corregido
+
+- (ninguno en esta versión)
 
 ## [1.0.0] - 2026-05-09
 
