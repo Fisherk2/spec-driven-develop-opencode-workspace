@@ -22,6 +22,7 @@
 #.gemini/
 #.continue/
 #.kiro/
+#.junie/
 #.claude/
 #.claude-plugin/
 .claude/.simplify-ignore-cache/
