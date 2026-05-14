@@ -7,6 +7,12 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Sin Lanzar]
 
+## [1.2.1] - 2026-05-13
+
+### Corregido
+
+- `USER_GUIDE.md` - Corrige hipervínculo de un archivo inexistente
+
 ## [1.2.0] - 2026-05-13
 
 ### Agregado
