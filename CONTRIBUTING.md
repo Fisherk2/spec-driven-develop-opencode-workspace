@@ -10,6 +10,11 @@
 2. Añade un `SKILL.md` siguiendo el formato en [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md)
 3. Incluye frontmatter YAML con los campos `name` y `description`
 4. Asegúrate de que la `description` indique brevemente qué hace la skill (tercera persona), seguida de las condiciones de activación "Use when"
+5. **Actualiza la documentación de skills disponibles** para reflejar la nueva skill:
+   - **`docs/ai-agent-setup/getting-started.md`** — Actualiza la referencia del número de skills en la sección "Next Steps"
+   - **`skills/using-agent-skills/SKILL.md`** — Añade la skill al árbol de "Skill Discovery" (bajo la subsección "Skill Extras") y a la tabla "Quick Reference" con la fase "Extra"
+   - **`USER_GUIDE.md`**: Añade la skill a la tabla "Skill Extras" y actualiza el árbol de estructura del proyecto en "Project Structure".
+     - Si la skill es una **Skill Extra** (no forma parte del flujo base), **no modifiques el título "All X Base Skills"** — ese número solo cambia cuando se añade o elimina una skill del flujo base (DEFINE → PLAN → BUILD → VERIFY → REVIEW → SHIP + meta‑skill).
 
 ### Estándar de Calidad de las Skills
 

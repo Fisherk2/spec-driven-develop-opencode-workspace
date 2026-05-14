@@ -11,7 +11,7 @@
   - [Commands](#commands)
     - [Using the Meta-Skill](#using-the-meta-skill)
   - [Quick Start](#quick-start)
-  - [All 23 Base Skills](#all-23-base-skills)
+  - [All 21 Base Skills](#all-21-base-skills)
     - [Define - Clarify what to build](#define---clarify-what-to-build)
     - [Plan - Break it down](#plan---break-it-down)
     - [Build - Write the code](#build---write-the-code)
@@ -138,7 +138,7 @@ Load @skills/code-review-and-quality/SKILL.md   # Review
 
 ---
 
-## All 23 Base Skills
+## All 21 Base Skills
 
 The commands above are the entry points. Under the hood, they activate these 21 base skills — each one a structured workflow with steps, verification gates, and anti-rationalization tables. You can also reference any base skill or the Skill Extras below directly.
 

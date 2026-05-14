@@ -72,7 +72,7 @@ Don't load all skills at once — it wastes context. Load skills relevant to the
 ## Next Steps
 
 For detailed information on:
-- **All 23 skills** → See [USER_GUIDE.md](../../USER_GUIDE.md#all-23-base-skills)
+- **All 21 base skills** → See [USER_GUIDE.md](../../USER_GUIDE.md#all-21-base-skills)
 - **Agent personas** → See [AGENTS_GUIDE.md](../../AGENTS_GUIDE.md)
 - **OpenCode setup** → See [opencode-setup.md](opencode-setup.md)
 - **Creating new skills** → See [USER_GUIDE.md](../../USER_GUIDE.md#creating-a-new-skill)
