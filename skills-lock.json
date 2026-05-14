@@ -37,11 +37,23 @@
       "skillPath": "skills/design-patterns/SKILL.md",
       "computedHash": "a8199678b6e436810a476ed3cc339be658ef07c40daf4b5d47024a3cf42a637a"
     },
+    "design-taste-frontend": {
+      "source": "leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/taste-skill/SKILL.md",
+      "computedHash": "9d1e82c5c409d2b0247245a005bc0f7e4447c0999b78dcea60f568c1ba4a6694"
+    },
     "solid": {
       "source": "ramziddin/solid-skills",
       "sourceType": "github",
       "skillPath": "skills/solid/SKILL.md",
       "computedHash": "60de610a3c143f79f69552b7da60298bb46c9e8d80ab16c4c111b025823345d1"
+    },
+    "ui-ux-design-pro": {
+      "source": "saifyxpro/ui-ux-design-pro-skill",
+      "sourceType": "github",
+      "skillPath": "skills/ui-ux-design-pro/SKILL.md",
+      "computedHash": "78db7907b61510b5d708d4b595a261fc198170bb4b21416ec67e1dd779e64890"
     }
   }
 }
