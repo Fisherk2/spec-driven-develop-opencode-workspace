@@ -27,6 +27,8 @@
 #.claude-plugin/
 .claude/.simplify-ignore-cache/
 .claude/sdd-cache/
+.opencode/plugins/.sdd-state.json
+.opencode/plugins/.sdd-audit.log
 
 # Sistema - Excluye archivos temporales del sistema operativo
 .DS_Store
