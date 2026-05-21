@@ -343,13 +343,18 @@ plantilla-dev-ai/
 │   ├── error-handling-patterns/        #   Skill Extra: resilient error handling patterns
 │   ├── architecture-diagrams/          #   Skill Extra: C4/Mermaid/PlantUML architecture diagrams
 │   └── incident-response/              #   Skill Extra: incident triage and postmortem workflow
+├── .opencode/                            # OpenCode config
+│   ├── agents/ → agents/                #   Symlink a agents/
+│   ├── commands/ → commands/            #   Symlink a commands/
+│   ├── skills/ → skills/               #   Symlink a skills/
+│   └── package.json                     #   Plugin dependencies
 ├── agents/                              # 5 specialist personas
 │   ├── code-reviewer.md                 #   Senior Staff Engineer
 │   ├── security-auditor.md              #   Security Engineer
 │   ├── test-engineer.md                 #   QA Specialist
 │   ├── analysis.md                      #   Architect of Specifications
 │   └── implement.md                     #   Build Agent
-├── .opencode/commands/                  # 7 custom slash commands for OpenCode
+├── commands/                            # 7 custom slash commands for OpenCode
 ├── references/                          # 30+ supplementary checklists and references
 │   ├── testing-patterns.md
 │   ├── security-checklist.md

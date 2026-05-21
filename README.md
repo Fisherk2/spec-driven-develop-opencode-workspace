@@ -133,13 +133,15 @@ AGENTS.md              # Personas y orquestación de agentes
 CONTRIBUTING.md        # Directrices de contribución
 USER_GUIDE.md          # Referencia completa de skills
 
+commands/              # 7 comandos slash para OpenCode
+
 .opencode/             # Configuración principal de OpenCode
-├── agents/            # 5 agentes especializados
-├── commands/          # 7 comandos slash
-├── skills/            # Skills locales
+├── agents/ → agents/  # Symlink a agents/
+├── commands/ → commands/  # Symlink a commands/
+├── skills/ → skills/  # Symlink a skills/
 └── package.json       # Dependencias del plugin
 
-agents/                # Definiciones de agentes (copia espejo)
+agents/                # Definiciones de agentes
 docs/                  # Documentación del proyecto
 ├── ai-agent-setup/    # Guías de setup por plataforma
 ├── ARCHITECTURE.md    # Arquitectura del proyecto
@@ -180,7 +182,7 @@ tests/                 # Tests del proyecto
 Cada skill en `skills/` se puede modificar para adaptarlo a tu stack. Ver [USER_GUIDE.md](USER_GUIDE.md#crear-un-nuevo-skill) para crear skills propios.
 
 ### Comandos y Agentes
-Los comandos slash y agentes se cargan automáticamente desde `.opencode/commands/` y `.opencode/agents/`.
+Los comandos slash y agentes se cargan automáticamente desde `commands/` y `.opencode/agents/`.
 
 ---
 
