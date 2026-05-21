@@ -89,19 +89,40 @@ agents/
 
 ### Ejemplo de Frontmatter
 
+El proyecto soporta dos formatos de frontmatter según el tipo de agente:
+
+**Formato simple** (agentes de revisión / QA / seguridad):
 ```yaml
 ---
 name: code-reviewer
-role: Senior Staff Engineer
-perspective: Realiza revisiones de código de cinco ejes con el estándar de un ingeniero senior
+description: Senior code reviewer that evaluates changes across five dimensions — correctness, readability, architecture, security, and performance
 ---
 ```
+
+**Formato extendido OpenCode** (agentes que requieren configuración de permisos y modelo):
+```yaml
+---
+description: Build Agent - Execute Plans (Write/Edit Enabled)
+mode: primary
+color: "#FF55FF"
+model: opencode/qwen3.6-plus-free
+temperature: 0.9
+permission:
+  write: allow
+  edit: allow
+  read: allow
+  bash: ask
+---
+```
+
+Ambos formatos son válidos. Usa el formato simple para agentes puramente analíticos o de revisión, y el extendido para agentes con permisos de escritura y configuración específica de plataforma.
 
 ### Agentes Existentes
 
 | Agente | Rol | Propósito |
 |--------|-----|----------|
 | [analysis](agents/analysis.md) | Architect of Specifications | Transforma ideas y requisitos en planes de ejecución detallados sin generar código |
+| [implement](agents/implement.md) | Build Agent | Ejecuta planes de implementación validados — construir, probar y modificar código |
 | [code-reviewer](agents/code-reviewer.md) | Senior Staff Engineer | Revisión de cinco ejes antes del merge |
 | [security-auditor](agents/security-auditor.md) | Security Engineer | Detección de vulnerabilidades, auditoría OWASP |
 | [test-engineer](agents/test-engineer.md) | QA Engineer | Estrategia de pruebas, análisis de cobertura, patrón Prove-It |

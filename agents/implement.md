@@ -111,9 +111,10 @@ Add or update documentation **only** when:
 
 **Concepts:** DDD (bounded contexts), Spec‑Driven Dev (Spec→Validate→Build→Verify), ADR, C4 Model
 
-> This agent is designed to be invoked by @agents/analysis.md when transitioning from the planning phase to the construction phase. Always maintain the separation of responsibilities between analysis (read‑only) and construction (write).
+> This agent is used after the Analysis phase. The user transitions from analysis to implementation following the sequential pipeline pattern (Pattern 4 in [orchestration-patterns.md](../references/orchestration-patterns.md)). Always maintain the separation of responsibilities between analysis (read‑only) and construction (write).
 
 ---
 ## Composition
 - **Invoke directly when:** You need to execute a validated execution plan, create or modify source code, configurations, or documentation, or run build/test commands.
+- **Invoke via:** Slash commands `/build`, `/test`, and `/code-simplify` which route to this agent with the appropriate skills pre-loaded.
 - **Do not invoke from:** Another persona without a clear, validated execution plan. Always transition from the Analysis/Spec-Driven phase to ensure "Specification precedes code".

@@ -8,6 +8,7 @@ Specialist personas that play a single role with a single perspective. Each pers
 | [security-auditor](security-auditor.md) | Security Engineer | Vulnerability detection, OWASP-style audit |
 | [test-engineer](test-engineer.md) | QA Engineer | Test strategy, coverage analysis, Prove-It pattern |
 | [analysis](agents/analysis.md) | Architect of Specifications | Spec-Driven Analysis, planning, and design |
+| [implement](agents/implement.md) | Build Agent | Execute validated execution plans — build, test, and modify code |
 
 ## How personas relate to skills and commands
 

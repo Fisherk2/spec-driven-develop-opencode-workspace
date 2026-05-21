@@ -221,6 +221,7 @@ Pre-configured specialist personas for targeted reviews:
 | [test-engineer](agents/test-engineer.md) | QA Specialist | Test strategy, coverage analysis, and the Prove-It pattern | Writing tests or analyzing coverage |
 | [security-auditor](agents/security-auditor.md) | Security Engineer | Vulnerability detection, threat modeling, OWASP assessment | Security-sensitive changes |
 | [analysis](agents/analysis.md) | Architect of Specifications | Spec-Driven Analysis, planning, and design | Before writing code — analyze, design, or plan |
+| [implement](agents/implement.md) | Build Agent | Execute validated execution plans — code, test, configure, and document | After analysis — execute the plan, build features, or fix bugs |
 
 ### When to Use Each
 
@@ -229,10 +230,14 @@ Pre-configured specialist personas for targeted reviews:
   - "Check for security issues" → invoke `security-auditor`
   - "What tests are missing?" → invoke `test-engineer`
   - "Analyze this feature and create a plan" → invoke `analysis`
+  - "Build this feature from the plan" → invoke `implement`
 
 - **Via commands**: When there's a repeatable workflow
+  - `/build` → wraps `implement` with incremental-implementation and TDD skills
+  - `/test` → wraps `implement` with TDD skill
+  - `/code-simplify` → wraps `implement` with code-simplification skill
   - `/review` → wraps `code-reviewer` with the project's review skill
-  - `/ship` → fans out to all three personas in parallel, then synthesizes reports
+  - `/ship` → fans out to all three review personas in parallel, then synthesizes reports
 
 ### How Personas Relate to Skills and Commands
 
@@ -330,11 +335,12 @@ plantilla-dev-ai/
 │   ├── design-taste-frontend/          #   Skill Extra: metric-based visual consistency rules
 │   ├── solid/                           #   Skill Extra: SOLID principles and clean code
 │   └── ui-ux-design-pro/               #   Skill Extra: professional UI/UX design workflows
-├── agents/                              # 4 specialist personas
+├── agents/                              # 5 specialist personas
 │   ├── code-reviewer.md                 #   Senior Staff Engineer
 │   ├── security-auditor.md              #   Security Engineer
 │   ├── test-engineer.md                 #   QA Specialist
-│   └── analysis.md                      #   Architect of Specifications
+│   ├── analysis.md                      #   Architect of Specifications
+│   └── implement.md                     #   Build Agent
 ├── .opencode/commands/                  # 7 custom slash commands for OpenCode
 ├── .claude/commands/                    # 7 slash commands for Claude Code
 ├── references/                          # 30+ supplementary checklists and references
