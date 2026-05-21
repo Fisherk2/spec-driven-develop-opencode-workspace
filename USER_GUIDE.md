@@ -473,8 +473,6 @@ For specialized topics, see these guides:
 | [docs/ai-agent-setup/getting-started.md](docs/ai-agent-setup/getting-started.md) | Quick start guide for new users |
 | [docs/ai-agent-setup/prompt-anatomy.md](docs/ai-agent-setup/prompt-anatomy.md) | Prompt templates and workflow for AI agents |
 | [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md) | Skill creation guide and format specification |
-| [docs/ai-agent-setup/cursor-setup.md](docs/ai-agent-setup/cursor-setup.md) | Integration guide (Cursor) |
-| [docs/ai-agent-setup/windsurf-setup.md](docs/ai-agent-setup/windsurf-setup.md) | Integration guide (Windsurf) |
 
 ### Reference Checklists
 | Document | Covers |
