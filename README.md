@@ -1,16 +1,73 @@
 # Plantilla Dev AI
 
-Espacio de trabajo OpenCode para desarrollo asistido por IA con metodología Spec-Driven Development.
+**Workspace OpenCode para desarrollo asistido por IA con metodología Spec-Driven Development.**
 
-## Inicio Rápido
+Una plantilla production-grade que integra 30+ skills de ingeniería, comandos slash, agentes especializados y hooks automatizados para acelerar el desarrollo con IA. Diseñada para equipos y desarrolladores que quieren calidad consistente en proyectos asistidos por IA.
 
-1. Lee [getting-started.md](docs/ai-agent-setup/getting-started.md) para la guía paso a paso
-2. Usa `/spec` o `@skills/spec-driven-development/SKILL.md` para crear especificaciones
-3. Usa `/build` o `@skills/incremental-implementation/SKILL.md` para implementar incrementalmente
-4. Consulta `@skills/using-agent-skills/SKILL.md` para descubrir qué skill usar
-5. Ejecuta `/review` o `@skills/code-review-and-quality/SKILL.md` antes de hacer merge
+---
 
-> Para información detallada, consulta [USER_GUIDE.md](USER_GUIDE.md).
+## Características
+
+- **30+ Skills de Ingeniería** — TDD, Spec-Driven Development, Code Review, Seguridad, Performance, UI/UX, DDD/Hexagonal, y más
+- **7 Comandos Slash** — `/spec`, `/plan`, `/build`, `/test`, `/review`, `/ship`, `/code-simplify`
+- **5 Agentes Especializados** — Analysis, Implement, Code-Reviewer, Test-Engineer, Security-Auditor
+- **Multi-Plataforma** — Funciona con OpenCode, Gemini CLI y Claude Code/Plugin
+- **Hooks Automatizados** — Session start, SDD caching, simplify-ignore
+- **Documentación Técnica Integrada** — Referencias de Clean Code, DDD, UI/UX, Testing, Seguridad y más
+- **Licencia MIT** — Libre para proyectos personales y comerciales
+
+---
+
+## Prerrequisitos
+
+- **Node.js >= 18** y **pnpm**
+- **OpenCode IDE** (recomendado) o Gemini CLI / Claude Code
+- **Git**
+
+---
+
+## Quick Start
+
+### 1. Clona la plantilla
+```bash
+git clone https://github.com/Fisherk2/plantilla-dev-ai.git mi-proyecto
+cd mi-proyecto
+```
+
+### 2. Instala dependencias del plugin OpenCode
+```bash
+cd .opencode && pnpm install && cd ..
+```
+
+### 3. Configura Context7 (documentación actualizada de librerías)
+```bash
+npx ctx7@latest setup
+```
+
+### 4. Verifica que los comandos están disponibles
+```bash
+ls .opencode/commands/
+# Deberías ver: build.md  code-simplify.md  plan.md  review.md  ship.md  spec.md  test.md
+```
+
+### 5. Ejecuta tu primer workflow
+```bash
+# 1. Define una especificación
+/spec "Crea una función que sume dos números"
+
+# 2. Planifica las tareas
+/plan
+
+# 3. Implementa con TDD
+/build
+
+# 4. Revisa la calidad antes de merge
+/review
+```
+
+> **¿Nuevo en OpenCode?** Lee la [Guía de inicio rápido](docs/ai-agent-setup/getting-started.md) para entender el ecosistema de skills.
+
+---
 
 ## Flujo de Trabajo
 
@@ -19,23 +76,23 @@ flowchart LR
     subgraph Define["DEFINIR"]
         A["Idea<br/>Refine"]
     end
-    
+
     subgraph Plan["PLANEAR"]
         B["Spec<br/>PRD"]
     end
-    
+
     subgraph Build["CONSTRUIR"]
         C["Code<br/>Impl"]
     end
-    
+
     subgraph Verify["VERIFICAR"]
         D["Test<br/>Debug"]
     end
-    
+
     subgraph Review["REVISAR"]
         E["QA<br/>Gate"]
     end
-    
+
     subgraph Ship["LANZAR"]
         F["Go<br/>Live"]
     end
@@ -45,7 +102,6 @@ flowchart LR
     C -->|" /build "| D
     D -->|" /test "| E
     E -->|" /review "| F
-    F -->|" /ship "| G["Go Live"]
 
     style Define fill:#e1f5fe,stroke:#01579b
     style Plan fill:#e8f5e9,stroke:#1b5e20
@@ -57,29 +113,110 @@ flowchart LR
 
 ### Ciclo Completo
 
-| Fase | Comando | Skill Esencial |
-|------|---------|----------------|
-| Iniciar proyecto | `/spec` | `spec-driven-development` |
-| Planificar | `/plan` | `planning-and-task-breakdown` |
-| Construir | `/build` | `incremental-implementation` |
-| Verificar | `/test` | `test-driven-development` |
-| Revisar | `/review` | `code-review-and-quality` |
-| Simplificar | `/code-simplify` | `code-simplification` |
-| Lanzar | `/ship` | `shipping-and-launch` |
+| Fase | Comando | Qué hace | Skill Asociado |
+|------|---------|----------|----------------|
+| Iniciar | `/spec` | Crea una especificación estructurada antes de escribir código | `spec-driven-development` |
+| Planificar | `/plan` | Descompone el trabajo en tareas ordenadas | `planning-and-task-breakdown` |
+| Construir | `/build` | Implementa incrementalmente con TDD (Red-Green-Refactor) | `incremental-implementation` |
+| Verificar | `/test` | Escribe tests que fallan, implementa, refactoriza | `test-driven-development` |
+| Revisar | `/review` | Auditoría en 5 ejes: correctitud, legibilidad, arquitectura, seguridad, rendimiento | `code-review-and-quality` |
+| Simplificar | `/code-simplify` | Refactoriza código complejo sin cambiar comportamiento | `code-simplification` |
+| Lanzar | `/ship` | Prepara y despliega a producción con checklist y monitoreo | `shipping-and-launch` |
+
+---
+
+## Estructura del Proyecto
+
+```
+.env.example           # Variables de entorno (plantilla)
+AGENTS.md              # Personas y orquestación de agentes
+AGENTS_GUIDE.md        # Guía detallada de agentes
+CLAUDE.md              # Configuración para Claude Code
+CONTRIBUTING.md        # Directrices de contribución
+Makefile               # Comandos útiles del proyecto
+USER_GUIDE.md          # Referencia completa de skills
+WORKFLOW.md            # Flujo de trabajo específico del proyecto
+
+.opencode/             # Configuración principal de OpenCode
+├── agents/            # 5 agentes especializados
+├── commands/          # 7 comandos slash
+├── skills/            # Skills locales
+└── package.json       # Dependencias del plugin
+
+agents/                # Definiciones de agentes (copia espejo)
+docs/                  # Documentación del proyecto
+├── ai-agent-setup/    # Guías de setup por plataforma
+├── ARCHITECTURE.md    # Arquitectura del proyecto
+├── API_REFERENCE.md   # Referencia de API
+└── SETUP.md           # Setup detallado
+
+hooks/                 # Automatizaciones del workspace
+├── session-start.sh   # Hook de inicio de sesión
+├── sdd-cache-pre.sh   # SDD caching (pre)
+├── sdd-cache-post.sh  # SDD caching (post)
+└── simplify-ignore.sh # Simplificación de archivos ignorados
+
+references/            # Guías de referencia técnica
+├── clean-code/        # Principios de código limpio
+├── ddd-*/             # Domain-Driven Design
+├── ui-ux/             # Patrones de diseño UI/UX
+├── testing/           # Estrategias de testing
+├── security/          # Checklist de seguridad
+└── performance/       # Checklist de rendimiento
+
+scripts/               # Scripts auxiliares
+├── setup.sh
+├── build.sh
+├── test.sh
+└── lint.sh
+
+skills/                # 30+ skills de ingeniería (carga directa)
+specs/                 # Especificaciones del proyecto
+src/                   # Código fuente del proyecto
+tests/                 # Tests del proyecto
+```
+
+---
+
+## Configuración
+
+### Personalizar Skills
+Cada skill en `skills/` se puede modificar para adaptarlo a tu stack. Ver [USER_GUIDE.md](USER_GUIDE.md#crear-un-nuevo-skill) para crear skills propios.
+
+### Multi-Plataforma
+- **OpenCode**: Los comandos y agentes se cargan automáticamente desde `.opencode/`
+- **Gemini CLI**: Comandos disponibles en `.gemini/commands/`
+- **Claude Code**: Configuración en `CLAUDE.md`; plugin en `.claude-plugin/`
+
+---
 
 ## Documentación
 
 | Guía | Descripción |
-|-----|-------------|
-| [Inicio Rápido](docs/ai-agent-setup/getting-started.md) | Guía de 5 pasos para nuevos usuarios |
-| [Guía Completa](USER_GUIDE.md) | Referencia detallada de todos los skills |
-| [Guía de Agentes](AGENTS_GUIDE.md) | Personas de agentes y orquestación |
-| [Contribuir](CONTRIBUTING.md) | Directrices de contribución (Español) |
+|------|-------------|
+| [Guía de inicio rápido](docs/ai-agent-setup/getting-started.md) | Primeros pasos en 5 minutos |
+| [Guía completa](USER_GUIDE.md) | Referencia detallada de todos los skills |
+| [Guía de agentes](AGENTS_GUIDE.md) | Personas de agentes y orquestación |
+| [Arquitectura](docs/ARCHITECTURE.md) | Decisiones arquitectónicas del proyecto |
+| [Contribuir](CONTRIBUTING.md) | Directrices de contribución |
 
-## Herramientas de la Plantilla
+---
 
-- **Context7**: Fetch de documentación actualizada para cualquier librería o framework (`npx ctx7@latest setup`)
+## Troubleshooting
+
+| Problema | Causa posible | Solución |
+|----------|---------------|----------|
+| `/spec` no funciona | Plugin OpenCode no instalado | Ejecuta `cd .opencode && pnpm install` |
+| Context7 da error de cuota | Límite de API alcanzado | Ejecuta `npx ctx7@latest login` o configura `CONTEXT7_API_KEY` |
+| Los skills no cargan | Ruta incorrecta | Usa `@skills/<skill-name>/SKILL.md` o carga desde `skills/` |
+| Comandos Gemini no aparecen | Archivos `.toml` no detectados | Verifica `.gemini/commands/` existe y tiene permisos de lectura |
+
+---
 
 ## Licencia
 
-MIT
+MIT — Ver [LICENSE](LICENSE) para más detalles.
+
+---
+
+*Última revisión: 2026-05-21*
