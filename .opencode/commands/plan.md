@@ -1,7 +1,6 @@
 ---
 description: Break down the spec into small, verifiable tasks with acceptance criteria
-agent: plan
-model: nvidia/z-ai/glm-5.1
+agent: analysis
 ---
 
 Invoke the @skills/planning-and-task-breakdown/SKILL.md.

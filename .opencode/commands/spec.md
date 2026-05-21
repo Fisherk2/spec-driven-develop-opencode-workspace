@@ -1,7 +1,6 @@
 ---
 description: Start spec-driven development — write a structured specification before writing code
-agent: plan
-model: nvidia/z-ai/glm-5.1
+agent: analysis
 ---
 
 Invoke the @skills/spec-driven-development/SKILL.md.

@@ -1,7 +1,6 @@
 ---
 description: Implement the next task incrementally — build, test, verify, commit
-agent: build
-model: nvidia/qwen/qwen3-coder-480b-a35b-instruct
+agent: implement
 ---
 
 Invoke the @skills/incremental-implementation/SKILL.md alongside @skills/test-driven-development/SKILL.md.

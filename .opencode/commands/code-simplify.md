@@ -1,7 +1,6 @@
 ---
 description: Simplify code for clarity and maintainability — reduce complexity without changing behavior
-agent: build
-model: nvidia/qwen/qwen3-coder-480b-a35b-instruct
+agent: implement
 ---
 
 Invoke the @skills/code-simplification/SKILL.md.
