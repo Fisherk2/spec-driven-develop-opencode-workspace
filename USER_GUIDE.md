@@ -350,7 +350,6 @@ plantilla-dev-ai/
 │   ├── analysis.md                      #   Architect of Specifications
 │   └── implement.md                     #   Build Agent
 ├── .opencode/commands/                  # 7 custom slash commands for OpenCode
-├── .claude/commands/                    # 7 slash commands for Claude Code
 ├── references/                          # 30+ supplementary checklists and references
 │   ├── testing-patterns.md
 │   ├── security-checklist.md
@@ -362,9 +361,8 @@ plantilla-dev-ai/
 │   ├── opencode-setup.md                #   OpenCode integration
 │   ├── prompt-anatomy.md                #   Prompt templates
 │   ├── skill-anatomy.md                #   Skill creation guide
-│   └── *.md                            #   Platform-specific guides
+│   └── *.md                            #   Setup guides
 ├── hooks/                               # Session lifecycle hooks
-├── .gemini/commands/                    # 7 slash commands for Gemini CLI
 ├── USER_GUIDE.md                        # This file - complete reference
 └── AGENTS_GUIDE.md                      # Agent personas and orchestration
 ```
@@ -468,13 +466,15 @@ For specialized topics, see these guides:
 | [AGENTS_GUIDE.md](AGENTS_GUIDE.md) | How agent personas work, orchestration patterns, and decision matrix |
 | [references/orchestration-patterns.md](references/orchestration-patterns.md) | Full pattern catalog for agent orchestration |
 
-### Platform Setup
+### Setup & Reference
 | Document | Covers |
 |----------|--------|
 | [docs/ai-agent-setup/opencode-setup.md](docs/ai-agent-setup/opencode-setup.md) | OpenCode-specific setup and integration |
+| [docs/ai-agent-setup/getting-started.md](docs/ai-agent-setup/getting-started.md) | Quick start guide for new users |
 | [docs/ai-agent-setup/prompt-anatomy.md](docs/ai-agent-setup/prompt-anatomy.md) | Prompt templates and workflow for AI agents |
-| [docs/ai-agent-setup/cursor-setup.md](docs/ai-agent-setup/cursor-setup.md) | Cursor IDE integration |
-| [docs/ai-agent-setup/windsurf-setup.md](docs/ai-agent-setup/windsurf-setup.md) | Windsurf IDE integration |
+| [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md) | Skill creation guide and format specification |
+| [docs/ai-agent-setup/cursor-setup.md](docs/ai-agent-setup/cursor-setup.md) | Integration guide (Cursor) |
+| [docs/ai-agent-setup/windsurf-setup.md](docs/ai-agent-setup/windsurf-setup.md) | Integration guide (Windsurf) |
 
 ### Reference Checklists
 | Document | Covers |

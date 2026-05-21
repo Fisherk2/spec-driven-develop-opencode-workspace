@@ -11,7 +11,7 @@ Una plantilla production-grade que integra 30+ skills de ingeniería, comandos s
 - **30+ Skills de Ingeniería** — TDD, Spec-Driven Development, Code Review, Seguridad, Performance, UI/UX, DDD/Hexagonal, y más
 - **7 Comandos Slash** — `/spec`, `/plan`, `/build`, `/test`, `/review`, `/ship`, `/code-simplify`
 - **5 Agentes Especializados** — Analysis, Implement, Code-Reviewer, Test-Engineer, Security-Auditor
-- **Multi-Plataforma** — Funciona con OpenCode, Gemini CLI y Claude Code/Plugin
+- **Nativo OpenCode** — Comandos slash, agentes y skills cargados desde `.opencode/`
 - **Hooks Automatizados** — Session start, SDD caching, simplify-ignore
 - **Documentación Técnica Integrada** — Referencias de Clean Code, DDD, UI/UX, Testing, Seguridad y más
 - **Licencia MIT** — Libre para proyectos personales y comerciales
@@ -21,7 +21,7 @@ Una plantilla production-grade que integra 30+ skills de ingeniería, comandos s
 ## Prerrequisitos
 
 - **Node.js >= 18** y **pnpm**
-- **OpenCode IDE** (recomendado) o Gemini CLI / Claude Code
+- **OpenCode IDE**
 - **Git**
 
 ---
@@ -130,12 +130,8 @@ flowchart LR
 ```
 .env.example           # Variables de entorno (plantilla)
 AGENTS.md              # Personas y orquestación de agentes
-AGENTS_GUIDE.md        # Guía detallada de agentes
-CLAUDE.md              # Configuración para Claude Code
 CONTRIBUTING.md        # Directrices de contribución
-Makefile               # Comandos útiles del proyecto
 USER_GUIDE.md          # Referencia completa de skills
-WORKFLOW.md            # Flujo de trabajo específico del proyecto
 
 .opencode/             # Configuración principal de OpenCode
 ├── agents/            # 5 agentes especializados
@@ -183,10 +179,8 @@ tests/                 # Tests del proyecto
 ### Personalizar Skills
 Cada skill en `skills/` se puede modificar para adaptarlo a tu stack. Ver [USER_GUIDE.md](USER_GUIDE.md#crear-un-nuevo-skill) para crear skills propios.
 
-### Multi-Plataforma
-- **OpenCode**: Los comandos y agentes se cargan automáticamente desde `.opencode/`
-- **Gemini CLI**: Comandos disponibles en `.gemini/commands/`
-- **Claude Code**: Configuración en `CLAUDE.md`; plugin en `.claude-plugin/`
+### Comandos y Agentes
+Los comandos slash y agentes se cargan automáticamente desde `.opencode/commands/` y `.opencode/agents/`.
 
 ---
 
@@ -209,7 +203,6 @@ Cada skill en `skills/` se puede modificar para adaptarlo a tu stack. Ver [USER_
 | `/spec` no funciona | Plugin OpenCode no instalado | Ejecuta `cd .opencode && pnpm install` |
 | Context7 da error de cuota | Límite de API alcanzado | Ejecuta `npx ctx7@latest login` o configura `CONTEXT7_API_KEY` |
 | Los skills no cargan | Ruta incorrecta | Usa `@skills/<skill-name>/SKILL.md` o carga desde `skills/` |
-| Comandos Gemini no aparecen | Archivos `.toml` no detectados | Verifica `.gemini/commands/` existe y tiene permisos de lectura |
 
 ---
 

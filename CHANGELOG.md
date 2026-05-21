@@ -249,7 +249,6 @@ Nuevas secciones agregadas al `.gitignore`:
 #### Herramientas de la Plantilla
 
 - **Context7** - Fetch de documentación actualizada para librerías/frameworks
-- **Integración multiplataforma** - OpenCode, Claude Code, Gemini CLI, Cursor, Windsurf
 
 #### Documentación
 
