@@ -43,7 +43,11 @@ Task arrives
     ├── Solving design problems? ────────→ design-patterns
     ├── Validating visual consistency? ──→ design-taste-frontend
     ├── Applying SOLID/clean code? ──────→ solid
-    └── Designing professional UI/UX? ───→ ui-ux-design-pro
+    ├── Designing professional UI/UX? ───→ ui-ux-design-pro
+    ├── Code needs refactoring? ─────────→ refactoring-patterns
+    ├── Need resilient error handling? ──→ error-handling-patterns
+    ├── Documenting architecture? ───────→ architecture-diagrams
+    └── Handling an incident? ───────────→ incident-response
 ```
 
 ## Core Operating Behaviors
@@ -190,3 +194,7 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 | Extra | design-taste-frontend | Metric-based visual consistency rules to override default LLM biases |
 | Extra | solid | SOLID principles, TDD, clean code, professional software design |
 | Extra | ui-ux-design-pro | Professional UI/UX design with design systems, tokens, palettes, and high-fidelity prototyping |
+| Extra | refactoring-patterns | Apply named refactoring transformations to improve code structure without changing behavior |
+| Extra | error-handling-patterns | Master error handling patterns for building resilient applications |
+| Extra | architecture-diagrams | Create system architecture diagrams using Mermaid, PlantUML, C4 model |
+| Extra | incident-response | Run incident response workflow — triage, communicate, and write postmortem |

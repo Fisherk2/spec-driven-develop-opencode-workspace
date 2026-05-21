@@ -206,6 +206,10 @@ Additional skills that extend the template across multiple phases. Skill Extras 
 | [design-taste-frontend](skills/design-taste-frontend/SKILL.md) | Define criterios de buen gusto y consistencia visual en frontend con reglas métricas | Cuando necesitas validar decisiones de estilo y coherencia visual |
 | [solid](skills/solid/SKILL.md) | Apply SOLID principles, TDD, clean code, and professional software design | Writing, refactoring, or reviewing any code |
 | [ui-ux-design-pro](skills/ui-ux-design-pro/SKILL.md) | Diseño UI/UX profesional con sistemas de diseño, tokens, paletas y prototipado de alta fidelidad | Cuando necesitas diseñar interfaces atractivas, accesibles y centradas en el usuario |
+| [refactoring-patterns](skills/refactoring-patterns/SKILL.md) | Apply named refactoring transformations to improve code structure without changing behavior | Code needs structural improvement, code smells present, or preparing for new features |
+| [error-handling-patterns](skills/error-handling-patterns/SKILL.md) | Master error handling patterns including exceptions, Result types, and graceful degradation | Implementing error handling, designing resilient APIs, or improving reliability |
+| [architecture-diagrams](skills/architecture-diagrams/SKILL.md) | Create system architecture diagrams using Mermaid, PlantUML, C4 model, and flowcharts | Documenting architecture, designing systems, or creating technical documentation |
+| [incident-response](skills/incident-response/SKILL.md) | Run incident response workflow — triage, communicate, and write blameless postmortem | Production is down, an alert needs severity assessment, or writing a postmortem |
 
 ---
 
@@ -334,7 +338,11 @@ plantilla-dev-ai/
 │   ├── design-patterns/                 #   Skill Extra: GoF and enterprise patterns
 │   ├── design-taste-frontend/          #   Skill Extra: metric-based visual consistency rules
 │   ├── solid/                           #   Skill Extra: SOLID principles and clean code
-│   └── ui-ux-design-pro/               #   Skill Extra: professional UI/UX design workflows
+│   ├── ui-ux-design-pro/               #   Skill Extra: professional UI/UX design workflows
+│   ├── refactoring-patterns/           #   Skill Extra: refactoring transformations catalog
+│   ├── error-handling-patterns/        #   Skill Extra: resilient error handling patterns
+│   ├── architecture-diagrams/          #   Skill Extra: C4/Mermaid/PlantUML architecture diagrams
+│   └── incident-response/              #   Skill Extra: incident triage and postmortem workflow
 ├── agents/                              # 5 specialist personas
 │   ├── code-reviewer.md                 #   Senior Staff Engineer
 │   ├── security-auditor.md              #   Security Engineer
