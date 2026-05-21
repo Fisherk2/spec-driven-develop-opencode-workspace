@@ -1,6 +1,6 @@
 # Quick Reference Cheatsheet
 
-> See [SKILL.md](../SKILL.md#sources) for full source list.
+> See [clean-ddd-hexagonal/SKILL.md](../skills/clean-ddd-hexagonal/SKILL.md#sources) for full source list.
 
 ## Layer Summary
 

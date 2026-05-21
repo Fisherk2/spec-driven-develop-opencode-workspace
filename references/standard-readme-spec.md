@@ -4,7 +4,7 @@
 
 A compliant README must satisfy all the requirements listed below.
 
-> Note: Standard Readme is designed for open source libraries. Although it's [historically](README.md#background) made for Node and npm projects, it also applies to libraries in other languages and package managers.
+> Note: Standard Readme is designed for open source libraries. Although it's [historically](https://github.com/RichardLitt/standard-readme#background) made for Node and npm projects, it also applies to libraries in other languages and package managers.
 
 **Requirements:**
   - Be called README (with capitalization) and have a specific extension depending on its format (`.md` for Markdown, `.org` for Org Mode Markup syntax, `.html` for HTML, ...)

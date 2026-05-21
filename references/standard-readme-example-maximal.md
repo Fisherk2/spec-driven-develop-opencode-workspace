@@ -1,6 +1,6 @@
 # Title
 
-![banner](assets/text_wordmark_dark.png)
+![banner](https://raw.githubusercontent.com/RichardLitt/standard-readme/master/assets/text_wordmark_dark.png)
 
 ![GitHub Created At](https://img.shields.io/github/created-at/RichardLitt/standard-readme?color=bright-green&style=flat-square)
 ![GitHub contributors](https://img.shields.io/github/contributors/RichardLitt/standard-readme?color=bright-green&style=flat-square)
@@ -55,7 +55,7 @@ Note: The `license` badge image link at the top of this file should be updated w
 
 ## Contributing
 
-See [the contributing file](CONTRIBUTING.md)!
+See [the contributing file](https://github.com/RichardLitt/standard-readme/blob/master/CONTRIBUTING.md)!
 
 PRs accepted.
 

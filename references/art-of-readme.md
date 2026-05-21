@@ -2,10 +2,13 @@
 
 > Source: [hackergrrl/art-of-readme](https://github.com/hackergrrl/art-of-readme)
 
-*This article can also be read in [Chinese](README-zh.md),
-[Japanese](README-ja-JP.md),
-[Brazilian Portuguese](README-pt-BR.md), [Spanish](README-es-ES.md),
-[German](README-de-DE.md), [French](README-fr.md) and [Traditional Chinese](README-zh-TW.md).*
+*This article can also be read in [Chinese](https://github.com/noffle/art-of-readme/blob/master/README-zh.md),
+
+[Japanese](https://github.com/noffle/art-of-readme/blob/master/README-ja-JP.md),
+
+[Brazilian Portuguese](https://github.com/noffle/art-of-readme/blob/master/README-pt-BR.md), [Spanish](https://github.com/noffle/art-of-readme/blob/master/README-es-ES.md),
+
+[German](https://github.com/noffle/art-of-readme/blob/master/README-de-DE.md), [French](https://github.com/noffle/art-of-readme/blob/master/README-fr.md) and [Traditional Chinese](https://github.com/noffle/art-of-readme/blob/master/README-zh-TW.md).*
 
 ## Etymology
 

@@ -49,7 +49,7 @@ Use this template for projects intended for public use and contribution.
 
 ## Contributing
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Contributions are welcome! Please see [CONTRIBUTING.md](../../../CONTRIBUTING.md) for guidelines.
 
 ### Development Setup
 
@@ -74,4 +74,4 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for gui
 
 ## License
 
-[Project name] is licensed under the [License name] license. See the [`LICENSE`](LICENSE) file for more information.
+[Project name] is licensed under the [License name] license. See the [`LICENSE`](../../../LICENSE) file for more information.
