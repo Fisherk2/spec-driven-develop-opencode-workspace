@@ -6,7 +6,7 @@ Espacio de trabajo OpenCode para desarrollo asistido por IA con metodología Spe
 
 1. Lee [getting-started.md](docs/ai-agent-setup/getting-started.md) para la guía paso a paso
 2. Usa `/spec` o `@skills/spec-driven-development/SKILL.md` para crear especificaciones
-3. Usa `/implement` o `@skills/incremental-implementation/SKILL.md` para implementar incrementalmente
+3. Usa `/build` o `@skills/incremental-implementation/SKILL.md` para implementar incrementalmente
 4. Consulta `@skills/using-agent-skills/SKILL.md` para descubrir qué skill usar
 5. Ejecuta `/review` o `@skills/code-review-and-quality/SKILL.md` antes de hacer merge
 
