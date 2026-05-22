@@ -5,13 +5,13 @@ agent: analysis
 
 Invoke the @skills/shipping-and-launch/SKILL.md.
 
-## Skill Extras Referenciables
-During the shipping process, reference these Skill Extras when applicable:
+## Related Skills
+Skills that complement the shipping workflow:
 
-- **README Documentation**: `@skills/crafting-effective-readmes/SKILL.md` (Generate or update README files for documentation)
-- **Architecture Diagrams**: `@skills/architecture-diagrams/SKILL.md` (Document final architecture with Mermaid/PlantUML/C4)
-- **Defensive CI/CD Scripts**: `@skills/bash-defensive-patterns/SKILL.md` (Write robust CI/CD scripts with defensive patterns)
-- **Incident Response**: `@skills/incident-response/SKILL.md` (Handle post-launch incidents and write blameless postmortems)
+- **README Documentation**: @skills/crafting-effective-readmes/SKILL.md — Generate or update README files for documentation
+- **Architecture Diagrams**: @skills/architecture-diagrams/SKILL.md — Document final architecture with Mermaid/PlantUML/C4
+- **Defensive CI/CD Scripts**: @skills/bash-defensive-patterns/SKILL.md — Write robust CI/CD scripts with defensive patterns
+- **Incident Response**: @skills/incident-response/SKILL.md — Handle post-launch incidents and write blameless postmortems
 
 ---
 

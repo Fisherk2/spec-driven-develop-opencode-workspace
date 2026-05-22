@@ -8,23 +8,23 @@ Before starting the spec, perform these checks:
 
 1. **Agent Instructions Length** (`agent-md-refactor`):
    - Check if `AGENTS.md` exceeds 200 lines.
-   - If so, suggest running `@skills/agent-md-refactor/SKILL.md` to refactor it before proceeding.
+   - If so, suggest running @skills/agent-md-refactor/SKILL.md to refactor it before proceeding.
 
 2. **README Existence** (`crafting-effective-readmes`):
    - Check if a `README.md` exists in the project root.
-   - If not, suggest running `@skills/crafting-effective-readmes/SKILL.md` to create one.
+   - If not, suggest running @skills/crafting-effective-readmes/SKILL.md to create one.
 
 ---
 
 Invoke the @skills/spec-driven-development/SKILL.md.
 
-## Skill Extras Referenciables
-During the spec process, reference these Skill Extras when applicable:
+## Related Skills
+Skills that complement the spec workflow:
 
-- **Backend Architecture**: `@skills/clean-ddd-hexagonal/SKILL.md` (Clean Architecture + DDD + Hexagonal patterns)
-- **Design Patterns**: `@skills/design-patterns/SKILL.md` (GoF and enterprise patterns for recurring problems)
-- **Architecture Diagrams**: `@skills/architecture-diagrams/SKILL.md` (Document system architecture with Mermaid/PlantUML/C4)
-- **UI/UX Design**: `@skills/ui-ux-design-pro/SKILL.md` (Professional UI/UX design with design systems and high-fidelity prototyping)
+- **Backend Architecture**: @skills/clean-ddd-hexagonal/SKILL.md — Clean Architecture + DDD + Hexagonal patterns
+- **Design Patterns**: @skills/design-patterns/SKILL.md — GoF and enterprise patterns for recurring problems
+- **Architecture Diagrams**: @skills/architecture-diagrams/SKILL.md — Document system architecture with Mermaid/PlantUML/C4
+- **UI/UX Design**: @skills/ui-ux-design-pro/SKILL.md — Professional UI/UX design with design systems and high-fidelity prototyping
 
 ---
 

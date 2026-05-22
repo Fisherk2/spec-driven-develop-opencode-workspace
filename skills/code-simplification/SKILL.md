@@ -11,10 +11,10 @@ description: Simplifies code for clarity. Use when refactoring code for clarity 
 
 Simplify code by reducing complexity while preserving exact behavior. The goal is not fewer lines — it's code that is easier to read, understand, modify, and debug. Every simplification must pass a simple test: "Would a new team member understand this faster than the original?"
 
-## Skill Extras Referenciables
-During code simplification, reference this Skill Extra when applicable:
+## Related Skills
+Skills that complement code simplification:
 
-- **Refactoring Patterns**: `@skills/refactoring-patterns/SKILL.md` (Apply named refactoring transformations to improve code structure without changing behavior)
+- **Refactoring Patterns**: @skills/refactoring-patterns/SKILL.md — Apply named refactoring transformations to improve code structure without changing behavior
 
 ## When to Use
 

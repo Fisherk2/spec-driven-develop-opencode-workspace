@@ -9,10 +9,10 @@ description: Guides systematic root-cause debugging. Use when tests fail, builds
 
 Systematic debugging with structured triage. When something breaks, stop adding features, preserve evidence, and follow a structured process to find and fix the root cause. Guessing wastes time. The triage checklist works for test failures, build errors, runtime bugs, and production incidents.
 
-## Skill Extras Referenciables
-During debugging and error recovery, reference this Skill Extra when applicable:
+## Related Skills
+Skills that complement debugging and error recovery:
 
-- **Incident Response**: `@skills/incident-response/SKILL.md` (Escalate to incident response when debugging reveals a production incident with active user impact)
+- **Incident Response**: @skills/incident-response/SKILL.md — Escalate to incident response when debugging reveals a production incident with active user impact
 
 ## When to Use
 

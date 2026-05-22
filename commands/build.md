@@ -5,15 +5,15 @@ agent: implement
 
 Invoke the @skills/incremental-implementation/SKILL.md alongside @skills/test-driven-development/SKILL.md.
 
-## Skill Extras Referenciables
-During the build process, reference these Skill Extras when applicable:
+## Related Skills
+Skills that complement the build workflow:
 
-- **Code Quality**: `@skills/solid/SKILL.md` (Apply SOLID principles, TDD, and clean code)
-- **Error Handling**: `@skills/error-handling-patterns/SKILL.md` (Implement resilient error handling patterns)
-- **UI/UX Implementation**: `@skills/ui-ux-design-pro/SKILL.md` (Implement UI from design specifications)
-- **Frontend Consistency**: `@skills/design-taste-frontend/SKILL.md` (Validate visual consistency and design quality)
-- **Shell Scripts**: `@skills/bash-defensive-patterns/SKILL.md` (Write robust shell scripts with defensive patterns)
-- **Domain Logic**: `@skills/clean-ddd-hexagonal/SKILL.md` (Implement domain logic using DDD and Clean Architecture)
+- **Code Quality**: @skills/solid/SKILL.md — Apply SOLID principles, TDD, and clean code
+- **Error Handling**: @skills/error-handling-patterns/SKILL.md — Implement resilient error handling patterns
+- **UI/UX Implementation**: @skills/ui-ux-design-pro/SKILL.md — Implement UI from design specifications
+- **Frontend Consistency**: @skills/design-taste-frontend/SKILL.md — Validate visual consistency and design quality
+- **Shell Scripts**: @skills/bash-defensive-patterns/SKILL.md — Write robust shell scripts with defensive patterns
+- **Domain Logic**: @skills/clean-ddd-hexagonal/SKILL.md — Implement domain logic using DDD and Clean Architecture
 
 ---
 

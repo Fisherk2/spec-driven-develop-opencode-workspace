@@ -5,14 +5,14 @@ agent: analysis
 
 Invoke the @skills/code-review-and-quality/SKILL.md.
 
-## Skill Extras Referenciables
-During the review process, reference these Skill Extras when applicable:
+## Related Skills
+Skills that complement the review workflow:
 
-- **Code Quality**: `@skills/solid/SKILL.md` (Evaluate code using SOLID principles and clean code)
-- **Error Handling**: `@skills/error-handling-patterns/SKILL.md` (Review error handling and resilience patterns)
-- **Design Patterns**: `@skills/design-patterns/SKILL.md` (Review use of design patterns and architectural decisions)
-- **Refactoring**: `@skills/refactoring-patterns/SKILL.md` (Apply named refactoring transformations for structural improvements)
-- **Frontend Review**: `@skills/design-taste-frontend/SKILL.md` (Review frontend for visual consistency and design quality)
+- **Code Quality**: @skills/solid/SKILL.md — Evaluate code using SOLID principles and clean code
+- **Error Handling**: @skills/error-handling-patterns/SKILL.md — Review error handling and resilience patterns
+- **Design Patterns**: @skills/design-patterns/SKILL.md — Review use of design patterns and architectural decisions
+- **Refactoring**: @skills/refactoring-patterns/SKILL.md — Apply named refactoring transformations for structural improvements
+- **Frontend Review**: @skills/design-taste-frontend/SKILL.md — Review frontend for visual consistency and design quality
 
 ---
 

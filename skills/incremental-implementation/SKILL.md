@@ -9,12 +9,12 @@ description: Delivers changes incrementally. Use when implementing any feature o
 
 Build in thin vertical slices — implement one piece, test it, verify it, then expand. Avoid implementing an entire feature in one pass. Each increment should leave the system in a working, testable state. This is the execution discipline that makes large features manageable.
 
-## Skill Extras Referenciables
-During incremental implementation, reference these Skill Extras when applicable:
+## Related Skills
+Skills that complement incremental implementation:
 
-- **SOLID Principles**: `@skills/solid/SKILL.md` (Apply SOLID principles and clean code to ensure high-quality implementations)
-- **Error Handling**: `@skills/error-handling-patterns/SKILL.md` (Implement resilient error handling patterns for robust code)
-- **Defensive Scripts**: `@skills/bash-defensive-patterns/SKILL.md` (Write robust shell scripts for build, test, and deployment automation)
+- **SOLID Principles**: @skills/solid/SKILL.md — Apply SOLID principles and clean code to ensure high-quality implementations
+- **Error Handling**: @skills/error-handling-patterns/SKILL.md — Implement resilient error handling patterns for robust code
+- **Defensive Scripts**: @skills/bash-defensive-patterns/SKILL.md — Write robust shell scripts for build, test, and deployment automation
 
 ## When to Use
 

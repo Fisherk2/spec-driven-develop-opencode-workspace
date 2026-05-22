@@ -5,15 +5,15 @@ agent: implement
 
 Invoke the @skills/test-driven-development/SKILL.md.
 
-## Skill Extras Referenciables
-During testing, reference these Skill Extras when applicable:
+## Related Skills
+Skills that complement the testing workflow:
 
-- **Error Handling Tests**: `@skills/error-handling-patterns/SKILL.md` (Test error paths and resilience patterns)
-- **Visual Consistency**: `@skills/design-taste-frontend/SKILL.md` (Verify visual consistency and design quality in frontend)
+- **Error Handling Tests**: @skills/error-handling-patterns/SKILL.md — Test error paths and resilience patterns
+- **Visual Consistency**: @skills/design-taste-frontend/SKILL.md — Verify visual consistency and design quality in frontend
 
 ## Escalation to Incident Response
 If debugging detects a **production incident** (e.g., users affected, service degradation), escalate to:
-- `@skills/incident-response/SKILL.md` (Incident triage, communication, and postmortem workflow)
+- @skills/incident-response/SKILL.md — Incident triage, communication, and postmortem workflow
 
 ---
 

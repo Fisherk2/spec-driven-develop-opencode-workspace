@@ -5,12 +5,12 @@ agent: analysis
 
 Invoke the @skills/planning-and-task-breakdown/SKILL.md.
 
-## Skill Extras Referenciables
-During the planning process, reference these Skill Extras when applicable:
+## Related Skills
+Skills that complement the planning workflow:
 
-- **Domain Decomposition**: `@skills/clean-ddd-hexagonal/SKILL.md` (Clean Architecture + DDD + Hexagonal patterns for module breakdown)
-- **Design Patterns**: `@skills/design-patterns/SKILL.md` (GoF and enterprise patterns for implementation planning)
-- **Architecture Visualization**: `@skills/architecture-diagrams/SKILL.md` (Visualize dependencies and flows with Mermaid/PlantUML/C4)
+- **Domain Decomposition**: @skills/clean-ddd-hexagonal/SKILL.md — Clean Architecture + DDD + Hexagonal patterns for module breakdown
+- **Design Patterns**: @skills/design-patterns/SKILL.md — GoF and enterprise patterns for implementation planning
+- **Architecture Visualization**: @skills/architecture-diagrams/SKILL.md — Visualize dependencies and flows with Mermaid/PlantUML/C4
 
 ---
 

@@ -9,10 +9,10 @@ description: Prepares production launches. Use when preparing to deploy to produ
 
 Ship with confidence. The goal is not just to deploy — it's to deploy safely, with monitoring in place, a rollback plan ready, and a clear understanding of what success looks like. Every launch should be reversible, observable, and incremental.
 
-## Skill Extras Referenciables
-During shipping and launch, reference this Skill Extra when applicable:
+## Related Skills
+Skills that complement shipping and launch:
 
-- **Incident Response**: `@skills/incident-response/SKILL.md` (Handle post-launch incidents and write blameless postmortems)
+- **Incident Response**: @skills/incident-response/SKILL.md — Handle post-launch incidents and write blameless postmortems
 
 ## When to Use
 

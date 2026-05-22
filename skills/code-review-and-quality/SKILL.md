@@ -11,13 +11,13 @@ Multi-dimensional code review with quality gates. Every change gets reviewed bef
 
 **The approval standard:** Approve a change when it definitely improves overall code health, even if it isn't perfect. Perfect code doesn't exist — the goal is continuous improvement. Don't block a change because it isn't exactly how you would have written it. If it improves the codebase and follows the project's conventions, approve it.
 
-## Skill Extras Referenciables
-During code review, reference these Skill Extras when applicable:
+## Related Skills
+Skills that complement code review:
 
-- **SOLID Principles**: `@skills/solid/SKILL.md` (Evaluate code quality using SOLID principles and clean code)
-- **Error Handling**: `@skills/error-handling-patterns/SKILL.md` (Review error handling patterns and resilience)
-- **Design Patterns**: `@skills/design-patterns/SKILL.md` (Review use of design patterns and architectural decisions)
-- **Frontend Consistency**: `@skills/design-taste-frontend/SKILL.md` (Review frontend for visual consistency, spacing, and design quality)
+- **SOLID Principles**: @skills/solid/SKILL.md — Evaluate code quality using SOLID principles and clean code
+- **Error Handling**: @skills/error-handling-patterns/SKILL.md — Review error handling patterns and resilience
+- **Design Patterns**: @skills/design-patterns/SKILL.md — Review use of design patterns and architectural decisions
+- **Frontend Consistency**: @skills/design-taste-frontend/SKILL.md — Review frontend for visual consistency, spacing, and design quality
 
 ## When to Use
 
