@@ -2,7 +2,6 @@
 description: Build Agent - Execute Plans (Write/Edit Enabled)
 mode: primary
 color: "#FF55FF"
-model: opencode/qwen3.6-plus-free
 temperature: 0.9
 permission:
   write: allow

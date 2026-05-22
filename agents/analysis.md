@@ -2,7 +2,6 @@
 description: Architect of Specifications - Spec-Driven Analysis
 mode: primary
 color: "#FFFF00"
-model: nvidia/z-ai/glm-5.1
 temperature: 0.9
 permission:
   write: ask
