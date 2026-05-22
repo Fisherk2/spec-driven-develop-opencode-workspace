@@ -181,9 +181,9 @@ Load @skills/code-review-and-quality/SKILL.md   # Review
 
 ---
 
-## All 21 Base Skills
+## All Skills
 
-The commands above are the entry points. Under the hood, they activate these 21 base skills — each one a structured workflow with steps, verification gates, and anti-rationalization tables. The skills are organized by phase below; each phase also includes the relevant Skill Extras integrated into its workflow.
+The commands above are the entry points. Under the hood, they activate all the skills listed below — each one a structured workflow with steps, verification gates, and anti-rationalization tables. The skills are organized by phase below.
 
 ### Define - Clarify what to build
 
@@ -361,7 +361,7 @@ Every skill follows a consistent anatomy:
 
 ```
 plantilla-dev-ai/
-├── skills/                              # 21 core skills (SKILL.md per directory)
+├── skills/                              # All skills (SKILL.md per directory)
 │   ├── idea-refine/                     #   Define
 │   ├── spec-driven-development/         #   Define
 │   ├── planning-and-task-breakdown/     #   Plan
@@ -383,18 +383,18 @@ plantilla-dev-ai/
 │   ├── documentation-and-adrs/           #   Ship
 │   ├── shipping-and-launch/             #   Ship
 │   ├── using-agent-skills/              #   Meta: skill discovery and invocation
-│   ├── agent-md-refactor/               #   Skill Extra: refactor agent instruction files
-│   ├── bash-defensive-patterns/         #   Skill Extra: defensive Bash scripting
-│   ├── clean-ddd-hexagonal/             #   Skill Extra: Clean Architecture + DDD + Hexagonal
-│   ├── crafting-effective-readmes/      #   Skill Extra: README writing guidance
-│   ├── design-patterns/                 #   Skill Extra: GoF and enterprise patterns
-│   ├── design-taste-frontend/          #   Skill Extra: metric-based visual consistency rules
-│   ├── solid/                           #   Skill Extra: SOLID principles and clean code
-│   ├── ui-ux-design-pro/               #   Skill Extra: professional UI/UX design workflows
-│   ├── refactoring-patterns/           #   Skill Extra: refactoring transformations catalog
-│   ├── error-handling-patterns/        #   Skill Extra: resilient error handling patterns
-│   ├── architecture-diagrams/          #   Skill Extra: C4/Mermaid/PlantUML architecture diagrams
-│   └── incident-response/              #   Skill Extra: incident triage and postmortem workflow
+│   ├── agent-md-refactor/               #   DEFINE: refactor agent instruction files
+│   ├── bash-defensive-patterns/         #   BUILD/SHIP: defensive Bash scripting
+│   ├── clean-ddd-hexagonal/             #   DEFINE/PLAN/BUILD: Clean Architecture + DDD + Hexagonal
+│   ├── crafting-effective-readmes/      #   DEFINE/SHIP: README writing guidance
+│   ├── design-patterns/                 #   DEFINE/PLAN/REVIEW: GoF and enterprise patterns
+│   ├── design-taste-frontend/          #   BUILD/VERIFY/REVIEW: metric-based visual consistency rules
+│   ├── solid/                           #   BUILD/REVIEW: SOLID principles and clean code
+│   ├── ui-ux-design-pro/               #   DEFINE/BUILD: professional UI/UX design workflows
+│   ├── refactoring-patterns/           #   REVIEW: refactoring transformations catalog
+│   ├── error-handling-patterns/        #   BUILD/VERIFY/REVIEW: resilient error handling patterns
+│   ├── architecture-diagrams/          #   DEFINE/PLAN/SHIP: C4/Mermaid/PlantUML architecture diagrams
+│   └── incident-response/              #   VERIFY/SHIP: incident triage and postmortem workflow
 ├── .opencode/                            # OpenCode config
 │   ├── agents/ → agents/                #   Symlink a agents/
 │   ├── commands/ → commands/            #   Symlink a commands/
