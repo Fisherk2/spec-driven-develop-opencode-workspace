@@ -1,8 +1,16 @@
 # Complete Reference Guide
 
-> **New to this project?** Start with [getting-started.md](docs/ai-agent-setup/getting-started.md) for a quick introduction.
+> **New to this project?** See the [Quick Start](#quick-start) section below for setup and first workflow.
 
 **Production-grade engineering skills for AI coding agents.**
+
+## Prerequisites
+
+- **Node.js >= 18** and **bun**
+- **OpenCode IDE** (→ see [opencode-setup.md](docs/ai-agent-setup/opencode-setup.md) for configuration details)
+- **Git**
+
+---
 
 ## Table of Contents
 
@@ -11,7 +19,7 @@
   - [Commands](#commands)
     - [Using the Meta-Skill](#using-the-meta-skill)
   - [Quick Start](#quick-start)
-  - [All 21 Base Skills](#all-21-base-skills)
+  - [All Skills](#all-skills)
     - [Define - Clarify what to build](#define---clarify-what-to-build)
     - [Plan - Break it down](#plan---break-it-down)
     - [Build - Write the code](#build---write-the-code)
@@ -27,9 +35,10 @@
   - [Template-Specific Tools](#template-specific-tools)
     - [Context7 (ctx7)](#context7-ctx7)
     - [Available Skills](#available-skills)
-  - [Creating a New Skill](#creating-a-new-skill)
   - [Why Agent Skills?](#why-agent-skills)
-  - [Contributing](#contributing)
+  - [Troubleshooting](#troubleshooting)
+  - [Adding a New Skill](#adding-a-new-skill)
+  - [Adding a New Agent](#adding-a-new-agent)
   - [License](#license)
   - [Related Documentation](#related-documentation)
     - [Getting Started](#getting-started)
@@ -39,93 +48,12 @@
 
 ```mermaid
 flowchart LR
-    subgraph Define["DEFINE"]
-        direction TB
-        A["Idea<br/>Refine"] --> B["Spec<br/>PRD"]
-        B --> C["PRE-FLIGHT Checks"]
-        B --> D["Architecture & Design"]
-    end
-    
-    subgraph Plan["PLAN"]
-        direction TB
-        E["Task Breakdown"] --> F["Domain Decomposition"]
-        E --> G["Design Patterns"]
-        E --> H["Architecture Diagrams"]
-    end
-    
-    subgraph Build["BUILD"]
-        direction TB
-        I["Incremental Implementation"] --> J["SOLID Code"]
-        I --> K["Error Handling"]
-        I --> L["UI/UX Implementation"]
-        I --> M["Defensive Scripts"]
-        I --> N["Domain Logic"]
-    end
-    
-    subgraph Verify["VERIFY"]
-        direction TB
-        O["Test & Debug"] --> P["Error Paths"]
-        O --> Q["Visual Consistency"]
-    end
-    
-    subgraph Review["REVIEW"]
-        direction TB
-        R["Code Review"] --> S["SOLID Principles"]
-        R --> T["Error Handling Review"]
-        R --> U["Design Patterns Review"]
-        R --> V["Refactoring"]
-        R --> W["Frontend Review"]
-    end
-    
-    subgraph Ship["SHIP"]
-        direction TB
-        X["Launch"] --> Y["README Docs"]
-        X --> Z["Architecture Diagrams"]
-        X --> AA["Defensive CI/CD"]
-        X --> AB["Incident Response"]
-    end
-
-    A -->|" /spec "|
- B
-    B -->| PRE-FLIGHT | C
-    B -->| Design | D
-    B -->|" /plan "|
- E
-    E -->| Domain | F
-    E -->| Patterns | G
-    E -->| Diagrams | H
-    E -->|" /build "|
- I
-    I -->| SOLID | J
-    I -->| Errors | K
-    I -->| UI/UX | L
-    I -->| Scripts | M
-    I -->| Domain | N
-    I -->|" /test "|
- O
-    O -->| Errors | P
-    O -->| Visual | Q
-    O -->|" /review "|
- R
-    R -->| SOLID | S
-    R -->| Errors | T
-    R -->| Patterns | U
-    R -->| Refactor | V
-    R -->| Frontend | W
-    R -->|" /ship "|
- X
-    X -->| README | Y
-    X -->| Diagrams | Z
-    X -->| CI/CD | AA
-    X -->| Incident | AB
-    X --> G["Go Live"]
-
-    style Define fill:#f9f9f9,stroke:#333,stroke-width:2px
-    style Plan fill:#f9f9f9,stroke:#333,stroke-width:2px
-    style Build fill:#f9f9f9,stroke:#333,stroke-width:2px
-    style Verify fill:#f9f9f9,stroke:#333,stroke-width:2px
-    style Review fill:#f9f9f9,stroke:#333,stroke-width:2px
-    style Ship fill:#f9f9f9,stroke:#333,stroke-width:2px
+    A["/spec<br/>DEFINE"] --> B["/plan<br/>PLAN"]
+    B --> C["/build<br/>BUILD"]
+    C --> D["/test<br/>VERIFY"]
+    D --> E["/review<br/>REVIEW"]
+    E --> F["/ship<br/>SHIP"]
+    F --> G["Go Live"]
 ```
 
 ---
@@ -134,21 +62,21 @@ flowchart LR
 
 7 slash commands that map to the development lifecycle. Each one activates the right skills automatically.
 
-| What you're doing | Command | Key principle |
-|-------------------|---------|---------------|
-| Define what to build | `/spec` | Spec before code |
-| Plan how to build it | `/plan` | Small, atomic tasks |
-| Build incrementally | `/build` | One slice at a time |
-| Prove it works | `/test` | Tests are proof |
-| Review before merge | `/review` | Improve code health |
-| Simplify the code | `/code-simplify` | Clarity over cleverness |
-| Ship to production | `/ship` | Faster is safer |
+| What you're doing | Command | Key principle | Complementary Skills |
+|-------------------|---------|---------------|---------------------|
+| Define what to build | `/spec` | Spec before code | clean-ddd-hexagonal, design-patterns, architecture-diagrams, ui-ux-design-pro, agent-md-refactor (PRE-FLIGHT), crafting-effective-readmes (PRE-FLIGHT) |
+| Plan how to build it | `/plan` | Small, atomic tasks | clean-ddd-hexagonal, design-patterns, architecture-diagrams |
+| Build incrementally | `/build` | One slice at a time | solid, error-handling-patterns, ui-ux-design-pro, design-taste-frontend, bash-defensive-patterns, clean-ddd-hexagonal |
+| Prove it works | `/test` | Tests are proof | error-handling-patterns, design-taste-frontend, incident-response (escalation) |
+| Review before merge | `/review` | Improve code health | solid, error-handling-patterns, design-patterns, refactoring-patterns, design-taste-frontend |
+| Simplify the code | `/code-simplify` | Clarity over cleverness | refactoring-patterns, solid |
+| Ship to production | `/ship` | Faster is safer | crafting-effective-readmes, architecture-diagrams, bash-defensive-patterns, incident-response |
 
-Skills also activate automatically based on what you're doing — designing an API triggers `api-and-interface-design`, building UI triggers `frontend-ui-engineering`, and so on.
+Skills also activate automatically based on what you're doing — designing an API triggers `api-and-interface-design`, building UI triggers `frontend-ui-engineering`, domain logic triggers `clean-ddd-hexagonal`, error handling triggers `error-handling-patterns`, and so on.
 
 ### Using the Meta-Skill
 
-Start with `@skills/using-agent-skills/SKILL.md` to discover which skill applies to your current task. This meta-skill contains:
+Start with [skills/using-agent-skills/SKILL.md](skills/using-agent-skills/SKILL.md) to discover which skill applies to your current task. This meta-skill contains:
 
 - A **flowchart** that maps task types to the appropriate skill
 - **Core operating behaviors** (surface assumptions, manage confusion, push back when warranted, enforce simplicity)
@@ -159,31 +87,60 @@ Start with `@skills/using-agent-skills/SKILL.md` to discover which skill applies
 
 ## Quick Start
 
-For step-by-step setup instructions, see the [getting-started.md](docs/ai-agent-setup/getting-started.md) guide.
-
-**TL;DR:**
-
+### 1. Clone the template
 ```bash
-# 1. Install Context7 for documentation
-npx ctx7@latest setup
-
-# 2. Start with the meta-skill
-Use @skills/using-agent-skills/SKILL.md
-
-# 3. Load essential skills for your task
-Load @skills/spec-driven-development/SKILL.md    # Define
-Load @skills/test-driven-development/SKILL.md    # Build
-Load @skills/code-review-and-quality/SKILL.md   # Review
-
-# 4. Use commands for workflow automation
-/spec → /plan → /build → /test → /review → /ship
+git clone <your-repo-url> mi-proyecto
+cd mi-proyecto
 ```
+
+### 2. Install OpenCode plugin dependencies
+```bash
+cd .opencode && bun install && cd ..
+```
+
+### 3. Configure Context7 (up-to-date library documentation)
+```bash
+npx ctx7@latest setup
+```
+
+### 4. Verify commands are available
+```bash
+ls .opencode/commands/
+# Should see: build.md  code-simplify.md  plan.md  review.md  ship.md  spec.md  test.md
+```
+
+### 5. Run your first complete SDD workflow
+```bash
+# 1. Define a specification (DEFINE)
+/spec "Create a REST API for tasks"
+
+# 2. Plan the tasks (PLAN)
+/plan
+
+# 3. Implement with TDD (BUILD)
+/build
+
+# 4. Test and verify (VERIFY)
+/test
+
+# 5. Review quality before merge (REVIEW)
+/review
+
+# 6. Prepare and deploy to production (SHIP)
+/ship
+```
+
+Skills activate automatically based on the phase: API design → `api-and-interface-design`, UI → `frontend-ui-engineering`, domain logic → `clean-ddd-hexagonal`, error handling → `error-handling-patterns`, among others.
+
+> **OpenCode configuration details?** See [opencode-setup.md](docs/ai-agent-setup/opencode-setup.md) for setup, commands, agents, and skill loading.
 
 ---
 
 ## All Skills
 
 The commands above are the entry points. Under the hood, they activate all the skills listed below — each one a structured workflow with steps, verification gates, and anti-rationalization tables. The skills are organized by phase below.
+
+> **For detailed information on how skills work, see [skills/using-agent-skills/SKILL.md](skills/using-agent-skills/SKILL.md).**
 
 ### Define - Clarify what to build
 
@@ -261,13 +218,11 @@ The commands above are the entry points. Under the hood, they activate all the s
 | [bash-defensive-patterns](skills/bash-defensive-patterns/SKILL.md) | Apply defensive Bash scripting patterns (strict mode, traps, safe variable handling) | Writing robust CI/CD scripts, deployment scripts, or system utilities |
 | [incident-response](skills/incident-response/SKILL.md) | Run incident response workflow — triage, communicate, and write blameless postmortem | Handling production incidents, triaging alerts, or managing post-launch issues |
 
-
-
 ---
 
 ## Agent Personas
 
-> **For detailed information on how agents work, see [AGENTS_GUIDE.md](AGENTS_GUIDE.md).**
+> **For detailed information on how agents work, see [references/orchestration-patterns.md](references/orchestration-patterns.md).**
 
 Pre-configured specialist personas for targeted reviews:
 
@@ -282,17 +237,17 @@ Pre-configured specialist personas for targeted reviews:
 ### When to Use Each
 
 - **Direct invocation**: When you want one perspective on a single artifact
-  - "Review this PR" → invoke `code-reviewer`
-  - "Check for security issues" → invoke `security-auditor`
-  - "What tests are missing?" → invoke `test-engineer`
-  - "Analyze this feature and create a plan" → invoke `analysis`
-  - "Build this feature from the plan" → invoke `implement`
+  - "Review this PR" → invoke [code-reviewer](agents/code-reviewer.md)
+  - "Check for security issues" → invoke [security-auditor](agents/security-auditor.md)
+  - "What tests are missing?" → invoke [test-engineer](agents/test-engineer.md)
+  - "Analyze this feature and create a plan" → invoke [analysis](agents/analysis.md)
+  - "Build this feature from the plan" → invoke [implement](agents/implement.md)
 
 - **Via commands**: When there's a repeatable workflow
-  - `/build` → wraps `implement` with incremental-implementation and TDD skills
-  - `/test` → wraps `implement` with TDD skill
-  - `/code-simplify` → wraps `implement` with code-simplification skill
-  - `/review` → wraps `code-reviewer` with the project's review skill
+  - `/build` → wraps [implement](agents/implement.md) with incremental-implementation and TDD skills
+  - `/test` → wraps [implement](agents/implement.md) with TDD skill
+  - `/code-simplify` → wraps [implement](agents/implement.md) with code-simplification skill
+  - `/review` → wraps [code-reviewer](agents/code-reviewer.md) with the project's review skill
   - `/ship` → fans out to all three review personas in parallel, then synthesizes reports
 
 ### How Personas Relate to Skills and Commands
@@ -309,7 +264,7 @@ Three composable layers, each with a distinct job:
 - **Personas do not invoke other personas.** Skills are mandatory hops inside a persona's workflow.
 - The only multi-persona pattern endorsed is **parallel fan-out with a merge step** — used by `/ship` to run all three personas concurrently.
 
-> **For detailed orchestration patterns and decision matrix, see [AGENTS_GUIDE.md](AGENTS_GUIDE.md).**
+> **For detailed orchestration patterns and decision matrix, see [references/orchestration-patterns.md](references/orchestration-patterns.md).**
 
 ---
 
@@ -328,100 +283,104 @@ Quick-reference material that skills pull in when needed:
 
 ## How Skills Work
 
-Every skill follows a consistent anatomy:
+Every skill is a structured workflow with steps, verification gates, and anti-rationalization tables. They are designed to encode the same discipline senior engineers bring to production code.
 
-```
-┌─────────────────────────────────────────────────┐
-│  SKILL.md                                       │
-│                                                 │
-│  ┌─ Frontmatter ─────────────────────────────┐  │
-│  │ name: lowercase-hyphen-name               │  │
-│  │ description: Guides agents through [task].│  │
-│  │              Use when…                    │  │
-│  └───────────────────────────────────────────┘  │                                                                                                
-│  Overview         → What this skill does        │
-│  When to Use      → Triggering conditions       │
-│  Process          → Step-by-step workflow       │
-│  Rationalizations → Excuses + rebuttals         │
-│  Red Flags        → Signs something's wrong     │
-│  Verification     → Evidence requirements       │
-└─────────────────────────────────────────────────┘
-```
-
-**Key design choices:**
-
-- **Process, not prose.** Skills are workflows agents follow, not reference docs they read. Each has steps, checkpoints, and exit criteria.
-- **Anti-rationalization.** Every skill includes a table of common excuses agents use to skip steps (e.g., "I'll add tests later") with documented counter-arguments.
-- **Verification is non-negotiable.** Every skill ends with evidence requirements - tests passing, build output, runtime data. "Seems right" is never sufficient.
-- **Progressive disclosure.** The `SKILL.md` is the entry point. Supporting references load only when needed, keeping token usage minimal.
+> **📖 For the complete skill anatomy (diagram, section purposes, frontmatter format, writing principles, and naming conventions):** see [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md).
 
 ---
 
 ## Project Structure
 
 ```
-plantilla-dev-ai/
-├── skills/                              # All skills (SKILL.md per directory)
-│   ├── idea-refine/                     #   Define
-│   ├── spec-driven-development/         #   Define
-│   ├── planning-and-task-breakdown/     #   Plan
-│   ├── incremental-implementation/      #   Build
-│   ├── context-engineering/             #   Build
-│   ├── source-driven-development/       #   Build
-│   ├── frontend-ui-engineering/          #   Build
-│   ├── test-driven-development/         #   Build
-│   ├── api-and-interface-design/        #   Build
-│   ├── browser-testing-with-devtools/   #   Verify
-│   ├── debugging-and-error-recovery/    #   Verify
-│   ├── code-review-and-quality/         #   Review
-│   ├── code-simplification/             #   Review
-│   ├── security-and-hardening/          #   Review
-│   ├── performance-optimization/         #   Review
-│   ├── git-workflow-and-versioning/     #   Ship
-│   ├── ci-cd-and-automation/            #   Ship
-│   ├── deprecation-and-migration/       #   Ship
-│   ├── documentation-and-adrs/           #   Ship
-│   ├── shipping-and-launch/             #   Ship
-│   ├── using-agent-skills/              #   Meta: skill discovery and invocation
-│   ├── agent-md-refactor/               #   DEFINE: refactor agent instruction files
-│   ├── bash-defensive-patterns/         #   BUILD/SHIP: defensive Bash scripting
-│   ├── clean-ddd-hexagonal/             #   DEFINE/PLAN/BUILD: Clean Architecture + DDD + Hexagonal
-│   ├── crafting-effective-readmes/      #   DEFINE/SHIP: README writing guidance
-│   ├── design-patterns/                 #   DEFINE/PLAN/REVIEW: GoF and enterprise patterns
-│   ├── design-taste-frontend/          #   BUILD/VERIFY/REVIEW: metric-based visual consistency rules
-│   ├── solid/                           #   BUILD/REVIEW: SOLID principles and clean code
-│   ├── ui-ux-design-pro/               #   DEFINE/BUILD: professional UI/UX design workflows
-│   ├── refactoring-patterns/           #   REVIEW: refactoring transformations catalog
-│   ├── error-handling-patterns/        #   BUILD/VERIFY/REVIEW: resilient error handling patterns
-│   ├── architecture-diagrams/          #   DEFINE/PLAN/SHIP: C4/Mermaid/PlantUML architecture diagrams
-│   └── incident-response/              #   VERIFY/SHIP: incident triage and postmortem workflow
-├── .opencode/                            # OpenCode config
-│   ├── agents/ → agents/                #   Symlink a agents/
-│   ├── commands/ → commands/            #   Symlink a commands/
-│   ├── skills/ → skills/               #   Symlink a skills/
-│   └── package.json                     #   Plugin dependencies
-├── agents/                              # 5 specialist personas
-│   ├── code-reviewer.md                 #   Senior Staff Engineer
-│   ├── security-auditor.md              #   Security Engineer
-│   ├── test-engineer.md                 #   QA Specialist
-│   ├── analysis.md                      #   Architect of Specifications
-│   └── implement.md                     #   Build Agent
-├── commands/                            # 7 custom slash commands for OpenCode
-├── references/                          # 30+ supplementary checklists and references
+project-root/
+├── .env.example              # Environment variables (template)
+├── AGENTS.md                 # Agent personas and orchestration
+├── references/orchestration-patterns.md  # Agent personas and orchestration
+├── USER_GUIDE.md             # This file — complete reference
+├── CONTRIBUTING.md           # Contribution guidelines
+│
+├── commands/                 # 7 slash commands for OpenCode
+│   ├── spec.md               #   DEFINE
+│   ├── plan.md               #   PLAN
+│   ├── build.md              #   BUILD
+│   ├── test.md               #   VERIFY
+│   ├── review.md             #   REVIEW
+│   ├── code-simplify.md      #   REVIEW (simplification)
+│   └── ship.md               #   SHIP
+│
+├── .opencode/                # OpenCode main configuration (→ [config details](docs/ai-agent-setup/opencode-setup.md))
+│   ├── agents/ → agents/     #   Symlink to agents/
+│   ├── commands/ → commands/ #   Symlink to commands/
+│   ├── skills/ → skills/     #   Symlink to skills/
+│   └── package.json          #   Plugin dependencies
+│
+├── agents/                   # 5 specialized agent personas
+│   ├── analysis.md           #   Architect of Specifications
+│   ├── implement.md          #   Build Agent
+│   ├── code-reviewer.md      #   Senior Staff Engineer
+│   ├── test-engineer.md      #   QA Specialist
+│   └── security-auditor.md   #   Security Engineer
+│
+├── skills/                   # 33 skills organized by SDD phase
+│   │
+│   ├── idea-refine/              # DEFINE
+│   ├── spec-driven-development/  # DEFINE
+│   ├── agent-md-refactor/        # DEFINE (PRE-FLIGHT)
+│   ├── crafting-effective-readmes/ # DEFINE/SHIP
+│   ├── clean-ddd-hexagonal/      # DEFINE/PLAN/BUILD
+│   ├── design-patterns/          # DEFINE/PLAN/REVIEW
+│   ├── architecture-diagrams/    # DEFINE/PLAN/SHIP
+│   ├── ui-ux-design-pro/         # DEFINE/BUILD
+│   │
+│   ├── planning-and-task-breakdown/ # PLAN
+│   │
+│   ├── incremental-implementation/  # BUILD
+│   ├── context-engineering/         # BUILD
+│   ├── source-driven-development/   # BUILD
+│   ├── frontend-ui-engineering/     # BUILD
+│   ├── api-and-interface-design/    # BUILD
+│   ├── test-driven-development/     # BUILD
+│   ├── solid/                       # BUILD/REVIEW
+│   ├── error-handling-patterns/     # BUILD/VERIFY/REVIEW
+│   ├── design-taste-frontend/       # BUILD/VERIFY/REVIEW
+│   ├── bash-defensive-patterns/     # BUILD/SHIP
+│   │
+│   ├── browser-testing-with-devtools/ # VERIFY
+│   ├── debugging-and-error-recovery/  # VERIFY
+│   │
+│   ├── code-review-and-quality/       # REVIEW
+│   ├── code-simplification/           # REVIEW
+│   ├── security-and-hardening/        # REVIEW
+│   ├── performance-optimization/      # REVIEW
+│   ├── refactoring-patterns/          # REVIEW
+│   │
+│   ├── git-workflow-and-versioning/   # SHIP
+│   ├── ci-cd-and-automation/          # SHIP
+│   ├── deprecation-and-migration/     # SHIP
+│   ├── documentation-and-adrs/        # SHIP
+│   ├── shipping-and-launch/           # SHIP
+│   ├── incident-response/             # VERIFY/SHIP
+│   │
+│   └── using-agent-skills/            # META: skill discovery
+│
+├── references/               # Technical reference checklists
 │   ├── testing-patterns.md
 │   ├── security-checklist.md
 │   ├── performance-checklist.md
 │   ├── accessibility-checklist.md
 │   └── orchestration-patterns.md
-├── docs/ai-agent-setup/                # Setup guides and documentation
-│   ├── getting-started.md               #   Quick start guide
-│   ├── opencode-setup.md                #   OpenCode integration
-│   ├── prompt-anatomy.md                #   Prompt templates
-│   ├── skill-anatomy.md                #   Skill creation guide
-│   └── *.md                            #   Setup guides
-├── hooks/                               # Session lifecycle hooks
-├── USER_GUIDE.md                        # This file - complete reference
-└── AGENTS_GUIDE.md                      # Agent personas and orchestration
+│
+├── docs/                     # Project documentation
+│   ├── ai-agent-setup/
+│   │   ├── opencode-setup.md
+│   │   ├── prompt-anatomy.md
+│   │   └── skill-anatomy.md
+│   └── decisions/            # ADRs (Architecture Decision Records)
+│
+├── scripts/                  # Helper scripts
+├── specs/                    # Project specifications (SPEC.md)
+├── src/                      # Source code
+└── tests/                    # Tests
 ```
 
 ---
@@ -452,33 +411,23 @@ This template includes several skills for documentation and development:
 
 | Skill | Purpose | Use When |
 |-------|---------|----------|
-| `find-docs` | Retrieve up-to-date documentation using Context7 | Asking about libraries, frameworks, or APIs |
-| `source-driven-development` | Ground implementation in official docs | Building with any framework or library |
-| `crafting-effective-readmes` | Write or improve READMEs for any project type | Writing or improving README files |
-| `design-patterns` | Apply GoF and enterprise design patterns | Solving recurring design problems |
-| `solid` | Apply SOLID principles and clean code | Writing, refactoring, or reviewing code |
-| `clean-ddd-hexagonal` | Clean Architecture + DDD + Hexagonal patterns | Designing APIs, microservices, or complex backends |
-| `bash-defensive-patterns` | Defensive Bash scripting (strict mode, traps, safe variable handling) | Writing robust shell scripts or CI/CD pipelines |
-| `agent-md-refactor` | Refactor bloated agent instruction files | Your AGENTS.md is too long or contradictory |
+| [source-driven-development](skills/source-driven-development/SKILL.md) | Ground implementation in official docs | Building with any framework or library |
+| [crafting-effective-readmes](skills/crafting-effective-readmes/SKILL.md) | Write or improve READMEs for any project type | Writing or improving README files |
+| [design-patterns](skills/design-patterns/SKILL.md) | Apply GoF and enterprise design patterns | Solving recurring design problems |
+| [solid](skills/solid/SKILL.md) | Apply SOLID principles and clean code | Writing, refactoring, or reviewing code |
+| [clean-ddd-hexagonal](skills/clean-ddd-hexagonal/SKILL.md) | Clean Architecture + DDD + Hexagonal patterns | Designing APIs, microservices, or complex backends |
+| [bash-defensive-patterns](skills/bash-defensive-patterns/SKILL.md) | Defensive Bash scripting (strict mode, traps, safe variable handling) | Writing robust shell scripts or CI/CD pipelines |
+| [agent-md-refactor](skills/agent-md-refactor/SKILL.md) | Refactor bloated agent instruction files | Your AGENTS.md is too long or contradictory |
 
 ---
 
-## Creating a New Skill
+## Troubleshooting
 
-For detailed guidance on creating new skills, see these documents:
-
-| Document | Covers |
-|----------|--------|
-| [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md) | Complete skill anatomy: file structure, SKILL.md format, frontmatter, standard sections, writing principles |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | Quality bar, structure requirements, what to do and what not to do when adding skills |
-
-**Quick reference:**
-- Create `skills/{skill-name}/SKILL.md` with kebab-case naming
-- Include YAML frontmatter with `name` and `description` (include "Use when" triggers)
-- Follow standard sections: Overview, When to Use, Process, Rationalizations, Red Flags, Verification
-- Keep SKILL.md under 500 lines; use progressive disclosure for detailed content
-- Reference other skills instead of duplicating content
-- Put reference material in `references/` at project root, not inside skill directories
+| Problem | Possible Cause | Solution |
+|---------|---------------|----------|
+| `/spec` doesn't work | OpenCode plugin not installed | Run `cd .opencode && bun install` |
+| Context7 quota error | API limit reached | Run `npx ctx7@latest login` or set `CONTEXT7_API_KEY` |
+| Skills won't load | Wrong path | Use `@skills/<skill-name>/SKILL.md` or load from `skills/` |
 
 ---
 
@@ -492,11 +441,141 @@ Skills bake in best practices from Google's engineering culture — including co
 
 ---
 
-## Contributing
+## Adding a New Skill
 
-Skills should be **specific** (actionable steps, not vague advice), **verifiable** (clear exit criteria with evidence requirements), **battle-tested** (based on real workflows), and **minimal** (only what's needed to guide the agent).
+1. **Place the skill in the `skills/` folder**
+   - Install manually by creating `skills/<skill-name>/SKILL.md` with the proper format
+   - Or install automatically via `find-skills` (which will download to your specified location)
+   - Ensure the directory name is kebab-case
 
-See [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md) for the format specification and [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+2. **Migrate the `references/` directory if present**
+   - If the skill contains an internal `references/` directory, move **all its content** to the project root's `references/` folder
+   - This keeps reference material centralized and accessible to all skills
+   - Delete the now-empty `references/` directory inside the skill after migration
+
+3. **Create or adjust the `SKILL.md`** following the format in [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md)
+   - Include YAML frontmatter with `name` and `description` fields
+   - The `description` should briefly state what the skill does, followed by "Use when" trigger conditions
+
+4. **Update the skills documentation** (priority: meta-skill first):
+   - **[skills/using-agent-skills/SKILL.md](skills/using-agent-skills/SKILL.md)** — Add the skill to the "Skill Discovery" tree under the **"Skill Extras"** subsection and to the "Quick Reference" table with the **"Extra"** phase
+   - **[USER_GUIDE.md](USER_GUIDE.md)** — Add the skill to the appropriate phase table and update the project structure tree
+
+5. **Restart your OpenCode session** so it recognizes the new skill
+
+### Skill Quality Standards
+
+Skills must be:
+
+- **Specific** — Actionable steps, not vague advice
+- **Verifiable** — Clear exit criteria with evidence requirements
+- **Battle-tested** — Based on real engineering workflows, not theoretical ideals
+- **Minimal** — Only the content needed to guide the agent correctly
+
+### Skill Structure
+
+Every new skill must have a [SKILL.md](docs/ai-agent-setup/skill-anatomy.md) file with valid YAML frontmatter.
+
+> **📖 For the complete skill anatomy (standard sections, frontmatter format, supporting files, writing principles, and naming conventions):** see [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md).
+
+### Quick Reference
+
+- Create `skills/{skill-name}/SKILL.md` with kebab-case naming
+- Keep SKILL.md **under 500 lines**; use progressive disclosure for detailed content
+- **Reference** other skills instead of duplicating content
+- Put reference material in `references/` at project root, not inside skill directories
+
+### What Not to Do
+
+- Do not duplicate content between skills — reference other skills instead
+- Do not add skills that are vague advice instead of actionable processes
+- Do not create support files unless content exceeds 100 lines
+- Do not put reference material inside skill directories — use `references/`
+
+---
+
+## Adding a New Agent
+
+To add a new specialized agent, follow these steps:
+
+### Steps
+
+1. Create `agents/<agent-name>.md` with the same frontmatter format as existing agents
+2. Define the role, scope, output format, and rules
+3. Add a **Composition** block at the end (Invoke directly when / Invoke via / Do not invoke from another persona)
+4. Add the agent to the table in [references/orchestration-patterns.md](references/orchestration-patterns.md)
+5. Update the `## Agent Personas` section in this document with the new agent
+6. If the agent enables a new orchestration pattern, document it in [references/orchestration-patterns.md](references/orchestration-patterns.md)
+
+### Agent Rules
+
+- An agent is a single role with a single output format. If you need a second role, create a second agent.
+- **Agents do not invoke other agents.** Composition is the job of commands or the user.
+- An agent may invoke skills (the *how*).
+- Every agent file ends with a "Composition" block indicating where it fits.
+
+### Agent Structure
+
+```
+agents/
+  <agent-name>.md    # Frontmatter format:
+                      # ---
+                      # name: agent-name
+                      # role: Role title
+                      # perspective: Specialized perspective
+                      # ---
+                      #
+                      # [Agent content]
+                      #
+                      # ## Composition
+                      # [Where this agent is invoked]
+```
+
+### Frontmatter Examples
+
+The project supports two frontmatter formats:
+
+**Simple format** (review/QA/security agents):
+```yaml
+---
+name: code-reviewer
+description: Senior code reviewer that evaluates changes across five dimensions — correctness, readability, architecture, security, and performance
+---
+```
+
+**Extended OpenCode format** (agents requiring permission and model configuration):
+```yaml
+---
+description: Build Agent - Execute Plans (Write/Edit Enabled)
+mode: primary
+color: "#FF55FF"
+model: opencode/qwen3.6-plus-free
+temperature: 0.9
+permission:
+  write: allow
+  edit: allow
+  read: allow
+  bash: ask
+---
+```
+
+Use simple format for purely analytical or review agents, and extended format for agents with write permissions and platform-specific configuration.
+
+### Existing Agents
+
+| Agent | Role | Purpose |
+|-------|------|---------|
+| [analysis](agents/analysis.md) | Architect of Specifications | Transforms ideas and requirements into detailed execution plans without generating code |
+| [implement](agents/implement.md) | Build Agent | Executes validated implementation plans — build, test, and modify code |
+| [code-reviewer](agents/code-reviewer.md) | Senior Staff Engineer | Five-axis review before merge |
+| [security-auditor](agents/security-auditor.md) | Security Engineer | Vulnerability detection, OWASP assessment |
+| [test-engineer](agents/test-engineer.md) | QA Engineer | Test strategy, coverage analysis, Prove-It pattern |
+
+### What Not to Do
+
+- Do not create agents that invoke other agents
+- Do not add multiple roles in a single agent
+- Do not duplicate existing functionality
 
 ---
 
@@ -513,21 +592,17 @@ For specialized topics, see these guides:
 ### Getting Started
 | Document | Covers |
 |----------|--------|
-| [getting-started.md](docs/ai-agent-setup/getting-started.md) | Quick start guide for new users |
 | [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md) | Complete guide for creating new skills |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution guidelines and quality standards |
 
 ### Agent Configuration
 | Document | Covers |
 |----------|--------|
-| [AGENTS_GUIDE.md](AGENTS_GUIDE.md) | How agent personas work, orchestration patterns, and decision matrix |
-| [references/orchestration-patterns.md](references/orchestration-patterns.md) | Full pattern catalog for agent orchestration |
+| [references/orchestration-patterns.md](references/orchestration-patterns.md) | Agent personas, orchestration patterns, and decision matrix (merged from AGENTS_GUIDE.md) |
 
 ### Setup & Reference
 | Document | Covers |
 |----------|--------|
-| [docs/ai-agent-setup/opencode-setup.md](docs/ai-agent-setup/opencode-setup.md) | OpenCode-specific setup and integration |
-| [docs/ai-agent-setup/getting-started.md](docs/ai-agent-setup/getting-started.md) | Quick start guide for new users |
+| [docs/ai-agent-setup/opencode-setup.md](docs/ai-agent-setup/opencode-setup.md) | OpenCode configuration, slash commands, agents, and skill loading |
 | [docs/ai-agent-setup/prompt-anatomy.md](docs/ai-agent-setup/prompt-anatomy.md) | Prompt templates and workflow for AI agents |
 | [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md) | Skill creation guide and format specification |
 

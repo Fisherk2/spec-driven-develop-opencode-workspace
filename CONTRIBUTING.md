@@ -6,15 +6,25 @@
 
 ## Añadir una Nueva Skill
 
-1. Crea un directorio bajo `skills/` con un nombre en kebab-case
-2. Añade un `SKILL.md` siguiendo el formato en [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md)
-3. Incluye frontmatter YAML con los campos `name` y `description`
-4. Asegúrate de que la `description` indique brevemente qué hace la skill (tercera persona), seguida de las condiciones de activación "Use when"
-5. **Actualiza la documentación de skills disponibles** para reflejar la nueva skill:
-   - **`docs/ai-agent-setup/getting-started.md`** — Actualiza la referencia del número de skills en la sección "Next Steps"
-   - **`skills/using-agent-skills/SKILL.md`** — Añade la skill al árbol de "Skill Discovery" (bajo la subsección "Skill Extras") y a la tabla "Quick Reference" con la fase "Extra"
-   - **`USER_GUIDE.md`**: Añade la skill a la tabla "Skill Extras" y actualiza el árbol de estructura del proyecto en "Project Structure".
-     - Si la skill es una **Skill Extra** (no forma parte del flujo base), **no modifiques el título "All X Base Skills"** — ese número solo cambia cuando se añade o elimina una skill del flujo base (DEFINE → PLAN → BUILD → VERIFY → REVIEW → SHIP + meta‑skill).
+1. **Coloca la skill en la carpeta `skills/`**
+   - Instálala manualmente creando `skills/<skill-name>/SKILL.md` con el formato adecuado
+   - O instálala automáticamente con `find-skills` (que la descargará en la ubicación que indiques)
+   - Asegúrate de que el nombre del directorio sea kebab-case
+
+2. **Migra el directorio `references/` si existe**
+   - Si la skill contiene un directorio `references/` interno, mueve **todo su contenido** a la carpeta raíz `references/` del proyecto
+   - Esto mantiene el material de referencia centralizado y accesible para todas las skills
+   - Elimina el directorio `references/` vacío dentro de la skill después de migrar
+
+3. **Crea o ajusta el `SKILL.md`** siguiendo el formato en [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md)
+   - Incluye frontmatter YAML con los campos `name` y `description`
+   - La `description` debe indicar brevemente qué hace la skill, seguida de condiciones "Use when"
+
+4. **Actualiza la documentación de skills disponibles** (prioridad: meta-skill primero):
+   - **[skills/using-agent-skills/SKILL.md](skills/using-agent-skills/SKILL.md)** — Añade la skill al árbol de "Skill Discovery" bajo la subsección **"Skill Extras"** y a la tabla "Quick Reference" con la fase **"Extra"**
+   - **[USER_GUIDE.md](USER_GUIDE.md)** — Añade la skill a la tabla de fase apropiada y actualiza el árbol de estructura del proyecto
+
+5. **Reinicia tu sesión de OpenCode** para que reconozca la nueva skill
 
 ### Estándar de Calidad de las Skills
 
@@ -29,7 +39,7 @@ Las skills deben ser:
 
 Toda nueva skill debe tener:
 
-- `SKILL.md` en el directorio de la skill
+- [SKILL.md](docs/ai-agent-setup/skill-anatomy.md) en el directorio de la skill
 - Frontmatter YAML con `name` y `description` válidos
 
 Las nuevas skills deben seguir generalmente la anatomía estándar:
@@ -59,9 +69,9 @@ Para añadir un nuevo agente especializado, sigue estos pasos:
 1. Crea `agents/<nombre-agente>.md` con el mismo formato de frontmatter que los agentes existentes
 2. Define el rol, alcance, formato de salida y reglas
 3. Añade un bloque **Composition** al final (Invoke directly when / Invoke via / Do not invoke from another persona)
-4. Añade el agente a la tabla en [AGENTS_GUIDE.md](AGENTS_GUIDE.md)
+4. Añade el agente a la tabla en [references/orchestration-patterns.md](references/orchestration-patterns.md)
 5. **Actualiza la sección `## Agent Personas` en [USER_GUIDE.md](USER_GUIDE.md)** con el nuevo agente
-6. Si el agente habilita un nuevo patrón de orquestación, documéntalo en `references/orchestration-patterns.md`
+6. Si el agente habilita un nuevo patrón de orquestación, documéntalo en [references/orchestration-patterns.md](references/orchestration-patterns.md)
 
 ### Reglas para Agentes
 
@@ -136,7 +146,7 @@ Ambos formatos son válidos. Usa el formato simple para agentes puramente analí
 ### Referencias
 
 Para más información sobre orquestación de agentes, patrones válidos e inválidos, y ejemplos de composición, ver:
-- [AGENTS_GUIDE.md](AGENTS_GUIDE.md) — Guía completa de agentes y orquestación
+- [references/orchestration-patterns.md](references/orchestration-patterns.md) — Guía completa de agentes y orquestación
 - [references/orchestration-patterns.md](references/orchestration-patterns.md) — Catálogo de patrones de orquestación
 
 ---

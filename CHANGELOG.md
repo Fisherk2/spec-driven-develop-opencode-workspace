@@ -173,7 +173,7 @@ Nuevas secciones agregadas al `.gitignore`:
 ### Cambiado
 
 - `USER_GUIDE.md` - Actualizada con información sobre skills adicionales y flujo de invocación
-- `AGENTS_GUIDE.md` - Actualizada según guía de contribución con agente de análisis
+- `AGENTS_GUIDE.md` → `references/orchestration-patterns.md` - Actualizada según guía de contribución con agente de análisis (luego fusionada en orchestration-patterns.md)
 - `skills/using-agent-skills/SKILL.md` - Mejorada la detección contextual de skills
 - Skills existentes (6) - Modificados para seguir lineamientos de la guía de contribución:
   - `agent-md-refactor`, `bash-defensive-patterns`, `clean-ddd-hexagonal`
@@ -254,9 +254,8 @@ Nuevas secciones agregadas al `.gitignore`:
 
 - `README.md` - Guía rápida con diagrama Mermaid
 - `USER_GUIDE.md` - Referencia completa de 21 skills
-- `AGENTS_GUIDE.md` - Personas de agentes y orquestación
+- `AGENTS_GUIDE.md` → `references/orchestration-patterns.md` - Personas de agentes y orquestación (luego fusionada en orchestration-patterns.md)
 - `CONTRIBUTING.md` - Directrices de contribución (Español)
-- `getting-started.md` - Guía de 5 pasos para nuevos usuarios
 - `skill-anatomy.md` - Anatomía y formato de skills
 - `opencode-setup.md` - Configuración específica de OpenCode
 
@@ -311,7 +310,7 @@ Nuevas secciones agregadas al `.gitignore`:
 
 - **[README.md](README.md)** - Guía rápida y flujo de trabajo
 - **[USER_GUIDE.md](USER_GUIDE.md)** - Referencia completa de skills
-- **[AGENTS_GUIDE.md](AGENTS_GUIDE.md)** - Agentes y orquestación
+- **[references/orchestration-patterns.md](references/orchestration-patterns.md)** - Agentes y orquestación (AGENTS_GUIDE.md fusionado)
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** - Directrices de contribución
 
 ### Instrucciones de Actualización

@@ -2,17 +2,16 @@
 
 **Workspace OpenCode para desarrollo asistido por IA con metodología Spec-Driven Development.**
 
-Una plantilla production-grade que integra 30+ skills de ingeniería, comandos slash, agentes especializados y hooks automatizados para acelerar el desarrollo con IA. Diseñada para equipos y desarrolladores que quieren calidad consistente en proyectos asistidos por IA.
+Una plantilla production-grade que integra 33 skills de ingeniería organizados en 6 fases del ciclo SDD, comandos slash y agentes especializados para acelerar el desarrollo con IA. Diseñada para equipos y desarrolladores que quieren calidad consistente en proyectos asistidos por IA.
 
 ---
 
 ## Características
 
-- **30+ Skills de Ingeniería** — TDD, Spec-Driven Development, Code Review, Seguridad, Performance, UI/UX, DDD/Hexagonal, y más
+- **33 Skills de Ingeniería** — TDD, Spec-Driven Development, Code Review, Seguridad, Performance, UI/UX, DDD/Hexagonal, patrones de diseño, y más, organizados en 6 fases SDD
 - **7 Comandos Slash** — `/spec`, `/plan`, `/build`, `/test`, `/review`, `/ship`, `/code-simplify`
 - **5 Agentes Especializados** — Analysis, Implement, Code-Reviewer, Test-Engineer, Security-Auditor
 - **Nativo OpenCode** — Comandos slash, agentes y skills cargados desde `.opencode/`
-- **Hooks Automatizados** — Session start, SDD caching, simplify-ignore
 - **Documentación Técnica Integrada** — Referencias de Clean Code, DDD, UI/UX, Testing, Seguridad y más
 - **Licencia MIT** — Libre para proyectos personales y comerciales
 
@@ -20,7 +19,7 @@ Una plantilla production-grade que integra 30+ skills de ingeniería, comandos s
 
 ## Prerrequisitos
 
-- **Node.js >= 18** y **pnpm**
+- **Node.js >= 18** y **bun**
 - **OpenCode IDE**
 - **Git**
 
@@ -36,7 +35,7 @@ cd mi-proyecto
 
 ### 2. Instala dependencias del plugin OpenCode
 ```bash
-cd .opencode && pnpm install && cd ..
+cd .opencode && bun install && cd ..
 ```
 
 ### 3. Configura Context7 (documentación actualizada de librerías)
@@ -50,22 +49,28 @@ ls .opencode/commands/
 # Deberías ver: build.md  code-simplify.md  plan.md  review.md  ship.md  spec.md  test.md
 ```
 
-### 5. Ejecuta tu primer workflow
+### 5. Ejecuta tu primer workflow SDD completo
 ```bash
-# 1. Define una especificación
-/spec "Crea una función que sume dos números"
+# 1. Define una especificación (DEFINE)
+/spec "Crea una API REST de tareas"
 
-# 2. Planifica las tareas
+# 2. Planifica las tareas (PLAN)
 /plan
 
-# 3. Implementa con TDD
+# 3. Implementa con TDD (BUILD)
 /build
 
-# 4. Revisa la calidad antes de merge
+# 4. Prueba y verifica (VERIFY)
+/test
+
+# 5. Revisa la calidad antes de merge (REVIEW)
 /review
+
+# 6. Prepara y despliega a producción (SHIP)
+/ship
 ```
 
-> **¿Nuevo en OpenCode?** Lee la [Guía de inicio rápido](docs/ai-agent-setup/getting-started.md) para entender el ecosistema de skills.
+Los skills se activan automáticamente según la fase: diseño de API → [api-and-interface-design](skills/api-and-interface-design/SKILL.md), UI → [frontend-ui-engineering](skills/frontend-ui-engineering/SKILL.md), lógica de dominio → [clean-ddd-hexagonal](skills/clean-ddd-hexagonal/SKILL.md), manejo de errores → [error-handling-patterns](skills/error-handling-patterns/SKILL.md), entre otros.
 
 ---
 
@@ -73,105 +78,126 @@ ls .opencode/commands/
 
 ```mermaid
 flowchart LR
-    subgraph Define["DEFINIR"]
-        A["Idea<br/>Refine"]
-    end
+    A["/spec<br/>DEFINE"] --> B["/plan<br/>PLAN"]
+    B --> C["/build<br/>BUILD"]
+    C --> D["/test<br/>VERIFY"]
+    D --> E["/review<br/>REVIEW"]
+    E --> F["/ship<br/>SHIP"]
+    F --> G["Go Live"]
 
-    subgraph Plan["PLANEAR"]
-        B["Spec<br/>PRD"]
-    end
-
-    subgraph Build["CONSTRUIR"]
-        C["Code<br/>Impl"]
-    end
-
-    subgraph Verify["VERIFICAR"]
-        D["Test<br/>Debug"]
-    end
-
-    subgraph Review["REVISAR"]
-        E["QA<br/>Gate"]
-    end
-
-    subgraph Ship["LANZAR"]
-        F["Go<br/>Live"]
-    end
-
-    A -->|" /spec "| B
-    B -->|" /plan "| C
-    C -->|" /build "| D
-    D -->|" /test "| E
-    E -->|" /review "| F
-
-    style Define fill:#e1f5fe,stroke:#01579b
-    style Plan fill:#e8f5e9,stroke:#1b5e20
-    style Build fill:#fff3e0,stroke:#e65100
-    style Verify fill:#fce4ec,stroke:#880e4f
-    style Review fill:#f3e5f5,stroke:#4a148c
-    style Ship fill:#e0f2f1,stroke:#004d40
+    style A fill:#e1f5fe,stroke:#01579b
+    style B fill:#e8f5e9,stroke:#1b5e20
+    style C fill:#fff3e0,stroke:#e65100
+    style D fill:#fce4ec,stroke:#880e4f
+    style E fill:#f3e5f5,stroke:#4a148c
+    style F fill:#e0f2f1,stroke:#004d40
 ```
 
 ### Ciclo Completo
 
-| Fase | Comando | Qué hace | Skill Asociado |
-|------|---------|----------|----------------|
-| Iniciar | `/spec` | Crea una especificación estructurada antes de escribir código | `spec-driven-development` |
-| Planificar | `/plan` | Descompone el trabajo en tareas ordenadas | `planning-and-task-breakdown` |
-| Construir | `/build` | Implementa incrementalmente con TDD (Red-Green-Refactor) | `incremental-implementation` |
-| Verificar | `/test` | Escribe tests que fallan, implementa, refactoriza | `test-driven-development` |
-| Revisar | `/review` | Auditoría en 5 ejes: correctitud, legibilidad, arquitectura, seguridad, rendimiento | `code-review-and-quality` |
-| Simplificar | `/code-simplify` | Refactoriza código complejo sin cambiar comportamiento | `code-simplification` |
-| Lanzar | `/ship` | Prepara y despliega a producción con checklist y monitoreo | `shipping-and-launch` |
+| Fase | Comando | Skill Principal | Skills Complementarios |
+|------|---------|----------------|----------------------|
+| Definir | `/spec` | [spec-driven-development](skills/spec-driven-development/SKILL.md) | clean-ddd-hexagonal, design-patterns, architecture-diagrams, ui-ux-design-pro, agent-md-refactor (PRE-FLIGHT), crafting-effective-readmes (PRE-FLIGHT) |
+| Planificar | `/plan` | [planning-and-task-breakdown](skills/planning-and-task-breakdown/SKILL.md) | clean-ddd-hexagonal, design-patterns, architecture-diagrams |
+| Construir | `/build` | [incremental-implementation](skills/incremental-implementation/SKILL.md) | solid, error-handling-patterns, ui-ux-design-pro, design-taste-frontend, bash-defensive-patterns, clean-ddd-hexagonal |
+| Verificar | `/test` | [test-driven-development](skills/test-driven-development/SKILL.md) | error-handling-patterns, design-taste-frontend, incident-response (escalación) |
+| Revisar | `/review` | [code-review-and-quality](skills/code-review-and-quality/SKILL.md) | solid, error-handling-patterns, design-patterns, refactoring-patterns, design-taste-frontend |
+| Simplificar | `/code-simplify` | [code-simplification](skills/code-simplification/SKILL.md) | refactoring-patterns, solid |
+| Lanzar | `/ship` | [shipping-and-launch](skills/shipping-and-launch/SKILL.md) | crafting-effective-readmes, architecture-diagrams, bash-defensive-patterns, incident-response |
 
 ---
 
 ## Estructura del Proyecto
 
 ```
-.env.example           # Variables de entorno (plantilla)
-AGENTS.md              # Personas y orquestación de agentes
-CONTRIBUTING.md        # Directrices de contribución
-USER_GUIDE.md          # Referencia completa de skills
+.env.example              # Variables de entorno (plantilla)
+AGENTS.md                 # Personas y orquestación de agentes
+CONTRIBUTING.md           # Directrices de contribución
+USER_GUIDE.md             # Referencia completa de skills
+README.md                 # Este archivo
 
-commands/              # 7 comandos slash para OpenCode
+commands/                 # 7 comandos slash para OpenCode
+├── spec.md               #   DEFINE
+├── plan.md               #   PLAN
+├── build.md              #   BUILD
+├── test.md               #   VERIFY
+├── review.md             #   REVIEW
+├── code-simplify.md      #   REVIEW (simplificación)
+└── ship.md               #   SHIP
 
-.opencode/             # Configuración principal de OpenCode
-├── agents/ → agents/  # Symlink a agents/
-├── commands/ → commands/  # Symlink a commands/
-├── skills/ → skills/  # Symlink a skills/
-└── package.json       # Dependencias del plugin
+.opencode/                # Configuración principal de OpenCode
+├── agents/ → agents/     # Symlink a agents/
+├── commands/ → commands/ # Symlink a commands/
+├── skills/ → skills/     # Symlink a skills/
+└── package.json          # Dependencias del plugin
 
-agents/                # Definiciones de agentes
-docs/                  # Documentación del proyecto
-├── ai-agent-setup/    # Guías de setup por plataforma
-├── ARCHITECTURE.md    # Arquitectura del proyecto
-├── API_REFERENCE.md   # Referencia de API
-└── SETUP.md           # Setup detallado
+agents/                   # 5 agentes especializados
+├── analysis.md           #   Arquitecto de especificaciones
+├── implement.md          #   Build agent
+├── code-reviewer.md      #   Senior Staff Engineer
+├── test-engineer.md      #   QA Specialist
+└── security-auditor.md   #   Security Engineer
 
-hooks/                 # Automatizaciones del workspace
-├── session-start.sh   # Hook de inicio de sesión
-├── sdd-cache-pre.sh   # SDD caching (pre)
-├── sdd-cache-post.sh  # SDD caching (post)
-└── simplify-ignore.sh # Simplificación de archivos ignorados
+skills/                   # 33 skills organizados por fase SDD
+├── idea-refine/              # DEFINE
+├── spec-driven-development/  # DEFINE
+├── agent-md-refactor/        # DEFINE (PRE-FLIGHT)
+├── crafting-effective-readmes/ # DEFINE/SHIP
+├── clean-ddd-hexagonal/      # DEFINE/PLAN/BUILD
+├── design-patterns/          # DEFINE/PLAN/REVIEW
+├── architecture-diagrams/    # DEFINE/PLAN/SHIP
+├── ui-ux-design-pro/         # DEFINE/BUILD
+│
+├── planning-and-task-breakdown/ # PLAN
+│
+├── incremental-implementation/  # BUILD
+├── context-engineering/         # BUILD
+├── source-driven-development/   # BUILD
+├── frontend-ui-engineering/     # BUILD
+├── api-and-interface-design/    # BUILD
+├── test-driven-development/     # BUILD
+├── solid/                       # BUILD/REVIEW
+├── error-handling-patterns/     # BUILD/VERIFY/REVIEW
+├── design-taste-frontend/       # BUILD/VERIFY/REVIEW
+├── bash-defensive-patterns/     # BUILD/SHIP
+│
+├── browser-testing-with-devtools/ # VERIFY
+├── debugging-and-error-recovery/  # VERIFY
+│
+├── code-review-and-quality/       # REVIEW
+├── code-simplification/           # REVIEW
+├── security-and-hardening/        # REVIEW
+├── performance-optimization/      # REVIEW
+├── refactoring-patterns/          # REVIEW
+│
+├── git-workflow-and-versioning/   # SHIP
+├── ci-cd-and-automation/          # SHIP
+├── deprecation-and-migration/     # SHIP
+├── documentation-and-adrs/        # SHIP
+├── shipping-and-launch/           # SHIP
+├── incident-response/             # VERIFY/SHIP
+│
+└── using-agent-skills/            # META: descubrimiento de skills
 
-references/            # Guías de referencia técnica
-├── clean-code/        # Principios de código limpio
-├── ddd-*/             # Domain-Driven Design
-├── ui-ux/             # Patrones de diseño UI/UX
-├── testing/           # Estrategias de testing
-├── security/          # Checklist de seguridad
-└── performance/       # Checklist de rendimiento
+references/               # Guías de referencia técnica
+├── testing-patterns.md
+├── security-checklist.md
+├── performance-checklist.md
+├── accessibility-checklist.md
+└── orchestration-patterns.md
 
-scripts/               # Scripts auxiliares
-├── setup.sh
-├── build.sh
-├── test.sh
-└── lint.sh
+docs/                     # Documentación del proyecto
+├── ai-agent-setup/
+│   ├── opencode-setup.md
+│   ├── prompt-anatomy.md
+│   └── skill-anatomy.md
+├── decisions/            # ADRs (Architecture Decision Records)
+└── ...
 
-skills/                # 30+ skills de ingeniería (carga directa)
-specs/                 # Especificaciones del proyecto
-src/                   # Código fuente del proyecto
-tests/                 # Tests del proyecto
+scripts/                  # Scripts auxiliares
+specs/                    # Especificaciones del proyecto (SPEC.md)
+src/                      # Código fuente del proyecto
+tests/                    # Tests del proyecto
 ```
 
 ---
@@ -190,10 +216,8 @@ Los comandos slash y agentes se cargan automáticamente desde `commands/` y `.op
 
 | Guía | Descripción |
 |------|-------------|
-| [Guía de inicio rápido](docs/ai-agent-setup/getting-started.md) | Primeros pasos en 5 minutos |
-| [Guía completa](USER_GUIDE.md) | Referencia detallada de todos los skills |
-| [Guía de agentes](AGENTS_GUIDE.md) | Personas de agentes y orquestación |
-| [Arquitectura](docs/ARCHITECTURE.md) | Decisiones arquitectónicas del proyecto |
+| [Guía completa](skills/using-agent-skills/SKILL.md) | Referencia detallada de todos los skills |
+| [Guía de agentes](references/orchestration-patterns.md) | Personas de agentes y orquestación |
 | [Contribuir](CONTRIBUTING.md) | Directrices de contribución |
 
 ---
@@ -202,7 +226,7 @@ Los comandos slash y agentes se cargan automáticamente desde `commands/` y `.op
 
 | Problema | Causa posible | Solución |
 |----------|---------------|----------|
-| `/spec` no funciona | Plugin OpenCode no instalado | Ejecuta `cd .opencode && pnpm install` |
+| `/spec` no funciona | Plugin OpenCode no instalado | Ejecuta `cd .opencode && bun install` |
 | Context7 da error de cuota | Límite de API alcanzado | Ejecuta `npx ctx7@latest login` o configura `CONTEXT7_API_KEY` |
 | Los skills no cargan | Ruta incorrecta | Usa `@skills/<skill-name>/SKILL.md` o carga desde `skills/` |
 
