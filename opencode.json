@@ -1,0 +1,29 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  "model": "nvidia/z-ai/glm-5.1",
+  "small_model": "opencode/deepseek-v4-flash-free",
+
+  "permission": {
+    "*": "ask",
+    "bash": {
+      "*": "ask",
+      "git status *": "allow",
+      "git diff *": "allow",
+      "git log *": "allow",
+      "grep *": "allow"
+    },
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "ask"
+    }
+  },
+
+   "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp"
+    }
+  }
+}
