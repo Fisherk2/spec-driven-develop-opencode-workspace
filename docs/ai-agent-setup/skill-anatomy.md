@@ -2,6 +2,8 @@
 
 This document describes the structure and format of agent-skills skill files. Use this as a guide when contributing new skills or understanding existing ones.
 
+> **📖 For task-to-skill discovery, see the [Meta-Skill](../../skills/using-agent-skills/SKILL.md) — it contains the decision tree for finding which skill applies to your current task. For the complete skills reference by phase, see [USER_GUIDE.md > Skills Reference](../../USER_GUIDE.md#skills-reference).
+
 ## File Location
 
 Every skill lives in its own directory under `skills/`:
@@ -126,3 +128,5 @@ If the build breaks, use the `debugging-and-error-recovery` skill.
 ```
 
 Don't duplicate content between skills — reference and link instead.
+
+For **cross-phase navigation**, the [Meta-Skill](../../skills/using-agent-skills/SKILL.md) serves as the canonical index. Its Quick Reference table lists every skill alongside its phase, so agents and humans can find any skill from any entry point.

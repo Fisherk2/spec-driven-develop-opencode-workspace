@@ -110,7 +110,12 @@ Once configured, the `find-docs` skill automatically fetches current API docs wh
 
 ### 3. Start with the Meta-Skill
 
-Load `@skills/using-agent-skills/SKILL.md` to discover which skill applies to your current task. This meta-skill contains a flowchart that maps task types to the right skill, core operating behaviors, and lifecycle sequences.
+Load the [Meta-Skill](../../skills/using-agent-skills/SKILL.md) to discover which skill applies to your current task. It contains:
+- A **decision tree** mapping task types (implementing code, designing API, debugging, etc.) to the appropriate skill
+- **Core operating behaviors** that apply across all skills (surface assumptions, manage confusion, push back)
+- A **Quick Reference** table summarizing every skill by phase
+
+> This is the canonical entry point for skill discovery. Both agents and humans should consult it when unsure which skill applies.
 
 ### 4. Run Your First Workflow
 
@@ -125,7 +130,7 @@ Load `@skills/using-agent-skills/SKILL.md` to discover which skill applies to yo
 
 ---
 
-> **📖 For the full skill anatomy (diagram, key principles, how skills work):** see [USER_GUIDE.md > How Skills Work](../../USER_GUIDE.md#how-skills-work). This setup guide focuses on OpenCode configuration only.
+> **📖 For the full skill anatomy (diagram, key principles, how skills work):** see [USER_GUIDE.md > Skills Reference](../../USER_GUIDE.md#skills-reference). This setup guide focuses on OpenCode configuration only.
 
 ---
 
@@ -167,6 +172,7 @@ Contains the required OpenCode plugin dependency:
 
 | Guide | Covers |
 |-------|--------|
+| [Meta-Skill (using-agent-skills)](../../skills/using-agent-skills/SKILL.md) | Skill discovery decision tree, core operating behaviors, failure modes, and Quick Reference index of all skills |
 | [USER_GUIDE.md](../../USER_GUIDE.md) | Complete reference of all 33 skills, commands, and workflows |
 | [references/orchestration-patterns.md](../../references/orchestration-patterns.md) | Agent personas, orchestration patterns, and decision matrix |
 | [docs/ai-agent-setup/skill-anatomy.md](skill-anatomy.md) | Skill creation guide and format specification |

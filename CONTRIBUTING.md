@@ -58,6 +58,13 @@ Las nuevas skills deben seguir generalmente la anatomía estándar:
 - No crees archivos de soporte a menos que el contenido supere las 100 líneas
 - No pongas material de referencia dentro de los directorios de skills — usa `references/` en su lugar
 
+### Referencias
+
+Para más información sobre descubrimiento de skills, anatomía de skills, y referencia completa:
+
+- [skills/using-agent-skills/SKILL.md](skills/using-agent-skills/SKILL.md) — Meta-skill: árbol de decisión para descubrir qué skill aplicar según la tarea, Quick Reference de todas las skills, y operating behaviors globales
+- [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md) — Guía de creación de skills: frontmatter, secciones estándar, principios de escritura
+
 ---
 
 ## Añadir un Nuevo Agente
@@ -147,7 +154,6 @@ Ambos formatos son válidos. Usa el formato simple para agentes puramente analí
 
 Para más información sobre orquestación de agentes, patrones válidos e inválidos, y ejemplos de composición, ver:
 - [references/orchestration-patterns.md](references/orchestration-patterns.md) — Guía completa de agentes y orquestación
-- [references/orchestration-patterns.md](references/orchestration-patterns.md) — Catálogo de patrones de orquestación
 
 ---
 
