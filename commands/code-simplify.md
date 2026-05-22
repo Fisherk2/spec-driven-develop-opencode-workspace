@@ -5,6 +5,14 @@ agent: implement
 
 Invoke the @skills/code-simplification/SKILL.md.
 
+## Skill Extras Referenciables
+During code simplification, reference these Skill Extras when applicable:
+
+- **Refactoring Patterns**: `@skills/refactoring-patterns/SKILL.md` (Apply named refactoring transformations to improve code structure)
+- **SOLID Principles**: `@skills/solid/SKILL.md` (Simplify code while maintaining SOLID principles and clean code)
+
+---
+
 Simplify recently changed code (or the specified scope) while preserving exact behavior:
 
 1. Read AGENTS.md and check project conventions

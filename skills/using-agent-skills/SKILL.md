@@ -18,36 +18,48 @@ Task arrives
     │
     ├── Vague idea/need refinement? ──→ idea-refine
     ├── New project/feature/change? ──→ spec-driven-development
+    │   ├── AGENTS.md too long (>200 lines)? ──→ agent-md-refactor (PRE-FLIGHT)
+    │   ├── Need README? ──→ crafting-effective-readmes (PRE-FLIGHT)
+    │   ├── Designing backend architecture? ──→ clean-ddd-hexagonal
+    │   ├── Solving design problems? ──→ design-patterns
+    │   ├── Documenting architecture? ──→ architecture-diagrams
+    │   └── Designing professional UI/UX? ──→ ui-ux-design-pro
     ├── Have a spec, need tasks? ──────→ planning-and-task-breakdown
+    │   ├── Designing backend modules? ──→ clean-ddd-hexagonal
+    │   ├── Solving design problems? ──→ design-patterns
+    │   └── Visualizing architecture? ──→ architecture-diagrams
     ├── Implementing code? ────────────→ incremental-implementation
     │   ├── UI work? ─────────────────→ frontend-ui-engineering
+    │   │   ├── Designing professional UI/UX? ──→ ui-ux-design-pro
+    │   │   └── Validating visual consistency? ──→ design-taste-frontend
     │   ├── API work? ────────────────→ api-and-interface-design
     │   ├── Need better context? ─────→ context-engineering
-    │   └── Need doc-verified code? ───→ source-driven-development
+    │   ├── Need doc-verified code? ───→ source-driven-development
+    │   ├── Writing robust shell scripts? ──→ bash-defensive-patterns
+    │   ├── Applying SOLID/clean code? ──→ solid
+    │   ├── Need resilient error handling? ──→ error-handling-patterns
+    │   └── Implementing domain logic? ──→ clean-ddd-hexagonal
     ├── Writing/running tests? ────────→ test-driven-development
-    │   └── Browser-based? ───────────→ browser-testing-with-devtools
+    │   ├── Browser-based? ───────────→ browser-testing-with-devtools
+    │   └── Testing error paths? ──→ error-handling-patterns
     ├── Something broke? ──────────────→ debugging-and-error-recovery
+    │   └── Is this a production incident? ──→ incident-response
     ├── Reviewing code? ───────────────→ code-review-and-quality
     │   ├── Security concerns? ───────→ security-and-hardening
-    │   └── Performance concerns? ────→ performance-optimization
+    │   ├── Performance concerns? ────→ performance-optimization
+    │   ├── Applying SOLID/clean code? ──→ solid
+    │   ├── Reviewing error handling? ──→ error-handling-patterns
+    │   ├── Reviewing design patterns? ──→ design-patterns
+    │   ├── Code needs refactoring? ──→ refactoring-patterns
+    │   └── Reviewing frontend? ──→ design-taste-frontend
     ├── Committing/branching? ─────────→ git-workflow-and-versioning
     ├── CI/CD pipeline work? ──────────→ ci-cd-and-automation
+    │   └── Writing robust shell scripts? ──→ bash-defensive-patterns
     ├── Writing docs/ADRs? ───────────→ documentation-and-adrs
-    ├── Deploying/launching? ─────────→ shipping-and-launch
-    │
-    │   ── Skill Extras ──────────────── (load explicitly with `Load @skills/...`)
-    ├── AGENTS.md too long/contradictory? → agent-md-refactor
-    ├── Writing robust shell scripts? ───→ bash-defensive-patterns
-    ├── Designing backend architecture? ─→ clean-ddd-hexagonal
-    ├── Improving README? ───────────────→ crafting-effective-readmes
-    ├── Solving design problems? ────────→ design-patterns
-    ├── Validating visual consistency? ──→ design-taste-frontend
-    ├── Applying SOLID/clean code? ──────→ solid
-    ├── Designing professional UI/UX? ───→ ui-ux-design-pro
-    ├── Code needs refactoring? ─────────→ refactoring-patterns
-    ├── Need resilient error handling? ──→ error-handling-patterns
-    ├── Documenting architecture? ───────→ architecture-diagrams
-    └── Handling an incident? ───────────→ incident-response
+    │   ├── Improving README? ──→ crafting-effective-readmes
+    │   └── Documenting architecture? ──→ architecture-diagrams
+    └── Deploying/launching? ─────────→ shipping-and-launch
+        └── Handling post-launch incidents? ──→ incident-response
 ```
 
 ## Core Operating Behaviors
@@ -170,31 +182,45 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 |-------|-------|-----------------|
 | Define | idea-refine | Refine ideas through structured divergent and convergent thinking |
 | Define | spec-driven-development | Requirements and acceptance criteria before code |
+| Define | agent-md-refactor | Refactor bloated agent instruction files (PRE-FLIGHT check for AGENTS.md >200 lines) |
+| Define | crafting-effective-readmes | README writing tailored to audience (OSS, internal, config) (PRE-FLIGHT if no README) |
+| Define | clean-ddd-hexagonal | Clean Architecture + DDD + Hexagonal patterns for backend design |
+| Define | design-patterns | GoF and enterprise design patterns for recurring problems |
+| Define | architecture-diagrams | Create system architecture diagrams using Mermaid, PlantUML, C4 model |
+| Define | ui-ux-design-pro | Professional UI/UX design with design systems, tokens, palettes, and high-fidelity prototyping |
 | Plan | planning-and-task-breakdown | Decompose into small, verifiable tasks |
+| Plan | clean-ddd-hexagonal | Clean Architecture + DDD + Hexagonal patterns for module decomposition |
+| Plan | design-patterns | GoF and enterprise design patterns for implementation planning |
+| Plan | architecture-diagrams | Visualize dependencies and flows in the system architecture |
 | Build | incremental-implementation | Thin vertical slices, test each before expanding |
 | Build | source-driven-development | Verify against official docs before implementing |
 | Build | context-engineering | Right context at the right time |
 | Build | frontend-ui-engineering | Production-quality UI with accessibility |
 | Build | api-and-interface-design | Stable interfaces with clear contracts |
+| Build | solid | SOLID principles, TDD, clean code, professional software design |
+| Build | error-handling-patterns | Master error handling patterns for building resilient applications |
+| Build | ui-ux-design-pro | Professional UI/UX design with design systems, tokens, palettes, and high-fidelity prototyping |
+| Build | design-taste-frontend | Metric-based visual consistency rules to override default LLM biases |
+| Build | bash-defensive-patterns | Defensive Bash scripting (strict mode, traps, safe variables) |
+| Build | clean-ddd-hexagonal | Implement domain logic using DDD and Clean Architecture |
 | Verify | test-driven-development | Failing test first, then make it pass |
 | Verify | browser-testing-with-devtools | Chrome DevTools MCP for runtime verification |
 | Verify | debugging-and-error-recovery | Reproduce → localize → fix → guard |
+| Verify | error-handling-patterns | Test error paths and resilience patterns |
+| Verify | design-taste-frontend | Verify visual consistency in frontend implementations |
 | Review | code-review-and-quality | Five-axis review with quality gates |
 | Review | security-and-hardening | OWASP prevention, input validation, least privilege |
 | Review | performance-optimization | Measure first, optimize only what matters |
+| Review | solid | Evaluate code quality using SOLID principles |
+| Review | error-handling-patterns | Review error handling patterns and resilience |
+| Review | design-patterns | Review use of design patterns in implementation |
+| Review | refactoring-patterns | Apply named refactoring transformations to improve code structure |
+| Review | design-taste-frontend | Review frontend for visual consistency and quality |
 | Ship | git-workflow-and-versioning | Atomic commits, clean history |
 | Ship | ci-cd-and-automation | Automated quality gates on every change |
 | Ship | documentation-and-adrs | Document the why, not just the what |
 | Ship | shipping-and-launch | Pre-launch checklist, monitoring, rollback plan |
-| Extra | agent-md-refactor | Refactor bloated agent instruction files (progressive disclosure) |
-| Extra | bash-defensive-patterns | Defensive Bash scripting (strict mode, traps, safe variables) |
-| Extra | clean-ddd-hexagonal | Clean Architecture + DDD + Hexagonal patterns |
-| Extra | crafting-effective-readmes | README writing tailored to audience (OSS, internal, config) |
-| Extra | design-patterns | GoF and enterprise design patterns for recurring problems |
-| Extra | design-taste-frontend | Metric-based visual consistency rules to override default LLM biases |
-| Extra | solid | SOLID principles, TDD, clean code, professional software design |
-| Extra | ui-ux-design-pro | Professional UI/UX design with design systems, tokens, palettes, and high-fidelity prototyping |
-| Extra | refactoring-patterns | Apply named refactoring transformations to improve code structure without changing behavior |
-| Extra | error-handling-patterns | Master error handling patterns for building resilient applications |
-| Extra | architecture-diagrams | Create system architecture diagrams using Mermaid, PlantUML, C4 model |
-| Extra | incident-response | Run incident response workflow — triage, communicate, and write postmortem |
+| Ship | crafting-effective-readmes | Generate or update README files for documentation |
+| Ship | architecture-diagrams | Document final architecture in diagrams |
+| Ship | bash-defensive-patterns | Write robust CI/CD scripts using defensive Bash patterns |
+| Ship | incident-response | Run incident response workflow — triage, communicate, and write postmortem |

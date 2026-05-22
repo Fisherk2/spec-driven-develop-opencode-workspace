@@ -18,7 +18,6 @@
     - [Verify - Prove it works](#verify---prove-it-works)
     - [Review - Quality gates before merge](#review---quality-gates-before-merge)
     - [Ship - Deploy with confidence](#ship---deploy-with-confidence)
-    - [Skill Extras](#skill-extras)
   - [Agent Personas](#agent-personas)
     - [When to Use Each](#when-to-use-each)
     - [How Personas Relate to Skills and Commands](#how-personas-relate-to-skills-and-commands)
@@ -42,40 +41,84 @@
 flowchart LR
     subgraph Define["DEFINE"]
         direction TB
-        A["Idea<br/>Refine"]
+        A["Idea<br/>Refine"] --> B["Spec<br/>PRD"]
+        B --> C["PRE-FLIGHT Checks"]
+        B --> D["Architecture & Design"]
     end
     
     subgraph Plan["PLAN"]
         direction TB
-        B["Spec<br/>PRD"]
+        E["Task Breakdown"] --> F["Domain Decomposition"]
+        E --> G["Design Patterns"]
+        E --> H["Architecture Diagrams"]
     end
     
     subgraph Build["BUILD"]
         direction TB
-        C["Code<br/>Impl"]
+        I["Incremental Implementation"] --> J["SOLID Code"]
+        I --> K["Error Handling"]
+        I --> L["UI/UX Implementation"]
+        I --> M["Defensive Scripts"]
+        I --> N["Domain Logic"]
     end
     
     subgraph Verify["VERIFY"]
         direction TB
-        D["Test<br/>Debug"]
+        O["Test & Debug"] --> P["Error Paths"]
+        O --> Q["Visual Consistency"]
     end
     
     subgraph Review["REVIEW"]
         direction TB
-        E["QA<br/>Gate"]
+        R["Code Review"] --> S["SOLID Principles"]
+        R --> T["Error Handling Review"]
+        R --> U["Design Patterns Review"]
+        R --> V["Refactoring"]
+        R --> W["Frontend Review"]
     end
     
     subgraph Ship["SHIP"]
         direction TB
-        F["Go<br/>Live"]
+        X["Launch"] --> Y["README Docs"]
+        X --> Z["Architecture Diagrams"]
+        X --> AA["Defensive CI/CD"]
+        X --> AB["Incident Response"]
     end
 
-    A -->|" /spec "| B
-    B -->|" /plan "| C
-    C -->|" /build "| D
-    D -->|" /test "| E
-    E -->|" /review "| F
-    F -->|" /ship "| G["Go Live"]
+    A -->|" /spec "|
+ B
+    B -->| PRE-FLIGHT | C
+    B -->| Design | D
+    B -->|" /plan "|
+ E
+    E -->| Domain | F
+    E -->| Patterns | G
+    E -->| Diagrams | H
+    E -->|" /build "|
+ I
+    I -->| SOLID | J
+    I -->| Errors | K
+    I -->| UI/UX | L
+    I -->| Scripts | M
+    I -->| Domain | N
+    I -->|" /test "|
+ O
+    O -->| Errors | P
+    O -->| Visual | Q
+    O -->|" /review "|
+ R
+    R -->| SOLID | S
+    R -->| Errors | T
+    R -->| Patterns | U
+    R -->| Refactor | V
+    R -->| Frontend | W
+    R -->|" /ship "|
+ X
+    X -->| README | Y
+    X -->| Diagrams | Z
+    X -->| CI/CD | AA
+    X -->| Incident | AB
+    X --> G["Go Live"]
 
     style Define fill:#f9f9f9,stroke:#333,stroke-width:2px
     style Plan fill:#f9f9f9,stroke:#333,stroke-width:2px
@@ -140,7 +183,7 @@ Load @skills/code-review-and-quality/SKILL.md   # Review
 
 ## All 21 Base Skills
 
-The commands above are the entry points. Under the hood, they activate these 21 base skills — each one a structured workflow with steps, verification gates, and anti-rationalization tables. You can also reference any base skill or the Skill Extras below directly.
+The commands above are the entry points. Under the hood, they activate these 21 base skills — each one a structured workflow with steps, verification gates, and anti-rationalization tables. The skills are organized by phase below; each phase also includes the relevant Skill Extras integrated into its workflow.
 
 ### Define - Clarify what to build
 
@@ -148,12 +191,21 @@ The commands above are the entry points. Under the hood, they activate these 21 
 |-------|-------------|----------|
 | [idea-refine](skills/idea-refine/SKILL.md) | Structured divergent/convergent thinking to turn vague ideas into concrete proposals | You have a rough concept that needs exploration |
 | [spec-driven-development](skills/spec-driven-development/SKILL.md) | Write a PRD covering objectives, commands, structure, code style, testing, and boundaries before any code | Starting a new project, feature, or significant change |
+| [agent-md-refactor](skills/agent-md-refactor/SKILL.md) | Refactor bloated agent instruction files (AGENTS.md, CLAUDE.md) following progressive disclosure | Your AGENTS.md is too long (>200 lines), contradictory, or hard to maintain (PRE-FLIGHT in `/spec`) |
+| [crafting-effective-readmes](skills/crafting-effective-readmes/SKILL.md) | Write or improve READMEs matching your audience (OSS, internal, personal, config) | Writing or improving README files (PRE-FLIGHT in `/spec` if no README exists) |
+| [clean-ddd-hexagonal](skills/clean-ddd-hexagonal/SKILL.md) | Combine Clean Architecture, DDD tactical patterns, and Hexagonal ports/adapters | Designing APIs, microservices, or complex backend domains |
+| [design-patterns](skills/design-patterns/SKILL.md) | Apply GoF and enterprise design patterns matching the problem context | Solving recurring design problems, refactoring, or reviewing structure |
+| [architecture-diagrams](skills/architecture-diagrams/SKILL.md) | Create system architecture diagrams using Mermaid, PlantUML, C4 model, and flowcharts | Documenting architecture, designing systems, or creating technical documentation |
+| [ui-ux-design-pro](skills/ui-ux-design-pro/SKILL.md) | Professional UI/UX design with design systems, tokens, palettes, and high-fidelity prototyping | Designing user interfaces, dashboards, or applications with high visual quality |
 
 ### Plan - Break it down
 
 | Skill | What It Does | Use When |
 |-------|-------------|----------|
 | [planning-and-task-breakdown](skills/planning-and-task-breakdown/SKILL.md) | Decompose specs into small, verifiable tasks with acceptance criteria and dependency ordering | You have a spec and need implementable units |
+| [clean-ddd-hexagonal](skills/clean-ddd-hexagonal/SKILL.md) | Combine Clean Architecture, DDD tactical patterns, and Hexagonal ports/adapters | Decomposing backend modules or designing domain logic |
+| [design-patterns](skills/design-patterns/SKILL.md) | Apply GoF and enterprise design patterns matching the problem context | Defining implementation patterns or solving design problems during planning |
+| [architecture-diagrams](skills/architecture-diagrams/SKILL.md) | Create system architecture diagrams using Mermaid, PlantUML, C4 model, and flowcharts | Visualizing dependencies, flows, or system architecture during planning |
 
 ### Build - Write the code
 
@@ -165,6 +217,12 @@ The commands above are the entry points. Under the hood, they activate these 21 
 | [source-driven-development](skills/source-driven-development/SKILL.md) | Ground every framework decision in official documentation - verify, cite sources, flag what's unverified | You want authoritative, source-cited code for any framework or library |
 | [frontend-ui-engineering](skills/frontend-ui-engineering/SKILL.md) | Component architecture, design systems, state management, responsive design, WCAG 2.1 AA accessibility | Building or modifying user-facing interfaces |
 | [api-and-interface-design](skills/api-and-interface-design/SKILL.md) | Contract-first design, Hyrum's Law, One-Version Rule, error semantics, boundary validation | Designing APIs, module boundaries, or public interfaces |
+| [solid](skills/solid/SKILL.md) | Apply SOLID principles, TDD, clean code, and professional software design | Writing, refactoring, or reviewing any code |
+| [error-handling-patterns](skills/error-handling-patterns/SKILL.md) | Master error handling patterns including exceptions, Result types, and graceful degradation | Implementing error handling, designing resilient APIs, or improving reliability |
+| [ui-ux-design-pro](skills/ui-ux-design-pro/SKILL.md) | Professional UI/UX design with design systems, tokens, palettes, and high-fidelity prototyping | Implementing UI from design specifications or improving existing UI |
+| [design-taste-frontend](skills/design-taste-frontend/SKILL.md) | Metric-based visual consistency rules to override default LLM biases | Validating visual consistency, spacing, typography, and design quality in frontend |
+| [bash-defensive-patterns](skills/bash-defensive-patterns/SKILL.md) | Apply defensive Bash scripting patterns (strict mode, traps, safe variable handling) | Writing robust shell scripts, CI/CD pipelines, or system utilities |
+| [clean-ddd-hexagonal](skills/clean-ddd-hexagonal/SKILL.md) | Combine Clean Architecture, DDD tactical patterns, and Hexagonal ports/adapters | Implementing domain logic or backend services using DDD patterns |
 
 ### Verify - Prove it works
 
@@ -172,6 +230,8 @@ The commands above are the entry points. Under the hood, they activate these 21 
 |-------|-------------|----------|
 | [browser-testing-with-devtools](skills/browser-testing-with-devtools/SKILL.md) | Chrome DevTools MCP for live runtime data - DOM inspection, console logs, network traces, performance profiling | Building or debugging anything that runs in a browser |
 | [debugging-and-error-recovery](skills/debugging-and-error-recovery/SKILL.md) | Five-step triage: reproduce, localize, reduce, fix, guard. Stop-the-line rule, safe fallbacks | Tests fail, builds break, or behavior is unexpected |
+| [error-handling-patterns](skills/error-handling-patterns/SKILL.md) | Master error handling patterns including exceptions, Result types, and graceful degradation | Testing error paths, resilience, or edge cases |
+| [design-taste-frontend](skills/design-taste-frontend/SKILL.md) | Metric-based visual consistency rules to override default LLM biases | Verifying visual consistency, spacing, typography, and design quality in frontend |
 
 ### Review - Quality gates before merge
 
@@ -181,6 +241,11 @@ The commands above are the entry points. Under the hood, they activate these 21 
 | [code-simplification](skills/code-simplification/SKILL.md) | Chesterton's Fence, Rule of 500, reduce complexity while preserving exact behavior | Code works but is harder to read or maintain than it should be |
 | [security-and-hardening](skills/security-and-hardening/SKILL.md) | OWASP Top 10 prevention, auth patterns, secrets management, dependency auditing, three-tier boundary system | Handling user input, auth, data storage, or external integrations |
 | [performance-optimization](skills/performance-optimization/SKILL.md) | Measure-first approach - Core Web Vitals targets, profiling workflows, bundle analysis, anti-pattern detection | Performance requirements exist or you suspect regressions |
+| [solid](skills/solid/SKILL.md) | Apply SOLID principles, TDD, clean code, and professional software design | Evaluating code quality, maintainability, or design principles |
+| [error-handling-patterns](skills/error-handling-patterns/SKILL.md) | Master error handling patterns including exceptions, Result types, and graceful degradation | Reviewing error handling, resilience, or API contracts |
+| [design-patterns](skills/design-patterns/SKILL.md) | Apply GoF and enterprise design patterns matching the problem context | Reviewing code structure, design patterns, or architectural decisions |
+| [refactoring-patterns](skills/refactoring-patterns/SKILL.md) | Apply named refactoring transformations to improve code structure without changing behavior | Code needs structural improvement, code smells present, or preparing for new features |
+| [design-taste-frontend](skills/design-taste-frontend/SKILL.md) | Metric-based visual consistency rules to override default LLM biases | Reviewing frontend for visual consistency, spacing, typography, or design quality |
 
 ### Ship - Deploy with confidence
 
@@ -191,25 +256,12 @@ The commands above are the entry points. Under the hood, they activate these 21 
 | [deprecation-and-migration](skills/deprecation-and-migration/SKILL.md) | Code-as-liability mindset, compulsory vs advisory deprecation, migration patterns, zombie code removal | Removing old systems, migrating users, or sunsetting features |
 | [documentation-and-adrs](skills/documentation-and-adrs/SKILL.md) | Architecture Decision Records, API docs, inline documentation standards - document the *why* | Making architectural decisions, changing APIs, or shipping features |
 | [shipping-and-launch](skills/shipping-and-launch/SKILL.md) | Pre-launch checklists, feature flag lifecycle, staged rollouts, rollback procedures, monitoring setup | Preparing to deploy to production |
+| [crafting-effective-readmes](skills/crafting-effective-readmes/SKILL.md) | Write or improve READMEs matching your audience (OSS, internal, personal, config) | Generating or updating README files for documentation |
+| [architecture-diagrams](skills/architecture-diagrams/SKILL.md) | Create system architecture diagrams using Mermaid, PlantUML, C4 model, and flowcharts | Documenting final architecture, system design, or technical workflows |
+| [bash-defensive-patterns](skills/bash-defensive-patterns/SKILL.md) | Apply defensive Bash scripting patterns (strict mode, traps, safe variable handling) | Writing robust CI/CD scripts, deployment scripts, or system utilities |
+| [incident-response](skills/incident-response/SKILL.md) | Run incident response workflow — triage, communicate, and write blameless postmortem | Handling production incidents, triaging alerts, or managing post-launch issues |
 
-### Skill Extras
 
-Additional skills that extend the template across multiple phases. Skill Extras are **loaded explicitly** by the agent when the task matches their trigger conditions — they do not activate automatically via slash commands. Load them with `Load @skills/<skill-name>/SKILL.md`.
-
-| Skill | What It Does | Use When |
-|-------|-------------|----------|
-| [agent-md-refactor](skills/agent-md-refactor/SKILL.md) | Refactor bloated agent instruction files (AGENTS.md, CLAUDE.md) following progressive disclosure | Your AGENTS.md is too long, contradictory, or hard to maintain |
-| [bash-defensive-patterns](skills/bash-defensive-patterns/SKILL.md) | Apply defensive Bash scripting patterns (strict mode, traps, safe variable handling) | Writing robust shell scripts, CI/CD pipelines, or system utilities |
-| [clean-ddd-hexagonal](skills/clean-ddd-hexagonal/SKILL.md) | Combine Clean Architecture, DDD tactical patterns, and Hexagonal ports/adapters | Designing APIs, microservices, or complex backend domains |
-| [crafting-effective-readmes](skills/crafting-effective-readmes/SKILL.md) | Write or improve READMEs matching your audience (OSS, internal, personal, config) | Writing or improving README files |
-| [design-patterns](skills/design-patterns/SKILL.md) | Apply GoF and enterprise design patterns matching the problem context | Solving recurring design problems, refactoring, or reviewing structure |
-| [design-taste-frontend](skills/design-taste-frontend/SKILL.md) | Define criterios de buen gusto y consistencia visual en frontend con reglas métricas | Cuando necesitas validar decisiones de estilo y coherencia visual |
-| [solid](skills/solid/SKILL.md) | Apply SOLID principles, TDD, clean code, and professional software design | Writing, refactoring, or reviewing any code |
-| [ui-ux-design-pro](skills/ui-ux-design-pro/SKILL.md) | Diseño UI/UX profesional con sistemas de diseño, tokens, paletas y prototipado de alta fidelidad | Cuando necesitas diseñar interfaces atractivas, accesibles y centradas en el usuario |
-| [refactoring-patterns](skills/refactoring-patterns/SKILL.md) | Apply named refactoring transformations to improve code structure without changing behavior | Code needs structural improvement, code smells present, or preparing for new features |
-| [error-handling-patterns](skills/error-handling-patterns/SKILL.md) | Master error handling patterns including exceptions, Result types, and graceful degradation | Implementing error handling, designing resilient APIs, or improving reliability |
-| [architecture-diagrams](skills/architecture-diagrams/SKILL.md) | Create system architecture diagrams using Mermaid, PlantUML, C4 model, and flowcharts | Documenting architecture, designing systems, or creating technical documentation |
-| [incident-response](skills/incident-response/SKILL.md) | Run incident response workflow — triage, communicate, and write blameless postmortem | Production is down, an alert needs severity assessment, or writing a postmortem |
 
 ---
 

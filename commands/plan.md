@@ -5,6 +5,15 @@ agent: analysis
 
 Invoke the @skills/planning-and-task-breakdown/SKILL.md.
 
+## Skill Extras Referenciables
+During the planning process, reference these Skill Extras when applicable:
+
+- **Domain Decomposition**: `@skills/clean-ddd-hexagonal/SKILL.md` (Clean Architecture + DDD + Hexagonal patterns for module breakdown)
+- **Design Patterns**: `@skills/design-patterns/SKILL.md` (GoF and enterprise patterns for implementation planning)
+- **Architecture Visualization**: `@skills/architecture-diagrams/SKILL.md` (Visualize dependencies and flows with Mermaid/PlantUML/C4)
+
+---
+
 Read the existing spec (SPEC.md or equivalent) and the relevant codebase sections. Then:
 
 1. Enter plan mode — read only, no code changes
@@ -14,4 +23,4 @@ Read the existing spec (SPEC.md or equivalent) and the relevant codebase section
 5. Add checkpoints between phases
 6. Present the plan for human review
 
-Save the plan to tasks/plan.md and task list to tasks/todo.md.
+Save the plan to `tasks/plan.md` and task list to `tasks/todo.md`.

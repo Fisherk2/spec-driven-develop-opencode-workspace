@@ -9,6 +9,14 @@ description: Creates specs before coding. Use when starting a new project, featu
 
 Write a structured specification before writing any code. The spec is the shared source of truth between you and the human engineer — it defines what we're building, why, and how we'll know it's done. Code without a spec is guessing.
 
+## Skill Extras Referenciables
+During spec-driven development, reference these Skill Extras when applicable:
+
+- **Backend Architecture**: `@skills/clean-ddd-hexagonal/SKILL.md` (Design backend using Clean Architecture, DDD, and Hexagonal patterns)
+- **Design Patterns**: `@skills/design-patterns/SKILL.md` (Apply GoF and enterprise design patterns for recurring problems)
+- **Architecture Diagrams**: `@skills/architecture-diagrams/SKILL.md` (Document system architecture using Mermaid, PlantUML, or C4 model)
+- **UI/UX Design**: `@skills/ui-ux-design-pro/SKILL.md` (Design professional UI/UX with design systems and high-fidelity prototyping)
+
 ## When to Use
 
 - Starting a new project or feature

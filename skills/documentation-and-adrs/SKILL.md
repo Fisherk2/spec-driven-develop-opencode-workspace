@@ -9,6 +9,12 @@ description: Records decisions and documentation. Use when making architectural 
 
 Document decisions, not just code. The most valuable documentation captures the *why* — the context, constraints, and trade-offs that led to a decision. Code shows *what* was built; documentation explains *why it was built this way* and *what alternatives were considered*. This context is essential for future humans and agents working in the codebase.
 
+## Skill Extras Referenciables
+During documentation and ADR creation, reference these Skill Extras when applicable:
+
+- **README Writing**: `@skills/crafting-effective-readmes/SKILL.md` (Write or improve README files tailored to your audience)
+- **Architecture Diagrams**: `@skills/architecture-diagrams/SKILL.md` (Create system architecture diagrams using Mermaid, PlantUML, or C4 model for documentation)
+
 ## When to Use
 
 - Making a significant architectural decision
