@@ -6,7 +6,7 @@
 
   "agent": {
     "build": {
-      "model": "opencode/nemotron-3-super-free",
+      "model": "opencode/deepseek-v4-flash-free",
       "disable": true
     },
     "plan": {
@@ -14,7 +14,7 @@
       "disable": true
     },
     "explore": {
-      "model": "openrouter/meta-llama/llama-4-scout:free"
+      "model": "opencode/nemotron-3-super-free"
     }
   },
 
@@ -34,10 +34,25 @@
       "find *": "allow",
       "echo": "allow",
       "echo *": "allow",
+      "printf *": "allow",
       "cat *": "allow",
       "head *": "allow",
       "tail *": "allow",
       "sort *": "allow",
+      "uniq *": "allow",
+      "cut *": "allow",
+      "awk *": "allow",
+      "sed *": "allow",
+      "tr *": "allow",
+      "diff *": "allow",
+      "tee *": "allow",
+      "xargs *": "allow",
+      "nl *": "allow",
+      "column *": "allow",
+      "cksum *": "allow",
+      "env": "deny",
+      "env *": "deny",
+      "printenv *": "deny",
       "which *": "allow",
       "pwd": "allow",
       "file *": "allow",
@@ -50,7 +65,12 @@
       "git status *": "allow",
       "git diff *": "allow",
       "git log *": "allow",
-      "git branch *": "allow"
+      "git branch *": "allow",
+      "* .env": "deny",
+      "* .env.*": "deny",
+      "* ./.env": "deny",
+      "* ./.env.*": "deny",
+      "* .env.example": "allow"
     },
     "read": {
       "*": "allow",

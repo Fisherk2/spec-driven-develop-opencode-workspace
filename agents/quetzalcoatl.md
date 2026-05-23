@@ -50,7 +50,7 @@ Classify the request as **ANALYSIS** (search/explain/compare/diagnose/read/inves
 3. **Return** direct findings to the user.
 
 ### DOCUMENTATION
-1. **Contextualize** — Read project docs in this order: `AGENTS.md` → `WORKFLOW.md` → `SPEC.md` → `README.md` → `docs/` → Context7
+1. **Contextualize** — Read project docs in this order: `AGENTS.md` → `WORKFLOW.md` → `SPEC.md` → `README.md` → `docs/` → `skills/` → Context7
    - Load skills from: `skills/` → `.opencode/skills/` → `~/.config/opencode/skills/`
    - Context7 is the fallback when project documentation lacks the answer.
 2. **Resolve ambiguities** — If unclear, generate an ASK-USER-QUESTION (3-8 questions) citing docs/codebase context and offering options based on patterns, technologies, or design principles. Wait for clarification.

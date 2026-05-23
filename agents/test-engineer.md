@@ -7,7 +7,6 @@ permission:
   write: ask
   edit: ask
   bash:
-    "*": ask
     "npm test *": allow
     "npx vitest *": allow
     "npx jest *": allow
