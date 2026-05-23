@@ -27,10 +27,30 @@
   "permission": {
     "bash": {
       "*": "ask",
+      "ls": "allow",
+      "ls *": "allow",
+      "grep *": "allow",
+      "wc *": "allow",
+      "find *": "allow",
+      "echo": "allow",
+      "echo *": "allow",
+      "cat *": "allow",
+      "head *": "allow",
+      "tail *": "allow",
+      "sort *": "allow",
+      "which *": "allow",
+      "pwd": "allow",
+      "file *": "allow",
+      "stat *": "allow",
+      "du *": "allow",
+      "date *": "allow",
+      "dirname *": "allow",
+      "basename *": "allow",
+      "realpath *": "allow",
       "git status *": "allow",
       "git diff *": "allow",
       "git log *": "allow",
-      "grep *": "allow"
+      "git branch *": "allow"
     },
     "read": {
       "*": "allow",

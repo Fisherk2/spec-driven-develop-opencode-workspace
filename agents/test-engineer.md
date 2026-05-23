@@ -6,7 +6,6 @@ temperature: 0.2
 permission:
   write: ask
   edit: ask
-  read: allow
   bash:
     "*": ask
     "npm test *": allow

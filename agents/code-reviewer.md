@@ -6,7 +6,6 @@ temperature: 0.1
 permission:
   write: deny
   edit: deny
-  read: allow
   bash:
     "*": deny
     "git diff *": allow
