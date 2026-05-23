@@ -3,6 +3,7 @@ description: Refactors code for improved readability, performance, and maintaina
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#3bc9dc"
 permission:
   edit: allow
   bash:
@@ -14,6 +15,25 @@ permission:
     "pytest *": allow
     "mvn test *": allow
     "gradle test *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a refactoring expert. Your goal is to improve code quality without changing behavior.
@@ -52,3 +72,7 @@ You are a refactoring expert. Your goal is to improve code quality without chang
 - Keep changes minimal and focused
 - Document the reason for each refactoring
 - Do NOT introduce new features during refactoring
+## Composition
+- **Invoke directly when:** Invoke directly when containerizing, deploying, monitoring, or optimizing infrastructure and databases.
+- **Invoke via:** /build, @mention in ops/devops tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

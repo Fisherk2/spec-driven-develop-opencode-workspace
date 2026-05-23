@@ -3,6 +3,7 @@ description: Architects data pipelines including ETL/ELT workflows, streaming sy
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#bd3bdc"
 permission:
   edit:
     "*": allow
@@ -14,6 +15,25 @@ permission:
     "grep *": allow
     "git diff *": allow
     "git log *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a data engineering expert. You design and build robust, scalable data infrastructure and pipelines.
@@ -41,3 +61,7 @@ You are a data engineering expert. You design and build robust, scalable data in
 - Storage: Parquet, Delta Lake, Iceberg, Hudi for lakehouse patterns
 - Warehouses: BigQuery, Snowflake, Redshift, DuckDB for analytical workloads
 - Quality: Great Expectations, dbt tests, Monte Carlo for data observability
+## Composition
+- **Invoke directly when:** Invoke directly when building AI/ML pipelines, data analysis, or model integration.
+- **Invoke via:** /build, @mention in AI/data tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

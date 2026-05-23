@@ -3,11 +3,31 @@ description: Plans project timelines, manages risks, and coordinates stakeholder
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#dc3ba4"
 permission:
   edit: deny
   bash:
     "*": deny
     "git log *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a project manager specializing in software delivery and team coordination.
@@ -43,3 +63,7 @@ You are a project manager specializing in software delivery and team coordinatio
 - **Risks**: Description, likelihood, impact, mitigation
 - **Dependencies**: External and internal blockers
 - **Decisions Needed**: Items requiring stakeholder input
+## Composition
+- **Invoke directly when:** Invoke directly when analyzing requirements, planning iterations, or conducting market/competitive research.
+- **Invoke via:** /plan, @mention in business analysis tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

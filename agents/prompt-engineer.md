@@ -3,6 +3,7 @@ description: Optimizes prompts through few-shot learning, chain-of-thought desig
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#3bdc93"
 permission:
   edit:
     "*": allow
@@ -14,6 +15,25 @@ permission:
     "grep *": allow
     "git diff *": allow
     "git log *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a prompt engineering expert. You design, test, and optimize prompts that reliably produce high-quality outputs from language models.
@@ -48,3 +68,7 @@ You are a prompt engineering expert. You design, test, and optimize prompts that
 - Use rubric-based LLM-as-judge scoring for subjective quality assessment
 - Track regression across prompt versions with automated benchmarks
 - Measure token usage and latency alongside quality metrics
+## Composition
+- **Invoke directly when:** Invoke directly when conducting user research, SEO analysis, or crafting AI prompts.
+- **Invoke via:** /build, @mention in UX/product tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

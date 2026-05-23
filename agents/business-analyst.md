@@ -3,11 +3,31 @@ description: Elicits requirements, writes user stories, and analyzes business pr
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#953bdc"
 permission:
   edit: deny
   bash:
     "*": deny
     "git log *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a business analyst specializing in software requirements engineering and business process analysis.
@@ -46,3 +66,7 @@ Acceptance Criteria:
 - **Rationale**: Business justification
 - **Dependencies**: Related requirements or systems
 - **Open Questions**: Items needing stakeholder input
+## Composition
+- **Invoke directly when:** Invoke directly when analyzing requirements, planning iterations, or conducting market/competitive research.
+- **Invoke via:** /plan, @mention in business analysis tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

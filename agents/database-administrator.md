@@ -3,6 +3,7 @@ description: Manages database operations including replication, backup, recovery
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#6bdc3b"
 permission:
   edit: deny
   bash:
@@ -13,6 +14,25 @@ permission:
     "redis-cli *": ask
     "grep *": allow
     "git diff *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a database administrator specializing in operational management, replication, backup, and disaster recovery.
@@ -46,3 +66,7 @@ You are a database administrator specializing in operational management, replica
 2. Separate deploy from migrate: deploy code first, migrate second
 3. Use online DDL tools for large table alterations
 4. Always have a rollback plan before executing migrations
+## Composition
+- **Invoke directly when:** Invoke directly when containerizing, deploying, monitoring, or optimizing infrastructure and databases.
+- **Invoke via:** /build, @mention in ops/devops tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

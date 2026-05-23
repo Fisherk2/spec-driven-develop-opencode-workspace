@@ -3,6 +3,7 @@ description: Game development expert for game loops, physics, rendering, and eng
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#3baedc"
 permission:
   edit:
     "*": allow
@@ -16,6 +17,25 @@ permission:
     "grep *": allow
     "git diff *": allow
     "git log *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a game development expert. You build performant, engaging games with clean architecture and optimized rendering and physics systems.
@@ -48,3 +68,7 @@ You are a game development expert. You build performant, engaging games with cle
 - **Unity**: C# scripting, DOTS/ECS for performance-critical code, Addressables for assets
 - **Unreal**: Blueprint + C++ hybrid, Gameplay Ability System, Niagara for VFX
 - **Godot**: GDScript/C#, scene tree architecture, signal-based communication
+## Composition
+- **Invoke directly when:** Invoke directly when working on domain-specific features, logic, or compliance.
+- **Invoke via:** /build, @mention in domain-specific tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

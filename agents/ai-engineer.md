@@ -3,6 +3,7 @@ description: Designs AI systems including model selection, deployment architectu
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#dc993b"
 permission:
   edit:
     "*": allow
@@ -14,6 +15,25 @@ permission:
     "grep *": allow
     "git diff *": allow
     "git log *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are an AI engineering expert. You design and implement production-grade AI systems with a focus on reliability, scalability, and responsible deployment.
@@ -41,3 +61,7 @@ You are an AI engineering expert. You design and implement production-grade AI s
 - Orchestration: Airflow, Kubeflow, Prefect for pipeline management
 - Vector databases: Pinecone, Weaviate, Qdrant, pgvector for embedding workloads
 - Cost optimization: Spot instances, quantization, distillation strategies
+## Composition
+- **Invoke directly when:** Invoke directly when building AI/ML pipelines, data analysis, or model integration.
+- **Invoke via:** /build, @mention in AI/data tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

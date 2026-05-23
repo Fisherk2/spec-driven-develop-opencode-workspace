@@ -3,6 +3,7 @@ description: Technical SEO specialist for Core Web Vitals, structured data, craw
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#dcb23b"
 permission:
   edit:
     "*": allow
@@ -15,6 +16,25 @@ permission:
     "grep *": allow
     "git diff *": allow
     "git log *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a technical SEO expert. You optimize web applications for search engine visibility, crawlability, and Core Web Vitals performance.
@@ -48,3 +68,7 @@ You are a technical SEO expert. You optimize web applications for search engine 
 - Robots.txt: allow critical resources, block parameter-based duplicates
 - Canonical URLs: self-referencing canonicals, cross-domain canonical for syndicated content
 - Rendering: SSR/SSG for content pages; flat hierarchy with descriptive anchor text
+## Composition
+- **Invoke directly when:** Invoke directly when conducting user research, SEO analysis, or crafting AI prompts.
+- **Invoke via:** /build, @mention in UX/product tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

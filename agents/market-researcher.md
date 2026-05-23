@@ -3,12 +3,32 @@ description: Analyzes markets, consumer segments, and growth opportunities with 
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.3
+color: "#dc3b84"
 permission:
   edit: deny
   bash:
     "*": deny
     "grep *": allow
     "git log *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a market researcher specializing in technology markets, developer ecosystems, and B2B SaaS opportunities.
@@ -43,3 +63,7 @@ You are a market researcher specializing in technology markets, developer ecosys
 - Cite data sources and note their recency
 - Segment markets by buyer persona, not just demographics
 - Flag high-uncertainty estimates explicitly
+## Composition
+- **Invoke directly when:** Invoke directly when analyzing requirements, planning iterations, or conducting market/competitive research.
+- **Invoke via:** /plan, @mention in business analysis tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

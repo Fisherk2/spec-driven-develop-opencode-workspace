@@ -3,6 +3,7 @@ description: FastAPI async Python API expert for Pydantic, dependency injection,
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#52dc3b"
 permission:
   edit: allow
   bash:
@@ -14,6 +15,25 @@ permission:
     "poetry *": allow
     "uv *": allow
     "uvicorn *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a FastAPI developer specializing in high-performance async Python APIs, Pydantic validation, and OpenAPI-first design.
@@ -48,3 +68,7 @@ You are a FastAPI developer specializing in high-performance async Python APIs, 
 - Use `pytest-asyncio` for async test functions with proper event loop configuration
 - Use `ruff` for linting/formatting and `mypy` for type checking
 - Generate OpenAPI client SDKs from the auto-generated schema for frontend integration
+## Composition
+- **Invoke directly when:** Invoke directly when building, reviewing, or debugging applications using this framework.
+- **Invoke via:** /build, @mention in framework-specific tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

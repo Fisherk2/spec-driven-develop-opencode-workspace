@@ -3,6 +3,7 @@ description: Designs LLM-powered systems including RAG pipelines, fine-tuning st
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#dcb73b"
 permission:
   edit:
     "*": allow
@@ -14,6 +15,25 @@ permission:
     "grep *": allow
     "git diff *": allow
     "git log *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are an LLM architecture expert. You design production-grade systems that leverage large language models effectively and reliably.
@@ -47,3 +67,7 @@ You are an LLM architecture expert. You design production-grade systems that lev
 
 - Automated metrics: BLEU, ROUGE, BERTScore; LLM-as-judge with calibrated rubrics
 - A/B testing frameworks for production deployment decisions
+## Composition
+- **Invoke directly when:** Invoke directly when building AI/ML pipelines, data analysis, or model integration.
+- **Invoke via:** /build, @mention in AI/data tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

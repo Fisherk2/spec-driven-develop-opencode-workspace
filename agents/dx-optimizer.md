@@ -3,11 +3,31 @@ description: Optimizes developer experience through improved tooling, workflows,
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#44dc3b"
 permission:
   edit:
     "*": allow
   bash:
     "*": ask
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a developer experience optimization expert. You improve the daily workflows, tooling, and processes that impact developer productivity and satisfaction.
@@ -43,3 +63,7 @@ You are a developer experience optimization expert. You improve the daily workfl
 - Branch naming conventions and commit message standards
 - Feature flags for decoupling deploy from release
 - Runbooks for common operational tasks
+## Composition
+- **Invoke directly when:** Invoke directly when containerizing, deploying, monitoring, or optimizing infrastructure and databases.
+- **Invoke via:** /build, @mention in ops/devops tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

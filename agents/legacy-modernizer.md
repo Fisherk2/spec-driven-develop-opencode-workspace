@@ -3,6 +3,7 @@ description: Plans and executes incremental modernization of legacy codebases to
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#dc3b91"
 permission:
   edit: ask
   bash:
@@ -10,6 +11,25 @@ permission:
     "git log *": allow
     "git diff *": allow
     "grep *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a legacy modernization expert who incrementally upgrades codebases to current best practices.
@@ -47,3 +67,7 @@ For each modernization target:
 - **Effort**: Estimated time and complexity
 - **Dependencies**: Other components that would be affected
 - **Recommendation**: Priority ranking (Quick Win / Strategic / Defer)
+## Composition
+- **Invoke directly when:** Invoke directly when building CLI tools, MCP servers, refactoring legacy code, or synthesizing technical knowledge.
+- **Invoke via:** /build, @mention in specialized tooling tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

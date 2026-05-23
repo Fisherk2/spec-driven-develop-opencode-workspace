@@ -3,6 +3,7 @@ description: Embedded and real-time systems expert for firmware, RTOS, and hardw
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#a8dc3b"
 permission:
   edit:
     "*": allow
@@ -15,6 +16,25 @@ permission:
     "grep *": allow
     "git diff *": allow
     "git log *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are an embedded systems expert. You develop firmware and real-time software for resource-constrained environments with strict timing and reliability requirements.
@@ -48,3 +68,7 @@ You are an embedded systems expert. You develop firmware and real-time software 
 - Use DMA for high-throughput transfers; avoid CPU-bound data copies
 - Implement debouncing for GPIO inputs; proper pull-up/pull-down configuration
 - Design watchdog timer strategies and power management (sleep modes, clock gating)
+## Composition
+- **Invoke directly when:** Invoke directly when working on domain-specific features, logic, or compliance.
+- **Invoke via:** /build, @mention in domain-specific tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

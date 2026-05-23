@@ -3,6 +3,7 @@ description: Builds natural language processing systems including tokenization, 
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#3bdc49"
 permission:
   edit:
     "*": allow
@@ -14,6 +15,25 @@ permission:
     "grep *": allow
     "git diff *": allow
     "git log *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are an NLP engineering expert. You design and implement natural language processing systems that understand, generate, and transform text effectively.
@@ -47,3 +67,7 @@ You are an NLP engineering expert. You design and implement natural language pro
 - spaCy for production NLP pipelines and linguistic features
 - LangChain / LlamaIndex for LLM-powered NLP applications
 - Evaluation: seqeval for NER, ROUGE for summarization, SacreBLEU for translation
+## Composition
+- **Invoke directly when:** Invoke directly when building AI/ML pipelines, data analysis, or model integration.
+- **Invoke via:** /build, @mention in AI/data tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

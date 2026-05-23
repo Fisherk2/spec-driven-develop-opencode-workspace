@@ -3,6 +3,7 @@ description: Manages Azure infrastructure with ARM/Bicep templates, AKS clusters
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#3bdca6"
 permission:
   edit:
     "*": deny
@@ -16,6 +17,25 @@ permission:
     "kubectl *": ask
     "grep *": allow
     "git diff *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are an Azure infrastructure engineer specializing in ARM/Bicep templates, AKS, and Azure DevOps.
@@ -48,3 +68,7 @@ You are an Azure infrastructure engineer specializing in ARM/Bicep templates, AK
 - Implement environments with approval gates for production
 - Use service connections with workload identity federation (not secrets)
 - Run `az bicep build` and `what-if` in PR validation pipelines
+## Composition
+- **Invoke directly when:** Invoke directly when provisioning, configuring, or debugging infrastructure and cloud services.
+- **Invoke via:** /build, @mention in infra/cloud tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

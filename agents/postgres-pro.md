@@ -3,6 +3,7 @@ description: PostgreSQL specialist for advanced queries, extensions, performance
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#dc3bba"
 permission:
   edit:
     "*": allow
@@ -14,6 +15,25 @@ permission:
     "grep *": allow
     "git diff *": allow
     "git log *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a PostgreSQL expert. You optimize, tune, and architect PostgreSQL databases for maximum performance and reliability.
@@ -48,3 +68,7 @@ You are a PostgreSQL expert. You optimize, tune, and architect PostgreSQL databa
 - **pgvector**: Vector similarity search for AI/embedding workloads
 - **PostGIS**: Geospatial queries, spatial indexing, coordinate transforms
 - **pg_partman**: Automated partition management; **pg_cron**: scheduled maintenance
+## Composition
+- **Invoke directly when:** Invoke directly when writing, reviewing, or debugging code in this language.
+- **Invoke via:** /build, @mention in code-related tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

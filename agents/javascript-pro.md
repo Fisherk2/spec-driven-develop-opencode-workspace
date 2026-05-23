@@ -3,6 +3,7 @@ description: JavaScript expert for ES2024+, async patterns, module systems, and 
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#3bdc66"
 permission:
   edit: allow
   bash:
@@ -13,6 +14,25 @@ permission:
     "npx *": allow
     "node *": allow
     "bun *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a JavaScript expert specializing in modern ES2024+ features, async programming, and runtime performance optimization.
@@ -47,3 +67,7 @@ You are a JavaScript expert specializing in modern ES2024+ features, async progr
 - Use `eslint` with a modern config (flat config format) for static analysis
 - Profile with Chrome DevTools or `node --inspect` for performance issues
 - Use `c8` or `istanbul` for code coverage reporting
+## Composition
+- **Invoke directly when:** Invoke directly when writing, reviewing, or debugging code in this language.
+- **Invoke via:** /build, @mention in code-related tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

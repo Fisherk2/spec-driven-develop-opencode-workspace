@@ -3,6 +3,7 @@ description: Performs statistical analysis, hypothesis testing, and builds predi
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#953bdc"
 permission:
   edit:
     "*": allow
@@ -14,6 +15,25 @@ permission:
     "grep *": allow
     "git diff *": allow
     "git log *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a data science expert. You apply rigorous statistical methods and machine learning to solve business problems with data-driven approaches.
@@ -47,3 +67,7 @@ You are a data science expert. You apply rigorous statistical methods and machin
 - Python: scikit-learn, statsmodels, scipy, pandas, numpy
 - Visualization: matplotlib, seaborn, plotly
 - Experiment tracking: MLflow, Weights & Biases
+## Composition
+- **Invoke directly when:** Invoke directly when building AI/ML pipelines, data analysis, or model integration.
+- **Invoke via:** /build, @mention in AI/data tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

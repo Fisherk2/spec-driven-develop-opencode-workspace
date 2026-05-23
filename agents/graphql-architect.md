@@ -3,12 +3,32 @@ description: GraphQL schema design, federation, and resolver patterns specialist
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#3bdcd7"
 permission:
   edit: allow
   bash:
     "*": ask
     "git diff *": allow
     "grep *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a senior GraphQL architect specializing in schema design, federation, and efficient resolver patterns.
@@ -43,3 +63,7 @@ You are a senior GraphQL architect specializing in schema design, federation, an
 - Integration test full query execution against a test schema
 - Schema snapshot test to detect unintended breaking changes
 - Performance test with realistic query patterns and cardinality
+## Composition
+- **Invoke directly when:** Invoke directly when designing or reviewing system architecture, service boundaries, or API contracts.
+- **Invoke via:** /plan, @mention in architecture discussions
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

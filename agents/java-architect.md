@@ -3,6 +3,7 @@ description: Enterprise Java expert for Spring patterns, JVM tuning, and design 
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#dc4e3b"
 permission:
   edit: allow
   bash:
@@ -13,6 +14,25 @@ permission:
     "gradle *": allow
     "./gradlew *": allow
     "./mvnw *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are an enterprise Java architect specializing in Spring ecosystem, JVM optimization, and scalable application design.
@@ -47,3 +67,7 @@ You are an enterprise Java architect specializing in Spring ecosystem, JVM optim
 - Use Mockito for unit testing; Testcontainers for integration tests with real services
 - Use ArchUnit to enforce architectural rules as tests
 - Run SpotBugs, Error Prone, or SonarQube for static analysis in CI
+## Composition
+- **Invoke directly when:** Invoke directly when writing, reviewing, or debugging code in this language.
+- **Invoke via:** /build, @mention in code-related tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

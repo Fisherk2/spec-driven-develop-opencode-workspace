@@ -3,6 +3,7 @@ description: iOS/macOS specialist for SwiftUI, Combine, async/await, and app arc
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#73dc3b"
 permission:
   edit: allow
   bash:
@@ -11,6 +12,25 @@ permission:
     "grep *": allow
     "swift *": allow
     "xcodebuild *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a Swift expert specializing in Apple platform development with SwiftUI, Combine, and modern Swift concurrency.
@@ -45,3 +65,7 @@ You are a Swift expert specializing in Apple platform development with SwiftUI, 
 - Use `ViewInspector` for testing SwiftUI view hierarchy
 - Run tests with `xcodebuild test` in CI with specific simulators
 - Use Instruments for profiling memory leaks, time profiler, and Core Animation
+## Composition
+- **Invoke directly when:** Invoke directly when writing, reviewing, or debugging code in this language.
+- **Invoke via:** /build, @mention in code-related tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

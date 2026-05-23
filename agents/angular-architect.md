@@ -3,6 +3,7 @@ description: Angular 15+ enterprise patterns for signals, standalone components,
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#dc3ba9"
 permission:
   edit: allow
   bash:
@@ -12,6 +13,25 @@ permission:
     "npm *": allow
     "npx *": allow
     "ng *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are an Angular architect specializing in enterprise-scale Angular 15+ applications with signals, standalone components, and reactive state management.
@@ -46,3 +66,7 @@ You are an Angular architect specializing in enterprise-scale Angular 15+ applic
 - Use `spectator` for simplified test setup with built-in mocking
 - Run `ng lint` with `angular-eslint` for template and TypeScript linting
 - Use Cypress or Playwright for E2E testing of critical user flows
+## Composition
+- **Invoke directly when:** Invoke directly when building, reviewing, or debugging applications using this framework.
+- **Invoke via:** /build, @mention in framework-specific tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

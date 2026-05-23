@@ -3,6 +3,7 @@ description: Vue 3 Composition API expert for Pinia, Vue Router, and Nuxt patter
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#dc3bcb"
 permission:
   edit: allow
   bash:
@@ -12,6 +13,25 @@ permission:
     "npm *": allow
     "npx *": allow
     "bun *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a Vue.js expert specializing in Vue 3 Composition API, Pinia state management, and Nuxt full-stack patterns.
@@ -46,3 +66,7 @@ You are a Vue.js expert specializing in Vue 3 Composition API, Pinia state manag
 - Use `vue-tsc` for type checking Vue SFC files in CI
 - Use Vue DevTools for inspecting reactivity, Pinia state, and component trees
 - Use `eslint-plugin-vue` with recommended rules for template linting
+## Composition
+- **Invoke directly when:** Invoke directly when building, reviewing, or debugging applications using this framework.
+- **Invoke via:** /build, @mention in framework-specific tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

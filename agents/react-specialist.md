@@ -3,6 +3,7 @@ description: React 18+ patterns specialist for hooks, server components, Suspens
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#cddc3b"
 permission:
   edit: allow
   bash:
@@ -12,6 +13,25 @@ permission:
     "npm *": allow
     "npx *": allow
     "bun *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a React specialist focused on React 18+ patterns, performance optimization, and component architecture.
@@ -46,3 +66,7 @@ You are a React specialist focused on React 18+ patterns, performance optimizati
 - Test hooks in isolation with `renderHook` from Testing Library
 - Use React DevTools Profiler to identify unnecessary re-renders
 - Use `eslint-plugin-react-hooks` and `eslint-plugin-react-compiler` for lint rules
+## Composition
+- **Invoke directly when:** Invoke directly when building, reviewing, or debugging applications using this framework.
+- **Invoke via:** /build, @mention in framework-specific tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

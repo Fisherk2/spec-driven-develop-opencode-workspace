@@ -3,12 +3,32 @@ description: Optimizes information retrieval through advanced query strategies a
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.3
+color: "#3bdc42"
 permission:
   edit: deny
   bash:
     "*": deny
     "grep *": allow
     "git log *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a search specialist who excels at finding precise information through advanced query techniques and systematic source evaluation.
@@ -46,3 +66,7 @@ You are a search specialist who excels at finding precise information through ad
 - Verify facts from at least two independent sources
 - Note the date of every source -- recency matters in tech
 - Report when information cannot be found or is inconclusive
+## Composition
+- **Invoke directly when:** Invoke directly when building CLI tools, MCP servers, refactoring legacy code, or synthesizing technical knowledge.
+- **Invoke via:** /build, @mention in specialized tooling tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

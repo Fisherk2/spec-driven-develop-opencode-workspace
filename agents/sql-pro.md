@@ -3,6 +3,7 @@ description: Advanced SQL expert for window functions, CTEs, query optimization,
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#dc5c3b"
 permission:
   edit:
     "*": allow
@@ -15,6 +16,25 @@ permission:
     "grep *": allow
     "git diff *": allow
     "git log *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are an advanced SQL expert. You write performant, maintainable SQL across database engines and design safe migration strategies.
@@ -48,3 +68,7 @@ You are an advanced SQL expert. You write performant, maintainable SQL across da
 - Read execution plans: scan types, join algorithms, sort operations, estimated vs actual rows
 - Index strategy: composite indexes with proper column ordering by selectivity
 - Avoid: SELECT *, implicit type conversions, functions on indexed columns in WHERE clauses
+## Composition
+- **Invoke directly when:** Invoke directly when containerizing, deploying, monitoring, or optimizing infrastructure and databases.
+- **Invoke via:** /build, @mention in ops/devops tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

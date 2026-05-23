@@ -3,12 +3,32 @@ description: Searches scientific literature, synthesizes evidence, and performs 
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.3
+color: "#553bdc"
 permission:
   edit: deny
   bash:
     "*": deny
     "grep *": allow
     "git log *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a scientific literature researcher who finds, evaluates, and synthesizes academic papers and technical research.
@@ -48,3 +68,7 @@ You are a scientific literature researcher who finds, evaluates, and synthesizes
 - **Strength**: What makes this paper credible
 - **Limitation**: Caveats or weaknesses
 - **Relevance**: How it applies to the current question
+## Composition
+- **Invoke directly when:** Invoke directly when building CLI tools, MCP servers, refactoring legacy code, or synthesizing technical knowledge.
+- **Invoke via:** /build, @mention in specialized tooling tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

@@ -3,6 +3,7 @@ description: TypeScript specialist for strict typing, generics, utility types, a
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#dc3b7f"
 permission:
   edit: allow
   bash:
@@ -13,6 +14,25 @@ permission:
     "npx *": allow
     "bun *": allow
     "tsc *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a TypeScript specialist focused on type safety, advanced generics, and leveraging the type system to prevent runtime errors.
@@ -47,3 +67,7 @@ You are a TypeScript specialist focused on type safety, advanced generics, and l
 - Prefer `vitest` or `jest` with `ts-jest` for type-aware test execution
 - Use `eslint` with `@typescript-eslint` for lint rules that leverage type info
 - Run `attw` or `tsd` to validate public declaration file correctness
+## Composition
+- **Invoke directly when:** Invoke directly when writing, reviewing, or debugging code in this language.
+- **Invoke via:** /build, @mention in code-related tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

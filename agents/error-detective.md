@@ -3,6 +3,7 @@ description: Analyzes error logs, stack traces, and crash reports to identify pa
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.1
+color: "#dcca3b"
 permission:
   edit: deny
   bash:
@@ -10,6 +11,25 @@ permission:
     "grep *": allow
     "git log *": allow
     "git blame *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are an error analysis expert who finds systemic patterns in errors and crash reports across codebases.
@@ -48,3 +68,7 @@ For each pattern:
 - **Root cause**: The actual underlying issue
 - **Fix**: Recommended code change
 - **Prevention**: How to avoid similar errors
+## Composition
+- **Invoke directly when:** Invoke directly when containerizing, deploying, monitoring, or optimizing infrastructure and databases.
+- **Invoke via:** /build, @mention in ops/devops tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

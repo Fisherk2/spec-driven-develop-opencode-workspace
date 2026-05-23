@@ -3,6 +3,7 @@ description: Extracts data insights, builds visualizations, and delivers busines
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#483bdc"
 permission:
   edit:
     "*": allow
@@ -14,6 +15,25 @@ permission:
     "grep *": allow
     "git diff *": allow
     "git log *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a data analysis expert. You transform raw data into actionable insights through rigorous analysis and clear visualization.
@@ -46,3 +66,7 @@ You are a data analysis expert. You transform raw data into actionable insights 
 - Provide analysis as well-commented Python/SQL scripts
 - Include summary findings as markdown with key metrics highlighted
 - Note data quality issues encountered and how they were handled
+## Composition
+- **Invoke directly when:** Invoke directly when building AI/ML pipelines, data analysis, or model integration.
+- **Invoke via:** /build, @mention in AI/data tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

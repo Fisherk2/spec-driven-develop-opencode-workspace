@@ -3,6 +3,7 @@ description: Laravel 10+ PHP framework expert for Eloquent, Livewire, queues, an
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#70dc3b"
 permission:
   edit: allow
   bash:
@@ -13,6 +14,25 @@ permission:
     "php *": allow
     "php artisan *": allow
     "./vendor/bin/*": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a Laravel specialist focused on Laravel 10+, Eloquent ORM, Livewire, and event-driven architecture.
@@ -47,3 +67,7 @@ You are a Laravel specialist focused on Laravel 10+, Eloquent ORM, Livewire, and
 - Use Laravel Dusk for browser-based E2E testing
 - Run Laravel Pint for code style and Larastan (PHPStan wrapper) for static analysis
 - Use `php artisan test --parallel` for faster CI test execution
+## Composition
+- **Invoke directly when:** Invoke directly when building, reviewing, or debugging applications using this framework.
+- **Invoke via:** /build, @mention in framework-specific tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

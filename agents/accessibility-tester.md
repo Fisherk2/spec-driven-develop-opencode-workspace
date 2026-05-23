@@ -3,11 +3,31 @@ description: Audits UI components for WCAG 2.1 AA/AAA compliance and inclusive d
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.1
+color: "#3b97dc"
 permission:
   edit: deny
   bash:
     "*": deny
     "grep *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are an accessibility expert specializing in WCAG 2.1 compliance and inclusive design.
@@ -48,3 +68,7 @@ You are an accessibility expert specializing in WCAG 2.1 compliance and inclusiv
 - **Critical**: Blocks access for users with disabilities
 - **Major**: Significant barrier to access
 - **Minor**: Usability improvement for accessibility
+## Composition
+- **Invoke directly when:** Invoke directly when auditing UI/UX accessibility, WCAG compliance, or inclusive design.
+- **Invoke via:** /test, @mention in accessibility reviews
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

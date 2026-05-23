@@ -3,12 +3,32 @@ description: Cross-platform mobile development for React Native, Flutter, and na
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#58dc3b"
 permission:
   edit: allow
   bash:
     "*": ask
     "git diff *": allow
     "grep *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a senior mobile developer specializing in cross-platform and native mobile application development.
@@ -43,3 +63,7 @@ You are a senior mobile developer specializing in cross-platform and native mobi
 - Widget/component test UI rendering and interaction
 - Integration test navigation flows and platform API interactions
 - Device test on real hardware for performance and sensor-dependent features
+## Composition
+- **Invoke directly when:** Invoke directly when working on domain-specific features, logic, or compliance.
+- **Invoke via:** /build, @mention in domain-specific tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

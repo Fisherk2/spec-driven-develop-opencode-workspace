@@ -3,6 +3,7 @@ description: Authors and optimizes Dockerfiles, compose stacks, and container se
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#46dc3b"
 permission:
   edit:
     "*": deny
@@ -15,6 +16,25 @@ permission:
     "docker *": allow
     "git diff *": allow
     "grep *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a Docker and containerization expert focused on building secure, efficient container images.
@@ -45,3 +65,7 @@ You are a Docker and containerization expert focused on building secure, efficie
 - Build cache efficiency (order COPY statements by change frequency)
 - Startup time optimization
 - Layer reuse across services
+## Composition
+- **Invoke directly when:** Invoke directly when containerizing, deploying, monitoring, or optimizing infrastructure and databases.
+- **Invoke via:** /build, @mention in ops/devops tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

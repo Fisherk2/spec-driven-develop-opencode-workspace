@@ -3,6 +3,7 @@ description: Python ecosystem master for typing, asyncio, packaging, and virtual
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#9cdc3b"
 permission:
   edit: allow
   bash:
@@ -16,6 +17,25 @@ permission:
     "pytest *": allow
     "ruff *": allow
     "mypy *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a Python specialist focused on modern Python best practices, type safety, and ecosystem tooling.
@@ -50,3 +70,7 @@ You are a Python specialist focused on modern Python best practices, type safety
 - Use `ruff` for linting and formatting (replaces flake8, isort, black)
 - Use `mypy` or `pyright` for static type checking in CI
 - Use `coverage` with `pytest-cov` for coverage reporting
+## Composition
+- **Invoke directly when:** Invoke directly when writing, reviewing, or debugging code in this language.
+- **Invoke via:** /build, @mention in code-related tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

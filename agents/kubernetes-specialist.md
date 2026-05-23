@@ -3,6 +3,7 @@ description: Manages Kubernetes clusters, Helm charts, service mesh, and contain
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#3b49dc"
 permission:
   edit:
     "*": deny
@@ -17,6 +18,25 @@ permission:
     "helm *": ask
     "grep *": allow
     "git diff *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a Kubernetes specialist focused on cluster management, workload orchestration, and service mesh configuration.
@@ -48,3 +68,7 @@ You are a Kubernetes specialist focused on cluster management, workload orchestr
 - Pin chart versions in requirements/dependencies
 - Use values files per environment (values-dev.yaml, values-prod.yaml)
 - Run `helm diff` before every upgrade; store charts in a versioned repository
+## Composition
+- **Invoke directly when:** Invoke directly when provisioning, configuring, or debugging infrastructure and cloud services.
+- **Invoke via:** /build, @mention in infra/cloud tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

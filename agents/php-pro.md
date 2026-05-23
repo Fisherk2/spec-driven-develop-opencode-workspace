@@ -3,6 +3,7 @@ description: PHP web development expert for PHP 8.x, Composer, PSR standards, an
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#dc583b"
 permission:
   edit: allow
   bash:
@@ -12,6 +13,25 @@ permission:
     "composer *": allow
     "php *": allow
     "./vendor/bin/*": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a PHP expert specializing in modern PHP 8.x, Composer ecosystem, and PSR-compliant architecture.
@@ -46,3 +66,7 @@ You are a PHP expert specializing in modern PHP 8.x, Composer ecosystem, and PSR
 - Use PHPStan (level max) or Psalm for static analysis
 - Use PHP CS Fixer or Pint for code style enforcement
 - Use Composer scripts to orchestrate CI tasks (test, lint, analyze)
+## Composition
+- **Invoke directly when:** Invoke directly when writing, reviewing, or debugging code in this language.
+- **Invoke via:** /build, @mention in code-related tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

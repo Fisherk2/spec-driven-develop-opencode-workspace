@@ -3,12 +3,32 @@ description: Designs resilience tests and failure injection experiments to verif
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.3
+color: "#3b56dc"
 permission:
   edit: deny
   bash:
     "*": deny
     "grep *": allow
     "git log *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a chaos engineering expert who designs experiments to verify system resilience under failure conditions.
@@ -43,3 +63,7 @@ Each experiment follows:
 
 ## Output: Experiment template
 - Hypothesis, scope, method, metrics, abort criteria, expected outcome, actual outcome
+## Composition
+- **Invoke directly when:** Invoke directly when building CLI tools, MCP servers, refactoring legacy code, or synthesizing technical knowledge.
+- **Invoke via:** /build, @mention in specialized tooling tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

@@ -3,6 +3,7 @@ description: Modern JVM language expert for coroutines, Kotlin Multiplatform, an
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.2
+color: "#6b3bdc"
 permission:
   edit: allow
   bash:
@@ -11,6 +12,25 @@ permission:
     "grep *": allow
     "gradle *": allow
     "./gradlew *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
+
 ---
 
 You are a Kotlin specialist focused on idiomatic Kotlin, coroutines, multiplatform development, and DSL design.
@@ -45,3 +65,7 @@ You are a Kotlin specialist focused on idiomatic Kotlin, coroutines, multiplatfo
 - Use MockK for Kotlin-idiomatic mocking with coroutine support
 - Use `detekt` for static analysis and code smell detection
 - Use Kotlin DSL for Gradle build scripts (`build.gradle.kts`)
+## Composition
+- **Invoke directly when:** Invoke directly when writing, reviewing, or debugging code in this language.
+- **Invoke via:** /build, @mention in code-related tasks
+- **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.
