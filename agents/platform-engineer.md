@@ -1,7 +1,6 @@
 ---
 description: Designs internal developer platforms with golden paths, self-service tooling, and guardrails
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
 temperature: 0.1
 color: "#3bdcbe"
 hidden: true

@@ -13,6 +13,9 @@
       "model": "opencode/big-pickle",
       "disable": true
     },
+    "platform-engineer": {
+      "hidden": true
+    },
     "explore": {
       "model": "opencode/nemotron-3-super-free"
     }
