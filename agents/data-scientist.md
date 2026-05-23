@@ -1,9 +1,9 @@
 ---
 description: Performs statistical analysis, hypothesis testing, and builds predictive models from data
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#953bdc"
+hidden: true
 permission:
   edit:
     "*": allow
@@ -32,7 +32,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

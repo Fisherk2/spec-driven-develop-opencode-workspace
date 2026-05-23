@@ -1,9 +1,9 @@
 ---
 description: C++ performance expert for modern C++20/23, RAII, templates, and memory management
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#dcab3b"
+hidden: true
 permission:
   edit: allow
   bash:
@@ -12,6 +12,8 @@ permission:
     "grep *": allow
     "cmake *": allow
     "make *": allow
+    "g++ *": allow
+    "clang++ *": allow
   grep: allow
   glob: allow
   lsp: allow
@@ -29,7 +31,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

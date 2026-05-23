@@ -1,11 +1,12 @@
 ---
 description: Optimizes context usage across agent conversations to prevent bloat and maintain focus
 mode: subagent
-model: anthropic/claude-haiku-4-20250514
 temperature: 0.1
 color: "#3bb8dc"
+hidden: true
 permission:
-  edit: deny
+  write: ask
+  edit: ask
   bash:
     "*": deny
     "git status *": allow
@@ -27,7 +28,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

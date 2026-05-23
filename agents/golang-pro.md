@@ -1,9 +1,9 @@
 ---
 description: Go concurrency specialist for goroutines, channels, interfaces, and error handling
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#80dc3b"
+hidden: true
 permission:
   edit: allow
   bash:
@@ -11,6 +11,8 @@ permission:
     "git diff *": allow
     "grep *": allow
     "go *": allow
+    "gofmt *": allow
+    "golangci-lint *": allow
   grep: allow
   glob: allow
   lsp: allow
@@ -28,7 +30,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

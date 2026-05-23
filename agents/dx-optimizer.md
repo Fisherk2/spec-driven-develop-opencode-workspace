@@ -2,13 +2,51 @@
 description: Optimizes developer experience through improved tooling, workflows, onboarding, and inner loop efficiency
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#44dc3b"
+hidden: true
 permission:
   edit:
     "*": allow
   bash:
-    "*": ask
+    "*": deny
+    "kubectl *": allow
+    "helm *": allow
+    "terraform *": allow
+    "tofu *": allow
+    "aws *": allow
+    "gcloud *": allow
+    "az *": allow
+    "docker *": allow
+    "git *": allow
+    "grep *": allow
+    "python *": allow
+    "pip *": allow
+    "bun *": allow
+    "npm *": allow
+    "node *": allow
+    "ls *": allow
+    "find *": allow
+    "cat *": allow
+    "echo *": allow
+    "mkdir *": allow
+    "cp *": allow
+    "mv *": allow
+    "rm *": allow
+    "chmod *": allow
+    "chown *": allow
+    "tar *": allow
+    "zip *": allow
+    "unzip *": allow
+    "curl *": allow
+    "wget *": allow
+    "ssh *": allow
+    "scp *": allow
+    "rsync *": allow
+    "ping *": allow
+    "traceroute *": allow
+    "dig *": allow
+    "nslookup *": allow
   grep: allow
   glob: allow
   lsp: allow
@@ -26,8 +64,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
-
+    budgetTokens: 8000
 ---
 
 You are a developer experience optimization expert. You improve the daily workflows, tooling, and processes that impact developer productivity and satisfaction.

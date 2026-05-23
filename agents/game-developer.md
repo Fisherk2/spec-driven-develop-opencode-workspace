@@ -1,9 +1,9 @@
 ---
 description: Game development expert for game loops, physics, rendering, and engine-specific implementation
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#3baedc"
+hidden: true
 permission:
   edit:
     "*": allow
@@ -34,7 +34,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

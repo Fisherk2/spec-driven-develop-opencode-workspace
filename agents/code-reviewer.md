@@ -3,6 +3,7 @@ description: Senior code reviewer that evaluates changes across five dimensions 
 mode: subagent
 color: "#00BFFF"
 temperature: 0.1
+hidden: true
 permission:
   write: deny
   edit: deny
@@ -12,6 +13,28 @@ permission:
     "git log *": allow
     "git status *": allow
     "git show *": allow
+    "python *": allow
+    "pip *": allow
+    "bun *": allow
+    "npm *": allow
+    "node *": allow
+    "ls *": allow
+    "find *": allow
+    "cat *": allow
+    "echo *": allow
+    "mkdir *": allow
+    "cp *": allow
+    "mv *": allow
+    "rm *": allow
+    "chmod *": allow
+    "chown *": allow
+    "tar *": allow
+    "zip *": allow
+    "unzip *": allow
+    "curl *": allow
+    "wget *": allow
+    "grep *": allow
+    "git *": allow
   grep: allow
   glob: allow
   lsp: allow
@@ -30,7 +53,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 ---
 
 # Senior Code Reviewer

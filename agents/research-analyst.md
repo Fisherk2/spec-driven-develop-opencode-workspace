@@ -1,9 +1,9 @@
 ---
 description: Conducts comprehensive research with source evaluation, cross-referencing, and structured synthesis
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.3
+temperature: 0.1
 color: "#3bdc6f"
+hidden: true
 permission:
   edit: deny
   bash:
@@ -27,7 +27,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

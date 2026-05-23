@@ -3,6 +3,7 @@ description: Debugging specialist for systematic root-cause analysis across any 
 mode: subagent
 color: "#800080"
 temperature: 0.1
+hidden: true
 permission:
   write: deny
   edit: deny
@@ -13,6 +14,33 @@ permission:
     "git diff *": allow
     "git bisect *": allow
     "git blame *": allow
+    "python *": allow
+    "pip *": allow
+    "bun *": allow
+    "npm *": allow
+    "node *": allow
+    "ls *": allow
+    "find *": allow
+    "cat *": allow
+    "echo *": allow
+    "mkdir *": allow
+    "cp *": allow
+    "mv *": allow
+    "rm *": allow
+    "chmod *": allow
+    "chown *": allow
+    "tar *": allow
+    "zip *": allow
+    "unzip *": allow
+    "curl *": allow
+    "wget *": allow
+    "ssh *": allow
+    "scp *": allow
+    "rsync *": allow
+    "ping *": allow
+    "traceroute *": allow
+    "dig *": allow
+    "nslookup *": allow
   grep: allow
   glob: allow
   skill: allow
@@ -29,7 +57,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 ---
 
 # Debugger

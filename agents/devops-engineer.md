@@ -1,12 +1,12 @@
 ---
 description: Builds and optimizes CI/CD pipelines, build automation, and environment configuration
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#a9dc3b"
+hidden: true
 permission:
   edit:
-    "*": deny
+    "*": allow
     ".github/*": allow
     ".gitlab-ci*": allow
     "Jenkinsfile*": allow
@@ -33,7 +33,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

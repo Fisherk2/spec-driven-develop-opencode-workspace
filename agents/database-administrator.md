@@ -1,11 +1,12 @@
 ---
 description: Manages database operations including replication, backup, recovery, and capacity planning
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#6bdc3b"
+hidden: true
 permission:
-  edit: deny
+  edit:
+    "*": allow
   bash:
     "*": deny
     "psql *": ask

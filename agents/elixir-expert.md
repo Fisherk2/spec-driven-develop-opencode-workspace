@@ -1,9 +1,9 @@
 ---
 description: Elixir and OTP fault-tolerant systems specialist for GenServer, Phoenix, and LiveView
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#3bd2dc"
+hidden: true
 permission:
   edit: allow
   bash:
@@ -30,7 +30,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

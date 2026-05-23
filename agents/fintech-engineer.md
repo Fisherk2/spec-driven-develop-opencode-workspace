@@ -1,9 +1,9 @@
 ---
 description: Financial technology specialist for payment processing, regulatory compliance, and ledger systems
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#c3dc3b"
+hidden: true
 permission:
   edit:
     "*": allow
@@ -32,7 +32,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

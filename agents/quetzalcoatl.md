@@ -6,6 +6,9 @@ temperature: 0.2
 permission:
   write: ask
   edit: ask
+  glob: allow
+  grep: allow
+  lsp: allow
   patch: ask
   skill: allow
   todowrite: allow
@@ -84,4 +87,4 @@ What shall we specify, design, or document?
 
 ## Composition
 - **Invoke directly when:** Project analysis, architecture planning, documentation creation/updates, or workflow design.
-- **Do not invoke from:** Another persona for code implementation — those belong to `Tezcatlipoca`.
+- **Do not invoke from:** Another persona for code implementation — those belong to @tezcatlipoca.

@@ -1,11 +1,12 @@
 ---
 description: Designs multi-cloud architectures across AWS, GCP, and Azure with cost optimization and resilience
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#3bdcb8"
+hidden: true
 permission:
-  edit: deny
+  edit:
+    "*": allow
   bash:
     "*": deny
     "aws *": ask

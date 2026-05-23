@@ -1,14 +1,14 @@
 ---
 description: Conducts user research, designs usability tests, and develops personas for product decisions
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#3b70dc"
+hidden: true
 permission:
-  edit: deny
+  write: ask
+  edit: ask
   bash:
     "*": deny
-    "git log *": allow
   grep: allow
   glob: allow
   lsp: allow
@@ -26,7 +26,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

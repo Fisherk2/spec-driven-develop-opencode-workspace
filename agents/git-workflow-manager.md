@@ -3,12 +3,34 @@ description: Git workflow manager for branching strategies, commit hygiene, conf
 mode: subagent
 color: "#C0C0C0"
 temperature: 0.1
+hidden: true
 permission:
-  write: deny
-  edit: deny
+  write: allow
+  edit: allow
   bash:
     "*": deny
     "git *": allow
+    "ls *": allow
+    "find *": allow
+    "cat *": allow
+    "head *": allow
+    "tail *": allow
+    "less *": allow
+    "more *": allow
+    "wc *": allow
+    "sort *": allow
+    "uniq *": allow
+    "curl *": allow
+    "wget *": allow
+    "python *": allow
+    "pip *": allow
+    "node *": allow
+    "npm *": allow
+    "bun *": allow
+    "make *": allow
+    "gradle *": allow
+    "maven *": allow
+    "dotnet *": allow
   grep: allow
   glob: allow
   skill: allow
@@ -25,7 +47,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 ---
 
 # Git Workflow Manager

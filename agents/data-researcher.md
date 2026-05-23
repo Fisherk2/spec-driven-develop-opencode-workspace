@@ -1,11 +1,12 @@
 ---
 description: Discovers datasets, evaluates data quality, and performs statistical analysis for decision support
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.3
+temperature: 0.1
 color: "#dcd63b"
+hidden: true
 permission:
-  edit: deny
+  edit:
+    "*": allow
   bash:
     "*": deny
     "grep *": allow
@@ -27,7 +28,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

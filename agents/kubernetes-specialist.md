@@ -1,9 +1,9 @@
 ---
 description: Manages Kubernetes clusters, Helm charts, service mesh, and container orchestration
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#3b49dc"
+hidden: true
 permission:
   edit:
     "*": deny
@@ -35,7 +35,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

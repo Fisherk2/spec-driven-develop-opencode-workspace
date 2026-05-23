@@ -2,14 +2,32 @@
 description: Technical writer specialized in project documentation, README files, API docs, architecture guides, and changelogs. Use for creating or improving documentation across the project.
 mode: subagent
 color: "#FFD700"
-temperature: 0.3
+temperature: 0.1
+hidden: true
 permission:
-  write: ask
-  edit: ask
+  write: allow
+  edit: allow
   bash:
     "*": deny
-    "git log *": allow
-    "git diff *": allow
+    "git *": allow
+    "ls *": allow
+    "find *": allow
+    "cat *": allow
+    "head *": allow
+    "tail *": allow
+    "less *": allow
+    "more *": allow
+    "wc *": allow
+    "sort *": allow
+    "uniq *": allow
+    "curl *": allow
+    "wget *": allow
+    "python *": allow
+    "pip *": allow
+    "node *": allow
+    "npm *": allow
+    "bun *": allow
+    "grep *": allow
   grep: allow
   glob: allow
   skill: allow
@@ -26,7 +44,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 ---
 
 # Technical Writer

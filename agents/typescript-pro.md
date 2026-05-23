@@ -1,9 +1,9 @@
 ---
 description: TypeScript specialist for strict typing, generics, utility types, and declaration files
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#dc3b7f"
+hidden: true
 permission:
   edit: allow
   bash:
@@ -31,7 +31,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

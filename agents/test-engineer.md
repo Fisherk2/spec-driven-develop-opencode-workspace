@@ -3,15 +3,41 @@ description: QA engineer specialized in test strategy, test writing, and coverag
 mode: subagent
 color: "#32CD32"
 temperature: 0.2
+hidden: true
 permission:
   write: ask
   edit: ask
   bash:
+    "*": deny
     "npm test *": allow
     "npx vitest *": allow
     "npx jest *": allow
     "npx pytest *": allow
     "npx mocha *": allow
+    "npx tsc *": allow
+    "node *": allow
+    "python *": allow
+    "pip *": allow
+    "bun *": allow
+    "npm *": allow
+    "npx *": allow
+    "ls *": allow
+    "find *": allow
+    "cat *": allow
+    "echo *": allow
+    "mkdir *": allow
+    "cp *": allow
+    "mv *": allow
+    "rm *": allow
+    "chmod *": allow
+    "chown *": allow
+    "tar *": allow
+    "zip *": allow
+    "unzip *": allow
+    "curl *": allow
+    "wget *": allow
+    "grep *": allow
+    "git *": allow
   grep: allow
   glob: allow
   lsp: allow
@@ -30,7 +56,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 ---
 
 # Test Engineer

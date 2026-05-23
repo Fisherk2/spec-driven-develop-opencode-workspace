@@ -1,14 +1,14 @@
 ---
 description: Creates content strategy, SEO-optimized technical writing, and developer marketing materials
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#3bbbdc"
+hidden: true
 permission:
-  edit: deny
+  write: ask
+  edit: ask
   bash:
     "*": deny
-    "git log *": allow
   grep: allow
   glob: allow
   lsp: allow
@@ -26,7 +26,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

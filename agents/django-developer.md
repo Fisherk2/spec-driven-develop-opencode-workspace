@@ -1,9 +1,9 @@
 ---
 description: Django 4+ expert for ORM, REST framework, Celery, signals, and middleware
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#d73bdc"
+hidden: true
 permission:
   edit: allow
   bash:
@@ -31,7 +31,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

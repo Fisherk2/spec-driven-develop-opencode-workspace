@@ -3,17 +3,34 @@ description: Incident response commander for production incidents — triage, se
 mode: subagent
 color: "#FF0000"
 temperature: 0.1
+hidden: true
 permission:
-  write: ask
-  edit: ask
+  write: allow
+  edit: allow
   bash:
-    "*": ask
+    "*": deny
     "grep *": allow
-    "git log *": allow
-    "git diff *": allow
+    "git *": allow
     "journalctl *": allow
     "kubectl *": allow
     "docker *": allow
+    "ls *": allow
+    "find *": allow
+    "cat *": allow
+    "head *": allow
+    "tail *": allow
+    "less *": allow
+    "more *": allow
+    "wc *": allow
+    "sort *": allow
+    "uniq *": allow
+    "curl *": allow
+    "wget *": allow
+    "python *": allow
+    "pip *": allow
+    "node *": allow
+    "npm *": allow
+    "bun *": allow
   grep: allow
   glob: allow
   skill: allow
@@ -30,7 +47,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 ---
 
 # Incident Responder

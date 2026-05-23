@@ -2,13 +2,50 @@
 description: Designs and implements command-line tools with excellent UX, argument parsing, and output formatting
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#3b74dc"
+hidden: true
 permission:
   edit:
     "*": allow
   bash:
-    "*": ask
+    "*": deny
+    "go *": allow
+    "gofmt *": allow
+    "golangci-lint *": allow
+    "rustc *": allow
+    "cargo *": allow
+    "clippy *": allow
+    "node *": allow
+    "npm *": allow
+    "npx *": allow
+    "bun *": allow
+    "yarn *": allow
+    "python *": allow
+    "pip *": allow
+    "poetry *": allow
+    "uv *": allow
+    "make *": allow
+    "gcc *": allow
+    "clang *": allow
+    "cmake *": allow
+    "git *": allow
+    "grep *": allow
+    "ls *": allow
+    "find *": allow
+    "cat *": allow
+    "echo *": allow
+    "mkdir *": allow
+    "cp *": allow
+    "mv *": allow
+    "rm *": allow
+    "chmod *": allow
+    "chown *": allow
+    "tar *": allow
+    "zip *": allow
+    "unzip *": allow
+    "curl *": allow
+    "wget *": allow
   grep: allow
   glob: allow
   lsp: allow
@@ -26,8 +63,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
-
+    budgetTokens: 8000
 ---
 
 You are a CLI development expert. You build command-line tools that are intuitive, well-documented, and follow platform conventions.

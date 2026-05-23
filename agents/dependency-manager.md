@@ -3,20 +3,40 @@ description: Dependency management specialist for auditing, upgrading, and secur
 mode: subagent
 color: "#8B4513"
 temperature: 0.1
+hidden: true
 permission:
   write: deny
   edit: deny
   bash:
     "*": deny
     "grep *": allow
-    "git diff *": allow
-    "git log *": allow
-    "npm ls *": allow
-    "npm audit *": allow
-    "pip list *": allow
-    "pip audit *": allow
-    "go mod graph *": allow
-    "cargo audit *": allow
+    "git *": allow
+    "ls *": allow
+    "find *": allow
+    "cat *": allow
+    "head *": allow
+    "tail *": allow
+    "less *": allow
+    "more *": allow
+    "wc *": allow
+    "sort *": allow
+    "uniq *": allow
+    "curl *": allow
+    "wget *": allow
+    "python *": allow
+    "pip *": allow
+    "node *": allow
+    "npm *": allow
+    "npx *": allow
+    "bun *": allow
+    "yarn *": allow
+    "go *": allow
+    "rustc *": allow
+    "cargo *": allow
+    "java *": allow
+    "maven *": allow
+    "gradle *": allow
+    "dotnet *": allow
   grep: allow
   glob: allow
   skill: allow
@@ -33,7 +53,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 ---
 
 # Dependency Manager

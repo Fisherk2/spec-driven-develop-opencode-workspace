@@ -4,13 +4,29 @@ mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.1
 color: "#dcca3b"
+hidden: true
 permission:
   edit: deny
   bash:
-    "*": ask
+    "*": deny
+    "cat *": allow
+    "head *": allow
+    "tail *": allow
+    "less *": allow
+    "more *": allow
     "grep *": allow
-    "git log *": allow
-    "git blame *": allow
+    "egrep *": allow
+    "fgrep *": allow
+    "awk *": allow
+    "sed *": allow
+    "wc *": allow
+    "sort *": allow
+    "uniq *": allow
+    "git *": allow
+    "ls *": allow
+    "find *": allow
+    "du *": allow
+    "df *": allow
   grep: allow
   glob: allow
   lsp: allow
@@ -28,8 +44,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
-
+    budgetTokens: 8000
 ---
 
 You are an error analysis expert who finds systemic patterns in errors and crash reports across codebases.

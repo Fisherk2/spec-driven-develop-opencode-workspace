@@ -2,13 +2,50 @@
 description: Develops Model Context Protocol servers, tools, and integrations for AI agent workflows
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#dc3b7a"
+hidden: true
 permission:
   edit:
     "*": allow
   bash:
-    "*": ask
+    "*": deny
+    "go *": allow
+    "gofmt *": allow
+    "golangci-lint *": allow
+    "rustc *": allow
+    "cargo *": allow
+    "clippy *": allow
+    "node *": allow
+    "npm *": allow
+    "npx *": allow
+    "bun *": allow
+    "yarn *": allow
+    "python *": allow
+    "pip *": allow
+    "poetry *": allow
+    "uv *": allow
+    "make *": allow
+    "gcc *": allow
+    "clang *": allow
+    "cmake *": allow
+    "git *": allow
+    "grep *": allow
+    "ls *": allow
+    "find *": allow
+    "cat *": allow
+    "echo *": allow
+    "mkdir *": allow
+    "cp *": allow
+    "mv *": allow
+    "rm *": allow
+    "chmod *": allow
+    "chown *": allow
+    "tar *": allow
+    "zip *": allow
+    "unzip *": allow
+    "curl *": allow
+    "wget *": allow
   grep: allow
   glob: allow
   lsp: allow
@@ -26,8 +63,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
-
+    budgetTokens: 8000
 ---
 
 You are an MCP (Model Context Protocol) development expert. You build MCP servers and integrations that extend AI agent capabilities with external tools and data sources.

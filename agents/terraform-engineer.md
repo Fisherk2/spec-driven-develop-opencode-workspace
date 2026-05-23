@@ -1,9 +1,9 @@
 ---
 description: Manages infrastructure as code with Terraform including modules, state management, and providers
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#dc3b6e"
+hidden: true
 permission:
   edit:
     "*": deny
@@ -37,7 +37,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

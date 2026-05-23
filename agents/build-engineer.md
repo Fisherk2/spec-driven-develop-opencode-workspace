@@ -2,19 +2,45 @@
 description: Build engineer specializing in build system optimization, CI/CD pipeline performance, Docker image optimization, and artifact management. Use when optimizing build times, Dockerfiles, or CI pipeline configuration.
 mode: subagent
 color: "#32CD32"
-temperature: 0.2
+temperature: 0.1
+hidden: true
 permission:
-  write: ask
-  edit: ask
+  write: allow
+  edit: allow
   bash:
-    "*": ask
+    "*": deny
     "docker *": allow
     "npm *": allow
     "bun *": allow
     "go build *": allow
     "rustc *": allow
-    "git log *": allow
-    "git diff *": allow
+    "git *": allow
+    "make *": allow
+    "cmake *": allow
+    "msbuild *": allow
+    "gradle *": allow
+    "maven *": allow
+    "ant *": allow
+    "bazel *": allow
+    "ls *": allow
+    "find *": allow
+    "cat *": allow
+    "echo *": allow
+    "mkdir *": allow
+    "cp *": allow
+    "mv *": allow
+    "rm *": allow
+    "chmod *": allow
+    "chown *": allow
+    "tar *": allow
+    "zip *": allow
+    "unzip *": allow
+    "curl *": allow
+    "wget *": allow
+    "python *": allow
+    "pip *": allow
+    "node *": allow
+    "grep *": allow
   grep: allow
   glob: allow
   skill: allow
@@ -31,7 +57,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 ---
 
 # Build Engineer

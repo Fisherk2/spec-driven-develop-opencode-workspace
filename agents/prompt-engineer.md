@@ -1,9 +1,9 @@
 ---
 description: Optimizes prompts through few-shot learning, chain-of-thought design, and systematic evaluation
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#3bdc93"
+hidden: true
 permission:
   edit:
     "*": allow
@@ -32,7 +32,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

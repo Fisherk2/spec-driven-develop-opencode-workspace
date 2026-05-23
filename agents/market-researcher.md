@@ -1,15 +1,13 @@
 ---
 description: Analyzes markets, consumer segments, and growth opportunities with data-driven insights
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.3
+temperature: 0.1
 color: "#dc3b84"
+hidden: true
 permission:
   edit: deny
   bash:
     "*": deny
-    "grep *": allow
-    "git log *": allow
   grep: allow
   glob: allow
   lsp: allow
@@ -27,7 +25,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

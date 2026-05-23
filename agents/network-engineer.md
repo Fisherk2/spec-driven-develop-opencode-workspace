@@ -1,9 +1,9 @@
 ---
 description: Designs network infrastructure including DNS, load balancing, firewalls, and VPN/peering
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
-temperature: 0.2
+temperature: 0.1
 color: "#dc3ba7"
+hidden: true
 permission:
   edit: deny
   bash:
@@ -32,7 +32,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 
 ---
 

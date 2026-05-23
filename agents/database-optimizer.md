@@ -3,6 +3,7 @@ description: Database optimization expert for schema design, query analysis, ind
 mode: subagent
 color: "#4169E1"
 temperature: 0.1
+hidden: true
 permission:
   write: deny
   edit: deny
@@ -11,8 +12,36 @@ permission:
     "grep *": allow
     "git diff *": allow
     "git log *": allow
+    "python *": allow
+    "pip *": allow
+    "bun *": allow
+    "npm *": allow
+    "node *": allow
+    "ls *": allow
+    "find *": allow
+    "cat *": allow
+    "echo *": allow
+    "mkdir *": allow
+    "cp *": allow
+    "mv *": allow
+    "rm *": allow
+    "chmod *": allow
+    "chown *": allow
+    "tar *": allow
+    "zip *": allow
+    "unzip *": allow
+    "curl *": allow
+    "wget *": allow
+    "ssh *": allow
+    "scp *": allow
+    "rsync *": allow
+    "ping *": allow
+    "traceroute *": allow
+    "dig *": allow
+    "nslookup *": allow
   grep: allow
   glob: allow
+  lsp: allow
   skill: allow
   todowrite: allow
   webfetch: allow
@@ -27,7 +56,7 @@ model_options:
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 6000
+    budgetTokens: 8000
 ---
 
 # Database Optimizer

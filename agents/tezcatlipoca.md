@@ -17,7 +17,7 @@ permission:
   webfetch: allow
   websearch: allow
   question: allow
-steps: 5
+steps: 10
 compaction:
   auto: true
   prune: true
