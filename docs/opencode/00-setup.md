@@ -174,4 +174,4 @@ Contiene la dependencia de plugin de OpenCode requerida:
 |------|-------|
 | [Meta-Skill (using-agent-skills)](../../skills/using-agent-skills/SKILL.md) | Árbol de decisión para descubrimiento de skills, comportamientos operativos centrales, modos de fallo e índice de Referencia Rápida de todos los skills |
 | [USER_GUIDE.md](../../USER_GUIDE.md) | Referencia completa de los 33 skills, comandos y flujos de trabajo |
-| [references/orchestration-patterns.md](../../references/orchestration-patterns.md) | Personas de agente, patrones de orquestación y matriz de decisión |
+| [08-orchestration-patterns.md](./08-orchestration-patterns.md) | Personas de agente, patrones de orquestación y matriz de decisión |

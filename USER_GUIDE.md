@@ -176,7 +176,7 @@ Skills are organized by SDD phase. Each skill has one canonical entry in its **p
 
 ## Agent Personas
 
-Pre-configured specialist personas for targeted reviews. For detailed orchestration patterns, see [references/orchestration-patterns.md](references/orchestration-patterns.md).
+Pre-configured specialist personas for targeted reviews. For detailed orchestration patterns, see [docs/opencode/08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md).
 
 | Agent | Role | Perspective | Use When |
 |-------|------|-------------|----------|
@@ -276,10 +276,19 @@ project-root/
 │   ├── testing-patterns.md
 │   ├── security-checklist.md
 │   ├── performance-checklist.md
-│   ├── accessibility-checklist.md
-│   └── orchestration-patterns.md
+│   └── accessibility-checklist.md
 │
 ├── docs/                       # Project documentation
+│   ├── opencode/               # OpenCode configuration guides
+│   │   ├── 00-setup.md
+│   │   ├── 01-agents.md
+│   │   ├── 02-skills.md
+│   │   ├── 03-mcp-servers.md
+│   │   ├── 04-models.md
+│   │   ├── 05-rules.md
+│   │   ├── 06-tools-and-custom-tools.md
+│   │   ├── 07-permissions.md
+│   │   └── 08-orchestration-patterns.md
 │   ├── ai-agent-setup/
 │   │   ├── opencode-setup.md
 │   │   ├── prompt-anatomy.md
@@ -327,9 +336,9 @@ For OpenCode configuration details (commands, agents, skill loading), see [docs/
 1. Create `agents/<agent-name>.md` with the same frontmatter format as existing agents
 2. Define the role, scope, output format, and rules
 3. Add a **Composition** block at the end (Invoke directly when / Invoke via / Do not invoke from another persona)
-4. Add the agent to the table in [references/orchestration-patterns.md](references/orchestration-patterns.md)
+4. Add the agent to the table in [docs/opencode/08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md)
 5. Update the Agent Personas section in this document
-6. If the agent enables a new orchestration pattern, document it in [references/orchestration-patterns.md](references/orchestration-patterns.md)
+6. If the agent enables a new orchestration pattern, document it in [docs/opencode/08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md)
 
 **Rules:**
 - Each agent is a single role with a single output format
@@ -410,7 +419,7 @@ Quick-reference material that skills pull in when needed:
 | [security-checklist.md](references/security-checklist.md) | Pre-commit checks, auth, input validation, headers, CORS, OWASP Top 10 |
 | [performance-checklist.md](references/performance-checklist.md) | Core Web Vitals targets, frontend/backend checklists, measurement commands |
 | [accessibility-checklist.md](references/accessibility-checklist.md) | Keyboard nav, screen readers, visual design, ARIA, testing tools |
-| [orchestration-patterns.md](references/orchestration-patterns.md) | Agent personas, orchestration patterns, and decision matrix |
+| [orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md) | Agent personas, orchestration patterns, and decision matrix |
 | [opencode-setup.md](docs/ai-agent-setup/opencode-setup.md) | OpenCode configuration, commands, agents, skill loading |
 | [skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md) | Skill creation guide and format specification |
 | [prompt-anatomy.md](docs/ai-agent-setup/prompt-anatomy.md) | Prompt templates and workflow for AI agents |

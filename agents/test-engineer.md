@@ -1,6 +1,42 @@
 ---
-name: test-engineer
 description: QA engineer specialized in test strategy, test writing, and coverage analysis. Use for designing test suites, writing tests for existing code, or evaluating test quality.
+mode: subagent
+color: "#32CD32"
+temperature: 0.2
+permission:
+  write: ask
+  edit: ask
+  read: allow
+  bash:
+    "*": ask
+    "npm test *": allow
+    "npx vitest *": allow
+    "npx jest *": allow
+    "npx pytest *": allow
+    "npx mocha *": allow
+    "git diff *": allow
+    "git log *": allow
+    "git status *": allow
+    "git show *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  patch: ask
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
 ---
 
 # Test Engineer
@@ -92,4 +128,4 @@ When analyzing test coverage:
 
 - **Invoke directly when:** the user asks for test design, coverage analysis, or a Prove-It test for a specific bug.
 - **Invoke via:** `/test` (TDD workflow) or `/ship` (parallel fan-out for coverage gap analysis alongside `code-reviewer` and `security-auditor`).
-- **Do not invoke from another persona.** Recommendations to add tests belong in your report; the user or a slash command decides when to act on them. See [references/orchestration-patterns.md](../references/orchestration-patterns.md).
+- **Do not invoke from another persona.** Recommendations to add tests belong in your report; the user or a slash command decides when to act on them. See [docs/opencode/08-orchestration-patterns.md](../docs/opencode/08-orchestration-patterns.md).

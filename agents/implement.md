@@ -110,7 +110,7 @@ Add or update documentation **only** when:
 
 **Concepts:** DDD (bounded contexts), Spec‑Driven Dev (Spec→Validate→Build→Verify), ADR, C4 Model
 
-> This agent is used after the Analysis phase. The user transitions from analysis to implementation following the sequential pipeline pattern (Pattern 4 in [orchestration-patterns.md](../references/orchestration-patterns.md)). Always maintain the separation of responsibilities between analysis (read‑only) and construction (write).
+> This agent is used after the Analysis phase. The user transitions from analysis to implementation following the sequential pipeline pattern (Pattern 4 in [08-orchestration-patterns.md](../docs/opencode/08-orchestration-patterns.md)). Always maintain the separation of responsibilities between analysis (read‑only) and construction (write).
 
 ---
 ## Composition

@@ -1,6 +1,37 @@
 ---
-name: security-auditor
 description: Security engineer focused on vulnerability detection, threat modeling, and secure coding practices. Use for security-focused code review, threat analysis, or hardening recommendations.
+mode: subagent
+color: "#FF4444"
+temperature: 0.1
+permission:
+  write: deny
+  edit: deny
+  read: allow
+  bash:
+    "*": deny
+    "git diff *": allow
+    "git log *": allow
+    "git status *": allow
+    "git show *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  patch: deny
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
 ---
 
 # Security Auditor
@@ -98,4 +129,4 @@ You are an experienced Security Engineer conducting a security review. Your role
 
 - **Invoke directly when:** the user wants a security-focused pass on a specific change, file, or system component.
 - **Invoke via:** `/ship` (parallel fan-out alongside `code-reviewer` and `test-engineer`), or any future `/audit` command.
-- **Do not invoke from another persona.** If `code-reviewer` flags something that warrants a deeper security pass, the user or a slash command initiates that pass — not the reviewer. See [references/orchestration-patterns.md](../references/orchestration-patterns.md).
+- **Do not invoke from another persona.** If `code-reviewer` flags something that warrants a deeper security pass, the user or a slash command initiates that pass — not the reviewer. See [docs/opencode/08-orchestration-patterns.md](../docs/opencode/08-orchestration-patterns.md).

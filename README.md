@@ -217,7 +217,7 @@ Los comandos slash y agentes se cargan automáticamente desde `commands/` y `.op
 | Guía | Descripción |
 |------|-------------|
 | [Guía completa](skills/using-agent-skills/SKILL.md) | Referencia detallada de todos los skills |
-| [Guía de agentes](references/orchestration-patterns.md) | Personas de agentes y orquestación |
+| [Guía de agentes](docs/opencode/08-orchestration-patterns.md) | Personas de agentes y orquestación |
 | [Contribuir](CONTRIBUTING.md) | Directrices de contribución |
 
 ---

@@ -1,6 +1,37 @@
 ---
-name: code-reviewer
 description: Senior code reviewer that evaluates changes across five dimensions — correctness, readability, architecture, security, and performance. Use for thorough code review before merge.
+mode: subagent
+color: "#00BFFF"
+temperature: 0.1
+permission:
+  write: deny
+  edit: deny
+  read: allow
+  bash:
+    "*": deny
+    "git diff *": allow
+    "git log *": allow
+    "git status *": allow
+    "git show *": allow
+  grep: allow
+  glob: allow
+  lsp: allow
+  patch: deny
+  skill: allow
+  todowrite: allow
+  webfetch: allow
+  websearch: allow
+  question: allow
+compaction:
+  auto: true
+  prune: true
+  reserved: 5000
+model_options:
+  textVerbosity: low
+  reasoningSummary: auto
+  thinking:
+    type: enabled
+    budgetTokens: 6000
 ---
 
 # Senior Code Reviewer
@@ -94,4 +125,4 @@ Categorize every finding:
 
 - **Invoke directly when:** the user asks for a review of a specific change, file, or PR.
 - **Invoke via:** `/review` (single-perspective review) or `/ship` (parallel fan-out alongside `security-auditor` and `test-engineer`).
-- **Do not invoke from another persona.** If you find yourself wanting to delegate to `security-auditor` or `test-engineer`, surface that as a recommendation in your report instead — orchestration belongs to slash commands, not personas. See [references/orchestration-patterns.md](../references/orchestration-patterns.md).
+- **Do not invoke from another persona.** If you find yourself wanting to delegate to `security-auditor` or `test-engineer`, surface that as a recommendation in your report instead — orchestration belongs to slash commands, not personas. See [docs/opencode/08-orchestration-patterns.md](../docs/opencode/08-orchestration-patterns.md).
