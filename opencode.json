@@ -19,7 +19,7 @@
   "instructions": [
     "CONTRIBUTING.md",
     "USER_GUIDE.md",
-    "docs/opencode/08-orchestration-patterns.md",
+    "docs/opencode/08-orchestration-patterns.md"
   ],
 
   "permission": {
