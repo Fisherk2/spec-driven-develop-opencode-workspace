@@ -13,10 +13,6 @@ permission:
     "npx jest *": allow
     "npx pytest *": allow
     "npx mocha *": allow
-    "git diff *": allow
-    "git log *": allow
-    "git status *": allow
-    "git show *": allow
   grep: allow
   glob: allow
   lsp: allow
