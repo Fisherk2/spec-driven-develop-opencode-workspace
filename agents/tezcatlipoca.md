@@ -1,7 +1,7 @@
 ---
-description: Build Agent - Execute Plans (Write/Edit Enabled)
+description: Plan Executer - Spec-Driven builder
 mode: primary
-color: "#FF55FF"
+color: "#ff3134"
 temperature: 0.4
 permission:
   write: allow
@@ -17,7 +17,7 @@ permission:
   webfetch: allow
   websearch: allow
   question: allow
-steps: 0
+steps: 5
 compaction:
   auto: true
   prune: true

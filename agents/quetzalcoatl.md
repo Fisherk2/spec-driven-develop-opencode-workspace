@@ -1,7 +1,7 @@
 ---
-description: Architect of Specifications - Spec-Driven Analysis
+description: Architect of Specifications - Spec-Driven planner
 mode: primary
-color: "#FFFF00"
+color: "#21cfff"
 temperature: 0.2
 permission:
   write: ask
@@ -17,7 +17,7 @@ permission:
   webfetch: allow
   websearch: allow
   question: allow
-steps: 15
+steps: 10
 compaction:
   auto: true
   prune: true
