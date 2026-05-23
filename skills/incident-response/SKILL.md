@@ -113,6 +113,11 @@ Provide clear, factual updates at regular cadence. Include: what's happening, wh
 ### Root Cause
 [Detailed explanation of what caused the incident]
 
+Distinguish between:
+- **Proximate cause** — the immediate trigger (e.g., "a nil pointer dereference")
+- **Root cause** — the systemic failure that allowed it (e.g., "no null check in the merge path, and no test covering that code path")
+- **Contributing factors** — conditions that made the incident worse or delayed detection
+
 ### 5 Whys
 1. Why did [symptom]? → [Because...]
 2. Why did [cause 1]? → [Because...]
@@ -126,13 +131,24 @@ Provide clear, factual updates at regular cadence. Include: what's happening, wh
 ### What Went Poorly
 - [Things that didn't work]
 
+### Where We Got Lucky
+- [Things that could have been worse but weren't — and shouldn't be relied on]
+
 ### Action Items
-| Action | Owner | Priority | Due Date |
-|--------|-------|----------|----------|
-| [Action] | [Person] | P0/P1/P2 | [Date] |
+| Action | Type | Owner | Priority | Due Date |
+|--------|------|-------|----------|----------|
+| [Action] | Prevent/Detect/Mitigate | [Person] | P0/P1/P2 | [Date] |
+
+**Action item types:**
+- **Prevent** — stop the root cause from happening again
+- **Detect** — catch the issue faster next time (alerts, monitoring)
+- **Mitigate** — reduce blast radius if it happens again
+
+> Rule: Every action item must have exactly one owner. Shared ownership is no ownership.
 
 ### Lessons Learned
-[Key takeaways for the team]
+- [Key takeaways for the team]
+- Focus on systems and processes, not individuals
 ```
 
 ## If Connectors Available

@@ -21,6 +21,22 @@ Write a failing test before writing the code that makes it pass. For bug fixes, 
 
 **Related:** For browser-based changes, combine TDD with runtime verification using Chrome DevTools MCP — see the Browser Testing section below.
 
+## Before You Start: Discover Existing Test Conventions
+
+Before writing any test, analyze the project's existing test patterns to match the style. Inconsistent test styles create cognitive overhead.
+
+1. **Find existing tests**: Look for `*.test.*`, `*.spec.*`, `__tests__/` directories
+2. **Identify the testing framework**: Jest, Vitest, Pytest, JUnit, etc.
+3. **Note the patterns**:
+   - Assertion style (`expect().toEqual()` vs `assert.equals()` vs `assertEqual()`)
+   - Mock patterns (jest.mock, unittest.mock, Mockito)
+   - Setup/teardown conventions (beforeEach, @Before, fixtures)
+   - Describe/it naming conventions
+   - File naming and location conventions
+4. **Match the project's style**: Generate tests that look like they belong in the codebase
+
+> **Why this matters:** Tests are documentation. Inconsistent styles signal disorganization. Matching conventions makes tests easier to read for every developer on the team.
+
 ## The TDD Cycle
 
 ```

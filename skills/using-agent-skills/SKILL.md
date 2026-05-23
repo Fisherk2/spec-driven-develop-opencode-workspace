@@ -20,6 +20,7 @@ Task arrives
     ├── New project/feature/change? ──→ spec-driven-development
     │   ├── AGENTS.md too long (>200 lines)? ──→ agent-md-refactor (PRE-FLIGHT)
     │   ├── Need README? ──→ crafting-effective-readmes (PRE-FLIGHT)
+    │   ├── Need environment setup? ──→ env-setup (PRE-FLIGHT)
     │   ├── Designing backend architecture? ──→ clean-ddd-hexagonal
     │   ├── Solving design problems? ──→ design-patterns
     │   ├── Documenting architecture? ──→ architecture-diagrams
@@ -33,6 +34,9 @@ Task arrives
     │   │   ├── Designing professional UI/UX? ──→ ui-ux-design-pro
     │   │   └── Validating visual consistency? ──→ design-taste-frontend
     │   ├── API work? ────────────────→ api-and-interface-design
+    │   │   └── Need OpenAPI/AsyncAPI specs? ──→ api-spec-generation
+    │   ├── Database work? ────────────→ db-migration
+    │   ├── Working with Docker? ──────→ docker-optimize
     │   ├── Need better context? ─────→ context-engineering
     │   ├── Need doc-verified code? ───→ source-driven-development
     │   ├── Writing robust shell scripts? ──→ bash-defensive-patterns
@@ -46,19 +50,24 @@ Task arrives
     │   └── Is this a production incident? ──→ incident-response
     ├── Reviewing code? ───────────────→ code-review-and-quality
     │   ├── Security concerns? ───────→ security-and-hardening
+    │   │   └── Auditing dependencies? ──→ dependency-audit
     │   ├── Performance concerns? ────→ performance-optimization
+    │   │   └── Static code performance analysis? ──→ performance-analysis
     │   ├── Applying SOLID/clean code? ──→ solid
     │   ├── Reviewing error handling? ──→ error-handling-patterns
     │   ├── Reviewing design patterns? ──→ design-patterns
     │   ├── Code needs refactoring? ──→ refactoring-patterns
     │   └── Reviewing frontend? ──→ design-taste-frontend
     ├── Committing/branching? ─────────→ git-workflow-and-versioning
+    │   └── Preparing a release/changelog? ──→ changelog-generate
     ├── CI/CD pipeline work? ──────────→ ci-cd-and-automation
-    │   └── Writing robust shell scripts? ──→ bash-defensive-patterns
+    │   ├── Writing robust shell scripts? ──→ bash-defensive-patterns
+    │   └── Optimizing Docker images? ──→ docker-optimize
     ├── Writing docs/ADRs? ───────────→ documentation-and-adrs
     │   ├── Improving README? ──→ crafting-effective-readmes
     │   └── Documenting architecture? ──→ architecture-diagrams
     └── Deploying/launching? ─────────→ shipping-and-launch
+        ├── Handling database migrations? ──→ db-migration
         └── Handling post-launch incidents? ──→ incident-response
 ```
 
@@ -184,6 +193,7 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 | Define | spec-driven-development | Requirements and acceptance criteria before code |
 | Define | agent-md-refactor | Refactor bloated agent instruction files (PRE-FLIGHT check for AGENTS.md >200 lines) |
 | Define | crafting-effective-readmes | README writing tailored to audience (OSS, internal, config) (PRE-FLIGHT if no README) |
+| Define | env-setup | Bootstrap dev environment with prereqs, .env.example, and Getting Started guide (PRE-FLIGHT) |
 | Define | clean-ddd-hexagonal | Clean Architecture + DDD + Hexagonal patterns for backend design |
 | Define | design-patterns | GoF and enterprise design patterns for recurring problems |
 | Define | architecture-diagrams | Create system architecture diagrams using Mermaid, PlantUML, C4 model |
@@ -197,6 +207,9 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 | Build | context-engineering | Right context at the right time |
 | Build | frontend-ui-engineering | Production-quality UI with accessibility |
 | Build | api-and-interface-design | Stable interfaces with clear contracts |
+| Build | api-spec-generation | Generate OpenAPI/AsyncAPI specs with consistent naming and error formats |
+| Build | docker-optimize | Optimize Dockerfiles with multi-stage builds, caching, and hardening |
+| Build | db-migration | Plan and execute database migrations with rollback strategies |
 | Build | solid | SOLID principles, TDD, clean code, professional software design |
 | Build | error-handling-patterns | Master error handling patterns for building resilient applications |
 | Build | ui-ux-design-pro | Professional UI/UX design with design systems, tokens, palettes, and high-fidelity prototyping |
@@ -211,12 +224,15 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 | Review | code-review-and-quality | Five-axis review with quality gates |
 | Review | security-and-hardening | OWASP prevention, input validation, least privilege |
 | Review | performance-optimization | Measure first, optimize only what matters |
+| Review | performance-analysis | Static code analysis for N+1 queries, complexity, and memory patterns |
+| Review | dependency-audit | Scan dependencies for CVEs, outdated packages, and license issues |
 | Review | solid | Evaluate code quality using SOLID principles |
 | Review | error-handling-patterns | Review error handling patterns and resilience |
 | Review | design-patterns | Review use of design patterns in implementation |
 | Review | refactoring-patterns | Apply named refactoring transformations to improve code structure |
 | Review | design-taste-frontend | Review frontend for visual consistency and quality |
 | Ship | git-workflow-and-versioning | Atomic commits, clean history |
+| Ship | changelog-generate | Generate CHANGELOG.md and create releases from git history |
 | Ship | ci-cd-and-automation | Automated quality gates on every change |
 | Ship | documentation-and-adrs | Document the why, not just the what |
 | Ship | shipping-and-launch | Pre-launch checklist, monitoring, rollback plan |

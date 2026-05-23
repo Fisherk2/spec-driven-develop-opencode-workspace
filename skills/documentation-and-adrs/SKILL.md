@@ -95,6 +95,16 @@ PROPOSED → ACCEPTED → (SUPERSEDED or DEPRECATED)
 - **Don't delete old ADRs.** They capture historical context.
 - When a decision changes, write a new ADR that references and supersedes the old one.
 
+### ADR Rules
+
+- **One decision per ADR** — do not combine multiple decisions in a single record
+- **ADRs are immutable once accepted** — create a new ADR to change a decision
+- **Always include at least two alternatives** (including the chosen one)
+- **Write in neutral, factual tone** — avoid advocacy language
+- **Keep ADRs concise** — aim for 1-2 pages maximum
+- **Link to related ADRs** when decisions are connected
+- **Store ADRs in version control** alongside the code they describe
+
 ## Inline Documentation
 
 ### When to Comment

@@ -1,11 +1,11 @@
 ---
 name: changelog-generate
-description: Generate CHANGELOG.md from git history in Keep a Changelog format with Added, Changed, Deprecated, Removed, Fixed, and Security categories
+description: Generate CHANGELOG.md and create releases from git history in Keep a Changelog format with Added, Changed, Deprecated, Removed, Fixed, and Security categories. Use when preparing a release, drafting release notes, or backfilling a changelog.
 license: MIT
 compatibility: opencode
 metadata:
   audience: maintainers
-  workflow: github
+  workflow: general
 ---
 
 ## What I do
@@ -15,6 +15,9 @@ metadata:
 - Generate or update CHANGELOG.md with properly formatted entries
 - Link entries to commits or PRs where available
 - Determine the appropriate next version based on change types
+- Draft release notes grouped by category
+- Propose a semantic version bump following Conventional Commits
+- Generate a `gh release create` command for publishing
 
 ## When to use me
 
@@ -23,6 +26,8 @@ Use this skill when you need to:
 - Update CHANGELOG.md after a batch of changes
 - Convert unstructured git history into a formatted changelog
 - Backfill a changelog for a project that doesn't have one
+- Draft release notes with version bump and GitHub release command
+- Prepare a tagged release with release notes
 
 ## Process
 
@@ -48,16 +53,24 @@ Use this skill when you need to:
    - `remove:` -> **Removed**
    - `fix:` or `bug:` or label `bug` -> **Fixed**
    - `security:` or label `security` -> **Security**
+   - `perf:` -> **Changed**
+   - `BREAKING CHANGE` or `!` suffix -> flagged as breaking
    - `chore:`, `ci:`, `docs:`, `test:` -> Omit unless significant
 
 5. **Format**: Write entries following Keep a Changelog
 
-6. **Determine version**: Based on the categories present
-   - **Security** or breaking changes -> Major bump consideration
-   - **Added** -> Minor bump
+6. **Determine version**: Follow Semantic Versioning
+   - **BREAKING CHANGE** or `!` suffix -> Major bump
+   - **Added** or **Security** -> Minor bump
    - **Fixed** only -> Patch bump
+   - Follow [Conventional Commits](https://www.conventionalcommits.org/) for mapping
 
 7. **Update file**: Prepend the new release section to CHANGELOG.md
+
+8. **Publish release** (optional): Create the GitHub release
+   ```bash
+   gh release create vX.Y.Z --title "vX.Y.Z" --notes-file release-notes.md
+   ```
 
 ## Output Format
 
@@ -88,9 +101,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 - Updated `xml-parser` to 2.1.0 to fix CVE-2024-XXXXX (#143)
-
-## [1.2.3] - 2024-05-01
-...
 ```
 
 ## Commit Message Mapping
@@ -104,11 +114,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | `remove:` | Removed | `remove: legacy XML support` |
 | `security:` | Security | `security: patch XSS in templates` |
 | `perf:` | Changed | `perf: optimize query execution` |
-| `BREAKING CHANGE` | Changed (noted) | flagged with warning |
+| `BREAKING CHANGE` / `!` | Breaking (flagged) | `feat!: redesign auth` |
 
 ## Rules
 
 - Follow [Keep a Changelog](https://keepachangelog.com/) specification exactly
+- Follow [Semantic Versioning](https://semver.org/) for version numbers
+- Follow [Conventional Commits](https://www.conventionalcommits.org/) for commit parsing
 - Always include the `[Unreleased]` section at the top
 - Each entry should be human-readable, not a raw commit message
 - Include PR or issue numbers as links when available
@@ -116,3 +128,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Do not include internal chores unless they affect end users
 - Dates must use ISO 8601 format (YYYY-MM-DD)
 - Maintain reverse chronological order (newest first)
+- Credit contributors when possible

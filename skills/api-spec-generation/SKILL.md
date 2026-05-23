@@ -1,6 +1,6 @@
 ---
-name: api-contract
-description: Generate or validate OpenAPI and AsyncAPI specs from code or requirements with consistent naming, errors, and pagination
+name: api-spec-generation
+description: Generate or validate OpenAPI and AsyncAPI specs from code or requirements with consistent naming, errors, and pagination. Use when you need to produce API specification documents, standardize error formats, or enforce naming conventions across endpoints.
 license: MIT
 compatibility: opencode
 metadata:

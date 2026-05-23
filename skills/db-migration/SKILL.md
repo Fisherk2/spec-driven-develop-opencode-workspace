@@ -1,6 +1,6 @@
 ---
-name: migration
-description: Plan and execute database or framework migrations with rollback strategies
+name: db-migration
+description: Plan and execute database migrations with rollback strategies — schema changes, data migrations, and framework version upgrades. Use when creating database migration files, planning schema changes, or upgrading ORM versions.
 license: MIT
 compatibility: opencode
 metadata:

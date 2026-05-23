@@ -1,6 +1,6 @@
 ---
-name: performance-profile
-description: Analyze code for performance hotspots including complexity, N+1 queries, memory allocations, and caching opportunities
+name: performance-analysis
+description: Analyze code for performance hotspots including algorithmic complexity, N+1 queries, memory allocations, and caching opportunities. Use when investigating slow endpoints, reviewing code before load tests, or planning performance improvements.
 license: MIT
 compatibility: opencode
 metadata:

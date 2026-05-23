@@ -97,6 +97,7 @@ Skills are organized by SDD phase. Each skill has one canonical entry in its **p
 | [spec-driven-development](skills/spec-driven-development/SKILL.md) | Write a PRD covering objectives, commands, structure, code style, testing, and boundaries before code |
 | [agent-md-refactor](skills/agent-md-refactor/SKILL.md) | Refactor bloated AGENTS.md/CLAUDE.md via progressive disclosure. PRE-FLIGHT in `/spec` |
 | [crafting-effective-readmes](skills/crafting-effective-readmes/SKILL.md) | Write/improve READMEs matched to audience (OSS, internal, config). PRE-FLIGHT in `/spec` |
+| [env-setup](skills/env-setup/SKILL.md) | Bootstrap dev environment with prereqs, .env.example, and Getting Started guide. PRE-FLIGHT in `/spec` |
 | [clean-ddd-hexagonal](skills/clean-ddd-hexagonal/SKILL.md) | Clean Architecture + DDD tactical patterns + Hexagonal ports/adapters for backend services |
 | [design-patterns](skills/design-patterns/SKILL.md) | GoF and enterprise design patterns for recurring design problems |
 | [architecture-diagrams](skills/architecture-diagrams/SKILL.md) | System architecture diagrams using Mermaid, PlantUML, and C4 model |
@@ -121,6 +122,9 @@ Skills are organized by SDD phase. Each skill has one canonical entry in its **p
 | [source-driven-development](skills/source-driven-development/SKILL.md) | Ground every framework decision in official docs — verify, cite sources, flag unverified |
 | [frontend-ui-engineering](skills/frontend-ui-engineering/SKILL.md) | Component architecture, design systems, state management, WCAG 2.1 AA accessibility |
 | [api-and-interface-design](skills/api-and-interface-design/SKILL.md) | Contract-first design, Hyrum's Law, One-Version Rule, error semantics, boundary validation |
+| [api-spec-generation](skills/api-spec-generation/SKILL.md) | Generate OpenAPI/AsyncAPI specs from code or requirements with consistent naming, errors, and pagination |
+| [docker-optimize](skills/docker-optimize/SKILL.md) | Optimize Dockerfiles with multi-stage builds, layer caching, minimal base, and security hardening |
+| [db-migration](skills/db-migration/SKILL.md) | Plan and execute database migrations with rollback strategies for schema and framework changes |
 | [solid](skills/solid/SKILL.md) | SOLID principles, clean code, professional software design for all code |
 | [error-handling-patterns](skills/error-handling-patterns/SKILL.md) | Exceptions, Result types, graceful degradation for resilient applications |
 | [bash-defensive-patterns](skills/bash-defensive-patterns/SKILL.md) | Defensive Bash scripting — strict mode, traps, safe variable handling |
@@ -145,6 +149,8 @@ Skills are organized by SDD phase. Each skill has one canonical entry in its **p
 | [code-simplification](skills/code-simplification/SKILL.md) | Chesterton's Fence, Rule of 500 — reduce complexity while preserving exact behavior |
 | [security-and-hardening](skills/security-and-hardening/SKILL.md) | OWASP Top 10 prevention, auth patterns, secrets management, three-tier boundary system |
 | [performance-optimization](skills/performance-optimization/SKILL.md) | Measure-first — Core Web Vitals, profiling, bundle analysis, anti-pattern detection |
+| [performance-analysis](skills/performance-analysis/SKILL.md) | Static analysis for N+1 queries, algorithmic complexity, memory patterns, caching opportunities |
+| [dependency-audit](skills/dependency-audit/SKILL.md) | Scan dependencies for CVEs, outdated packages, license issues, and unused deps |
 | [refactoring-patterns](skills/refactoring-patterns/SKILL.md) | Named refactoring transformations to improve structure without changing behavior |
 | [solid](skills/solid/SKILL.md) | Evaluate code quality, maintainability, and design principles. Full reference in [Build](#build) |
 | [error-handling-patterns](skills/error-handling-patterns/SKILL.md) | Review error handling, resilience, and API contracts. Full reference in [Build](#build) |
@@ -156,6 +162,7 @@ Skills are organized by SDD phase. Each skill has one canonical entry in its **p
 | Skill | Description |
 |-------|-------------|
 | [git-workflow-and-versioning](skills/git-workflow-and-versioning/SKILL.md) | Trunk-based development, atomic commits, change sizing, commit-as-save-point pattern |
+| [changelog-generate](skills/changelog-generate/SKILL.md) | Generate CHANGELOG.md and create releases from git history in Keep a Changelog format |
 | [ci-cd-and-automation](skills/ci-cd-and-automation/SKILL.md) | Shift Left, Faster is Safer, feature flags, quality gate pipelines |
 | [deprecation-and-migration](skills/deprecation-and-migration/SKILL.md) | Code-as-liability mindset, compulsory vs advisory deprecation, zombie code removal |
 | [documentation-and-adrs](skills/documentation-and-adrs/SKILL.md) | Architecture Decision Records, API docs — document the *why* |
@@ -227,36 +234,43 @@ project-root/
 │   └── security-auditor.md     #   Security Engineer
 │
 ├── skills/                     # Skills organized by SDD phase
-│   ├── using-agent-skills/     #   META: skill discovery
-│   ├── idea-refine/            #   DEFINE
-│   ├── spec-driven-development/#   DEFINE
-│   ├── clean-ddd-hexagonal/    #   DEFINE / PLAN / BUILD
-│   ├── design-patterns/        #   DEFINE / PLAN / REVIEW
-│   ├── architecture-diagrams/  #   DEFINE / PLAN / SHIP
-│   ├── ui-ux-design-pro/       #   DEFINE / BUILD
-│   ├── planning-and-task-breakdown/ # PLAN
-│   ├── incremental-implementation/  # BUILD
-│   ├── test-driven-development/     # BUILD
-│   ├── frontend-ui-engineering/     # BUILD
-│   ├── api-and-interface-design/    # BUILD
-│   ├── solid/                       # BUILD / REVIEW
-│   ├── error-handling-patterns/     # BUILD / VERIFY / REVIEW
-│   ├── design-taste-frontend/       # BUILD / VERIFY / REVIEW
-│   ├── bash-defensive-patterns/     # BUILD / SHIP
-│   ├── browser-testing-with-devtools/ # VERIFY
-│   ├── debugging-and-error-recovery/  # VERIFY
-│   ├── code-review-and-quality/       # REVIEW
-│   ├── code-simplification/           # REVIEW
-│   ├── security-and-hardening/        # REVIEW
-│   ├── performance-optimization/      # REVIEW
-│   ├── refactoring-patterns/          # REVIEW
-│   ├── git-workflow-and-versioning/   # SHIP
-│   ├── ci-cd-and-automation/          # SHIP
-│   ├── deprecation-and-migration/     # SHIP
-│   ├── documentation-and-adrs/        # SHIP
-│   ├── shipping-and-launch/           # SHIP
-│   ├── incident-response/             # SHIP / VERIFY
-│   └── crafting-effective-readmes/    # DEFINE / SHIP
+    │   ├── using-agent-skills/     #   META: skill discovery
+    │   ├── idea-refine/            #   DEFINE
+    │   ├── spec-driven-development/#   DEFINE
+    │   ├── env-setup/              #   DEFINE (PRE-FLIGHT)
+    │   ├── clean-ddd-hexagonal/    #   DEFINE / PLAN / BUILD
+    │   ├── design-patterns/        #   DEFINE / PLAN / REVIEW
+    │   ├── architecture-diagrams/  #   DEFINE / PLAN / SHIP
+    │   ├── ui-ux-design-pro/       #   DEFINE / BUILD
+    │   ├── planning-and-task-breakdown/ # PLAN
+    │   ├── incremental-implementation/  # BUILD
+    │   ├── test-driven-development/     # BUILD
+    │   ├── frontend-ui-engineering/     # BUILD
+    │   ├── api-and-interface-design/    # BUILD
+    │   ├── api-spec-generation/         # BUILD
+    │   ├── docker-optimize/             # BUILD / SHIP
+    │   ├── db-migration/                # BUILD / SHIP
+    │   ├── solid/                       # BUILD / REVIEW
+    │   ├── error-handling-patterns/     # BUILD / VERIFY / REVIEW
+    │   ├── design-taste-frontend/       # BUILD / VERIFY / REVIEW
+    │   ├── bash-defensive-patterns/     # BUILD / SHIP
+    │   ├── browser-testing-with-devtools/ # VERIFY
+    │   ├── debugging-and-error-recovery/  # VERIFY
+    │   ├── code-review-and-quality/       # REVIEW
+    │   ├── code-simplification/           # REVIEW
+    │   ├── security-and-hardening/        # REVIEW
+    │   ├── dependency-audit/              # REVIEW
+    │   ├── performance-optimization/      # REVIEW
+    │   ├── performance-analysis/          # REVIEW
+    │   ├── refactoring-patterns/          # REVIEW
+    │   ├── git-workflow-and-versioning/   # SHIP
+    │   ├── changelog-generate/            # SHIP
+    │   ├── ci-cd-and-automation/          # SHIP
+    │   ├── deprecation-and-migration/     # SHIP
+    │   ├── documentation-and-adrs/        # SHIP
+    │   ├── shipping-and-launch/           # SHIP
+    │   ├── incident-response/             # SHIP / VERIFY
+    │   └── crafting-effective-readmes/    # DEFINE / SHIP
 │
 ├── references/                 # Technical reference checklists
 │   ├── testing-patterns.md
