@@ -1,11 +1,29 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  "model": "nvidia/z-ai/glm-5.1",
-  "small_model": "opencode/deepseek-v4-flash-free",
+  "model": "opencode/deepseek-v4-flash-free",
+  "small_model": "openrouter/z-ai/glm-4.5-air:free",
+
+  "agent": {
+    "build": {
+      "model": "opencode/nemotron-3-super-free"
+    },
+    "plan": {
+      "model": "opencode/big-pickle"
+    },
+    "explore": {
+      "model": "openrouter/meta-llama/llama-4-scout:free"
+    }
+  },
+
+  "instructions": [
+    "CONTRIBUTING.md",
+    "USER_GUIDE.md",
+    "references/orchestration-patterns.md",
+    "skills/using-agent-skills/SKILL.md"
+  ],
 
   "permission": {
-    "*": "ask",
     "bash": {
       "*": "ask",
       "git status *": "allow",
@@ -16,11 +34,12 @@
     "read": {
       "*": "allow",
       "*.env": "deny",
-      "*.env.*": "ask"
+      "*.env.*": "deny",
+      "*.env.example": "allow"
     }
   },
 
-   "mcp": {
+  "mcp": {
     "context7": {
       "type": "remote",
       "url": "https://mcp.context7.com/mcp"
