@@ -1,6 +1,6 @@
 ---
 description: Run the pre-launch checklist via parallel fan-out to specialist personas, then synthesize a go/no-go decision
-agent: analysis
+agent: quetzalcoatl
 ---
 
 Invoke the @skills/shipping-and-launch/SKILL.md.

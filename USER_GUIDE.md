@@ -183,8 +183,8 @@ Pre-configured specialist personas for targeted reviews. For detailed orchestrat
 | [code-reviewer](agents/code-reviewer.md) | Senior Staff Engineer | Five-axis code review | Before merging any change |
 | [test-engineer](agents/test-engineer.md) | QA Specialist | Test strategy, coverage, Prove-It pattern | Writing tests or analyzing coverage |
 | [security-auditor](agents/security-auditor.md) | Security Engineer | Vulnerability detection, OWASP assessment | Security-sensitive changes |
-| [analysis](agents/analysis.md) | Architect of Specifications | Spec-driven analysis, planning, design | Before writing code |
-| [implement](agents/implement.md) | Build Agent | Execute validated plans — code, test, configure | After analysis — build features, fix bugs |
+| [quetzalcoatl](agents/quetzalcoatl.md) | Architect of Specifications | Spec-driven analysis, planning, design | Before writing code |
+| [tezcatlipoca](agents/tezcatlipoca.md) | Build Agent | Execute validated plans — code, test, configure | After analysis — build features, fix bugs |
 
 ### How Personas Relate to Skills and Commands
 
@@ -227,8 +227,8 @@ project-root/
 ├── .opencode/                  # OpenCode config (symlinks → agents/, commands/, skills/)
 │
 ├── agents/                     # 5 specialized agent personas
-│   ├── analysis.md             #   Architect of Specifications
-│   ├── implement.md            #   Build Agent
+│   ├── quetzalcoatl.md         #   Architect of Specifications
+│   ├── tezcatlipoca.md         #   Build Agent
 │   ├── code-reviewer.md        #   Senior Staff Engineer
 │   ├── test-engineer.md        #   QA Specialist
 │   └── security-auditor.md     #   Security Engineer

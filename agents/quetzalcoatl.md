@@ -2,7 +2,7 @@
 description: Architect of Specifications - Spec-Driven Analysis
 mode: primary
 color: "#FFFF00"
-temperature: 0.9
+temperature: 0.2
 permission:
   write: ask
   read: allow
@@ -17,16 +17,17 @@ permission:
   webfetch: allow
   websearch: allow
   question: allow
+steps: 15
 compaction:
   auto: true
   prune: true
-  reserved: 5000
+  reserved: 10000
 model_options:
   textVerbosity: low
   reasoningSummary: auto
   thinking:
     type: enabled
-    budgetTokens: 8000
+    budgetTokens: 6000
 ---
 # ARCHITECT OF SPECIFICATIONS ANALYST
 

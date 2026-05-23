@@ -138,8 +138,8 @@ Ambos formatos son válidos. Usa el formato simple para agentes puramente analí
 
 | Agente | Rol | Propósito |
 |--------|-----|----------|
-| [analysis](agents/analysis.md) | Architect of Specifications | Transforma ideas y requisitos en planes de ejecución detallados sin generar código |
-| [implement](agents/implement.md) | Build Agent | Ejecuta planes de implementación validados — construir, probar y modificar código |
+| [quetzalcoatl](agents/quetzalcoatl.md) | Architect of Specifications | Transforma ideas y requisitos en planes de ejecución detallados sin generar código |
+| [tezcatlipoca](agents/tezcatlipoca.md) | Build Agent | Ejecuta planes de implementación validados — construir, probar y modificar código |
 | [code-reviewer](agents/code-reviewer.md) | Senior Staff Engineer | Revisión de cinco ejes antes del merge |
 | [security-auditor](agents/security-auditor.md) | Security Engineer | Detección de vulnerabilidades, auditoría OWASP |
 | [test-engineer](agents/test-engineer.md) | QA Engineer | Estrategia de pruebas, análisis de cobertura, patrón Prove-It |

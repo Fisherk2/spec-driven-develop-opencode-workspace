@@ -1,6 +1,6 @@
 ---
 description: Conduct a five-axis code review — correctness, readability, architecture, security, performance
-agent: analysis
+agent: quetzalcoatl
 ---
 
 Invoke the @skills/code-review-and-quality/SKILL.md.

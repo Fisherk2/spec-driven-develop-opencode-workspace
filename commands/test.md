@@ -1,6 +1,6 @@
 ---
 description: Run TDD workflow — write failing tests, implement, verify. For bugs, use the Prove-It pattern.
-agent: implement
+agent: tezcatlipoca
 ---
 
 Invoke the @skills/test-driven-development/SKILL.md.

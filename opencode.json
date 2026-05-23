@@ -6,10 +6,12 @@
 
   "agent": {
     "build": {
-      "model": "opencode/nemotron-3-super-free"
+      "model": "opencode/nemotron-3-super-free",
+      "disable": true
     },
     "plan": {
-      "model": "opencode/big-pickle"
+      "model": "opencode/big-pickle",
+      "disable": true
     },
     "explore": {
       "model": "openrouter/meta-llama/llama-4-scout:free"

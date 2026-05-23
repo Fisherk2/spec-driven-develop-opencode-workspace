@@ -220,7 +220,7 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
 
     /**
      * Fires before a tool executes.
-     * Blocks destructive commands and enforces analysis/implement role separation.
+     * Blocks destructive commands and enforces quetzalcoatl/tezcatlipoca role separation.
      */
     "tool.execute.before": async (
       input: unknown,
@@ -246,23 +246,23 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
           }
         }
 
-        // --- Block analysis agents from writing code ---
-        if (sddState.agent_type === "analysis") {
+        // --- Block quetzalcoatl agents from writing code ---
+        if (sddState.agent_type === "quetzalcoatl") {
           if (tool === "Edit" || tool === "Write") {
-            audit("tool.before", `BLOCKED ${tool}: analysis agent writing code`)
+            audit("tool.before", `BLOCKED ${tool}: quetzalcoatl agent writing code`)
             throw new Error(
-              "[sdd-pipeline] Analysis agent cannot write code. Switch to BUILD mode with /build.",
+              "[sdd-pipeline] Quetzalcoatl agent cannot write code. Switch to BUILD mode with /build.",
             )
           }
         }
 
-        // --- Block build agents from modifying specs ---
-        if (sddState.agent_type === "implement") {
+        // --- Block tezcatlipoca agents from modifying specs ---
+        if (sddState.agent_type === "tezcatlipoca") {
           const filePath = ((args.filePath ?? args.file) as string) ?? ""
           if (filePath.includes("SPEC.md") || filePath.includes("specs/")) {
-            audit("tool.before", `BLOCKED ${tool}: build agent modifying specs`)
+            audit("tool.before", `BLOCKED ${tool}: tezcatlipoca agent modifying specs`)
             throw new Error(
-              "[sdd-pipeline] Build agent cannot modify specs. Use /spec to request changes.",
+              "[sdd-pipeline] Tezcatlipoca agent cannot modify specs. Use /spec to request changes.",
             )
           }
         }

@@ -2,7 +2,7 @@
 description: Build Agent - Execute Plans (Write/Edit Enabled)
 mode: primary
 color: "#FF55FF"
-temperature: 0.9
+temperature: 0.4
 permission:
   write: allow
   edit: allow
@@ -17,10 +17,11 @@ permission:
   webfetch: allow
   websearch: allow
   question: allow
+steps: 0
 compaction:
   auto: true
   prune: true
-  reserved: 5000
+  reserved: 10000
 model_options:
   textVerbosity: low
   reasoningSummary: auto

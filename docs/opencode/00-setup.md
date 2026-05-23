@@ -30,8 +30,8 @@ project-root/
 │   ├── code-simplify.md   #   /code-simplify → simplificación
 │   └── ship.md            #   /ship  → fase SHIP
 ├── agents/                # 5 personas de agente especializadas
-│   ├── analysis.md        #   Arquitecto de Especificaciones
-│   ├── implement.md       #   Agente de Build
+│   ├── quetzalcoatl.md    #   Arquitecto de Especificaciones
+│   ├── tezcatlipoca.md    #   Agente de Build
 │   ├── code-reviewer.md   #   Ingeniero Senior Staff
 │   ├── test-engineer.md   #   Especialista en QA
 │   └── security-auditor.md #   Ingeniero de Seguridad

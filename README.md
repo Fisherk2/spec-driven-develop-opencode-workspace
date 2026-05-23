@@ -132,8 +132,8 @@ commands/                 # 7 comandos slash para OpenCode
 └── package.json          # Dependencias del plugin
 
 agents/                   # 5 agentes especializados
-├── analysis.md           #   Arquitecto de especificaciones
-├── implement.md          #   Build agent
+├── quetzalcoatl.md       #   Arquitecto de especificaciones
+├── tezcatlipoca.md       #   Build agent
 ├── code-reviewer.md      #   Senior Staff Engineer
 ├── test-engineer.md      #   QA Specialist
 └── security-auditor.md   #   Security Engineer
