@@ -28,26 +28,42 @@ const INTENT_PATTERNS: Record<string, string[]> = {
   "/spec": [
     "nueva feature", "requisito", "idea", "necesito", "quiero crear",
     "new feature", "requirement", "spec", "especificacion", "especifica",
+    "create", "define", "write spec", "documentation", "specification",
+    "what should", "design", "describe", "proposal", "need a feature",
   ],
   "/plan": [
     "planifica", "divide", "tasks", "plan", "divide en tareas",
     "divide en", "desglosa", "breakdown",
+    "task breakdown", "planning", "organize", "steps", "milestones",
+    "task list", "todos", "to-do", "story points", "estimate",
   ],
   "/build": [
     "implementa", "codifica", "construye", "implement", "build", "code",
     "escribe el codigo", "escribe codigo",
+    "write code", "create file", "add functionality", "make", "generate",
+    "develop", "produce", "set up", "scaffold", "boilerplate",
+    "create function", "create class", "create module", "create component",
   ],
   "/test": [
     "test", "prueba", "pruebas", "testing",
+    "unit test", "integration test", "e2e", "specs", "coverage",
+    "assert", "mock", "stub", "tdd", "red-green",
   ],
   "/review": [
     "revisa", "review", "codigo", "code review", "revisar codigo",
+    "code quality", "audit", "inspect", "check code", "verify code",
+    "static analysis", "lint", "clean code", "best practices",
   ],
   "/ship": [
     "ship", "deploy", "lanza", "lanzamiento", "deployment", "publicar",
+    "release", "publish", "launch", "go live", "rollout",
+    "staging", "production", "ci/cd", "pipeline", "deliver",
   ],
   "/code-simplify": [
     "simplifica", "refactor", "limpia", "simplify", "simplificar",
+    "simplify code", "clean up", "refactor code", "improve code",
+    "technical debt", "complex", "duplicate", "extract method",
+    "reduce complexity", "make it simpler", "cleanup",
   ],
 }
 
