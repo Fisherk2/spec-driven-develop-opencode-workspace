@@ -56,9 +56,16 @@ Evaluate every change across these five dimensions:
 ### 3. Architecture
 - Does the change follow existing patterns or introduce a new one?
 - If a new pattern, is it justified and documented?
-- Are module boundaries maintained? Any circular dependencies?
+- Are module boundaries maintained? Any circular dependencies between modules/packages?
 - Is the abstraction level appropriate (not over-engineered, not too coupled)?
-- Are dependencies flowing in the right direction?
+- Are dependencies flowing in the right direction? (dependency inversion)
+- Does the code adhere to SOLID principles and clean architecture?
+- Is there clear layer separation (presentation, business, data)?
+- Is configuration externalized, not hardcoded?
+- Are there proper abstraction boundaries (interfaces/ports)?
+- Is there architectural drift or technical debt being introduced?
+- Assess scalability and extensibility of the proposed change
+- If architectural changes are needed, recommend producing an Architecture Decision Record (ADR)
 
 ### 4. Security
 - Is user input validated and sanitized at system boundaries?
@@ -68,7 +75,12 @@ Evaluate every change across these five dimensions:
 - Any new dependencies with known vulnerabilities?
 
 ### 5. Performance
-- Any N+1 query patterns?
+- **Algorithmic**: Any inefficient time/space complexity, unnecessary loops, or wrong data structures?
+- **Database**: Any N+1 queries, missing indexes, or slow scans? Connection pool sizing issues?
+- **Network**: Any unnecessary payload size, missing compression, or connection reuse issues?
+- **Memory**: Any leaks, excessive allocations, GC pressure, or buffer sizing issues?
+- **Caching**: Missing caching opportunities at application, HTTP, or database layers? Cache hit ratios, invalidation strategies?
+- **Concurrency**: Any deadlocks, lock contention, or improper async/await patterns?
 - Any unbounded loops or unconstrained data fetching?
 - Any synchronous operations that should be async?
 - Any unnecessary re-renders (in UI components)?

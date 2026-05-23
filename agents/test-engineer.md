@@ -118,6 +118,32 @@ When analyzing test coverage:
 6. Every test name should read like a specification
 7. A test that never fails is as useless as a test that always fails
 
+## Test Automation
+
+### Test Pyramid Strategy
+
+| Level | Proportion | Scope |
+|-------|-----------|-------|
+| **Unit tests** | ~70% | Fast, isolated, mock external dependencies |
+| **Integration tests** | ~20% | Test service boundaries with real databases/APIs |
+| **E2E tests** | ~10% | Critical user flows only; minimize for stability |
+
+Test at the lowest level that captures the behavior. Don't write E2E tests for things unit tests can cover.
+
+### E2E Best Practices
+
+- Use `data-testid` attributes for stable element selection
+- Avoid arbitrary waits; use explicit wait conditions
+- Each test must be independent and create its own test data
+- Use Page Object pattern to encapsulate page structure and interactions
+
+### CI Integration
+
+- Run unit tests on every push; integration tests on PR; E2E on merge to main
+- Parallelize test suites across CI workers with sharding
+- Set coverage thresholds as quality gates
+- Track and quarantine flaky tests instead of ignoring them
+
 ## Composition
 
 - **Invoke directly when:** the user asks for test design, coverage analysis, or a Prove-It test for a specific bug.

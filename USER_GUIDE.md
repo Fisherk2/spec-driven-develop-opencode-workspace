@@ -180,11 +180,21 @@ Pre-configured specialist personas for targeted reviews. For detailed orchestrat
 
 | Agent | Role | Perspective | Use When |
 |-------|------|-------------|----------|
+| Agent | Role | Perspective | Use When |
+|-------|------|-------------|----------|
 | [code-reviewer](agents/code-reviewer.md) | Senior Staff Engineer | Five-axis code review | Before merging any change |
 | [test-engineer](agents/test-engineer.md) | QA Specialist | Test strategy, coverage, Prove-It pattern | Writing tests or analyzing coverage |
 | [security-auditor](agents/security-auditor.md) | Security Engineer | Vulnerability detection, OWASP assessment | Security-sensitive changes |
 | [quetzalcoatl](agents/quetzalcoatl.md) | Architect of Specifications | Spec-driven analysis, planning, design | Before writing code |
 | [tezcatlipoca](agents/tezcatlipoca.md) | Build Agent | Execute validated plans — code, test, configure | After analysis — build features, fix bugs |
+| [docs-writer](agents/docs-writer.md) | Technical Writer | Documentation, READMEs, API docs, changelogs | Creating or updating documentation |
+| [deployment-engineer](agents/deployment-engineer.md) | Deployment Engineer | Release automation, CI/CD, rollback strategies | Planning deployments or release pipelines |
+| [database-optimizer](agents/database-optimizer.md) | Database Specialist | Schema design, query analysis, indexing | Performance review or migration planning |
+| [incident-responder](agents/incident-responder.md) | Incident Commander | Triage, communication, postmortems | Production incidents or post-incident reviews |
+| [dependency-manager](agents/dependency-manager.md) | Dependency Specialist | CVE scanning, license audit, outdated deps | Auditing or updating dependencies |
+| [build-engineer](agents/build-engineer.md) | Build Engineer | Dockerfiles, CI performance, build caching | Optimizing builds or Docker images |
+| [git-workflow-manager](agents/git-workflow-manager.md) | Git Specialist | Branching strategy, commit hygiene, releases | Planning git workflow or resolving conflicts |
+| [debugger](agents/debugger.md) | Debugging Specialist | Systematic root-cause analysis | Hard-to-find bugs or circular debugging |
 
 ### How Personas Relate to Skills and Commands
 
@@ -202,8 +212,8 @@ Three composable layers:
 
 ### When to Use Each
 
-- **Direct invocation:** "Review this PR" → `code-reviewer` / "Check for security" → `security-auditor` / "What tests are missing?" → `test-engineer` / "Analyze and plan" → `analysis` / "Build this" → `implement`
-- **Via commands:** `/build` wraps `implement` + incremental-implementation + TDD / `/test` wraps `implement` + TDD / `/review` wraps `code-reviewer` + review skills / `/ship` fans out to all three review personas
+- **Direct invocation:** "Review this PR" → `code-reviewer` / "Check for security" → `security-auditor` / "What tests are missing?" → `test-engineer` / "Analyze and plan" → `quetzalcoatl` / "Build this" → `tezcatlipoca` / "Write docs" → `docs-writer` / "Deploy this" → `deployment-engineer` / "Check DB performance" → `database-optimizer` / "We have an incident" → `incident-responder` / "Audit dependencies" → `dependency-manager` / "Optimize builds" → `build-engineer` / "Fix git mess" → `git-workflow-manager` / "Debug this" → `debugger`
+- **Via commands:** `/build` wraps `tezcatlipoca` + incremental-implementation + TDD / `/test` wraps `implement` + TDD / `/review` wraps `code-reviewer` + review skills / `/ship` fans out to all three review personas + deployment-engineer + dependency-manager
 
 ---
 

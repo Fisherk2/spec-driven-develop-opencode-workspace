@@ -17,6 +17,14 @@ Specialist personas that play a single role with a single perspective. Each pers
 | [test-engineer](../../agents/test-engineer.md) | QA Engineer | Test strategy, coverage analysis, Prove-It pattern |
 | [quetzalcoatl](../../agents/quetzalcoatl.md) | Architect of Specifications | Spec-Driven Analysis, planning, and design |
 | [tezcatlipoca](../../agents/tezcatlipoca.md) | Build Agent | Execute validated execution plans — build, test, and modify code |
+| [docs-writer](../../agents/docs-writer.md) | Technical Writer | Documentation, READMEs, API docs, changelogs |
+| [deployment-engineer](../../agents/deployment-engineer.md) | Deployment Engineer | Release automation, CI/CD, rollback strategies |
+| [database-optimizer](../../agents/database-optimizer.md) | Database Specialist | Schema design, query analysis, indexing |
+| [incident-responder](../../agents/incident-responder.md) | Incident Commander | Triage, communication, postmortems |
+| [dependency-manager](../../agents/dependency-manager.md) | Dependency Specialist | CVE scanning, license audit, outdated deps |
+| [build-engineer](../../agents/build-engineer.md) | Build Engineer | Dockerfiles, CI performance, build caching |
+| [git-workflow-manager](../../agents/git-workflow-manager.md) | Git Specialist | Branching strategy, commit hygiene, releases |
+| [debugger](../../agents/debugger.md) | Debugging Specialist | Systematic root-cause analysis |
 
 ### How personas relate to skills and commands
 
@@ -37,6 +45,16 @@ The user (or a slash command) is the orchestrator. **Personas do not call other 
 - "Review this PR" → invoke `code-reviewer` directly
 - "Are there security issues in `auth.ts`?" → invoke `security-auditor` directly
 - "What tests are missing for the checkout flow?" → invoke `test-engineer` directly
+- "Analyze and plan this feature" → invoke `quetzalcoatl` directly
+- "Build this feature" → invoke `tezcatlipoca` directly
+- "Write docs for this API" → invoke `docs-writer` directly
+- "Design a deployment pipeline" → invoke `deployment-engineer` directly
+- "Check database performance" → invoke `database-optimizer` directly
+- "We have a production incident" → invoke `incident-responder` directly
+- "Audit our dependencies" → invoke `dependency-manager` directly
+- "Optimize the Docker image" → invoke `build-engineer` directly
+- "Fix this git mess" → invoke `git-workflow-manager` directly
+- "Debug this flaky test" → invoke `debugger` directly
 
 **Slash command (single persona behind it)** — Pick this when there's a repeatable workflow you'd otherwise re-explain every time.
 
@@ -45,7 +63,7 @@ The user (or a slash command) is the orchestrator. **Personas do not call other 
 
 **Slash command (orchestrator — fan-out)** — Pick this only when **independent** investigations can run in parallel and produce reports that a single agent then merges.
 
-- `/ship` → fans out to `code-reviewer` + `security-auditor` + `test-engineer` in parallel, then synthesizes their reports into a go/no-go decision
+- `/ship` → fans out to `code-reviewer` + `security-auditor` + `test-engineer` + `deployment-engineer` + `dependency-manager` in parallel, then synthesizes their reports into a go/no-go decision
 
 ### Rules for personas
 
@@ -72,6 +90,16 @@ user → code-reviewer → report → user
 - "Review this PR" → `code-reviewer`
 - "Find security issues in `auth.ts`" → `security-auditor`
 - "What tests are missing for the checkout flow?" → `test-engineer`
+- "Analyze and plan this feature" → `quetzalcoatl`
+- "Build this feature" → `tezcatlipoca`
+- "Write docs for this API" → `docs-writer`
+- "Design a deployment pipeline" → `deployment-engineer`
+- "Check database performance" → `database-optimizer`
+- "We have a production incident" → `incident-responder`
+- "Audit our dependencies" → `dependency-manager`
+- "Optimize the Docker image" → `build-engineer`
+- "Fix this git mess" → `git-workflow-manager`
+- "Debug this flaky test" → `debugger`
 
 **Cost:** one round trip. The baseline you should always compare orchestrated patterns against.
 
@@ -100,9 +128,11 @@ A slash command that wraps one persona with the project's skills. Saves the user
 Multiple personas operate on the same input concurrently, each producing an independent report. A merge step (in the main agent's context) synthesizes them into a single decision.
 
 ```
-                    ┌─→ code-reviewer    ─┐
-/ship → fan out  ───┼─→ security-auditor ─┤→ merge → go/no-go + rollback
-                    └─→ test-engineer    ─┘
+                    ┌─→ code-reviewer       ─┐
+                    ├─→ security-auditor    ─┤
+/ship → fan out  ───┼─→ test-engineer       ─┤→ merge → go/no-go + rollback
+                    ├─→ deployment-engineer ─┤
+                    └─→ dependency-manager  ─┘
 ```
 
 **Use when:**
