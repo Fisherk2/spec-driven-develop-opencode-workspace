@@ -46,4 +46,3 @@ Ambos ignorados por git.
 ## Fuente
 
 Plugin: `sdd-pipeline.ts`
-Plan: `specs/plans/PLAN-001-plugin-meta-skill-loader.md`
