@@ -5,7 +5,7 @@ OpenCode plugin que hookea el lifecycle de la API real del SDK `@opencode-ai/plu
 ## Hooks implementados
 
 | Evento (API real) | Propósito |
-|---|---|---|
+|---|---|
 | `experimental.chat.system.transform` | Detecta y persiste tipo de agente + inyecta estado SDD + role rules en el system prompt |
 | `chat.message` | Detecta intención del usuario y sugiere slash commands SDD |
 | `tool.execute.before` | Bloquea comandos destructivos + separación quetzalcoatl/tezcatlipoca |

@@ -40,7 +40,7 @@ Toda nueva skill debe tener:
 - [SKILL.md](docs/opencode/02-skills.md) en el directorio de la skill (ver anatomía, frontmatter y nomenclatura en ese documento)
 - Frontmatter YAML con `name` y `description` válidos
 
-Para la anatomía detallada (secciones Overview, When to Use, Process, etc.), consulta [docs/opencode/02-skills.md#estructura-skillmd](docs/opencode/02-skills.md).
+Para la anatomía detallada (secciones Overview, When to Use, Process, etc.), consulta [docs/opencode/02-skills.md](docs/opencode/02-skills.md).
 
 ### Qué No Hacer
 
