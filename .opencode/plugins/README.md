@@ -5,12 +5,12 @@ OpenCode plugin que hookea el lifecycle de la API real del SDK `@opencode-ai/plu
 ## Hooks implementados
 
 | Evento (API real) | Propósito |
-|---|---|
-| `experimental.chat.system.transform` | Inyecta meta-skill + estado SDD en el system prompt desde el PRIMER mensaje |
+|---|---|---|
+| `experimental.chat.system.transform` | Detecta y persiste tipo de agente + inyecta estado SDD + role rules en el system prompt |
 | `chat.message` | Detecta intención del usuario y sugiere slash commands SDD |
-| `tool.execute.before` | Bloquea comandos destructivos + separación analysis/implement |
+| `tool.execute.before` | Bloquea comandos destructivos + separación quetzalcoatl/tezcatlipoca |
 | `tool.execute.after` | Auditoría de herramientas |
-| `experimental.session.compacting` | Re-inyecta meta-skill durante compactación + persiste estado |
+| `experimental.session.compacting` | Re-inyecta estado SDD + persiste estado del pipeline |
 
 ## API real del SDK vs blog post
 
@@ -30,18 +30,20 @@ Basado en `@opencode-ai/plugin/dist/index.d.ts` (v1.14.41):
 
 ## Archivos de runtime
 
-- `.opencode/plugins/.sdd-state.json` — estado persistido del pipeline
-- `.opencode/plugins/.sdd-audit.log` — traza de auditoría append-only
+- `.opencode/plugins/.sdd-state.json` — estado persistido del pipeline (fase, tareas, tipo de agente)
+- `.opencode/plugins/.sdd-audit.log` — traza de auditoría con rotación automática (>500 líneas → trunca a 250)
 
 Ambos ignorados por git.
 
 ## Cómo funciona
 
-1. **Al iniciar sesión**: `experimental.chat.system.transform` inyecta el meta-skill y estado SDD en el system prompt
+1. **Al iniciar sesión**: `experimental.chat.system.transform` detecta qué agente primario está activo (huitzilopochtli/quetzalcoatl/tezcatlipoca), lo persiste en `.sdd-state.json`, e inyecta el estado SDD + role rules en el system prompt
 2. **Cada mensaje**: `chat.message` detecta palabras clave y sugiere `/spec`, `/build`, etc.
-3. **Antes de cada herramienta**: `tool.execute.before` bloquea rm -rf, git push --force, y agentes fuera de rol
+3. **Antes de cada herramienta**: `tool.execute.before` bloquea comandos destructivos (rm -rf, git push --force), escritura de código para quetzalcoatl, y modificación de specs para tezcatlipoca
 4. **Después de cada herramienta**: `tool.execute.after` registra en el log de auditoría
-5. **En compactación**: `experimental.session.compacting` re-inyecta el meta-skill y persiste el estado
+5. **En compactación**: `experimental.session.compacting` re-inyecta el estado SDD + role rules y persiste el estado del pipeline
+
+> El meta-skill (`using-agent-skills`) **no** se inyecta automáticamente para ahorrar tokens (~4,000 por llamada). OpenCode lo expone como skill disponible; los agentes lo cargan bajo demanda con la herramienta `skill`.
 
 ## Fuente
 
