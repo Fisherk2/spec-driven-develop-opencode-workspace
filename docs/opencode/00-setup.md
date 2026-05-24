@@ -46,7 +46,7 @@ Commands like `/review` and `/ship` automatically compose multiple agents.
 
 ### 3. Discovers Skills
 
-The 33 skills live in `skills/<skill-name>/SKILL.md`. OpenCode agents receive instructions (via `AGENTS.md`) to:
+The 43 skills live in `skills/<skill-name>/SKILL.md`. OpenCode agents receive instructions (via `AGENTS.md`) to:
 
 1. Detect when a skill applies to the current task
 2. Load the skill using the built-in `skill` tool
@@ -139,6 +139,6 @@ Contains the required OpenCode plugin dependency:
 | Guide | Covers |
 |------|--------|
 | [Meta-Skill (using-agent-skills)](../../skills/using-agent-skills/SKILL.md) | Decision tree for skill discovery, core operational behaviors, failure modes, and Quick Reference index of all skills |
-| [USER_GUIDE.md](../../USER_GUIDE.md) | Complete reference of the 33 skills, commands, and workflows |
+| [USER_GUIDE.md](../../USER_GUIDE.md) | Complete reference of the 43 skills, commands, and workflows |
 | [08-orchestration-patterns.md](./08-orchestration-patterns.md) | Agent personas, orchestration patterns, and decision matrix |
 | [09-agent-index.md](./09-agent-index.md) | Complete catalog of the 99 agents classified by domain |

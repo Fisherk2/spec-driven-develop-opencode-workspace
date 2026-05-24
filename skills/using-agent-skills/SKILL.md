@@ -41,6 +41,7 @@ Task arrives
     │   ├── Need doc-verified code? ───→ source-driven-development
     │   ├── Writing robust shell scripts? ──→ bash-defensive-patterns
     │   ├── Applying SOLID/clean code? ──→ solid
+    │   ├── Writing clean, readable code? ──→ clean-code
     │   ├── Need resilient error handling? ──→ error-handling-patterns
     │   └── Implementing domain logic? ──→ clean-ddd-hexagonal
     ├── Writing/running tests? ────────→ test-driven-development
@@ -53,7 +54,9 @@ Task arrives
     │   │   └── Auditing dependencies? ──→ dependency-audit
     │   ├── Performance concerns? ────→ performance-optimization
     │   │   └── Static code performance analysis? ──→ performance-analysis
-    │   ├── Applying SOLID/clean code? ──→ solid
+    │   ├── Applying SOLID? ──────────→ solid
+    │   ├── Needs clean code practices? ──→ clean-code
+    │   ├── Code too complex? ──────────→ code-simplification
     │   ├── Reviewing error handling? ──→ error-handling-patterns
     │   ├── Reviewing design patterns? ──→ design-patterns
     │   ├── Code needs refactoring? ──→ refactoring-patterns
@@ -68,6 +71,7 @@ Task arrives
     │   └── Documenting architecture? ──→ architecture-diagrams
     └── Deploying/launching? ─────────→ shipping-and-launch
         ├── Handling database migrations? ──→ db-migration
+        ├── Need to deprecate old code? ──→ deprecation-and-migration
         └── Handling post-launch incidents? ──→ incident-response
     └── Working with spreadsheets? ──────────→ xlsx / excel-analysis
         ├── Creating/editing with formulas/formatting? ──→ xlsx
@@ -214,6 +218,7 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 | Build | docker-optimize | Optimize Dockerfiles with multi-stage builds, caching, and hardening |
 | Build | db-migration | Plan and execute database migrations with rollback strategies |
 | Build | solid | SOLID principles, TDD, clean code, professional software design |
+| Build | clean-code | Write readable, maintainable code through disciplined naming, small functions, and clean error handling |
 | Build | error-handling-patterns | Master error handling patterns for building resilient applications |
 | Build | ui-ux-design-pro | Professional UI/UX design with design systems, tokens, palettes, and high-fidelity prototyping |
 | Build | design-taste-frontend | Metric-based visual consistency rules to override default LLM biases |
@@ -230,6 +235,8 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 | Review | performance-analysis | Static code analysis for N+1 queries, complexity, and memory patterns |
 | Review | dependency-audit | Scan dependencies for CVEs, outdated packages, and license issues |
 | Review | solid | Evaluate code quality using SOLID principles |
+| Review | clean-code | Review code clarity, naming, function size, and adherence to clean code practices |
+| Review | code-simplification | Simplify code for clarity without changing behavior |
 | Review | error-handling-patterns | Review error handling patterns and resilience |
 | Review | design-patterns | Review use of design patterns in implementation |
 | Review | refactoring-patterns | Apply named refactoring transformations to improve code structure |
@@ -239,6 +246,7 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 | Ship | ci-cd-and-automation | Automated quality gates on every change |
 | Ship | documentation-and-adrs | Document the why, not just the what |
 | Ship | shipping-and-launch | Pre-launch checklist, monitoring, rollback plan |
+| Ship | deprecation-and-migration | Manage deprecation and migration of old systems, APIs, or features |
 | Ship | crafting-effective-readmes | Generate or update README files for documentation |
 | Ship | architecture-diagrams | Document final architecture in diagrams |
 | Ship | bash-defensive-patterns | Write robust CI/CD scripts using defensive Bash patterns |
