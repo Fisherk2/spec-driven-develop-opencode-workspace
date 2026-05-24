@@ -9,45 +9,190 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [2.1.0] - 2026-05-24
 
+### Cambios Importantes
+
+Este lanzamiento representa una **reestructuración profunda** del ecosistema de agentes y la configuración del proyecto:
+
+- **Catálogo completo de agentes**: Implementación de 90+ subagentes desde cero, reemplazando los 5 agentes especialistas anteriores por una arquitectura de 3 agentes primarios (huitzilopochtli, quetzalcoatl, tezcatlipoca) + 93 subagentes organizados por dominio.
+- **Migración de agentes**: 108 agentes en revisión → 12 agentes con arquitectura SDD → 99+ agentes estandarizados con formato OpenCode.
+- **Nueva orquestación**: Separación de orchestration-patterns.md y agent-index.md como documentos independientes, reemplazo de SUBAGENT DELEGATION genérico por tablas concretas por agente.
+- **Configuración OpenCode desde cero**: Primer archivo `opencode.json` con permisos, modelos, servidores MCP y agentes.
+- **Plugin SDD mejorado**: Auto-detección de agente, reglas de rol condicionales, rotación de log de auditoría, eliminación de inyección automática de meta-skill.
+
 ### Agregado
 
-#### Nuevas Skills (2 adicionales, total: 43)
+#### Catálogo Completo de Agentes (95 agentes nuevos)
 
-- `xlsx` - Manipulación de archivos de hoja de cálculo (.xlsx, .csv, .tsv) con soporte para fórmulas, formato y scripts de recálculo.
-- `excel-analysis` - Análisis de datos avanzado, creación de tablas dinámicas y generación de gráficos utilizando pandas.
+**Migración y Estandarización (3 fases):**
+- `agents/` — Migración de 108 agentes en revisión a 12 agentes con arquitectura SDD
+- Segunda migración: 101 agentes adicionales movidos desde `agents-review/` a `agents/`
+- Estandarización de 85 subagentes al formato Rich Extended OpenCode con frontmatter YAML completo
+- Metadata tuning completo para 99 agentes (modelos, permisos, descripciones, colores)
+- Corrección de permisos en todos los agentes (modos primary/subagent, restricciones de herramientas)
+- Corrección: agente `platform-engineer` ocultado de la sesión de OpenCode (`hidden: true`)
+- Configuración rápida para agente de Windsurf
 
-#### Nuevos Servidores MCP
+**Nuevos Agentes Primarios:**
+- `agents/huitzilopochtli.md` — General Purpose Agent (ciclo completo entre dominios)
+- `agents/quetzalcoatl.md` — Architect of Specifications (análisis y planificación, reemplaza a `analysis`)
+- `agents/tezcatlipoca.md` — Build Agent (ejecución de planes, reemplaza a `implement`)
 
-- **Excel MCP Server** (`excel-mcp-server`) - Permite a los agentes leer, escribir y formatear archivos Excel localmente.
-- **Jupyter Notebook MCP Server** (`mcp-jupyter-notebook`) - Proporciona control sobre sesiones de Jupyter para ejecución de código, gestión de paquetes e inspección de variables.
-- `docs/opencode/03-mcp-servers.md` - Documentación detallada para la configuración y uso de los nuevos servidores MCP.
+**Nuevos Subagentes por Dominio (95 agentes):**
+
+| Dominio | Agentes |
+|---------|---------|
+| Backend & APIs | backend-developer, typescript-pro, python-pro, golang-pro, rust-engineer, java-architect, csharp-developer, fastapi-developer, graphql-architect, spring-boot-engineer, django-developer, laravel-specialist, php-pro, nextjs-developer, elixir-expert, ruby-pro, kotlin-specialist, websocket-engineer, microservices-architect, cpp-pro, javascript-pro, fullstack-developer |
+| Frontend & Mobile | frontend-developer, react-specialist, vue-expert, angular-architect, nextjs-developer, flutter-expert, swift-expert, mobile-developer, mobile-app-developer |
+| Database & Data | database-optimizer, postgres-pro, sql-pro, data-analyst, data-engineer, data-scientist, data-researcher, database-administrator |
+| DevOps & Infra | docker-expert, kubernetes-specialist, terraform-engineer, devops-engineer, build-engineer, sre-engineer, cloud-architect, platform-engineer, network-engineer, azure-infra-engineer, deployment-engineer |
+| Security & Compliance | security-auditor, dependency-manager, legal-advisor |
+| Testing & Quality | test-engineer, code-reviewer, accessibility-tester, chaos-engineer, refactorer, error-detective, error-coordinator |
+| Debugging | debugger |
+| AI / ML | ai-engineer, llm-architect, mlops-engineer, machine-learning-engineer, nlp-engineer, prompt-engineer |
+| DX & Tooling | cli-developer, tooling-engineer, mcp-developer, dx-optimizer, context-manager |
+| Processes & Incidents | git-workflow-manager, incident-responder, project-manager, scrum-master, legacy-modernizer |
+| Specialized Domains | fintech-engineer, payment-integration, blockchain-developer, game-developer, iot-engineer, embedded-systems |
+| Documentation & Research | docs-writer, research-analyst, knowledge-synthesizer, scientific-literature-researcher, search-specialist |
+| Product & Business | business-analyst, product-manager, competitive-analyst, content-marketer, market-researcher, sales-engineer, seo-specialist, trend-analyst, ux-researcher |
+
+**Subagentes existentes actualizados:** code-reviewer, test-engineer, security-auditor, debugger, database-optimizer, dependency-manager — movidos al nuevo formato OpenCode y añadidos a las tablas de delegación.
+
+#### Nueva Documentación de Orquestación
+
+- `docs/opencode/08-orchestration-patterns.md` — Catálogo de 7 patrones de orquestación respaldados + 4 antipatrones con árbol de decisión:
+  1. Direct invocation (sin orquestación)
+  2. Single-persona slash command
+  3. Parallel fan-out with merge (ej: `/ship`)
+  4. Sequential pipeline como comandos slash (DEFINE→PLAN→BUILD→VERIFY→REVIEW→SHIP)
+  5. Research isolation (preservación de contexto)
+  6. General-purpose agent (huitzilopochtli, ciclo de vida completo)
+  7. Specialized primary agent con delegación selectiva (quetzalcoatl/tezcatlipoca → subagentes)
+- `docs/opencode/09-agent-index.md` — Catálogo completo de agentes clasificado por dominio con tablas dedicadas: Backend & APIs, Frontend & Mobile, Database & Data, DevOps & Infra, Security & Compliance, Testing & Quality, Debugging, AI/ML, DX & Tooling, Processes & Incidents, Specialized Domains, Documentation & Research, Product & Business. Incluye secciones de Primary Agents y subagentes por tipo de sistema.
+
+#### Delegación de Agentes Primarios
+
+- `agents/huitzilopochtli.md` — Tabla completa SUBAGENT DELEGATION con todos los dominios y agentes disponibles.
+- `agents/quetzalcoatl.md` — Tabla de subagentes relevantes para análisis: code-reviewer, security-auditor, database-optimizer, test-engineer, accessibility-tester, dependency-manager, debugger, research-analyst, docs-writer, business-analyst.
+- `agents/tezcatlipoca.md` — Tabla de subagentes relevantes para build: todos los lenguajes, frameworks, DevOps, DB, testing, más debugger, refactorer, error-detective.
+
+#### Plugin SDD Pipeline Mejorado
+
+- `.opencode/plugins/sdd-pipeline.ts` — Nuevas capacidades:
+  - **Auto-detección de agente**: Detecta automáticamente patrones de agente en el prompt y aplica reglas de rol condicionales.
+  - **Reglas de rol dinámicas**: Según el agente detectado (quetzalcoatl/tezcatlipoca), inyecta restricciones específicas de herramientas en system prompt.
+  - **Rotación de log de auditoría**: Registro de herramientas ejecutadas por agente con límite de 100 entradas.
+  - **Eliminación de inyección automática de meta-skill**: El meta-skill ya NO se inyecta automáticamente, se carga bajo demanda.
+  - **Patrones de intento en inglés**: Añadidos patrones de detección en inglés para el comando `/spec`.
+- `.opencode/plugins/README.md` — Actualizado para reflejar eliminación de meta-skill injection y auto-detección de agente.
+
+#### Configuración OpenCode Nativa
+
+- `opencode.json` — Primer archivo de configuración nativa de OpenCode creado desde cero:
+  - **Modelos**: `opencode/deepseek-v4-flash-free` (principal), `openrouter/z-ai/glm-4.5-air:free` (small), `opencode/nemotron-3-super-free` (explore).
+  - **Permisos bash**: Esquema completo de 30+ patrones allow/deny (git, ls, grep, find, etc.) con protección de archivos `.env`.
+  - **Permisos read**: Allow general con denegación de archivos `.env`.
+  - **Agentes**: `build` y `plan` deshabilitados (`disable: true`), `platform-engineer` oculto.
+  - **Instrucciones**: CONTRIBUTING.md, WORKFLOW.md, SPEC.md, USER_GUIDE.md, orchestration-patterns.md.
+  - **Servidores MCP**: `context7` (remote) + `excel` (local) + `jupyter` (local, deshabilitado).
+  - **Eliminación de referencia de index de skills**: Ya no se referencia porque el plugin lo carga automáticamente.
+
+#### Skills Existentes Integradas (7 adicionales desde skills-review)
+
+- Integración de 7 nuevas skills al proyecto, estandarizadas al formato del proyecto (kebab-case, SKILL.md con Common Rationalizations, Red Flags, Verification):
+  - `api-spec-generation/` — Generación de specs OpenAPI/AsyncAPI con naming consistente y formatos de error
+  - `changelog-generate/` — Generación de CHANGELOG.md en formato Keep a Changelog
+  - `clean-code/` — Código legible y mantenible (naming, funciones pequeñas, manejo de errores)
+  - `db-migration/` — Planificación y ejecución de migraciones con estrategias de rollback
+  - `dependency-audit/` — Escaneo de dependencias para CVEs, paquetes desactualizados y licencias
+  - `docker-optimize/` — Optimización de Dockerfiles con multi-stage, caching y hardening
+  - `performance-analysis/` — Análisis estático de rendimiento (N+1 queries, complejidad, memoria, caché)
+- `env-setup/` — Skill existente movido a la fase DEFINE como PRE-FLIGHT
+- `skills/using-agent-skills/SKILL.md` — Integración de las 7 skills en el árbol de Skill Discovery y tabla Quick Reference
+- `skills-lock.json` — Actualizado con registros de todas las skills
+
+#### Nuevas Skills de Hoja de Cálculo (2 adicionales, total: 43 — 42 ingeniería + 1 meta-skill)
+
+- `skills/xlsx/` — Manipulación de archivos de hoja de cálculo (.xlsx, .csv, .tsv) con fórmulas, formato, scripts de recálculo y esquemas OOXML ISO/IEC 29500-4:2016. Incluye validadores para docx, pptx y redlining. Basado en `anthropics/skills@xlsx` (89.1K installs).
+- `skills/excel-analysis/` — Análisis de datos con pandas: tablas dinámicas, gráficos, estadística descriptiva y limpieza de datos. Basado en `davila7/claude-code-templates@excel analysis` (1.6K installs).
+
+#### Nuevos Servidores MCP (Model Context Protocol)
+
+- **Excel MCP Server** (`uvx excel-mcp-server stdio`) — Lectura, escritura, formateo, tablas, gráficos, tablas dinámicas, fórmulas y manipulación de hojas de cálculo. Habilitado por defecto en `opencode.json`.
+- **Jupyter Notebook MCP Server** (`uvx mcp-jupyter-notebook`) — Control completo sobre sesiones Jupyter: ejecución de código, celdas markdown, gestión de paquetes pip, inspección de variables, kernel lifecycle y 30+ herramientas MCP. Incluye modo servidor (remote Jupyter) y modo local (kernel directo). PostgreSQL tools opcional. Pre-configurado como `enabled: false`.
+- `docs/opencode/03-mcp-servers.md` — Ampliado con configuración detallada de ambos servidores: Quick Start con Docker/local, tabla de variables de entorno, modos de operación, ejemplos de uso.
+
+#### Renombrado de Agentes Principales
+
+- `agents/analysis.md` → `agents/quetzalcoatl.md` — Arquitecto de Especificaciones
+- `agents/implement.md` → `agents/tezcatlipoca.md` — Build Agent
 
 ### Cambiado
 
-#### Documentación y Guías
+#### Meta-Skill y Descubrimiento de Skills
 
-- `README.md` - Actualización integral:
-  - Conteo de skills corregido a 43 (42 de ingeniería + 1 meta-skill).
-  - Árbol de estructura de skills completado con las 43 entradas (añadidas 10 faltantes).
-  - Pasos opcionales de MCP añadidos al Quick Start.
-  - URLs de repositorio actualizadas a `agent-jupyter-toolkit`.
-- `USER_GUIDE.md` - Reestructuración de la sección de herramientas:
-  - Nueva fase **"Extra"** para herramientas especializadas (xlsx, excel-analysis).
-  - Guía de inicio rápido para servidores MCP y sección de troubleshooting.
-- `skills/using-agent-skills/SKILL.md` - Flowchart de descubrimiento actualizado para incluir flujos de trabajo con hojas de cálculo.
+- `skills/using-agent-skills/SKILL.md` — Árbol de descubrimiento expandido con:
+  - 7 nuevas skills integradas desde skills-review en sus fases correspondientes.
+  - Nueva rama para hojas de cálculo: `Working with spreadsheets? → xlsx / excel-analysis`.
+  - Tabla Quick Reference actualizada con todas las skills integradas y 2 filas en fase "Extra".
 
-#### Configuración del Proyecto
+#### Documentación de Agentes
 
-- `opencode.json` - Configuración nativa de servidores MCP:
-  - `excel` habilitado por defecto (vía `uvx`).
-  - `jupyter` pre-configurado (deshabilitado por defecto para ahorro de contexto).
-- `skills-lock.json` - Registro y hash de integridad para las nuevas skills.
+- `agents/huitzilopochtli.md` — Tabla SUBAGENT DELEGATION actualizada con catálogo completo de 10+ dominios.
+- `agents/quetzalcoatl.md` — Tabla de subagentes para análisis: code-reviewer, security-auditor, database-optimizer, test-engineer, accessibility-tester, dependency-manager, debugger, research-analyst, docs-writer, business-analyst.
+- `agents/tezcatlipoca.md` — Tabla de subagentes para build: lenguajes, frameworks, DevOps, DB, testing, debugger, refactorer, error-detective.
+- `agents/code-reviewer.md`, `agents/test-engineer.md`, `agents/security-auditor.md` — Formato actualizado con frontmatter YAML extendido.
+- `agents/analysis.md` → `agents/quetzalcoatl.md` — Renombrado y refinado como complemento del nuevo flujo.
+- `agents/implement.md` → `agents/tezcatlipoca.md` — Migrado al nuevo nombre.
+- `docs/opencode/00-setup.md` — Referencias de agentes actualizadas a 3 agentes primarios.
+- Patrones de iteración corregidos para agentes orquestadores (5-10 pasos).
+
+#### Documentación de Orquestación
+
+- `docs/opencode/08-orchestration-patterns.md` — Separado del catálogo de agentes. Ahora incluye:
+  - 7 patrones de orquestación respaldados con reglas de composición.
+  - 4 antipatrones documentados (Router, Persona-chaining, Sequential orchestrator, Deep persona trees).
+  - Árbol de decisión para seleccionar el patrón correcto.
+  - Reglas para personas (single role, no invocan otras personas).
+- `docs/opencode/09-agent-index.md` — Nuevo documento separado con catálogo completo clasificado por dominio.
+
+#### Documentación Principal
+
+- `docs/ai-agent-setup/opencode-setup.md` — Traducido al inglés (was alemán/inglés mezclado).
+- `docs/ai-agent-setup/skill-anatomy.md` — Actualizado con referencias cruzadas al meta-skill y USER_GUIDE.md.
+- `CONTRIBUTING.md` — Delegada anatomía y formato de skills a `docs/opencode/02-skills.md` (eliminada duplicación). Añadida sección de Referencias y registro del agente `implement`.
+- `README.md` — Restructuración mayor:
+  - Conteo de skills corregido: **43** (42 ingeniería + 1 meta-skill).
+  - Árbol de estructura de proyecto completado con las 43 skills reales (faltaban 10).
+  - Quick Start: nuevo paso **#5 (Opcional) Jupyter Notebook MCP Server**.
+  - URLs de repositorios actualizadas a agent-jupyter-toolkit (GitHub).
+- `USER_GUIDE.md` — Actualizaciones:
+  - **Skills Reference**: Nueva subsección **Extra — Specialized tools and utilities**.
+  - **Quick Start**: Nuevo paso **#4 (Optional) Jupyter Notebook MCP Server**.
+  - **Troubleshooting**: Nueva fila para "Jupyter MCP won't connect".
+  - **Project Structure Tree**: Skills añadidos al listado, encabezado corregido a 43 skills.
+- `WORKFLOW.md` — Eliminada referencia a un plan ya ejecutado.
+
+#### Configuración y Permisos
+
+- `opencode.json` — Configuración desde cero:
+  - Centralización de todos los permisos bash (30+ patrones de git, grep, find, etc.).
+  - Protección de archivos `.env` en bash y read permissions.
+  - Eliminación de comandos git redundantes del agente test-engineer.
+  - Agregados comandos de análisis faltantes.
+  - Corrección de lint de configuración.
+  - Servidores MCP añadidos: context7 (remote), excel (local), jupyter (local).
+- `skills-lock.json` — Actualizado con registros de todas las skills integradas y nuevas.
 
 ### Corregido
 
-- **Conteo de Skills**: Sincronización del conteo de herramientas en `README.md`, `USER_GUIDE.md` y meta-skill.
-- **Enlaces rotos**: Corrección de hipervínculos internos y referencias a repositorios externos en toda la documentación.
-- **Formato Markdown**: Ajustes de consistencia en tablas y bloques de código.
+- **Sincronización de conteo de skills**: README.md, USER_GUIDE.md y árbol de proyecto actualizados de 33→43.
+- **README.md**: Árbol de skills incompleto — faltaban 10 entradas. Ahora completo con las 43.
+- `.opencode/plugins/README.md` — Tabla corrupta: columna extra eliminada (`|---|---|---|` → `|---|---|`).
+- `CONTRIBUTING.md` — Enlace roto a `docs/opencode/02-skills.md#estructura-skillmd` corregido.
+- URLs de repositorios Jupyter actualizadas al monorepo `agent-jupyter-toolkit`.
+- `skills-lock.json` — 3 `skillPath` erróneos corregidos (skills existentes).
+- `skills/incident-response/SKILL.md` — Enlace roto reparado.
+- Formato de referencias a skills en comandos y skills base (backticks eliminados).
 
 ## [2.0.0] - 2026-05-21
 
@@ -516,8 +661,18 @@ Nuevas secciones agregadas al `.gitignore`:
 5. **Nuevo gestor de paquetes**: `.opencode/` migró de pnpm a bun. Ejecuta `bun install` en `.opencode/` si usas el plugin SDD.
 6. **Nuevos agentes**: El flujo `analysis → implement` reemplaza al antiguo agente único de construcción.
 
+**Al actualizar desde 2.0.0 a 2.1.0:**
+
+1. **Nuevos skills disponibles**: `xlsx` y `excel-analysis` se instalan automáticamente al actualizar. Solo reinicia OpenCode para que se carguen.
+2. **Nuevos servidores MCP**: `opencode.json` incluye dos nuevos servidores:
+   - `excel`: Habilitado por defecto. Ejecuta `uvx excel-mcp-server stdio` para verificar que funciona.
+   - `jupyter`: Deshabilitado por defecto. Para activarlo, inicia un servidor Jupyter (Docker o local), cambia `"enabled": false` a `"enabled": true` en `opencode.json`, y reinicia OpenCode.
+3. **Documentación MCP**: La guía `docs/opencode/03-mcp-servers.md` ha sido ampliada con la configuración detallada de ambos servidores.
+4. **Revisa conteo de skills**: El total real es 43 (42 ingeniería + 1 meta-skill). Verifica que `README.md` y `USER_GUIDE.md` reflejen este número.
+5. **Nueva fase Extra**: Las skills de hojas de cálculo ahora aparecen en una sección "Extra" en `USER_GUIDE.md` y en el meta-skill.
+
 #### Para Versiones Futuras
-Al actualizar desde 2.0.0 a versiones futuras:
+Al actualizar de 2.1.0 en adelante:
 
 1. **Revisa el CHANGELOG** para cambios rupturantes
 2. **Ejecuta lint/typecheck** después de actualizar skills
