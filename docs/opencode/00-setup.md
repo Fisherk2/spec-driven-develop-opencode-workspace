@@ -29,12 +29,10 @@ project-root/
 │   ├── review.md          #   /review → fase REVIEW
 │   ├── code-simplify.md   #   /code-simplify → simplificación
 │   └── ship.md            #   /ship  → fase SHIP
-├── agents/                # 5 personas de agente especializadas
+├── agents/                # 99 agentes (3 principales + 96 subagentes)
+│   ├── huitzilopochtli.md #   General Purpose Agent
 │   ├── quetzalcoatl.md    #   Arquitecto de Especificaciones
-│   ├── tezcatlipoca.md    #   Agente de Build
-│   ├── code-reviewer.md   #   Ingeniero Senior Staff
-│   ├── test-engineer.md   #   Especialista en QA
-│   └── security-auditor.md #   Ingeniero de Seguridad
+│   └── tezcatlipoca.md    #   Agente de Build
 ├── skills/                # 33 skills de ingeniería (SKILL.md por directorio)
 │   ├── spec-driven-development/
 │   ├── test-driven-development/
@@ -68,13 +66,13 @@ Los comandos también activan skills complementarios automáticamente. Por ejemp
 
 ### 2. Proporciona Personas de Agente
 
-El directorio `agents/` define 5 agentes especializados. Cada uno tiene un rol, perspectiva y formato de salida específicos. Puedes invocarlos directamente:
+El directorio `agents/` contiene **99 agentes**: 3 agentes primarios (orquestación SDD) y 96 subagentes especializados. Los 3 agentes principales son invocables directamente:
 
-- `analysis` — Analizar, diseñar y planificar antes de escribir código
-- `implement` — Ejecutar planes de build validados
-- `code-reviewer` — Revisión de cinco ejes antes del merge
-- `test-engineer` — Estrategia de pruebas y análisis de cobertura
-- `security-auditor` — Detección de vulnerabilidades y evaluación OWASP
+- `huitzilopochtli` — Propósito general, ciclo completo en cualquier dominio
+- `quetzalcoatl` — Arquitecto de Especificaciones: analizar, diseñar, planificar
+- `tezcatlipoca` — Agente de Build: ejecutar planes de implementación validados
+
+> Para el catálogo completo de subagentes (90+ especialistas en frontend, backend, devops, testing, seguridad, etc.), consulta [09-agent-index.md](./09-agent-index.md).
 
 Comandos como `/review` y `/ship` componen múltiples agentes automáticamente.
 
@@ -175,3 +173,4 @@ Contiene la dependencia de plugin de OpenCode requerida:
 | [Meta-Skill (using-agent-skills)](../../skills/using-agent-skills/SKILL.md) | Árbol de decisión para descubrimiento de skills, comportamientos operativos centrales, modos de fallo e índice de Referencia Rápida de todos los skills |
 | [USER_GUIDE.md](../../USER_GUIDE.md) | Referencia completa de los 33 skills, comandos y flujos de trabajo |
 | [08-orchestration-patterns.md](./08-orchestration-patterns.md) | Personas de agente, patrones de orquestación y matriz de decisión |
+| [09-agent-index.md](./09-agent-index.md) | Catálogo completo de los 99 agentes clasificados por dominio |
