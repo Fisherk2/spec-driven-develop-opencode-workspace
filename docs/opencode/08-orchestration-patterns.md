@@ -10,22 +10,13 @@ The governing rule: **the user (or a slash command) is the orchestrator. Persona
 
 Specialist personas that play a single role with a single perspective. Each persona is a Markdown file in `agents/` (sincronizado con `.opencode/agents/`) y consumido como system prompt por OpenCode.
 
+> **Full agent catalog (90+ subagents):** See [09-agent-index.md](./09-agent-index.md) for the complete classified index of all available subagents. This section only lists the 3 primary agents that participate in orchestration patterns.
+
 | Persona | Role | Best for |
 |---------|------|----------|
 | [huitzilopochtli](../../agents/huitzilopochtli.md) | General Purpose Agent | Full-lifecycle tasks across domains, research, documentation, planning, and orchestrating specialized sub-tasks |
-| [code-reviewer](../../agents/code-reviewer.md) | Senior Staff Engineer | Five-axis review before merge |
-| [security-auditor](../../agents/security-auditor.md) | Security Engineer | Vulnerability detection, OWASP-style audit |
-| [test-engineer](../../agents/test-engineer.md) | QA Engineer | Test strategy, coverage analysis, Prove-It pattern |
 | [quetzalcoatl](../../agents/quetzalcoatl.md) | Architect of Specifications | Spec-Driven Analysis, planning, and design |
 | [tezcatlipoca](../../agents/tezcatlipoca.md) | Build Agent | Execute validated execution plans — build, test, and modify code |
-| [docs-writer](../../agents/docs-writer.md) | Technical Writer | Documentation, READMEs, API docs, changelogs |
-| [deployment-engineer](../../agents/deployment-engineer.md) | Deployment Engineer | Release automation, CI/CD, rollback strategies |
-| [database-optimizer](../../agents/database-optimizer.md) | Database Specialist | Schema design, query analysis, indexing |
-| [incident-responder](../../agents/incident-responder.md) | Incident Commander | Triage, communication, postmortems |
-| [dependency-manager](../../agents/dependency-manager.md) | Dependency Specialist | CVE scanning, license audit, outdated deps |
-| [build-engineer](../../agents/build-engineer.md) | Build Engineer | Dockerfiles, CI performance, build caching |
-| [git-workflow-manager](../../agents/git-workflow-manager.md) | Git Specialist | Branching strategy, commit hygiene, releases |
-| [debugger](../../agents/debugger.md) | Debugging Specialist | Systematic root-cause analysis |
 
 ### How personas relate to skills and commands
 
@@ -42,6 +33,8 @@ The user (or a slash command) is the orchestrator. **Personas do not call other 
 ### When to use each
 
 **Direct persona invocation** — Pick this when you want one perspective on the current change and the user is in the loop.
+
+> For the full catalog of 90+ available subagents beyond those listed here, see [09-agent-index.md](./09-agent-index.md).
 
 - "Handle any general task end-to-end" → invoke `huitzilopochtli` directly
 - "Review this PR" → invoke `code-reviewer` directly
@@ -371,7 +364,7 @@ Is the work one perspective on one artifact?
 1. Create `agents/<role>.md` with the same frontmatter format used by existing personas.
 2. Define the role, scope, output format, and rules.
 3. Add a **Composition** block at the bottom (Invoke directly when / Invoke via / Do not invoke from another persona).
-4. Add the persona to the table in this document's [Agent Personas](#agent-personas) section.
+4. Add the persona to the catalog in [09-agent-index.md](./09-agent-index.md). If it's a primary agent that participates in orchestration patterns, also add it to the table in [Agent Personas](#agent-personas).
 5. If the persona enables a new orchestration pattern, add it to this catalog's [Endorsed Patterns](#endorsed-patterns) or [Anti-Patterns](#anti-patterns) section rather than inventing the pattern in the persona file itself.
 
 ---

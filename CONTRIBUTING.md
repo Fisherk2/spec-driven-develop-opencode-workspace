@@ -76,7 +76,7 @@ Para añadir un nuevo agente especializado, sigue estos pasos:
 1. Crea `agents/<nombre-agente>.md` con el mismo formato de frontmatter que los agentes existentes
 2. Define el rol, alcance, formato de salida y reglas
 3. Añade un bloque **Composition** al final (Invoke directly when / Invoke via / Do not invoke from another persona)
-4. Añade el agente a la tabla en [docs/opencode/08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md)
+4. Añade el agente al catálogo en [docs/opencode/09-agent-index.md](docs/opencode/09-agent-index.md). Si es un agente primario que participa en patrones de orquestación, añádelo también a la tabla en [docs/opencode/08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md)
 5. **Actualiza la sección `## Agent Personas` en [USER_GUIDE.md](USER_GUIDE.md)** con el nuevo agente
 6. Si el agente habilita un nuevo patrón de orquestación, documéntalo en [docs/opencode/08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md)
 
@@ -152,7 +152,8 @@ Ambos formatos son válidos. Usa el formato simple para agentes puramente analí
 ### Referencias
 
 Para más información sobre orquestación de agentes, patrones válidos e inválidos, y ejemplos de composición, ver:
-- [docs/opencode/08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md) — Guía completa de agentes y orquestación
+- [docs/opencode/08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md) — Patrones de orquestación y agentes primarios
+- [docs/opencode/09-agent-index.md](docs/opencode/09-agent-index.md) — Catálogo completo de agentes clasificados por dominio
 
 ---
 
