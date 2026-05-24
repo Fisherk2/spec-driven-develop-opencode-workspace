@@ -16,9 +16,7 @@
    - Esto mantiene el material de referencia centralizado y accesible para todas las skills
    - Elimina el directorio `references/` vacío dentro de la skill después de migrar
 
-3. **Crea o ajusta el `SKILL.md`** siguiendo el formato en [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md)
-   - Incluye frontmatter YAML con los campos `name` y `description`
-   - La `description` debe indicar brevemente qué hace la skill, seguida de condiciones "Use when"
+3. **Crea o ajusta el `SKILL.md`** siguiendo el formato definido en [docs/opencode/02-skills.md](docs/opencode/02-skills.md) (frontmatter, nomenclatura, anatomía) y la guía de estilo en [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md)
 
 4. **Actualiza la documentación de skills disponibles** (prioridad: meta-skill primero):
    - **[skills/using-agent-skills/SKILL.md](skills/using-agent-skills/SKILL.md)** — Añade la skill al árbol de "Skill Discovery" bajo la subsección **"Skill Extras"** y a la tabla "Quick Reference" con la fase **"Extra"**
@@ -39,17 +37,10 @@ Las skills deben ser:
 
 Toda nueva skill debe tener:
 
-- [SKILL.md](docs/ai-agent-setup/skill-anatomy.md) en el directorio de la skill
+- [SKILL.md](docs/opencode/02-skills.md) en el directorio de la skill (ver anatomía, frontmatter y nomenclatura en ese documento)
 - Frontmatter YAML con `name` y `description` válidos
 
-Las nuevas skills deben seguir generalmente la anatomía estándar:
-
-- **Overview** — Qué hace esta skill y por qué importa
-- **When to Use** — Condiciones de activación
-- **Process** — Flujo de trabajo paso a paso
-- **Common Rationalizations** — Excusas que los agentes usan para saltarse pasos, con refutaciones
-- **Red Flags** — Señales de advertencia de que la skill se está aplicando incorrectamente
-- **Verification** — Cómo confirmar que la skill se aplicó correctamente
+Para la anatomía detallada (secciones Overview, When to Use, Process, etc.), consulta [docs/opencode/02-skills.md#estructura-skillmd](docs/opencode/02-skills.md).
 
 ### Qué No Hacer
 
@@ -58,90 +49,71 @@ Las nuevas skills deben seguir generalmente la anatomía estándar:
 - No crees archivos de soporte a menos que el contenido supere las 100 líneas
 - No pongas material de referencia dentro de los directorios de skills — usa `references/` en su lugar
 
-### Referencias
-
-Para más información sobre descubrimiento de skills, anatomía de skills, y referencia completa:
-
-- [skills/using-agent-skills/SKILL.md](skills/using-agent-skills/SKILL.md) — Meta-skill: árbol de decisión para descubrir qué skill aplicar según la tarea, Quick Reference de todas las skills, y operating behaviors globales
-- [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md) — Guía de creación de skills: frontmatter, secciones estándar, principios de escritura
-
 ---
 
 ## Añadir un Nuevo Agente
 
-Para añadir un nuevo agente especializado, sigue estos pasos:
+Para añadir un nuevo agente especializado, sigue estos pasos. El proyecto tiene **dos tipos de agente** con procedimientos distintos:
 
-### Pasos
+- **Subagente** (~96 actualmente) — experto en un dominio concreto, invocado vía `task()` desde un agente primario
+- **Agente primario** (3 actualmente: huitzilopochtli, quetzalcoatl, tezcatlipoca) — entrada principal para comandos slash, con capacidad de delegar a subagentes
 
-1. Crea `agents/<nombre-agente>.md` con el mismo formato de frontmatter que los agentes existentes
-2. Define el rol, alcance, formato de salida y reglas
-3. Añade un bloque **Composition** al final (Invoke directly when / Invoke via / Do not invoke from another persona)
-4. Añade el agente al catálogo en [docs/opencode/09-agent-index.md](docs/opencode/09-agent-index.md). Si es un agente primario que participa en patrones de orquestación, añádelo también a la tabla en [docs/opencode/08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md)
-5. **Actualiza la sección `## Agent Personas` en [USER_GUIDE.md](USER_GUIDE.md)** con el nuevo agente
-6. Si el agente habilita un nuevo patrón de orquestación, documéntalo en [docs/opencode/08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md)
+### Añadir un Subagente
 
-### Reglas para Agentes
+1. **Crea `agents/<nombre-agente>.md`** con el formato de frontmatter adecuado (simple para revisión/análisis, extendido para ejecución)
+
+2. **Define el rol, alcance, formato de salida y reglas**
+
+3. **Añade un bloque `## Composition` al final** siguiendo el formato estándar (Invoke directly when / Invoke via / Do not invoke from another persona)
+
+4. **Actualiza el catálogo global** — Añade el agente a la tabla correspondiente en [docs/opencode/09-agent-index.md](docs/opencode/09-agent-index.md):
+   - Si es de Ingeniería de Sistemas → añádelo a la sección `## 🖥️ Ingeniería de Sistemas`
+   - Si es Multidisciplinar & Negocio → añádelo a la sección `## 🧩 Multidisciplinar & Negocio`
+
+5. **Actualiza las tablas SUBAGENT DELEGATION de los agentes primarios** que puedan delegar a este nuevo agente. Esto es crítico — sin esto, el agente primario no sabrá que existe:
+   - **[agents/quetzalcoatl.md](agents/quetzalcoatl.md)** — Si el agente es útil para análisis, revisión, especificaciones o documentación (code reviews, DB analysis, accessibility, research, etc.)
+   - **[agents/tezcatlipoca.md](agents/tezcatlipoca.md)** — Si el agente es útil para implementación, build, testing o despliegue (lenguajes, frameworks, DevOps, DB, testing, etc.)
+   - Añade una fila a la tabla con: nombre del agente, qué hace mejor ("Best for"), y cuándo delegar ("Delegate when...")
+
+6. **Actualiza el catálogo de huitzilopochtli** en [agents/huitzilopochtli.md](agents/huitzilopochtli.md):
+   - Si el agente encaja en un dominio existente (Backend, Frontend, DevOps, etc.), añade su nombre a la lista separada por comas
+   - Si el agente introduce un dominio nuevo, añade una fila nueva a la tabla "Catalog by Domain"
+
+7. **Reinicia tu sesión de OpenCode** para que reconozca el nuevo agente
+
+### Añadir un Agente Primario
+
+Los agentes primarios son entradas principales del pipeline SDD. Además de los pasos 1-3 de "Añadir un Subagente":
+
+4. **Añade el agente al catálogo** en [docs/opencode/09-agent-index.md](docs/opencode/09-agent-index.md) (sección `## Primary Agents`)
+
+5. **Añade el agente a la tabla** en [docs/opencode/08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md) (sección `## Agent Personas`)
+
+6. **Actualiza `USER_GUIDE.md`** — Añade el agente a la tabla `## Agent Personas`
+
+7. **Añade SUBAGENT DELEGATION section** al nuevo agente primario, siguiendo el patrón de los existentes (tabla de subagentes relevantes + reglas de delegación)
+
+8. **Crea los hooks necesarios en el plugin SDD** (`.opencode/plugins/sdd-pipeline.ts`) si el agente necesita:
+   - Detección automática en `AGENT_DETECT_PATTERNS`
+   - Role rules en `buildRoleRules()`
+   - Restricciones de herramientas en `tool.execute.before`
+
+9. Si el agente habilita un nuevo patrón de orquestación, documéntalo en [docs/opencode/08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md)
+
+10. **Reinicia tu sesión de OpenCode**
+
+### Reglas para Agentes y Subagentes
 
 - Un agente es un único rol con un único formato de salida. Si necesitas un segundo rol, crea un segundo agente.
-- **Los agentes no invocan a otros agentes.** La composición es trabajo de los comandos o del usuario. Esta regla se refiere a personas de OpenCode (archivos en `agents/` cargados como system prompts). No prohíbe que un agente delegue subtareas especializadas a subagentes a través del `task` tool — los subagentes operan en subcontextos aislados, no como personas encadenadas.
-- **Excepción para agentes de propósito general:** Un agente primario de propósito general (como `huitzilopochtli`) puede delegar subtareas especializadas a subagentes para experiencia específica, siempre que el trabajo principal permanezca en el agente principal y la delegación sea para tareas concretas y aisladas.
+- **Los agentes primarios pueden delegar a subagentes** a través de `task()` para tareas especializadas y bien definidas. Los subagentes operan en subcontextos aislados y devuelven su resultado al agente primario. Esto no es persona-chaining — es delegación controlada dentro del mismo contexto.
+- **Los subagentes NO delegan a otros subagentes.** Si un subagente necesita ayuda especializada, debe reportarlo al agente primario que lo invocó.
+- **Los agentes primarios NO invocan a otros agentes primarios.** La composición entre primarios es responsabilidad de los comandos slash o del usuario.
 - Un agente puede invocar skills (el *cómo*).
 - Todo archivo de agente termina con un bloque "Composition" indicando dónde encaja.
 
-### Estructura de un Agente
+### Formato del Archivo
 
-```
-agents/
-  <nombre-agente>.md    # Formato frontmatter:
-                        # ---
-                        # name: nombre-agente
-                        # role: Título del rol
-                        # perspective: Perspectiva especializada
-                        # ---
-                        #
-                        # [Contenido del agente]
-                        #
-                        # ## Composition
-                        # [Dónde se invoca este agente]
-```
-
-### Ejemplo de Frontmatter
-
-El proyecto soporta dos formatos de frontmatter según el tipo de agente:
-
-**Formato simple** (agentes de revisión / QA / seguridad):
-```yaml
----
-name: code-reviewer
-description: Senior code reviewer that evaluates changes across five dimensions — correctness, readability, architecture, security, and performance
----
-```
-
-**Formato extendido OpenCode** (agentes que requieren configuración de permisos y modelo):
-```yaml
----
-description: Build Agent - Execute Plans (Write/Edit Enabled)
-mode: primary
-color: "#FF55FF"
-model: opencode/qwen3.6-plus-free
-temperature: 0.9
-permission:
-  write: allow
-  edit: allow
-  read: allow
-  bash: ask
----
-```
-
-Ambos formatos son válidos. Usa el formato simple para agentes puramente analíticos o de revisión, y el extendido para agentes con permisos de escritura y configuración específica de plataforma.
-
-### Agentes Existentes
-
-| Agente | Rol | Propósito |
-|--------|-----|----------|
-| [huitzilopochtli](agents/huitzilopochtli.md) | General Purpose Agent | Ciclo completo — investigación, planificación, ejecución y organización en cualquier dominio |
-| [quetzalcoatl](agents/quetzalcoatl.md) | Architect of Specifications | Transforma ideas y requisitos en planes de ejecución detallados sin generar código |
-| [tezcatlipoca](agents/tezcatlipoca.md) | Build Agent | Ejecuta planes de implementación validados — construir, probar y modificar código |
+El formato y las opciones de configuración (frontmatter YAML, modos, permisos, modelo) están documentados en [docs/opencode/01-agents.md](docs/opencode/01-agents.md). Usa los agentes existentes en `agents/` como referencia.
 
 ### Qué No Hacer
 
@@ -151,7 +123,8 @@ Ambos formatos son válidos. Usa el formato simple para agentes puramente analí
 
 ### Referencias
 
-Para más información sobre orquestación de agentes, patrones válidos e inválidos, y ejemplos de composición, ver:
+Para más información sobre formatos de agente, orquestación y catálogo completo:
+- [docs/opencode/01-agents.md](docs/opencode/01-agents.md) — Configuración de agentes, frontmatter, permisos, modos
 - [docs/opencode/08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md) — Patrones de orquestación y agentes primarios
 - [docs/opencode/09-agent-index.md](docs/opencode/09-agent-index.md) — Catálogo completo de agentes clasificados por dominio
 
