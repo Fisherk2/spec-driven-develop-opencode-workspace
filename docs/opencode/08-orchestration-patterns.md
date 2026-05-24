@@ -12,6 +12,7 @@ Specialist personas that play a single role with a single perspective. Each pers
 
 | Persona | Role | Best for |
 |---------|------|----------|
+| [huitzilopochtli](../../agents/huitzilopochtli.md) | General Purpose Agent | Full-lifecycle tasks across domains, research, documentation, planning, and orchestrating specialized sub-tasks |
 | [code-reviewer](../../agents/code-reviewer.md) | Senior Staff Engineer | Five-axis review before merge |
 | [security-auditor](../../agents/security-auditor.md) | Security Engineer | Vulnerability detection, OWASP-style audit |
 | [test-engineer](../../agents/test-engineer.md) | QA Engineer | Test strategy, coverage analysis, Prove-It pattern |
@@ -42,6 +43,7 @@ The user (or a slash command) is the orchestrator. **Personas do not call other 
 
 **Direct persona invocation** — Pick this when you want one perspective on the current change and the user is in the loop.
 
+- "Handle any general task end-to-end" → invoke `huitzilopochtli` directly
 - "Review this PR" → invoke `code-reviewer` directly
 - "Are there security issues in `auth.ts`?" → invoke `security-auditor` directly
 - "What tests are missing for the checkout flow?" → invoke `test-engineer` directly
@@ -68,9 +70,12 @@ The user (or a slash command) is the orchestrator. **Personas do not call other 
 ### Rules for personas
 
 1. A persona is a single role with a single output format. If you find yourself adding a second role, create a second persona.
-2. **Personas do not invoke other personas.** Composition is the job of slash commands or the user.
+2. **Personas do not invoke other personas.** Composition is the job of slash commands or the user. This rule refers to OpenCode personas (files in `agents/` loaded as system prompts). It does **not** prohibit a persona from delegating specialized sub-tasks to subagents via the `task` tool — that is a different mechanism (isolated sub-contexts, not persona chaining).
 3. A persona may invoke skills (the *how*).
-4. Every persona file ends with a "Composition" block stating where it fits.
+4. **All primary agents may delegate specialized sub-tasks to subagents**, subject to domain boundaries:
+   - A general-purpose persona (e.g., `huitzilopochtli`) may delegate to any subagent in the catalog for any domain.
+   - A specialized primary agent (e.g., `quetzalcoatl`, `tezcatlipoca`) may delegate only to subagents relevant to its domain (analysis/review for quetzalcoatl; build/debug for tezcatlipoca). The core work must stay in the primary agent; delegation is for isolated, narrow concerns.
+5. Every persona file ends with a "Composition" block stating where it fits.
 
 ---
 
@@ -87,6 +92,7 @@ user → code-reviewer → report → user
 **Use when:** the work is one perspective on one artifact and you can describe it in one sentence.
 
 **Examples:**
+- "Handle any task end-to-end" → `huitzilopochtli`
 - "Review this PR" → `code-reviewer`
 - "Find security issues in `auth.ts`" → `security-auditor`
 - "What tests are missing for the checkout flow?" → `test-engineer`
@@ -195,6 +201,82 @@ main agent → research sub-agent (reads 50 files) → digest → main agent con
 **Examples:** "Find every call site of this deprecated API across the monorepo," "Summarize what these 30 ADRs say about caching."
 
 **Cost:** one isolated sub-agent context. Worth it any time the alternative is loading hundreds of files into the main context.
+
+---
+
+### 6. General-purpose agent (end-to-end lifecycle)
+
+A single persona handles any task from conception to completion, working across domains (not just software). The agent does the core work itself — research, writing, planning, organization — and only delegates specialized sub-tasks to subagents when specific expertise is required.
+
+```
+user → huitzilopochtli (general purpose)
+         ↓ (researches, analyzes, plans, executes core work)
+         └─→ delegates specialized sub-tasks to subagents as needed
+         ↓
+      result → user
+```
+
+**Use when:**
+- The task spans multiple domains or types of work (research + writing + planning)
+- The work is not purely software development (documents, research, organization)
+- You want a single entry point that can handle full lifecycle without SDD constraints
+- The core work can be done by the generalist; only narrow concerns need specialist input
+
+**Examples in this repo:** `huitzilopochtli` for end-to-end tasks like "research this topic and write a report," "plan and organize our documentation," or "investigate, plan, and implement a non-software project."
+
+**Cost:** one main context + optional isolated subagent contexts for specialized delegation.
+
+**How this differs from the Router anti-pattern:**
+- Huitzilopochtli does actual work — it researches, writes, plans, and executes. It is not a pure routing layer.
+- Delegation is for specialized expertise (e.g., "audit this code for security"), not for routing decisions.
+- The agent handles the full lifecycle; delegation is a small part of the workflow, not the entirety of it.
+- The user invokes it for the agent's own capabilities, not as a dispatcher.
+
+**NOTE:** This pattern is exclusive to general-purpose personas like `huitzilopochtli`. Specialized subagents (code reviewers, security auditors, etc.) should **not** adopt it, as that would violate the single-perspective rule (Rule 1). However, specialized **primary agents** (like `quetzalcoatl` and `tezcatlipoca`) have their own version of delegation — see [Pattern 7](#7-specialized-primary-agent-with-targeted-delegation).
+
+---
+
+### 7. Specialized primary agent with targeted delegation
+
+A specialized primary agent (analysis or build) delegates domain-specific sub-tasks to relevant subagents, while keeping its core responsibility. Unlike the general-purpose pattern, the specialized primary agent stays within its single perspective and only delegates narrow, isolated concerns that require deeper expertise in its own domain.
+
+```
+user → quetzalcoatl (analysis/planning)
+         ↓ (analyzes, plans, documents core work)
+         └─→ delegates to analysis subagents (code-reviewer, security-auditor, etc.)
+         ↓ (integrates results)
+      spec → user
+```
+```
+user → tezcatlipoca (build/execution)
+         ↓ (implements, tests, builds core work)
+         └─→ delegates to build subagents (debugger, db-optimizer, docker-expert, etc.)
+         ↓ (integrates results)
+      code → user
+```
+
+**Use when:**
+- The task is within the SDD lifecycle (plan → build)
+- The primary agent can do most of the work itself
+- A narrow, well-defined sub-task requires deeper specialized expertise
+- Delegation is to subagents relevant to the agent's domain
+
+**Examples in this repo:**
+- `quetzalcoatl` delegates code review to `code-reviewer`, security audit to `security-auditor`, or database analysis to `database-optimizer` while keeping control of the spec
+- `tezcatlipoca` delegates a tricky bug to `debugger`, schema design to `database-optimizer`, or Docker optimization to `docker-expert` while keeping control of the build
+
+**Cost:** one main context + one isolated subagent context per delegation. Each delegation costs 1 step from the primary agent's step budget.
+
+**Key differences from Pattern 3 (Parallel fan-out):**
+- Pattern 3 runs multiple subagents in parallel on the **same** input (e.g., `/ship`)
+- Pattern 7 runs a single subagent sequentially on a **specific sub-task** within the primary agent's workflow
+- Pattern 3 is a command-level orchestration pattern; Pattern 7 is an agent-level delegation pattern
+
+**Rules for delegation:**
+- The core work stays in the primary agent — delegation is for isolated, narrow concerns only
+- Each delegated subagent must be relevant to the primary agent's domain (analysis → analysis subs; build → build subs)
+- Do NOT delegate to other Primary Agents (huitzilopochtli, quetzalcoatl, tezcatlipoca) — those are for the user to invoke
+- Review and integrate the subagent's output before continuing
 
 ---
 

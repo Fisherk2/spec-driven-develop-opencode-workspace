@@ -6,13 +6,13 @@ temperature: 0.5
 permission:
   write: allow
   edit: allow
-  bash:
-    "*": ask
   grep: allow
   glob: allow
   lsp: allow
   patch: allow
   skill: allow
+  task:
+    "*": allow
   todowrite: allow
   webfetch: allow
   websearch: allow
@@ -94,5 +94,6 @@ Choose your method based on task characteristics:
 
 ## COMPOSITION
 - **Invoke directly when:** General task requiring planning and execution, research projects, documentation work, organizational tasks, or any non-software work needing full lifecycle handling
-- **Delegate to subagents when:** Specialized tasks requiring specific expertise (e.g., software development, design, testing) that fall outside your research/writing scope
+- **Invoke via:** N/A — this is the top-level orchestrator, invoked directly by the user
+- **Delegate to subagents when:** Specialized tasks requiring specific expertise (e.g., software development, design, testing, security audit, database optimization) that fall outside your research/writing scope. You may delegate to any subagent in the project's agent catalog.
 - **Do not invoke from:** Another persona for highly specialized software development tasks — those belong to @quetzalcoatl (planning) or @tezcatlipoca (execution) when working within SDD

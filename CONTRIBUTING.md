@@ -83,7 +83,8 @@ Para añadir un nuevo agente especializado, sigue estos pasos:
 ### Reglas para Agentes
 
 - Un agente es un único rol con un único formato de salida. Si necesitas un segundo rol, crea un segundo agente.
-- **Los agentes no invocan a otros agentes.** La composición es trabajo de los comandos o del usuario.
+- **Los agentes no invocan a otros agentes.** La composición es trabajo de los comandos o del usuario. Esta regla se refiere a personas de OpenCode (archivos en `agents/` cargados como system prompts). No prohíbe que un agente delegue subtareas especializadas a subagentes a través del `task` tool — los subagentes operan en subcontextos aislados, no como personas encadenadas.
+- **Excepción para agentes de propósito general:** Un agente primario de propósito general (como `huitzilopochtli`) puede delegar subtareas especializadas a subagentes para experiencia específica, siempre que el trabajo principal permanezca en el agente principal y la delegación sea para tareas concretas y aisladas.
 - Un agente puede invocar skills (el *cómo*).
 - Todo archivo de agente termina con un bloque "Composition" indicando dónde encaja.
 
@@ -138,11 +139,9 @@ Ambos formatos son válidos. Usa el formato simple para agentes puramente analí
 
 | Agente | Rol | Propósito |
 |--------|-----|----------|
+| [huitzilopochtli](agents/huitzilopochtli.md) | General Purpose Agent | Ciclo completo — investigación, planificación, ejecución y organización en cualquier dominio |
 | [quetzalcoatl](agents/quetzalcoatl.md) | Architect of Specifications | Transforma ideas y requisitos en planes de ejecución detallados sin generar código |
 | [tezcatlipoca](agents/tezcatlipoca.md) | Build Agent | Ejecuta planes de implementación validados — construir, probar y modificar código |
-| [code-reviewer](agents/code-reviewer.md) | Senior Staff Engineer | Revisión de cinco ejes antes del merge |
-| [security-auditor](agents/security-auditor.md) | Security Engineer | Detección de vulnerabilidades, auditoría OWASP |
-| [test-engineer](agents/test-engineer.md) | QA Engineer | Estrategia de pruebas, análisis de cobertura, patrón Prove-It |
 
 ### Qué No Hacer
 
