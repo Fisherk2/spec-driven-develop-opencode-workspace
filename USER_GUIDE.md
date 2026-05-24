@@ -27,14 +27,24 @@ cd .opencode && bun install && cd ..
 npx ctx7@latest setup
 ```
 
-### 3. Verify commands
+### 3. Install Excel MCP Server (local development)
+
+Enables spreadsheet manipulation (.xlsx) directly from agents.
+
+```bash
+uvx excel-mcp-server stdio
+```
+
+> **Repository:** [github.com/haris-musa/excel-mcp-server](https://github.com/haris-musa/excel-mcp-server)
+
+### 4. Verify commands
 
 ```bash
 ls .opencode/commands/
 # → build.md  code-simplify.md  plan.md  review.md  ship.md  spec.md  test.md
 ```
 
-### 4. Run your first SDD workflow
+### 5. Run your first SDD workflow
 
 | Step | Command | Phase |
 |------|---------|-------|
@@ -184,6 +194,13 @@ Skills are organized by SDD phase. Each skill has one canonical entry in its **p
 | [architecture-diagrams](skills/architecture-diagrams/SKILL.md) | Document final architecture and system design. Full reference in [Define](#define) |
 | [bash-defensive-patterns](skills/bash-defensive-patterns/SKILL.md) | Robust CI/CD and deployment scripts. Full reference in [Build](#build) |
 
+### Extra — Specialized tools and utilities
+
+| Skill | Description |
+|-------|-------------|
+| [xlsx](skills/xlsx/SKILL.md) | Create, edit, and manipulate spreadsheet files (.xlsx, .csv, .tsv) with formulas, formatting, and data operations |
+| [excel-analysis](skills/excel-analysis/SKILL.md) | Analyze Excel spreadsheets, create pivot tables, generate charts, and perform data analysis |
+
 ---
 
 ## Agent Personas
@@ -282,8 +299,10 @@ project-root/
     │   ├── documentation-and-adrs/        # SHIP
     │   ├── shipping-and-launch/           # SHIP
     │   ├── incident-response/             # SHIP / VERIFY
-    │   └── crafting-effective-readmes/    # DEFINE / SHIP
-│
+    │   ├── crafting-effective-readmes/    # DEFINE / SHIP
+    │   ├── xlsx/                          # EXTRA
+    │   └── excel-analysis/                # EXTRA
+    │
 ├── references/                 # 59 technical reference files
 │   ├── testing-patterns.md
 │   ├── security-checklist.md

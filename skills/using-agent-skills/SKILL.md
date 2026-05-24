@@ -69,6 +69,9 @@ Task arrives
     └── Deploying/launching? ─────────→ shipping-and-launch
         ├── Handling database migrations? ──→ db-migration
         └── Handling post-launch incidents? ──→ incident-response
+    └── Working with spreadsheets? ──────────→ xlsx / excel-analysis
+        ├── Creating/editing with formulas/formatting? ──→ xlsx
+        └── Analyzing data/pivot tables/charts? ──→ excel-analysis
 ```
 
 ## Core Operating Behaviors
@@ -240,3 +243,5 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 | Ship | architecture-diagrams | Document final architecture in diagrams |
 | Ship | bash-defensive-patterns | Write robust CI/CD scripts using defensive Bash patterns |
 | Ship | incident-response | Run incident response workflow — triage, communicate, and write postmortem |
+| Extra | xlsx | Create, edit, and manipulate spreadsheet files (.xlsx, .csv, .tsv) with formulas, formatting, and formulas |
+| Extra | excel-analysis | Analyze Excel spreadsheets, create pivot tables, generate charts, and perform data analysis |

@@ -2,13 +2,13 @@
 
 **Workspace OpenCode para desarrollo asistido por IA con metodología Spec-Driven Development.**
 
-Una plantilla production-grade que integra 33 skills de ingeniería organizados en 6 fases del ciclo SDD, comandos slash y agentes especializados para acelerar el desarrollo con IA. Diseñada para equipos y desarrolladores que quieren calidad consistente en proyectos asistidos por IA.
+Una plantilla production-grade que integra 43 skills de ingeniería organizados en 6 fases del ciclo SDD + Extra, comandos slash y agentes especializados para acelerar el desarrollo con IA. Diseñada para equipos y desarrolladores que quieren calidad consistente en proyectos asistidos por IA.
 
 ---
 
 ## Características
 
-- **33 Skills de Ingeniería** — TDD, Spec-Driven Development, Code Review, Seguridad, Performance, UI/UX, DDD/Hexagonal, patrones de diseño, y más, organizados en 6 fases SDD
+- **43 Skills de Ingeniería** — TDD, Spec-Driven Development, Code Review, Seguridad, Performance, UI/UX, DDD/Hexagonal, patrones de diseño, manipulación de spreadsheets, y más, organizados en 6 fases SDD + Extra
 - **7 Comandos Slash** — `/spec`, `/plan`, `/build`, `/test`, `/review`, `/ship`, `/code-simplify`
 - **3 Agentes Principales + 90+ Subagentes** — huitzilopochtli (propósito general), quetzalcoatl (especificaciones), tezcatlipoca (build), y más de 90 subagentes especializados en frontend, backend, DevOps, testing, seguridad, y más
 - **Nativo OpenCode** — Comandos slash, agentes y skills cargados desde `.opencode/`
@@ -57,13 +57,22 @@ cd .opencode && bun install && cd ..
 npx ctx7@latest setup
 ```
 
-### 4. Verifica que los comandos están disponibles
+### 4. Instala Excel MCP Server (desarrollo local)
+Habilita la manipulación de hojas de cálculo (.xlsx) directamente desde los agentes.
+
+```bash
+uvx excel-mcp-server stdio
+```
+
+> **Repositorio:** [github.com/haris-musa/excel-mcp-server](https://github.com/haris-musa/excel-mcp-server)
+
+### 5. Verifica que los comandos están disponibles
 ```bash
 ls .opencode/commands/
 # Deberías ver: build.md  code-simplify.md  plan.md  review.md  ship.md  spec.md  test.md
 ```
 
-### 5. Ejecuta tu primer workflow SDD completo
+### 6. Ejecuta tu primer workflow SDD completo
 ```bash
 # 1. Define una especificación (DEFINE)
 /spec "Crea una API REST de tareas"
@@ -155,7 +164,7 @@ agents/                   # 3 agentes principales + 90+ subagentes
 ├── database-optimizer.md #   DB specialist
 └── ... (catálogo completo en docs/opencode/09-agent-index.md)
 
-skills/                   # 33 skills organizados por fase SDD
+skills/                   # 43 skills organizados por fase SDD
 ├── idea-refine/              # DEFINE
 ├── spec-driven-development/  # DEFINE
 ├── agent-md-refactor/        # DEFINE (PRE-FLIGHT)

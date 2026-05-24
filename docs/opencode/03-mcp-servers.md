@@ -166,6 +166,26 @@ opencode mcp logout my-oauth-server   # Remove credentials
 
 Usage: `use context7` in the prompt
 
+### Excel MCP Server -- Spreadsheet Manipulation
+
+Local MCP server for reading, writing, and manipulating Excel files (.xlsx) directly from OpenCode agents. Supports workbooks, worksheets, ranges, formulas, charts, pivot tables, formatting, and more.
+
+```json
+{
+  "mcp": {
+    "excel": {
+      "type": "local",
+      "command": ["uvx", "excel-mcp-server", "stdio"],
+      "enabled": true
+    }
+  }
+}
+```
+
+> **⚠️ Prerequisite:** Install dependencies first by running `uvx excel-mcp-server stdio` (see [Quick Start step 3 in USER_GUIDE.md](../../USER_GUIDE.md#3-install-excel-mcp-server-local-development)).
+
+> **Repository:** [github.com/haris-musa/excel-mcp-server](https://github.com/haris-musa/excel-mcp-server)
+
 ### Sentry -- Error Tracking
 
 ```json

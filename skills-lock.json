@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "Excel Analysis": {
+      "source": "davila7/claude-code-templates",
+      "sourceType": "github",
+      "skillPath": "cli-tool/components/skills/enterprise-communication/excel-analysis/SKILL.md",
+      "computedHash": "376e46440252fdbb31a67af8a88ad3f72ffb1495cf1a41210b5e0f51ae44b63a"
+    },
     "agent-md-refactor": {
       "source": "softaworks/agent-toolkit",
       "sourceType": "github",
@@ -78,6 +84,12 @@
       "sourceType": "github",
       "skillPath": "skills/ui-ux-design-pro/SKILL.md",
       "computedHash": "78db7907b61510b5d708d4b595a261fc198170bb4b21416ec67e1dd779e64890"
+    },
+    "xlsx": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/xlsx/SKILL.md",
+      "computedHash": "efd0c8011cf0677d8075cf93867ecec804f9a8754a777e1d2fdb46197e9c247f"
     }
   }
 }
