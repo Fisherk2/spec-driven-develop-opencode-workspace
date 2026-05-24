@@ -186,6 +186,91 @@ Local MCP server for reading, writing, and manipulating Excel files (.xlsx) dire
 
 > **Repository:** [github.com/haris-musa/excel-mcp-server](https://github.com/haris-musa/excel-mcp-server)
 
+### Jupyter Notebook -- AI-Powered Notebook Automation
+
+Local MCP server that gives AI agents full control over a live Jupyter notebook session — run code, add markdown, manage packages, inspect variables, and more.
+
+> **Repository:** [github.com/Cyb3rWard0g/agent-jupyter-toolkit](https://github.com/Cyb3rWard0g/agent-jupyter-toolkit)
+
+#### Quick Start
+
+**1. Start a Jupyter server**
+
+Pick one:
+
+```bash
+# A) With Docker (recommended — includes jupyter-collaboration)
+git clone https://github.com/Cyb3rWard0g/agent-jupyter-toolkit.git
+cd agent-jupyter-toolkit/packages/mcp-jupyter-notebook/quickstarts
+docker compose up -d --build
+
+# B) Or locally
+pip install jupyterlab ipykernel jupyter-collaboration
+jupyter lab --port 8888 --IdentityProvider.token=mcp-dev-token
+```
+
+**2. Enable the MCP server** (ships disabled by default)
+
+In `opencode.json`, change `"enabled": false` to `"enabled": true` for the `jupyter` entry.
+
+**3. Restart OpenCode** — the server will connect automatically.
+
+#### Configuration
+
+```json
+{
+  "mcp": {
+    "jupyter": {
+      "type": "local",
+      "command": ["uvx", "mcp-jupyter-notebook"],
+      "enabled": false,
+      "env": {
+        "MCP_JUPYTER_SESSION_MODE": "server",
+        "MCP_JUPYTER_BASE_URL": "http://localhost:8888",
+        "MCP_JUPYTER_TOKEN": "mcp-dev-token",
+        "MCP_JUPYTER_NOTEBOOK_PATH": "agent_demo.ipynb"
+      }
+    }
+  }
+}
+```
+
+| Variable | CLI Flag | Description | Default |
+|---|---|---|---|
+| `MCP_JUPYTER_SESSION_MODE` | `--mode` | `server` (remote Jupyter) or `local` | `server` |
+| `MCP_JUPYTER_BASE_URL` | `--base-url` | Jupyter server URL (required in server mode) | — |
+| `MCP_JUPYTER_TOKEN` | `--token` | Jupyter API token | — |
+| `MCP_JUPYTER_KERNEL_NAME` | `--kernel-name` | Kernel spec name | `python3` |
+| `MCP_JUPYTER_NOTEBOOK_PATH` | `--notebook-path` | Notebook file path (`.ipynb`) | auto-generated |
+| `MCP_JUPYTER_TRANSPORT` | `--transport` | `stdio`, `sse`, `streamable-http` | `stdio` |
+| `MCP_JUPYTER_LOG_LEVEL` | — | `DEBUG`, `INFO`, `WARNING`, `ERROR` | `INFO` |
+
+#### Local Mode (no Jupyter server needed)
+
+Prefer this for lightweight sessions without a full Jupyter server:
+
+```json
+{
+  "mcp": {
+    "jupyter": {
+      "type": "local",
+      "command": ["uvx", "mcp-jupyter-notebook", "--mode", "local"],
+      "enabled": false
+    }
+  }
+}
+```
+
+> **Note:** Local mode skips the Jupyter server and runs a kernel directly. No `MCP_JUPYTER_BASE_URL` or `MCP_JUPYTER_TOKEN` required.
+
+#### Usage Examples
+
+> *"Create a notebook that generates 100 random numbers, plots a histogram, and adds a markdown summary."*
+>
+> *"Install pandas and numpy, then analyze this CSV and show me summary statistics."*
+
+Full tool reference: [packages/mcp-jupyter-notebook/docs/tools.md](https://github.com/Cyb3rWard0g/agent-jupyter-toolkit/blob/main/docs/mcp-server/tools.md)
+
 ### Sentry -- Error Tracking
 
 ```json

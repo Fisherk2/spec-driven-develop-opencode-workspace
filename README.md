@@ -2,13 +2,13 @@
 
 **Workspace OpenCode para desarrollo asistido por IA con metodología Spec-Driven Development.**
 
-Una plantilla production-grade que integra 43 skills de ingeniería organizados en 6 fases del ciclo SDD + Extra, comandos slash y agentes especializados para acelerar el desarrollo con IA. Diseñada para equipos y desarrolladores que quieren calidad consistente en proyectos asistidos por IA.
+Una plantilla production-grade que integra 42 skills de ingeniería + 1 meta-skill organizados en 6 fases del ciclo SDD + Extra, comandos slash y agentes especializados para acelerar el desarrollo con IA. Diseñada para equipos y desarrolladores que quieren calidad consistente en proyectos asistidos por IA.
 
 ---
 
 ## Características
 
-- **43 Skills de Ingeniería** — TDD, Spec-Driven Development, Code Review, Seguridad, Performance, UI/UX, DDD/Hexagonal, patrones de diseño, manipulación de spreadsheets, y más, organizados en 6 fases SDD + Extra
+- **42 Skills de Ingeniería + 1 Meta-Skill** — TDD, Spec-Driven Development, Code Review, Seguridad, Performance, UI/UX, DDD/Hexagonal, patrones de diseño, manipulación de spreadsheets, notebooks, y más, organizados en 6 fases SDD + Extra
 - **7 Comandos Slash** — `/spec`, `/plan`, `/build`, `/test`, `/review`, `/ship`, `/code-simplify`
 - **3 Agentes Principales + 90+ Subagentes** — huitzilopochtli (propósito general), quetzalcoatl (especificaciones), tezcatlipoca (build), y más de 90 subagentes especializados en frontend, backend, DevOps, testing, seguridad, y más
 - **Nativo OpenCode** — Comandos slash, agentes y skills cargados desde `.opencode/`
@@ -66,13 +66,24 @@ uvx excel-mcp-server stdio
 
 > **Repositorio:** [github.com/haris-musa/excel-mcp-server](https://github.com/haris-musa/excel-mcp-server)
 
-### 5. Verifica que los comandos están disponibles
+### 5. (Opcional) Jupyter Notebook MCP Server
+Habilita automatización de notebooks — ejecutar código, agregar markdown, instalar paquetes e inspeccionar variables en una sesión Jupyter en vivo.
+
+**Requisito:** Inicia un servidor Jupyter primero (Docker o local).
+
+En `opencode.json`, habilita el servidor MCP `jupyter` (cambia `"enabled": false` → `"enabled": true`) y reinicia OpenCode.
+
+> **Repositorio:** [github.com/Cyb3rWard0g/agent-jupyter-toolkit](https://github.com/Cyb3rWard0g/agent-jupyter-toolkit)
+>
+> **Referencia completa:** [docs/opencode/03-mcp-servers.md](docs/opencode/03-mcp-servers.md#jupyter-notebook----ai-powered-notebook-automation)
+
+### 6. Verifica que los comandos están disponibles
 ```bash
 ls .opencode/commands/
 # Deberías ver: build.md  code-simplify.md  plan.md  review.md  ship.md  spec.md  test.md
 ```
 
-### 6. Ejecuta tu primer workflow SDD completo
+### 7. Ejecuta tu primer workflow SDD completo
 ```bash
 # 1. Define una especificación (DEFINE)
 /spec "Crea una API REST de tareas"
@@ -164,28 +175,35 @@ agents/                   # 3 agentes principales + 90+ subagentes
 ├── database-optimizer.md #   DB specialist
 └── ... (catálogo completo en docs/opencode/09-agent-index.md)
 
-skills/                   # 43 skills organizados por fase SDD
-├── idea-refine/              # DEFINE
-├── spec-driven-development/  # DEFINE
-├── agent-md-refactor/        # DEFINE (PRE-FLIGHT)
-├── crafting-effective-readmes/ # DEFINE/SHIP
-├── clean-ddd-hexagonal/      # DEFINE/PLAN/BUILD
-├── design-patterns/          # DEFINE/PLAN/REVIEW
-├── architecture-diagrams/    # DEFINE/PLAN/SHIP
-├── ui-ux-design-pro/         # DEFINE/BUILD
+skills/                   # 43 skills (42 de ingeniería + 1 meta-skill)
+├── using-agent-skills/        # META: descubrimiento de skills
+│
+├── idea-refine/               # DEFINE
+├── spec-driven-development/   # DEFINE
+├── agent-md-refactor/         # DEFINE (PRE-FLIGHT)
+├── env-setup/                 # DEFINE (PRE-FLIGHT)
+├── crafting-effective-readmes/# DEFINE / SHIP
+├── clean-ddd-hexagonal/       # DEFINE / PLAN / BUILD
+├── design-patterns/           # DEFINE / PLAN / REVIEW
+├── architecture-diagrams/     # DEFINE / PLAN / SHIP
+├── ui-ux-design-pro/          # DEFINE / BUILD
 │
 ├── planning-and-task-breakdown/ # PLAN
 │
 ├── incremental-implementation/  # BUILD
-├── context-engineering/         # BUILD
 ├── source-driven-development/   # BUILD
+├── context-engineering/         # BUILD
 ├── frontend-ui-engineering/     # BUILD
 ├── api-and-interface-design/    # BUILD
+├── api-spec-generation/         # BUILD
+├── docker-optimize/             # BUILD / SHIP
+├── db-migration/                # BUILD / SHIP
 ├── test-driven-development/     # BUILD
-├── solid/                       # BUILD/REVIEW
-├── error-handling-patterns/     # BUILD/VERIFY/REVIEW
-├── design-taste-frontend/       # BUILD/VERIFY/REVIEW
-├── bash-defensive-patterns/     # BUILD/SHIP
+├── solid/                       # BUILD / REVIEW
+├── clean-code/                  # BUILD / REVIEW
+├── error-handling-patterns/     # BUILD / VERIFY / REVIEW
+├── design-taste-frontend/       # BUILD / VERIFY / REVIEW
+├── bash-defensive-patterns/     # BUILD / SHIP
 │
 ├── browser-testing-with-devtools/ # VERIFY
 ├── debugging-and-error-recovery/  # VERIFY
@@ -193,17 +211,21 @@ skills/                   # 43 skills organizados por fase SDD
 ├── code-review-and-quality/       # REVIEW
 ├── code-simplification/           # REVIEW
 ├── security-and-hardening/        # REVIEW
+├── dependency-audit/              # REVIEW
 ├── performance-optimization/      # REVIEW
+├── performance-analysis/          # REVIEW
 ├── refactoring-patterns/          # REVIEW
 │
 ├── git-workflow-and-versioning/   # SHIP
+├── changelog-generate/            # SHIP
 ├── ci-cd-and-automation/          # SHIP
 ├── deprecation-and-migration/     # SHIP
 ├── documentation-and-adrs/        # SHIP
 ├── shipping-and-launch/           # SHIP
-├── incident-response/             # VERIFY/SHIP
+├── incident-response/             # SHIP / VERIFY
 │
-└── using-agent-skills/            # META: descubrimiento de skills
+├── xlsx/                          # EXTRA
+└── excel-analysis/                # EXTRA
 
 references/               # 59 guías de referencia técnica
 ├── testing-patterns.md

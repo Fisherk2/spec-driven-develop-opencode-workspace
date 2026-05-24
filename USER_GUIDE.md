@@ -37,14 +37,26 @@ uvx excel-mcp-server stdio
 
 > **Repository:** [github.com/haris-musa/excel-mcp-server](https://github.com/haris-musa/excel-mcp-server)
 
-### 4. Verify commands
+### 4. (Optional) Jupyter Notebook MCP Server
+
+Enables AI-powered notebook automation — run code, add markdown, manage packages, and inspect variables in a live Jupyter session.
+
+**Prerequisite:** Start a Jupyter server first (Docker or local).
+
+In `opencode.json`, enable the `jupyter` MCP server (change `"enabled": false` → `"enabled": true`) and restart OpenCode.
+
+> **Repository:** [github.com/Cyb3rWard0g/agent-jupyter-toolkit](https://github.com/Cyb3rWard0g/agent-jupyter-toolkit)
+>
+> **Full config reference:** [docs/opencode/03-mcp-servers.md](docs/opencode/03-mcp-servers.md#jupyter-notebook----ai-powered-notebook-automation)
+
+### 5. Verify commands
 
 ```bash
 ls .opencode/commands/
 # → build.md  code-simplify.md  plan.md  review.md  ship.md  spec.md  test.md
 ```
 
-### 5. Run your first SDD workflow
+### 6. Run your first SDD workflow
 
 | Step | Command | Phase |
 |------|---------|-------|
@@ -258,7 +270,7 @@ project-root/
 │   ├── quetzalcoatl.md         #   Architect of Specifications
 │   └── tezcatlipoca.md         #   Build Agent
 │
-├── skills/                     # Skills organized by SDD phase
+├── skills/                     # 43 skills (42 engineering + 1 meta-skill)
     │   ├── using-agent-skills/     #   META: skill discovery
     │   ├── idea-refine/            #   DEFINE
     │   ├── spec-driven-development/#   DEFINE
@@ -451,6 +463,7 @@ Open an issue for: incorrect or outdated skill guidance, missing coverage for a 
 | `/spec` doesn't work | OpenCode plugin not installed | Run `cd .opencode && bun install` |
 | Context7 quota error | API limit reached | Run `npx ctx7@latest login` or set `CONTEXT7_API_KEY` |
 | Skills won't load | Wrong path | Use `skills/<skill-name>/SKILL.md` path |
+| Jupyter MCP won't connect | Server not running or not enabled | Start Jupyter server first, then set `jupyter.enabled: true` in `opencode.json` and restart |
 
 ---
 
