@@ -118,13 +118,6 @@ flowchart LR
     D --> E["/review<br/>REVIEW"]
     E --> F["/ship<br/>SHIP"]
     F --> G["Go Live"]
-
-    style A fill:#e1f5fe,stroke:#01579b
-    style B fill:#e8f5e9,stroke:#1b5e20
-    style C fill:#fff3e0,stroke:#e65100
-    style D fill:#fce4ec,stroke:#880e4f
-    style E fill:#f3e5f5,stroke:#4a148c
-    style F fill:#e0f2f1,stroke:#004d40
 ```
 
 ### Ciclo Completo
@@ -276,7 +269,7 @@ tests/                    # Tests del proyecto
 ## Configuración
 
 ### Personalizar Skills
-Cada skill en `skills/` se puede modificar para adaptarlo a tu stack. Ver [CONTRIBUTING.md](CONTRIBUTING.md) para crear skills propios.
+Cada skill en `skills/` se puede modificar para adaptarlo a tu stack. Ver [CONTRIBUTING.md](CONTRIBUTING.md#añadir-una-nueva-skill) para crear skills propios.
 
 ### Comandos y Agentes
 Los comandos slash y agentes se cargan automáticamente desde `commands/` y `.opencode/agents/`.
@@ -287,8 +280,9 @@ Los comandos slash y agentes se cargan automáticamente desde `commands/` y `.op
 
 | Guía | Descripción |
 |------|-------------|
-| [Guía completa](skills/using-agent-skills/SKILL.md) | Referencia detallada de todos los skills |
+| [Guía Skills](skills/using-agent-skills/SKILL.md) | Referencia detallada de todos los skills |
 | [Guía de agentes](docs/opencode/08-orchestration-patterns.md) | Personas de agentes y orquestación |
+| [Guía de usuario](USER_GUIDE.md) | Guía completa de uso y troubleshooting |
 | [Contribuir](CONTRIBUTING.md) | Directrices de contribución |
 
 ---
@@ -299,7 +293,12 @@ Los comandos slash y agentes se cargan automáticamente desde `commands/` y `.op
 |----------|---------------|----------|
 | `/spec` no funciona | Plugin OpenCode no instalado | Ejecuta `cd .opencode && bun install` |
 | Context7 da error de cuota | Límite de API alcanzado | Ejecuta `npx ctx7@latest login` o configura `CONTEXT7_API_KEY` |
-| Los skills no cargan | Ruta incorrecta | Usa `@skills/<skill-name>/SKILL.md` o carga desde `skills/` |
+| Los skills no cargan | Ruta incorrecta o sesión no reiniciada | Usa `skills/<skill-name>/SKILL.md` y reinicia OpenCode |
+| Skills nuevos no reconocidos | Sesión con caché anterior | Reinicia OpenCode después de añadir skills en `skills/` |
+| Agente no encontrado o no disponible | Agente deshabilitado u oculto en `opencode.json` | Revisa `"disable": true` o `"hidden": true` en `opencode.json` |
+| Jupyter MCP no conecta | Servidor no iniciado o no habilitado | Inicia Jupyter (Docker/local) primero, luego cambia `jupyter.enabled` a `true` en `opencode.json` y reinicia |
+| Excel MCP no arranca | `uvx` no instalado o dependencia faltante | Ejecuta `uvx excel-mcp-server stdio` para instalar automáticamente; requiere Python ≥3.10 |
+| Git push falla con "repository moved" | URL remota apunta al repositorio antiguo | Ejecuta `git remote set-url origin https://github.com/Fisherk2/spec-driven-develop-opencode-workspace.git` |
 
 ---
 
