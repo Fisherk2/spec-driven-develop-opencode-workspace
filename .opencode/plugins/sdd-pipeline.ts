@@ -89,17 +89,8 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
   // ── Paths ────────────────────────────────────────────────────────────────
   const projectDir = directory || process.cwd()
   const pluginsDir = join(projectDir, ".opencode", "plugins")
-  const metaSkillPath = join(projectDir, "skills", "using-agent-skills", "SKILL.md")
   const statePath = join(pluginsDir, ".sdd-state.json")
   const auditLogPath = join(pluginsDir, ".sdd-audit.log")
-
-  // ── Load meta-skill (cached once at startup) ─────────────────────────────
-  let metaSkillContent = ""
-  try {
-    metaSkillContent = readFileSync(metaSkillPath, "utf-8")
-  } catch {
-    console.error("[sdd-pipeline] Meta-skill not found:", metaSkillPath)
-  }
 
   // ── Load persisted SDD state ─────────────────────────────────────────────
   const defaultState: SddState = {
@@ -219,23 +210,13 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
     return lines.join("\n")
   }
 
-  const buildMetaSkillContext = (): string => {
-    if (!metaSkillContent) return ""
-    return [
-      "## Skill Orchestration — using-agent-skills",
-      "Always consult this flowchart before starting a task:",
-      "",
-      metaSkillContent,
-    ].join("\n")
-  }
-
   // ── Hooks ────────────────────────────────────────────────────────────────
 
   return {
 
     /**
      * Fires before each LLM call to build the system prompt.
-     * Injects the meta-skill flowchart and SDD pipeline state so the agent
+     * Injects SDD pipeline state so the agent
      * always has the orchestration guides available from the FIRST message.
      */
     "experimental.chat.system.transform": async (
@@ -253,10 +234,9 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
           audit("system.transform", `Agent detected and persisted: ${detected}`)
         }
 
-        // Inject context at the beginning so it appears early in the system prompt
-        out.system.unshift(buildMetaSkillContext())
+        // Inject SDD state at the beginning so it appears early in the system prompt
         out.system.unshift(buildSddContext())
-        audit("system.transform", `Injected meta-skill + SDD state (agent: ${sddState.agent_type})`)
+        audit("system.transform", `Injected SDD state (agent: ${sddState.agent_type})`)
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : String(err)
         console.error("[sdd-pipeline] Error in system.transform:", msg)
@@ -366,8 +346,7 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
 
     /**
      * Fires during context compaction.
-     * Re-injects the meta-skill so it survives compaction, and
-     * persists the SDD pipeline state.
+     * Persists the SDD pipeline state.
      */
     "experimental.session.compacting": async (
       _input: unknown,
@@ -377,13 +356,10 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
         const out = output as { context?: string[] }
 
         out.context?.push(buildSddContext())
-        if (metaSkillContent) {
-          out.context?.push(buildMetaSkillContext())
-        }
 
         // Persist state on compaction (replaces the missing session.ended hook)
         saveState()
-        audit("session.compacting", "Injected meta-skill + SDD state + persisted state")
+        audit("session.compacting", "Injected SDD state + persisted state")
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : String(err)
         console.error("[sdd-pipeline] Error in session.compacting:", msg)
