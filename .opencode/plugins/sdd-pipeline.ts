@@ -69,7 +69,15 @@ const INTENT_PATTERNS: Record<string, string[]> = {
 
 const DESTRUCTIVE_PATTERNS = ["rm -rf", "git push --force", "DROP TABLE", "DROP DATABASE"]
 
+const AGENT_DETECT_PATTERNS: Record<string, RegExp[]> = {
+  huitzilopochtli: [/GENERAL PURPOSE AGENT/],
+  quetzalcoatl: [/ARCHITECT OF SPECIFICATIONS PLANNER/, /Planning & Documentation Architect/],
+  tezcatlipoca: [/PLAN EXECUTER/, /BUILD-MODE Agent/],
+}
+
 const SPEC_SECTIONS = ["objective", "commands", "structure", "code style", "testing", "boundaries"]
+
+const MAX_AUDIT_LINES = 500
 
 // ---------------------------------------------------------------------------
 // Plugin
@@ -127,16 +135,75 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
   const audit = (source: string, detail: string) => {
     try {
       const timestamp = new Date().toISOString()
-      appendFileSync(auditLogPath, `[${timestamp}] [${source}] ${detail}\n`)
+      const entry = `[${timestamp}] [${source}] ${detail}\n`
+
+      // Rotate if file exceeds max lines (keeps most recent half)
+      if (existsSync(auditLogPath)) {
+        const content = readFileSync(auditLogPath, "utf-8")
+        const lines = content.split("\n")
+        if (lines.length >= MAX_AUDIT_LINES) {
+          writeFileSync(auditLogPath, lines.slice(-(MAX_AUDIT_LINES / 2)).join("\n") + "\n")
+        }
+      }
+
+      appendFileSync(auditLogPath, entry)
     } catch {
       // Ignore logging errors
+    }
+  }
+
+  // ── Agent detection ────────────────────────────────────────────────────
+
+  const detectAgentType = (systemParts: string[]): string => {
+    for (const part of systemParts) {
+      for (const [agentType, patterns] of Object.entries(AGENT_DETECT_PATTERNS)) {
+        if (patterns.some((p) => p.test(part))) {
+          return agentType
+        }
+      }
+    }
+    return "unknown"
+  }
+
+  // ── Build role rules per agent type ────────────────────────────────────
+
+  const buildRoleRules = (): string[] => {
+    switch (sddState.agent_type) {
+      case "huitzilopochtli":
+        return [
+          "### Role Rules",
+          "You are the **General Purpose Agent** — full lifecycle across domains.",
+          "- Research, plan, write code, document, execute. No SDD restrictions apply.",
+          "- You have write/edit access. Use it responsibly.",
+        ]
+      case "quetzalcoatl":
+        return [
+          "### Role Rules",
+          "You are the **Architect of Specifications** — PLANNING & DOCUMENTATION MODE.",
+          "- Read, plan, design, review, document. NEVER write or edit code.",
+          "- Produce specs, plans, ADRs, diagrams, and documentation only.",
+        ]
+      case "tezcatlipoca":
+        return [
+          "### Role Rules",
+          "You are the **Build Agent** — BUILD MODE.",
+          "- Implement, build, test, configure, execute plans.",
+          "- Write code, run tests. NEVER modify SPEC.md or specs/ files.",
+        ]
+      default:
+        return [
+          "### Role Rules",
+          `Operating as: **${sddState.agent_type}**.`,
+          "If you are an analysis agent: read, plan, review. NEVER write code.",
+          "If you are an implement agent: build, test. NEVER modify specs.",
+        ]
     }
   }
 
   // ── Build injected context strings ───────────────────────────────────────
 
   const buildSddContext = (): string => {
-    return [
+    const lines = [
       "## SDD Pipeline State",
       `- Phase: ${sddState.pipeline_phase}`,
       `- Active spec: ${sddState.active_spec ?? "none"}`,
@@ -147,11 +214,9 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
       "",
       "---",
       "",
-      "### Role rules",
-      `You are operating as the **${sddState.agent_type}** agent.`,
-      "- **Analysis agents**: read, plan, review. NEVER write code.",
-      "- **Implement agents**: build, test. NEVER modify specs.",
-    ].join("\n")
+      ...buildRoleRules(),
+    ]
+    return lines.join("\n")
   }
 
   const buildMetaSkillContext = (): string => {
@@ -179,10 +244,19 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
     ) => {
       try {
         const out = output as { system: string[] }
-        // Inject at the beginning so it appears early in the system prompt
+
+        // Detect which agent persona is active from system prompt parts
+        const detected = detectAgentType(out.system)
+        if (detected !== sddState.agent_type) {
+          sddState.agent_type = detected
+          saveState()
+          audit("system.transform", `Agent detected and persisted: ${detected}`)
+        }
+
+        // Inject context at the beginning so it appears early in the system prompt
         out.system.unshift(buildMetaSkillContext())
         out.system.unshift(buildSddContext())
-        audit("system.transform", "Injected meta-skill + SDD state into system prompt")
+        audit("system.transform", `Injected meta-skill + SDD state (agent: ${sddState.agent_type})`)
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : String(err)
         console.error("[sdd-pipeline] Error in system.transform:", msg)
