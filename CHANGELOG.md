@@ -7,6 +7,49 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Sin Lanzar]
 
+## [2.1.1] - 2026-05-24
+
+### Cambiado
+
+#### Meta-Skill — Árbol de Descubrimiento Completado
+
+- `skills/using-agent-skills/SKILL.md` — Añadidas 3 skills faltantes al árbol de descubrimiento y tabla Quick Reference:
+  - `clean-code` — Rama en Implementing code ("Writing clean, readable code?") y Reviewing code ("Needs clean code practices?")
+  - `code-simplification` — Rama en Reviewing code ("Code too complex?")
+  - `deprecation-and-migration` — Rama en Deploying/launching ("Need to deprecate old code?")
+- Conteo de skills en tabla Quick Reference corregido: 39 → **42 únicas** (+ 1 meta-skill = 43 total).
+
+#### Documentación Consolidada
+
+- `USER_GUIDE.md` — Reestructuración para eliminar duplicación:
+  - Tabla de agentes primarios eliminada del Quick Start (ya existía en Agent Personas).
+  - Tablas detalladas por fase (Define, Plan, Build, Verify, Review, Ship, Extra) reemplazadas por referencia al meta-skill como fuente canónica.
+  - Sección Common Tasks movida a Skills Reference (Adding a New Skill) y Agent Personas (Adding a New Agent).
+  - Documentación de formatos de agente y reglas unificada bajo Agent Personas.
+- `README.md` — Actualizaciones menores:
+  - Enlace a CONTRIBUTING.md con anchor específico (`#añadir-una-nueva-skill`).
+  - Añadido enlace a USER_GUIDE.md en tabla de documentación.
+  - Estilos de color Mermaid eliminados del diagrama de flujo.
+
+#### Troubleshooting Expandido
+
+- `USER_GUIDE.md` — Tabla de troubleshooting expandida de **4 a 8 filas**:
+  - "Skills won't load": causa ampliada a sesión no reiniciada.
+  - Nueva: "New skills not recognized" — reiniciar OpenCode tras instalar skills.
+  - Nueva: "Agent not found or not available" — revisar `disable`/`hidden` en `opencode.json`.
+  - Nueva: "Excel MCP won't start" — `uvx` no instalado o Python < 3.10.
+  - Nueva: "Git push fails with repository moved" — URL remota desactualizada.
+- `README.md` — Mismas 5 nuevas filas añadidas (traducidas al español).
+
+#### Configuración
+
+- `opencode.json` — Servidor Excel MCP cambiado de `"enabled": true` a `"enabled": false` para evitar errores en entornos sin `uvx` instalado.
+
+### Corregido
+
+- `docs/opencode/00-setup.md` — Conteo de skills corregido: 33 → **43** en dos referencias.
+- `skills/using-agent-skills/SKILL.md` — 3 skills faltantes en árbol de descubrimiento y tabla Quick Reference (clean-code, code-simplification, deprecation-and-migration).
+
 ## [2.1.0] - 2026-05-24
 
 ### Cambios Importantes
