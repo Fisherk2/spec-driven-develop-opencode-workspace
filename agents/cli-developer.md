@@ -1,15 +1,12 @@
 ---
 description: Designs and implements command-line tools with excellent UX, argument parsing, and output formatting
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
 temperature: 0.1
 color: "#3b74dc"
 hidden: true
 permission:
-  edit:
-    "*": allow
+  edit: allow
   bash:
-    "*": deny
     "go *": allow
     "gofmt *": allow
     "golangci-lint *": allow
@@ -29,16 +26,6 @@ permission:
     "gcc *": allow
     "clang *": allow
     "cmake *": allow
-    "git *": allow
-    "grep *": allow
-    "ls *": allow
-    "find *": allow
-    "cat *": allow
-    "echo *": allow
-    "mkdir *": allow
-    "cp *": allow
-    "mv *": allow
-    "rm *": allow
     "chmod *": allow
     "chown *": allow
     "tar *": allow

@@ -5,16 +5,11 @@ temperature: 0.1
 color: "#c3dc3b"
 hidden: true
 permission:
-  edit:
-    "*": allow
+  edit: allow
   bash:
-    "*": deny
-    "python *": ask
-    "npm *": ask
-    "npx *": ask
-    "grep *": allow
-    "git diff *": allow
-    "git log *": allow
+    "python *": allow
+    "npm *": allow
+    "npx *": allow
   grep: allow
   glob: allow
   lsp: allow

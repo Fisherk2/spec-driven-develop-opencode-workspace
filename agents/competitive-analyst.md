@@ -7,7 +7,7 @@ hidden: true
 permission:
   edit: deny
   bash:
-    "*": deny
+    "*": ask
   grep: allow
   glob: allow
   lsp: allow

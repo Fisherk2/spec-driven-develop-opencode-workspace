@@ -5,17 +5,12 @@ temperature: 0.1
 color: "#3bdc7c"
 hidden: true
 permission:
-  edit:
-    "*": allow
+  edit: ask
   bash:
-    "*": deny
-    "python *": ask
-    "mosquitto_*": ask
-    "docker *": ask
-    "npm *": ask
-    "grep *": allow
-    "git diff *": allow
-    "git log *": allow
+    "python *": allow
+    "mosquitto_*": allow
+    "docker *": allow
+    "npm *": allow
   grep: allow
   glob: allow
   lsp: allow

@@ -8,24 +8,11 @@ permission:
   write: deny
   edit: deny
   bash:
-    "*": deny
-    "git diff *": allow
-    "git log *": allow
-    "git status *": allow
-    "git show *": allow
     "python *": allow
     "pip *": allow
     "bun *": allow
     "npm *": allow
     "node *": allow
-    "ls *": allow
-    "find *": allow
-    "cat *": allow
-    "echo *": allow
-    "mkdir *": allow
-    "cp *": allow
-    "mv *": allow
-    "rm *": allow
     "chmod *": allow
     "chown *": allow
     "tar *": allow
@@ -33,8 +20,6 @@ permission:
     "unzip *": allow
     "curl *": allow
     "wget *": allow
-    "grep *": allow
-    "git *": allow
   grep: allow
   glob: allow
   lsp: allow

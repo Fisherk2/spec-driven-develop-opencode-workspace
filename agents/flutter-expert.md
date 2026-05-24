@@ -7,9 +7,6 @@ hidden: true
 permission:
   edit: allow
   bash:
-    "*": ask
-    "git diff *": allow
-    "grep *": allow
     "flutter *": allow
     "dart *": allow
   grep: allow

@@ -5,16 +5,12 @@ temperature: 0.1
 color: "#6bdc3b"
 hidden: true
 permission:
-  edit:
-    "*": allow
+  edit: ask
   bash:
-    "*": deny
-    "psql *": ask
-    "mysql *": ask
-    "mongosh *": ask
-    "redis-cli *": ask
-    "grep *": allow
-    "git diff *": allow
+    "psql *": allow
+    "mysql *": allow
+    "mongosh *": allow
+    "redis-cli *": allow
   grep: allow
   glob: allow
   lsp: allow

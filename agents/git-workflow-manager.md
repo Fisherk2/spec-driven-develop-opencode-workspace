@@ -5,32 +5,14 @@ color: "#C0C0C0"
 temperature: 0.1
 hidden: true
 permission:
-  write: allow
-  edit: allow
+  write: ask
+  edit: ask
   bash:
-    "*": deny
     "git *": allow
-    "ls *": allow
-    "find *": allow
-    "cat *": allow
-    "head *": allow
-    "tail *": allow
     "less *": allow
     "more *": allow
-    "wc *": allow
-    "sort *": allow
-    "uniq *": allow
     "curl *": allow
     "wget *": allow
-    "python *": allow
-    "pip *": allow
-    "node *": allow
-    "npm *": allow
-    "bun *": allow
-    "make *": allow
-    "gradle *": allow
-    "maven *": allow
-    "dotnet *": allow
   grep: allow
   glob: allow
   skill: allow

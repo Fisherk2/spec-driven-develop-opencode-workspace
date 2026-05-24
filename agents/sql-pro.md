@@ -5,17 +5,12 @@ temperature: 0.1
 color: "#dc5c3b"
 hidden: true
 permission:
-  edit:
-    "*": allow
+  edit: allow
   bash:
-    "*": deny
-    "python *": ask
-    "pip *": ask
-    "psql *": ask
-    "mysql *": ask
-    "grep *": allow
-    "git diff *": allow
-    "git log *": allow
+    "python *": allow
+    "pip *": allow
+    "psql *": allow
+    "mysql *": allow
   grep: allow
   glob: allow
   lsp: allow

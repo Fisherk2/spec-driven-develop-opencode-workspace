@@ -5,18 +5,13 @@ temperature: 0.1
 color: "#3baedc"
 hidden: true
 permission:
-  edit:
-    "*": allow
+  edit: allow
   bash:
-    "*": deny
-    "dotnet *": ask
-    "unity *": ask
-    "unreal *": ask
-    "godot *": ask
-    "npm *": ask
-    "grep *": allow
-    "git diff *": allow
-    "git log *": allow
+    "dotnet *": allow
+    "unity *": allow
+    "unreal *": allow
+    "godot *": allow
+    "npm *": allow
   grep: allow
   glob: allow
   lsp: allow

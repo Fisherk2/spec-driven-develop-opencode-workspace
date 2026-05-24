@@ -1,26 +1,12 @@
 ---
 description: Audits UI components for WCAG 2.1 AA/AAA compliance and inclusive design
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
 temperature: 0.1
 color: "#3b97dc"
 hidden: true
 permission:
   edit: deny
   bash:
-    "*": deny
-    "grep *": allow
-    "git *": allow
-    "ls *": allow
-    "find *": allow
-    "cat *": allow
-    "head *": allow
-    "tail *": allow
-    "less *": allow
-    "more *": allow
-    "wc *": allow
-    "sort *": allow
-    "uniq *": allow
     "curl *": allow
     "wget *": allow
     "python *": allow

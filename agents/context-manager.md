@@ -8,9 +8,7 @@ permission:
   write: ask
   edit: ask
   bash:
-    "*": deny
-    "git status *": allow
-    "git diff --stat *": allow
+    "*": ask
   grep: allow
   glob: allow
   lsp: allow

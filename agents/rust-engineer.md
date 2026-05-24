@@ -7,9 +7,6 @@ hidden: true
 permission:
   edit: allow
   bash:
-    "*": ask
-    "git diff *": allow
-    "grep *": allow
     "cargo *": allow
     "rustup *": allow
   grep: allow

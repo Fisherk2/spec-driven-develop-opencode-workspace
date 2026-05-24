@@ -1,15 +1,12 @@
 ---
 description: Optimizes developer experience through improved tooling, workflows, onboarding, and inner loop efficiency
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
 temperature: 0.1
 color: "#44dc3b"
 hidden: true
 permission:
-  edit:
-    "*": allow
+  edit: allow
   bash:
-    "*": deny
     "kubectl *": allow
     "helm *": allow
     "terraform *": allow
@@ -18,21 +15,11 @@ permission:
     "gcloud *": allow
     "az *": allow
     "docker *": allow
-    "git *": allow
-    "grep *": allow
     "python *": allow
     "pip *": allow
     "bun *": allow
     "npm *": allow
     "node *": allow
-    "ls *": allow
-    "find *": allow
-    "cat *": allow
-    "echo *": allow
-    "mkdir *": allow
-    "cp *": allow
-    "mv *": allow
-    "rm *": allow
     "chmod *": allow
     "chown *": allow
     "tar *": allow

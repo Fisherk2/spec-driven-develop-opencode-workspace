@@ -5,22 +5,9 @@ color: "#8B4513"
 temperature: 0.1
 hidden: true
 permission:
-  write: deny
-  edit: deny
+  write: ask
+  edit: ask
   bash:
-    "*": deny
-    "grep *": allow
-    "git *": allow
-    "ls *": allow
-    "find *": allow
-    "cat *": allow
-    "head *": allow
-    "tail *": allow
-    "less *": allow
-    "more *": allow
-    "wc *": allow
-    "sort *": allow
-    "uniq *": allow
     "curl *": allow
     "wget *": allow
     "python *": allow

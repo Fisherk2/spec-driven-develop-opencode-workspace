@@ -6,17 +6,14 @@ color: "#3bdca6"
 hidden: true
 permission:
   edit:
-    "*": allow
+    "*": ask
     "*.bicep": allow
     "*.json": ask
     "azure-pipelines*.yml": allow
     "infra/*": allow
   bash:
-    "*": deny
     "az *": ask
     "kubectl *": ask
-    "grep *": allow
-    "git diff *": allow
   grep: allow
   glob: allow
   lsp: allow

@@ -8,8 +8,6 @@ permission:
   edit: allow
   bash:
     "*": ask
-    "git diff *": allow
-    "grep *": allow
   grep: allow
   glob: allow
   lsp: allow

@@ -7,7 +7,7 @@ permission:
   write: allow
   edit: allow
   bash:
-    "git branch *": ask
+    "*": ask
   grep: allow
   glob: allow
   lsp: allow

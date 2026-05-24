@@ -8,13 +8,12 @@ permission:
   write: allow
   edit: allow
   bash:
-    "*": deny
+    "*": ask
     "docker *": allow
     "npm *": allow
     "bun *": allow
     "go build *": allow
     "rustc *": allow
-    "git *": allow
     "make *": allow
     "cmake *": allow
     "msbuild *": allow
@@ -22,14 +21,6 @@ permission:
     "maven *": allow
     "ant *": allow
     "bazel *": allow
-    "ls *": allow
-    "find *": allow
-    "cat *": allow
-    "echo *": allow
-    "mkdir *": allow
-    "cp *": allow
-    "mv *": allow
-    "rm *": allow
     "chmod *": allow
     "chown *": allow
     "tar *": allow
@@ -40,7 +31,6 @@ permission:
     "python *": allow
     "pip *": allow
     "node *": allow
-    "grep *": allow
   grep: allow
   glob: allow
   skill: allow

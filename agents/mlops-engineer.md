@@ -5,18 +5,14 @@ temperature: 0.1
 color: "#dc7e3b"
 hidden: true
 permission:
-  edit:
-    "*": allow
+  edit: allow
   bash:
-    "*": deny
-    "python *": ask
-    "pip *": ask
-    "jupyter *": ask
-    "docker *": ask
-    "kubectl *": ask
+    "python *": allow
+    "pip *": allow
+    "jupyter *": allow
+    "docker *": allow
+    "kubectl *": allow
     "grep *": allow
-    "git diff *": allow
-    "git log *": allow
   grep: allow
   glob: allow
   lsp: allow

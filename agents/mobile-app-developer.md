@@ -5,19 +5,14 @@ temperature: 0.1
 color: "#c53bdc"
 hidden: true
 permission:
-  edit:
-    "*": allow
+  edit: allow
   bash:
-    "*": deny
-    "xcodebuild *": ask
-    "gradle *": ask
-    "flutter *": ask
-    "npx *": ask
-    "pod *": ask
-    "fastlane *": ask
-    "grep *": allow
-    "git diff *": allow
-    "git log *": allow
+    "xcodebuild *": allow
+    "gradle *": allow
+    "flutter *": allow
+    "npx *": allow
+    "pod *": allow
+    "fastlane *": allow
   grep: allow
   glob: allow
   lsp: allow

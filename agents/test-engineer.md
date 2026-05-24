@@ -8,7 +8,6 @@ permission:
   write: ask
   edit: ask
   bash:
-    "*": deny
     "npm test *": allow
     "npx vitest *": allow
     "npx jest *": allow
@@ -21,14 +20,6 @@ permission:
     "bun *": allow
     "npm *": allow
     "npx *": allow
-    "ls *": allow
-    "find *": allow
-    "cat *": allow
-    "echo *": allow
-    "mkdir *": allow
-    "cp *": allow
-    "mv *": allow
-    "rm *": allow
     "chmod *": allow
     "chown *": allow
     "tar *": allow
@@ -36,8 +27,6 @@ permission:
     "unzip *": allow
     "curl *": allow
     "wget *": allow
-    "grep *": allow
-    "git *": allow
   grep: allow
   glob: allow
   lsp: allow

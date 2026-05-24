@@ -12,14 +12,11 @@ permission:
     "*.hcl": allow
     "modules/*": allow
   bash:
-    "*": deny
     "terraform fmt *": allow
     "terraform validate *": allow
-    "terraform plan *": ask
-    "terraform state list *": ask
-    "terraform state show *": ask
-    "grep *": allow
-    "git diff *": allow
+    "terraform plan *": allow
+    "terraform state list *": allow
+    "terraform state show *": allow
   grep: allow
   glob: allow
   lsp: allow

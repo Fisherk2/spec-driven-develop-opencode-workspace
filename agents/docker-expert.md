@@ -12,10 +12,7 @@ permission:
     "compose*": allow
     ".dockerignore": allow
   bash:
-    "*": ask
     "docker *": allow
-    "git diff *": allow
-    "grep *": allow
   grep: allow
   glob: allow
   lsp: allow

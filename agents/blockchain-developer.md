@@ -6,7 +6,7 @@ color: "#3bdcb2"
 hidden: true
 permission:
   edit:
-    "*": allow
+    "*": ask
   bash:
     "*": deny
     "forge *": ask
@@ -15,9 +15,6 @@ permission:
     "hardhat *": ask
     "npx *": ask
     "npm *": ask
-    "grep *": allow
-    "git diff *": allow
-    "git log *": allow
   grep: allow
   glob: allow
   lsp: allow

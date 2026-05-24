@@ -8,16 +8,6 @@ permission:
   write: allow
   edit: allow
   bash:
-    "*": deny
-    "git *": allow
-    "ls *": allow
-    "find *": allow
-    "cat *": allow
-    "echo *": allow
-    "mkdir *": allow
-    "cp *": allow
-    "mv *": allow
-    "rm *": allow
     "chmod *": allow
     "chown *": allow
     "tar *": allow

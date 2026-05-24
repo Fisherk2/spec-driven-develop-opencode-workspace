@@ -5,21 +5,11 @@ color: "#FFD700"
 temperature: 0.1
 hidden: true
 permission:
-  write: allow
-  edit: allow
+  write: ask
+  edit: ask
   bash:
-    "*": deny
-    "git *": allow
-    "ls *": allow
-    "find *": allow
-    "cat *": allow
-    "head *": allow
-    "tail *": allow
     "less *": allow
     "more *": allow
-    "wc *": allow
-    "sort *": allow
-    "uniq *": allow
     "curl *": allow
     "wget *": allow
     "python *": allow
@@ -27,7 +17,6 @@ permission:
     "node *": allow
     "npm *": allow
     "bun *": allow
-    "grep *": allow
   grep: allow
   glob: allow
   skill: allow

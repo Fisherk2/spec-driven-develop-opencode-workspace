@@ -7,8 +7,7 @@ hidden: true
 permission:
   edit: deny
   bash:
-    "*": deny
-    "git status *": allow
+    "*": ask
   grep: allow
   glob: allow
   lsp: allow

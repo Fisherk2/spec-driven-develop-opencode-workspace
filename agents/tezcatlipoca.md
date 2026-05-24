@@ -6,8 +6,6 @@ temperature: 0.4
 permission:
   write: allow
   edit: allow
-  bash:
-    "git branch *": ask
   grep: allow
   glob: allow
   lsp: allow

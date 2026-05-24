@@ -1,14 +1,12 @@
 ---
 description: Real-time communication specialist for WebSockets, SSE, and event-driven systems
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
 temperature: 0.1
 color: "#3bdc4b"
 hidden: true
 permission:
   edit: allow
   bash:
-    "*": deny
     "kubectl *": allow
     "helm *": allow
     "terraform *": allow
@@ -17,21 +15,11 @@ permission:
     "gcloud *": allow
     "az *": allow
     "docker *": allow
-    "git *": allow
-    "grep *": allow
     "python *": allow
     "pip *": allow
     "bun *": allow
     "npm *": allow
     "node *": allow
-    "ls *": allow
-    "find *": allow
-    "cat *": allow
-    "echo *": allow
-    "mkdir *": allow
-    "cp *": allow
-    "mv *": allow
-    "rm *": allow
     "chmod *": allow
     "chown *": allow
     "tar *": allow
@@ -46,7 +34,6 @@ permission:
     "traceroute *": allow
     "dig *": allow
     "nslookup *": allow
-    "git diff *": allow
   grep: allow
   glob: allow
   lsp: allow

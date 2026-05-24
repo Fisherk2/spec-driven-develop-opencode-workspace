@@ -1,31 +1,14 @@
 ---
 description: Analyzes error logs, stack traces, and crash reports to identify patterns and systemic issues
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
 temperature: 0.1
 color: "#dcca3b"
 hidden: true
 permission:
   edit: deny
   bash:
-    "*": deny
-    "cat *": allow
-    "head *": allow
-    "tail *": allow
-    "less *": allow
-    "more *": allow
-    "grep *": allow
     "egrep *": allow
     "fgrep *": allow
-    "awk *": allow
-    "sed *": allow
-    "wc *": allow
-    "sort *": allow
-    "uniq *": allow
-    "git *": allow
-    "ls *": allow
-    "find *": allow
-    "du *": allow
     "df *": allow
   grep: allow
   glob: allow

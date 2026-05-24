@@ -5,15 +5,12 @@ temperature: 0.1
 color: "#3bdcb8"
 hidden: true
 permission:
-  edit:
-    "*": allow
+  edit: ask
   bash:
     "*": deny
     "aws *": ask
     "gcloud *": ask
     "az *": ask
-    "grep *": allow
-    "git diff *": allow
   grep: allow
   glob: allow
   lsp: allow

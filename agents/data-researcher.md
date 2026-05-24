@@ -5,12 +5,9 @@ temperature: 0.1
 color: "#dcd63b"
 hidden: true
 permission:
-  edit:
-    "*": allow
+  edit: ask
   bash:
     "*": deny
-    "grep *": allow
-    "git log *": allow
   grep: allow
   glob: allow
   lsp: allow

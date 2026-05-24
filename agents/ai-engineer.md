@@ -12,9 +12,6 @@ permission:
     "python *": ask
     "pip *": ask
     "jupyter *": ask
-    "grep *": allow
-    "git diff *": allow
-    "git log *": allow
   grep: allow
   glob: allow
   lsp: allow

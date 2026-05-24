@@ -5,7 +5,7 @@ temperature: 0.1
 color: "#953bdc"
 hidden: true
 permission:
-  edit: deny
+  edit: ask
   bash:
     "*": deny
   grep: allow

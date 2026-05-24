@@ -13,11 +13,8 @@ permission:
     "*.yaml": ask
     "*.yml": ask
   bash:
-    "*": deny
-    "kubectl *": ask
-    "helm *": ask
-    "grep *": allow
-    "git diff *": allow
+    "kubectl *": allow
+    "helm *": allow
   grep: allow
   glob: allow
   lsp: allow

@@ -5,28 +5,14 @@ color: "#800080"
 temperature: 0.1
 hidden: true
 permission:
-  write: deny
-  edit: deny
+  write: ask
+  edit: ask
   bash:
-    "*": deny
-    "grep *": allow
-    "git log *": allow
-    "git diff *": allow
-    "git bisect *": allow
-    "git blame *": allow
     "python *": allow
     "pip *": allow
     "bun *": allow
     "npm *": allow
     "node *": allow
-    "ls *": allow
-    "find *": allow
-    "cat *": allow
-    "echo *": allow
-    "mkdir *": allow
-    "cp *": allow
-    "mv *": allow
-    "rm *": allow
     "chmod *": allow
     "chown *": allow
     "tar *": allow

@@ -8,8 +8,6 @@ permission:
   edit: deny
   bash:
     "*": deny
-    "grep *": allow
-    "git log *": allow
   grep: allow
   glob: allow
   lsp: allow

@@ -8,22 +8,11 @@ permission:
   write: allow
   edit: allow
   bash:
-    "*": deny
-    "grep *": allow
-    "git *": allow
     "journalctl *": allow
     "kubectl *": allow
     "docker *": allow
-    "ls *": allow
-    "find *": allow
-    "cat *": allow
-    "head *": allow
-    "tail *": allow
     "less *": allow
     "more *": allow
-    "wc *": allow
-    "sort *": allow
-    "uniq *": allow
     "curl *": allow
     "wget *": allow
     "python *": allow

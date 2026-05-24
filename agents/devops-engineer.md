@@ -6,7 +6,7 @@ color: "#a9dc3b"
 hidden: true
 permission:
   edit:
-    "*": allow
+    "*": ask
     ".github/*": allow
     ".gitlab-ci*": allow
     "Jenkinsfile*": allow
@@ -14,8 +14,6 @@ permission:
     "*.yml": allow
   bash:
     "*": ask
-    "git *": allow
-    "grep *": allow
   grep: allow
   glob: allow
   lsp: allow

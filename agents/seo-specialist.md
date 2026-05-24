@@ -5,17 +5,12 @@ temperature: 0.1
 color: "#dcb23b"
 hidden: true
 permission:
-  edit:
-    "*": allow
+  edit: allow
   bash:
-    "*": deny
-    "npx *": ask
-    "npm *": ask
-    "curl *": ask
-    "lighthouse *": ask
-    "grep *": allow
-    "git diff *": allow
-    "git log *": allow
+    "npx *": allow
+    "npm *": allow
+    "curl *": allow
+    "lighthouse *": allow
   grep: allow
   glob: allow
   lsp: allow

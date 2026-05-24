@@ -7,14 +7,11 @@ hidden: true
 permission:
   edit: deny
   bash:
-    "*": deny
     "dig *": allow
     "nslookup *": allow
     "traceroute *": allow
     "ping *": allow
     "curl -I *": allow
-    "grep *": allow
-    "git diff *": allow
   grep: allow
   glob: allow
   lsp: allow

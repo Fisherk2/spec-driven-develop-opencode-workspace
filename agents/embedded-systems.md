@@ -5,17 +5,12 @@ temperature: 0.1
 color: "#a8dc3b"
 hidden: true
 permission:
-  edit:
-    "*": allow
+  edit: allow
   bash:
-    "*": deny
-    "make *": ask
-    "cmake *": ask
-    "arm-none-eabi-*": ask
-    "openocd *": ask
-    "grep *": allow
-    "git diff *": allow
-    "git log *": allow
+    "make *": allow
+    "cmake *": allow
+    "arm-none-eabi-*": allow
+    "openocd *": allow
   grep: allow
   glob: allow
   lsp: allow
