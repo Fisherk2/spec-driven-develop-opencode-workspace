@@ -7,6 +7,48 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Sin Lanzar]
 
+## [2.1.0] - 2026-05-24
+
+### Agregado
+
+#### Nuevas Skills (2 adicionales, total: 43)
+
+- `xlsx` - Manipulación de archivos de hoja de cálculo (.xlsx, .csv, .tsv) con soporte para fórmulas, formato y scripts de recálculo.
+- `excel-analysis` - Análisis de datos avanzado, creación de tablas dinámicas y generación de gráficos utilizando pandas.
+
+#### Nuevos Servidores MCP
+
+- **Excel MCP Server** (`excel-mcp-server`) - Permite a los agentes leer, escribir y formatear archivos Excel localmente.
+- **Jupyter Notebook MCP Server** (`mcp-jupyter-notebook`) - Proporciona control sobre sesiones de Jupyter para ejecución de código, gestión de paquetes e inspección de variables.
+- `docs/opencode/03-mcp-servers.md` - Documentación detallada para la configuración y uso de los nuevos servidores MCP.
+
+### Cambiado
+
+#### Documentación y Guías
+
+- `README.md` - Actualización integral:
+  - Conteo de skills corregido a 43 (42 de ingeniería + 1 meta-skill).
+  - Árbol de estructura de skills completado con las 43 entradas (añadidas 10 faltantes).
+  - Pasos opcionales de MCP añadidos al Quick Start.
+  - URLs de repositorio actualizadas a `agent-jupyter-toolkit`.
+- `USER_GUIDE.md` - Reestructuración de la sección de herramientas:
+  - Nueva fase **"Extra"** para herramientas especializadas (xlsx, excel-analysis).
+  - Guía de inicio rápido para servidores MCP y sección de troubleshooting.
+- `skills/using-agent-skills/SKILL.md` - Flowchart de descubrimiento actualizado para incluir flujos de trabajo con hojas de cálculo.
+
+#### Configuración del Proyecto
+
+- `opencode.json` - Configuración nativa de servidores MCP:
+  - `excel` habilitado por defecto (vía `uvx`).
+  - `jupyter` pre-configurado (deshabilitado por defecto para ahorro de contexto).
+- `skills-lock.json` - Registro y hash de integridad para las nuevas skills.
+
+### Corregido
+
+- **Conteo de Skills**: Sincronización del conteo de herramientas en `README.md`, `USER_GUIDE.md` y meta-skill.
+- **Enlaces rotos**: Corrección de hipervínculos internos y referencias a repositorios externos en toda la documentación.
+- **Formato Markdown**: Ajustes de consistencia en tablas y bloques de código.
+
 ## [2.0.0] - 2026-05-21
 
 ### Importante (Cambios Rupturantes)
@@ -447,7 +489,7 @@ Nuevas secciones agregadas al `.gitignore`:
 ### Stack Tecnológico
 - **Plataforma**: OpenCode Agentic Workspace
 - **Pipeline**: SDD Pipeline Plugin (5 hooks nativos de OpenCode)
-- **Skills**: 33 skills de desarrollo profesional
+- **Skills**: 43 skills de desarrollo profesional (42 + 1 meta-skill)
 - **Agentes**: 5 especialistas (analysis, implement, code-reviewer, test-engineer, security-auditor)
 - **Documentación**: Context7 para APIs actualizadas · Markdown con diagramas Mermaid
 - **Gestión de paquetes**: Bun (`.opencode/`)
@@ -456,7 +498,7 @@ Nuevas secciones agregadas al `.gitignore`:
 ### Documentación Relacionada
 
 - **[README.md](README.md)** - Guía rápida y flujo de trabajo
-- **[USER_GUIDE.md](USER_GUIDE.md)** - Referencia completa de 33 skills
+- **[USER_GUIDE.md](USER_GUIDE.md)** - Referencia completa de 43 skills
 - **[references/orchestration-patterns.md](references/orchestration-patterns.md)** - Agentes y orquestación (AGENTS_GUIDE.md fusionado)
 - **[skills/using-agent-skills/SKILL.md](skills/using-agent-skills/SKILL.md)** - Meta-skill orquestador: descubrimiento e invocación de skills
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** - Directrices de contribución
