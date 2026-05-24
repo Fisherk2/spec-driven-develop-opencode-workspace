@@ -7,7 +7,7 @@
 ## Prerequisites
 
 - **Node.js >= 18** and **bun**
-- **OpenCode IDE** (see [opencode-setup.md](docs/ai-agent-setup/opencode-setup.md) for configuration)
+- **OpenCode IDE** (see [00-setup.md](docs/opencode/00-setup.md) for configuration)
 - **Git**
 
 ---
@@ -17,7 +17,7 @@
 ### 1. Clone and install dependencies
 
 ```bash
-git clone <repo-url> mi-proyecto && cd mi-proyecto
+git clone https://github.com/Fisherk2/spec-driven-develop-opencode-workspace mi-proyecto && cd mi-proyecto
 cd .opencode && bun install && cd ..
 ```
 
@@ -46,6 +46,18 @@ ls .opencode/commands/
 | Ship to production | `/ship` | SHIP |
 
 Skills activate automatically by phase — API design triggers `api-and-interface-design`, UI work triggers `frontend-ui-engineering`, error handling triggers `error-handling-patterns`, and so on.
+
+### Primary Agents
+
+Three primary agents orchestrate the SDD lifecycle. Each has a unique role and perspective:
+
+| Agent | Role | When to Use | Example Application |
+|-------|------|-------------|---------------------|
+| [huitzilopochtli](agents/huitzilopochtli.md) | General Purpose Agent | Full-lifecycle tasks across any domain — research, plan, organize, document | "Research CI/CD best practices and propose a pipeline for this project" |
+| [quetzalcoatl](agents/quetzalcoatl.md) | Architect of Specifications | Before writing code — analyze, design, plan, document specifications | "Design the auth module architecture and generate a detailed specification" |
+| [tezcatlipoca](agents/tezcatlipoca.md) | Build Agent | After analysis — implement, build, configure, execute validated plans | "Implement the tasks REST API following the spec in specs/tasks-api.md" |
+
+Over **90 specialized subagents** are also available for specific tasks: code review, security audit, DB optimization, UI/UX design, debugging, and more. They are invoked via `task()` from primary agents or directly by the user. See the [full catalog](docs/opencode/09-agent-index.md).
 
 ---
 
@@ -176,7 +188,7 @@ Skills are organized by SDD phase. Each skill has one canonical entry in its **p
 
 ## Agent Personas
 
-Pre-configured specialist personas for targeted reviews. For detailed orchestration patterns, see [docs/opencode/08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md). For the full agent catalog (90+ subagents), see [docs/opencode/09-agent-index.md](docs/opencode/09-agent-index.md).
+Pre-configured specialist personas for targeted reviews. For detailed orchestration patterns, see [docs/opencode/08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md). For the full agent catalog (93 subagents), see [docs/opencode/09-agent-index.md](docs/opencode/09-agent-index.md).
 
 | Agent | Role | Perspective | Use When |
 |-------|------|-------------|----------|
@@ -224,7 +236,7 @@ project-root/
 │
 ├── .opencode/                  # OpenCode config (symlinks → agents/, commands/, skills/)
 │
-├── agents/                     # 99 agent personas (3 primary + 96 subagents)
+├── agents/                     # 96 agent personas (3 primary + 93 subagents)
 │   ├── huitzilopochtli.md      #   General Purpose Agent
 │   ├── quetzalcoatl.md         #   Architect of Specifications
 │   └── tezcatlipoca.md         #   Build Agent
@@ -233,6 +245,7 @@ project-root/
     │   ├── using-agent-skills/     #   META: skill discovery
     │   ├── idea-refine/            #   DEFINE
     │   ├── spec-driven-development/#   DEFINE
+    │   ├── agent-md-refactor/      #   DEFINE (PRE-FLIGHT)
     │   ├── env-setup/              #   DEFINE (PRE-FLIGHT)
     │   ├── clean-ddd-hexagonal/    #   DEFINE / PLAN / BUILD
     │   ├── design-patterns/        #   DEFINE / PLAN / REVIEW
@@ -241,12 +254,15 @@ project-root/
     │   ├── planning-and-task-breakdown/ # PLAN
     │   ├── incremental-implementation/  # BUILD
     │   ├── test-driven-development/     # BUILD
+    │   ├── source-driven-development/   # BUILD
+    │   ├── context-engineering/         # BUILD
     │   ├── frontend-ui-engineering/     # BUILD
     │   ├── api-and-interface-design/    # BUILD
     │   ├── api-spec-generation/         # BUILD
     │   ├── docker-optimize/             # BUILD / SHIP
     │   ├── db-migration/                # BUILD / SHIP
     │   ├── solid/                       # BUILD / REVIEW
+    │   ├── clean-code/                  # BUILD / REVIEW
     │   ├── error-handling-patterns/     # BUILD / VERIFY / REVIEW
     │   ├── design-taste-frontend/       # BUILD / VERIFY / REVIEW
     │   ├── bash-defensive-patterns/     # BUILD / SHIP
@@ -268,29 +284,43 @@ project-root/
     │   ├── incident-response/             # SHIP / VERIFY
     │   └── crafting-effective-readmes/    # DEFINE / SHIP
 │
-├── references/                 # Technical reference checklists
+├── references/                 # 59 technical reference files
 │   ├── testing-patterns.md
 │   ├── security-checklist.md
 │   ├── performance-checklist.md
-│   └── accessibility-checklist.md
+│   ├── accessibility-checklist.md
+│   ├── clean-code.md
+│   ├── code-smells.md
+│   ├── design-patterns.md
+│   ├── solid-principles.md
+│   ├── error-handling.md
+│   ├── tdd.md
+│   ├── architecture.md
+│   ├── DDD-STRATEGIC.md
+│   ├── DDD-TACTICAL.md
+│   ├── HEXAGONAL.md
+│   ├── CQRS-EVENTS.md
+│   ├── refactoring-smell-catalog.md
+│   ├── component-patterns.md
+│   ├── color-system.md
+│   ├── typography.md
+│   └── ... (59 files total — see references/ for the full list)
 │
 ├── docs/                       # Project documentation
-│   ├── opencode/               # OpenCode configuration guides
-│   │   ├── 00-setup.md
-│   │   ├── 01-agents.md
-│   │   ├── 02-skills.md
-│   │   ├── 03-mcp-servers.md
-│   │   ├── 04-models.md
-│   │   ├── 05-rules.md
-│   │   ├── 06-tools-and-custom-tools.md
-│   │   ├── 07-permissions.md
-│   │   ├── 08-orchestration-patterns.md
-│   │   └── 09-agent-index.md
-│   ├── ai-agent-setup/
-│   │   ├── opencode-setup.md
-│   │   ├── prompt-anatomy.md
-│   │   └── skill-anatomy.md
-│   └── decisions/              # ADRs
+│   ├── API_REFERENCE.md
+│   ├── ARCHITECTURE.md
+│   ├── SETUP.md
+│   └── opencode/               # OpenCode configuration guides
+│       ├── 00-setup.md
+│       ├── 01-agents.md
+│       ├── 02-skills.md
+│       ├── 03-mcp-servers.md
+│       ├── 04-models.md
+│       ├── 05-rules.md
+│       ├── 06-tools-and-custom-tools.md
+│       ├── 07-permissions.md
+│       ├── 08-orchestration-patterns.md
+│       └── 09-agent-index.md
 │
 ├── specs/                      # Project specifications (SPEC.md)
 ├── scripts/                    # Helper scripts
@@ -298,7 +328,7 @@ project-root/
 └── tests/                      # Tests
 ```
 
-For OpenCode configuration details (commands, agents, skill loading), see [docs/ai-agent-setup/opencode-setup.md](docs/ai-agent-setup/opencode-setup.md). For skill anatomy (sections, frontmatter, naming), see [docs/ai-agent-setup/skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md).
+For OpenCode configuration details (commands, agents, skill loading), see [00-setup.md](docs/opencode/00-setup.md). For skill anatomy (sections, frontmatter, naming), see [02-skills.md](docs/opencode/02-skills.md).
 
 ---
 
@@ -313,7 +343,7 @@ For OpenCode configuration details (commands, agents, skill loading), see [docs/
    - Move all content to the project root `references/` folder (keeps reference material centralized)
    - Delete the now-empty `references/` directory inside the skill
 
-3. **Create or adjust `SKILL.md`** following [skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md)
+3. **Create or adjust `SKILL.md`** following [02-skills.md](docs/opencode/02-skills.md)
    - Include YAML frontmatter with `name` and `description`
    - `description` should state what the skill does, followed by "Use when" trigger conditions
    - Standard sections: Overview, When to Use, Process, Common Rationalizations, Red Flags, Verification
@@ -416,11 +446,10 @@ Quick-reference material that skills pull in when needed:
 | [security-checklist.md](references/security-checklist.md) | Pre-commit checks, auth, input validation, headers, CORS, OWASP Top 10 |
 | [performance-checklist.md](references/performance-checklist.md) | Core Web Vitals targets, frontend/backend checklists, measurement commands |
 | [accessibility-checklist.md](references/accessibility-checklist.md) | Keyboard nav, screen readers, visual design, ARIA, testing tools |
-| [orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md) | Agent personas, orchestration patterns, and decision matrix |
-| [agent-index.md](docs/opencode/09-agent-index.md) | Complete classified catalog of all 99 agents |
-| [opencode-setup.md](docs/ai-agent-setup/opencode-setup.md) | OpenCode configuration, commands, agents, skill loading |
-| [skill-anatomy.md](docs/ai-agent-setup/skill-anatomy.md) | Skill creation guide and format specification |
-| [prompt-anatomy.md](docs/ai-agent-setup/prompt-anatomy.md) | Prompt templates and workflow for AI agents |
+| [08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md) | Agent personas, orchestration patterns, and decision matrix |
+| [09-agent-index.md](docs/opencode/09-agent-index.md) | Complete classified catalog of all 96 agents |
+| [00-setup.md](docs/opencode/00-setup.md) | OpenCode configuration, commands, agents, skill loading |
+| [02-skills.md](docs/opencode/02-skills.md) | Skill creation, format specification, frontmatter, anatomy, naming conventions |
 
 ---
 

@@ -1,22 +1,22 @@
-# MCP Servers en OpenCode
+# MCP Servers in OpenCode
 
-MCP (Model Context Protocol) permite integrar herramientas y servicios externos en OpenCode. OpenCode soporta tanto MCP Servers locales como remotos.
+MCP (Model Context Protocol) allows integrating external tools and services into OpenCode. OpenCode supports both local and remote MCP Servers.
 
-> **Documentación oficial:** [opencode.ai/docs/mcp-servers](https://opencode.ai/docs/mcp-servers/)
+> **Official documentation:** [opencode.ai/docs/mcp-servers](https://opencode.ai/docs/mcp-servers/)
 >
-> **Encontrar MCP Servers:** [mcp.so](https://mcp.so) | [glama.ai/mcp/servers](https://glama.ai/mcp/servers)
+> **Find MCP Servers:** [mcp.so](https://mcp.so) | [glama.ai/mcp/servers](https://glama.ai/mcp/servers)
 
 ---
 
-## Nota Importante: Consumo de Contexto
+## Important Note: Context Consumption
 
-MCP Servers agregan tokens al contexto. Cuantos más MCP Tools estén activados, más rápido se alcanzará el límite de contexto.
+MCP Servers add tokens to the context. The more MCP Tools are enabled, the faster you'll reach the context limit.
 
-**Recomendación:** Solo activa los MCP Servers que realmente necesites. Desactiva servers globalmente y actívalos solo para agentes específicos.
+**Recommendation:** Only enable the MCP Servers you actually need. Disable servers globally and enable them only for specific agents.
 
 ---
 
-## MCP Servers Locales
+## Local MCP Servers
 
 ```json
 {
@@ -34,19 +34,19 @@ MCP Servers agregan tokens al contexto. Cuantos más MCP Tools estén activados,
 }
 ```
 
-### Opciones
+### Options
 
-| Opción        | Tipo    | Obligatorio | Descripción                         |
-|---------------|---------|-------------|-------------------------------------|
-| `type`        | String  | Sí          | Debe ser `"local"`                  |
-| `command`     | Array   | Sí          | Comando y argumentos               |
-| `environment` | Object  | No          | Variables de entorno               |
-| `enabled`     | Boolean | No          | Activado/Desactivado al inicio     |
-| `timeout`     | Number  | No          | Timeout en ms (predeterminado: 5000) |
+| Option        | Type    | Required | Description                         |
+|---------------|---------|----------|-------------------------------------|
+| `type`        | String  | Yes      | Must be `"local"`                  |
+| `command`     | Array   | Yes      | Command and arguments               |
+| `environment` | Object  | No       | Environment variables               |
+| `enabled`     | Boolean | No       | Enabled/Disabled at startup     |
+| `timeout`     | Number  | No       | Timeout in ms (default: 5000) |
 
 ---
 
-## MCP Servers Remotos
+## Remote MCP Servers
 
 ```json
 {
@@ -64,22 +64,22 @@ MCP Servers agregan tokens al contexto. Cuantos más MCP Tools estén activados,
 }
 ```
 
-### Opciones
+### Options
 
-| Opción    | Tipo    | Obligatorio | Descripción                         |
-|-----------|---------|-------------|-------------------------------------|
-| `type`    | String  | Sí          | Debe ser `"remote"`                 |
-| `url`     | String  | Sí          | URL del MCP Server                  |
-| `enabled` | Boolean | No          | Activado/Desactivado al inicio     |
-| `headers` | Object  | No          | HTTP Headers                        |
-| `oauth`   | Object  | No          | Configuración OAuth                 |
-| `timeout` | Number  | No          | Timeout en ms (predeterminado: 5000) |
+| Option    | Type    | Required | Description                         |
+|-----------|---------|----------|-------------------------------------|
+| `type`    | String  | Yes      | Must be `"remote"`                 |
+| `url`     | String  | Yes      | MCP Server URL                  |
+| `enabled` | Boolean | No       | Enabled/Disabled at startup     |
+| `headers` | Object  | No       | HTTP Headers                        |
+| `oauth`   | Object  | No       | OAuth configuration                 |
+| `timeout` | Number  | No       | Timeout in ms (default: 5000) |
 
 ---
 
-## Autenticación OAuth
+## OAuth Authentication
 
-### Automático (Dynamic Client Registration)
+### Automatic (Dynamic Client Registration)
 
 ```json
 {
@@ -92,7 +92,7 @@ MCP Servers agregan tokens al contexto. Cuantos más MCP Tools estén activados,
 }
 ```
 
-### Con Credentials pre-registrados
+### With Pre-registered Credentials
 
 ```json
 {
@@ -110,19 +110,19 @@ MCP Servers agregan tokens al contexto. Cuantos más MCP Tools estén activados,
 }
 ```
 
-### Comandos CLI
+### CLI Commands
 
 ```bash
-opencode mcp auth my-oauth-server    # Autenticar
-opencode mcp list                     # Mostrar servers y estado de autenticación
-opencode mcp logout my-oauth-server   # Eliminar credentials
+opencode mcp auth my-oauth-server    # Authenticate
+opencode mcp list                     # Show servers and authentication status
+opencode mcp logout my-oauth-server   # Remove credentials
 ```
 
 ---
 
-## Control de MCP Servers por Agente
+## Per-Agent MCP Server Control
 
-**Estrategia:** Desactivar globalmente, activar por agente.
+**Strategy:** Disable globally, enable per agent.
 
 ```json
 {
@@ -149,9 +149,9 @@ opencode mcp logout my-oauth-server   # Eliminar credentials
 
 ---
 
-## MCP Servers Recomendados
+## Recommended MCP Servers
 
-### Context7 -- Búsqueda de Documentación
+### Context7 -- Documentation Search
 
 ```json
 {
@@ -164,7 +164,7 @@ opencode mcp logout my-oauth-server   # Eliminar credentials
 }
 ```
 
-Uso: `use context7` en el prompt
+Usage: `use context7` in the prompt
 
 ### Sentry -- Error Tracking
 
@@ -182,7 +182,7 @@ Uso: `use context7` en el prompt
 
 Auth: `opencode mcp auth sentry`
 
-### Grep by Vercel -- Búsqueda de Código GitHub
+### Grep by Vercel -- GitHub Code Search
 
 ```json
 {
@@ -195,23 +195,23 @@ Auth: `opencode mcp auth sentry`
 }
 ```
 
-### Otros MCP Servers útiles
+### Other Useful MCP Servers
 
-| Server     | Descripción                  | URL/Package |
+| Server     | Description                  | URL/Package |
 |------------|------------------------------|-------------|
-| **Filesystem** | Acceso al sistema de archivos | `@modelcontextprotocol/server-filesystem` |
-| **GitHub**    | GitHub API (¡Cuidado: muchos tokens!) | `@modelcontextprotocol/server-github` |
-| **PostgreSQL** | Acceso a base de datos       | `@modelcontextprotocol/server-postgres` |
-| **Puppeteer** | Automatización de navegador  | `@modelcontextprotocol/server-puppeteer` |
-| **Memory**    | Almacenamiento persistente    | `@modelcontextprotocol/server-memory` |
+| **Filesystem** | File system access | `@modelcontextprotocol/server-filesystem` |
+| **GitHub**    | GitHub API (Careful: many tokens!) | `@modelcontextprotocol/server-github` |
+| **PostgreSQL** | Database access       | `@modelcontextprotocol/server-postgres` |
+| **Puppeteer** | Browser automation  | `@modelcontextprotocol/server-puppeteer` |
+| **Memory**    | Persistent storage    | `@modelcontextprotocol/server-memory` |
 
 ---
 
-## Mejores Prácticas
+## Best Practices
 
-1. **Menos es más:** Solo activa los MCP Servers que realmente necesites
-2. **Activación por Agente:** Desactiva MCP Servers globalmente y enciéndelos solo para agentes específicos
-3. **Usa AGENTS.md:** Agrega instrucciones como "Use context7 for documentation lookups"
-4. **Variables de Entorno:** Siempre referencia secrets con `{env:VAR_NAME}`, nunca hardcodeadas
-5. **Configura Timeouts:** Para servers lentos, aumenta el timeout
-6. **Evita GitHub MCP:** Consume muchos tokens -- usa en su lugar `gh` CLI via Bash
+1. **Less is more:** Only enable the MCP Servers you actually need
+2. **Per-Agent Activation:** Disable MCP Servers globally and turn them on only for specific agents
+3. **Use AGENTS.md:** Add instructions like "Use context7 for documentation lookups"
+4. **Environment Variables:** Always reference secrets with `{env:VAR_NAME}`, never hardcoded
+5. **Configure Timeouts:** For slow servers, increase the timeout
+6. **Avoid GitHub MCP:** Consumes many tokens -- use `gh` CLI via Bash instead

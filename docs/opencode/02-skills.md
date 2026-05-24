@@ -1,16 +1,16 @@
-# Agent Skills en OpenCode
+# Agent Skills in OpenCode
 
 > **📖 For task-to-skill discovery, see the [Meta-Skill](../../skills/using-agent-skills/SKILL.md) — it contains the decision tree for finding which skill applies to your current task. For the complete skills reference by phase, see [USER_GUIDE.md > Skills Reference](../../USER_GUIDE.md#skills-reference).
 
-Skills son instrucciones reutilizables que OpenCode puede descubrir desde tu repositorio o directorio home. Se cargan bajo demanda a través de la herramienta nativa `skill` -- los agentes ven los skills disponibles y pueden cargar el contenido cuando sea necesario.
+Skills are reusable instructions that OpenCode can discover from your repository or home directory. They are loaded on-demand through the native `skill` tool -- agents see available skills and can load the content when needed.
 
-> **Documentación oficial:** [opencode.ai/docs/skills](https://opencode.ai/docs/skills/)
+> **Official documentation:** [opencode.ai/docs/skills](https://opencode.ai/docs/skills/)
 
 ---
 
-## Estructura de Directorios
+## Directory Structure
 
-Crea una carpeta por nombre de skill con una `SKILL.md` dentro:
+Create a folder per skill name with a `SKILL.md` inside:
 
 ```
 skills/
@@ -19,23 +19,23 @@ skills/
     supporting-file.md # Optional: Reference material loaded on demand
 ```
 
-### Rutas Soportadas
+### Supported Paths
 
-| Ruta                                             | Tipo                |
+| Path                                             | Type                |
 |--------------------------------------------------|---------------------|
-| `skills/<name>/SKILL.md`               | Proyecto (Con symlink)|
-| `.opencode/skills/<name>/SKILL.md`               | Proyecto (OpenCode)  |
+| `skills/<name>/SKILL.md`               | Project (With symlink)|
+| `.opencode/skills/<name>/SKILL.md`               | Project (OpenCode)  |
 | `~/.config/opencode/skills/<name>/SKILL.md`     | Global (OpenCode)   |
-| `.claude/skills/<name>/SKILL.md`                 | Proyecto (Claude-compatible) |
+| `.claude/skills/<name>/SKILL.md`                 | Project (Claude-compatible) |
 | `~/.claude/skills/<name>/SKILL.md`               | Global (Claude-compatible) |
-| `.agents/skills/<name>/SKILL.md`                 | Proyecto (Agent-compatible) |
+| `.agents/skills/<name>/SKILL.md`                 | Project (Agent-compatible) |
 | `~/.agents/skills/<name>/SKILL.md`               | Global (Agent-compatible) |
 
 ---
 
-## Estructura SKILL.md
+## SKILL.md Structure
 
-Cada `SKILL.md` comienza con YAML Frontmatter:
+Each `SKILL.md` begins with YAML Frontmatter:
 
 ```markdown
 ---
@@ -81,31 +81,31 @@ After completing the skill's process, confirm:
 - [ ] Evidence requirements
 ```
 
-### Campos Obligatorios
+### Required Fields
 
-| Campo         | Descripción                                     | Obligatorio |
-|---------------|------------------------------------------------|-------------|
-| `name`        | Nombre del skill (1-64 caracteres, lowercase)     | Sí          |
-| `description` | Descripción (1-1024 caracteres)                 | Sí          |
-| `license`     | Licencia                                       | No          |
-| `compatibility` | Compatibilidad                                | No          |
-| `metadata`    | Mapa Key-Value (Strings)                       | No          |
+| Field         | Description                                     | Required |
+|---------------|------------------------------------------------|----------|
+| `name`        | Skill name (1-64 characters, lowercase)     | Yes      |
+| `description` | Description (1-1024 characters)                 | Yes      |
+| `license`     | License                                       | No       |
+| `compatibility` | Compatibility                                | No       |
+| `metadata`    | Key-Value Map (Strings)                       | No       |
 
-### Reglas de Nomenclatura
+### Naming Rules
 
-- 1-64 caracteres
-- Solo caracteres alfanuméricos lowercase con guiones simples
-- No puede comenzar o terminar con `-`
-- Sin `--` consecutivos
-| **Debe coincidir con el nombre del directorio**
+- 1-64 characters
+- Only lowercase alphanumeric characters with simple hyphens
+- Cannot start or end with `-`
+- No consecutive `--`
+| **Must match the directory name**
 
 Regex: `^[a-z0-9]+(-[a-z0-9]+)*$`
 
 ---
 
-## Cómo los Agentes Descubren Skills
+## How Agents Discover Skills
 
-OpenCode lista los skills disponibles en la descripción de la herramienta `skill`:
+OpenCode lists available skills in the `skill` tool description:
 
 ```xml
 <available_skills>
@@ -116,14 +116,14 @@ OpenCode lista los skills disponibles en la descripción de la herramienta `skil
 </available_skills>
 ```
 
-El agente carga un skill con:
+The agent loads a skill with:
 ```
 skill({ name: "git-release" })
 ```
 
 ---
 
-## Configurar Permissions
+## Configure Permissions
 
 ### Global
 
@@ -140,13 +140,13 @@ skill({ name: "git-release" })
 }
 ```
 
-| Permission | Comportamiento                                      |
-|------------|-----------------------------------------------------|
-| `allow`    | El skill se carga inmediatamente                  |
-| `deny`     | El skill está oculto, acceso denegado               |
-| `ask`      | Se pregunta al usuario antes de cargar             |
+| Permission | Behavior                                      |
+|------------|-----------------------------------------------|
+| `allow`    | The skill loads immediately                  |
+| `deny`     | The skill is hidden, access denied               |
+| `ask`      | Ask the user before loading             |
 
-### Por Agente (Markdown)
+### Per Agent (Markdown)
 
 ```yaml
 ---
@@ -156,7 +156,7 @@ permission:
 ---
 ```
 
-### Por Agente (JSON)
+### Per Agent (JSON)
 
 ```json
 {
@@ -172,7 +172,7 @@ permission:
 }
 ```
 
-### Deshabilitar completamente la herramienta Skill
+### Completely Disable the Skill Tool
 
 ```json
 {
@@ -188,14 +188,14 @@ permission:
 
 ---
 
-## Solución de Problemas
+## Troubleshooting
 
-Si un skill no aparece:
+If a skill doesn't appear:
 
-1. Verifica si `SKILL.md` está correctamente capitalizado
-2. Verifica si el Frontmatter contiene `name` y `description`
-3. Asegúrate de que los nombres de skill son únicos en todas las rutas
-4. Verifica las permissions -- skills con `deny` están ocultos
+1. Check if `SKILL.md` is correctly capitalized
+2. Check if the Frontmatter contains `name` and `description`
+3. Ensure skill names are unique across all paths
+4. Check permissions -- skills with `deny` are hidden
 
 ---
 
@@ -206,13 +206,13 @@ Si un skill no aparece:
 - Supporting files: `lowercase-hyphen-separated.md`
 - References: stored in `references/` at the project root, not inside skill directories
 
-## Mejores Prácticas
+## Best Practices
 
-1. **Formular descripciones precisas** -- El agente decide basado en la Description si carga el skill
-2. **Sección "When to use me"** -- Ayuda al agente a decidir
-3. **Skills modulares** -- Cada skill con una tarea clara
-4. **Skills globales para flujos de trabajo personales** en `~/.config/opencode/skills/`
-5. **Skills de proyecto para flujos de trabajo en equipo** en `.opencode/skills/` (commitear a Git)
+1. **Write precise descriptions** -- The agent decides based on the Description whether to load the skill
+2. **"When to use me" section** -- Helps the agent decide
+3. **Modular skills** -- Each skill with a clear task
+4. **Global skills for personal workflows** in `~/.config/opencode/skills/`
+5. **Project skills for team workflows** in `.opencode/skills/` (commit to Git)
 
 ## Cross-Skill References
 
@@ -229,6 +229,6 @@ For **cross-phase navigation**, the [Meta-Skill](../../skills/using-agent-skills
 
 ---
 
-## Ejemplos de Skills
+## Skill Examples
 
-Definiciones de skills listas para usar las encuentras en [`skills/`](../../skills/).
+Ready-to-use skill definitions can be found in [`skills/`](../../skills/).

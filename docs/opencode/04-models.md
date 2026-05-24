@@ -1,100 +1,100 @@
-# Recomendaciones de Modelos para OpenCode
+# Model Recommendations for OpenCode
 
-OpenCode soporta más de 75 LLM Providers a través de AI SDK y Models.dev. La elección del modelo correcto por agente y tarea tiene un gran impacto en calidad y costos.
+OpenCode supports over 75 LLM Providers through AI SDK and Models.dev. Choosing the right model per agent and task has a major impact on quality and costs.
 
-> **Documentación oficial:** [opencode.ai/docs/models](https://opencode.ai/docs/models/)
+> **Official documentation:** [opencode.ai/docs/models](https://opencode.ai/docs/models/)
 
 ---
 
-## Modelos Recomendados (2026)
+## Recommended Models (2026)
 
-Los siguientes modelos funcionan bien con OpenCode (generación de código + tool-calling)
+The following models work well with OpenCode (code generation + tool-calling)
 
-### Propietarios
+### Proprietary
 
-| Modelo| Provider  | Fortalezas|
+| Model| Provider  | Strengths|
 | ------ | --------- | -------- |
-| **Claude Opus 4.7**   | Anthropic | **Plan & Build Crítico**: Razonamiento de nivel PhD (91.3% GPQA Diamond), contexto 1M. Brilla en arquitectura de sistemas complejos, descomposición de microservicios y diseño de algoritmos. Úsalo para el "System Design" inicial del agente. |
-| **Claude Sonnet 4.6** | Anthropic | **Build & Debug Principal**: El workhorse diario. SWE-bench Verified líder, equilibrio perfecto calidad/costo. Ideal para iteración de código, refactoring y agentes de implementación continua.                                                |
-| **Claude Haiku 4.5**  | Anthropic | **Explore & Title/Summary**: 73.3% SWE-bench a 1/3 del costo de Sonnet. Velocidad extrema para navegar codebase, indexar símbolos, generar resúmenes de commits y nombrar variables/funciones.                                                  |
-| **GPT 5.5 Pro**       | OpenAI    | **Build Ultra-Complejo**: Máxima capacidad generativa. Reservado para módulos donde un error cuesta caro (seguridad, concurrencia, transacciones). Precio premium justificado solo para componentes críticos.                                   |
-| **GPT 5.4**           | OpenAI    | **Build & Plan General**: Contexto 128K-400K, excelente para generación de código full-stack y planificación de features medianas. El "default" seguro para agentes de build.                                                                   |
-| **GPT 5.2 Codex**     | OpenAI    | **Build Especializado**: Optimizado para sintaxis y patrones de código. Ideal para tareas repetitivas de boilerplate y migraciones de lenguaje.                                                                                                 |
-| **o3 / o3-pro**       | OpenAI    | **Plan & Debug Algorítmico**: Razonamiento extendido con thinking tokens. Brilla en depuración de bugs lógicos complejos, race conditions y optimización de queries.                                                                            |
-| **o4-mini**           | OpenAI    | **Debug Económico**: Razonamiento a fracción del costo de o3. Perfecto para troubleshooting iterativo en bucles de agente.                                                                                                                      |
-| **Gemini 3.1 Pro**    | Google    | **Plan Multimodal**: Contexto 2M tokens. Excelente cuando el agente debe analizar diagramas de arquitectura, PDFs técnicos y especificaciones visuales junto al código.                                                                         |
-| **Gemini 2.5 Flash**  | Google    | **Explore & Summary**: \$0.30/\$2.50 por 1M, contexto 1M. El mejor valor para indexar repositorios masivos, generar embeddings semánticos y resumir documentación técnica.                                                                      |
-| **Grok 4.3**          | xAI       | **Explore en Tiempo Real**: Acceso a datos actualizados. Útil cuando el agente investiga librerías recién publicadas, CVEs o documentación web no indexada.                                                                                     |
-| **Minimax M2.7**      | MiniMax   | **Build**: Benchmarks sólidos en agentic coding. Alternativa viable para equipos que buscan diversificar proveedores en el pipeline de build.                                                                                                   |
-### Opensource
+| **Claude Opus 4.7**   | Anthropic | **Critical Plan & Build**: PhD-level reasoning (91.3% GPQA Diamond), 1M context. Excels at complex system architecture, microservice decomposition, and algorithm design. Use for initial agent "System Design". |
+| **Claude Sonnet 4.6** | Anthropic | **Primary Build & Debug**: The daily workhorse. Leading SWE-bench Verified, perfect quality/cost balance. Ideal for code iteration, refactoring, and continuous implementation agents.                                                |
+| **Claude Haiku 4.5**  | Anthropic | **Explore & Title/Summary**: 73.3% SWE-bench at 1/3 Sonnet's cost. Extreme speed for navigating codebase, indexing symbols, generating commit summaries, and naming variables/functions.                                                  |
+| **GPT 5.5 Pro**       | OpenAI    | **Ultra-Complex Build**: Maximum generative capability. Reserved for modules where errors are expensive (security, concurrency, transactions). Premium price justified only for critical components.                                   |
+| **GPT 5.4**           | OpenAI    | **General Build & Plan**: 128K-400K context, excellent for full-stack code generation and medium feature planning. Safe "default" for build agents.                                                                   |
+| **GPT 5.2 Codex**     | OpenAI    | **Specialized Build**: Optimized for code syntax and patterns. Ideal for repetitive boilerplate tasks and language migrations.                                                                                                 |
+| **o3 / o3-pro**       | OpenAI    | **Algorithmic Plan & Debug**: Extended reasoning with thinking tokens. Excels at debugging complex logical bugs, race conditions, and query optimization.                                                                            |
+| **o4-mini**           | OpenAI    | **Economic Debug**: Reasoning at a fraction of o3's cost. Perfect for iterative troubleshooting in agent loops.                                                                                                                      |
+| **Gemini 3.1 Pro**    | Google    | **Multimodal Plan**: 2M token context. Excellent when the agent needs to analyze architecture diagrams, technical PDFs, and visual specifications alongside code.                                                                         |
+| **Gemini 2.5 Flash**  | Google    | **Explore & Summary**: \$0.30/\$2.50 per 1M, 1M context. Best value for indexing massive repositories, generating semantic embeddings, and summarizing technical documentation.                                                                      |
+| **Grok 4.3**          | xAI       | **Real-time Explore**: Access to up-to-date data. Useful when the agent investigates newly published libraries, CVEs, or unindexed web documentation.                                                                                     |
+| **Minimax M2.7**      | MiniMax   | **Build**: Solid benchmarks in agentic coding. Viable alternative for teams seeking to diversify providers in the build pipeline.                                                                                                   |
+### Open Source
 
-| Modelo | Provider | Fortalezas|
+| Model | Provider | Strengths|
 | --- | --- | --- |
-| **DeepSeek V4 Pro**             | DeepSeek | **Build & Plan**: 56.7% en Agentic Coding (LiveBench). El open source más cercano a GPT-5.4/Claude Sonnet. Ideal para self-hosting de agentes de codificación en entornos privados.            |
-| **DeepSeek R1**                 | DeepSeek | **Plan & Debug**: Modelo reasoning open source. \$0.55/\$2.19 por 1M. Excelente para análisis estático, revisión de PRs y detección de vulnerabilidades lógicas.                               |
-| **DeepSeek V3.2**               | DeepSeek | **Explore Económico**: \$0.28/\$0.42 por 1M. Ultra barato para tareas de alto volumen: búsqueda en codebase, análisis de dependencias, indexación.                                             |
-| **Kimi K2.6 Thinking**          | Moonshot | **Plan & Build**: 58.3% Agentic Coding, contexto masivo (2M+). Supera a muchos privados en análisis de grandes monorepos. Ideal para planificación cuando el contexto es el cuello de botella. |
-| **Kimi K2.5**                   | Moonshot | **Build General**: Buen balance para codificación diaria. Fuerte en lenguajes de nicho y legacy code.                                                                                          |
-| **Qwen3.6 Plus / Qwen3.5 Plus** | Alibaba  | **Build & Plan**: Líderes open source en benchmarks de código. Qwen Coder especializado en generación de software enterprise. Soporte multilingüe técnico excelente.                           |
-| **Qwen3 Coder**                 | Alibaba  | **Build Especializado**: Optimizado para programación. Competidor directo de GPT Codex en tareas de desarrollo puro.                                                                           |
-| **GLM 5.1**                     | Z-AI     | **Plan & Build**: 55% Agentic Coding. Fuerte en razonamiento matemático y arquitectura de sistemas distribuidos.                                                                               |
-| **Llama 4 Maverick**            | Meta     | **Build & Debug**: Modelo open source avanzado. ~\$0.20/\$0.60 vía APIs. Buen rendimiento en tareas full-stack y debugging general.                                                            |
-| **Llama 4 Scout**               | Meta     | **Explore**: Contexto 10M tokens. Sin rival open source para navegar repositorios enormes o analizar logs masivos en un solo paso.                                                             |
-| **Mistral Devstral Medium**     | Mistral  | **Build**: Especializado en desarrollo software. Bueno para generación de código estructurado y tests.                                                                                         |
-| **Mistral Large 3**             | Mistral  | **Build & Plan**: Capacidad general fuerte, precio competitivo (\$0.50/\$1.50).                                                                                                                |
-| **Nemotron 3 Super**            | NVIDIA   | **Build & Debug**: Optimizado por NVIDIA para tareas técnicas. Buen rendimiento en generación de shaders, CUDA y código de sistemas.                                                           |
-| **Gemma 4 27B**                 | Google   | **Summary & Explore**: Open source ligero. Ideal para resúmenes rápidos, clasificación de archivos y tareas de routing en pipelines agenticos.                                                 |
+| **DeepSeek V4 Pro**             | DeepSeek | **Build & Plan**: 56.7% in Agentic Coding (LiveBench). The open source closest to GPT-5.4/Claude Sonnet. Ideal for self-hosting coding agents in private environments.            |
+| **DeepSeek R1**                 | DeepSeek | **Plan & Debug**: Open source reasoning model. \$0.55/\$2.19 per 1M. Excellent for static analysis, PR review, and logical vulnerability detection.                               |
+| **DeepSeek V3.2**               | DeepSeek | **Economic Explore**: \$0.28/\$0.42 per 1M. Ultra cheap for high-volume tasks: codebase search, dependency analysis, indexing.                                             |
+| **Kimi K2.6 Thinking**          | Moonshot | **Plan & Build**: 58.3% Agentic Coding, massive context (2M+). Surpasses many proprietary models in analyzing large monorepos. Ideal for planning when context is the bottleneck. |
+| **Kimi K2.5**                   | Moonshot | **General Build**: Good balance for daily coding. Strong in niche languages and legacy code.                                                                                          |
+| **Qwen3.6 Plus / Qwen3.5 Plus** | Alibaba  | **Build & Plan**: Open source leaders in code benchmarks. Qwen Coder specialized in enterprise software generation. Excellent technical multilingual support.                           |
+| **Qwen3 Coder**                 | Alibaba  | **Specialized Build**: Optimized for programming. Direct competitor to GPT Codex in pure development tasks.                                                                           |
+| **GLM 5.1**                     | Z-AI     | **Plan & Build**: 55% Agentic Coding. Strong in mathematical reasoning and distributed system architecture.                                                                               |
+| **Llama 4 Maverick**            | Meta     | **Build & Debug**: Advanced open source model. ~\$0.20/\$0.60 via APIs. Good performance in full-stack tasks and general debugging.                                                            |
+| **Llama 4 Scout**               | Meta     | **Explore**: 10M token context. Unrivaled open source for navigating enormous repositories or analyzing massive logs in one pass.                                                             |
+| **Mistral Devstral Medium**     | Mistral  | **Build**: Specialized in software development. Good for structured code generation and tests.                                                                                         |
+| **Mistral Large 3**             | Mistral  | **Build & Plan**: Strong general capability, competitive price (\$0.50/\$1.50).                                                                                                                |
+| **Nemotron 3 Super**            | NVIDIA   | **Build & Debug**: Optimized by NVIDIA for technical tasks. Good performance in shader generation, CUDA, and systems code.                                                           |
+| **Gemma 4 27B**                 | Google   | **Summary & Explore**: Lightweight open source. Ideal for quick summaries, file classification, and routing tasks in agentic pipelines.                                                 |
 
-### Gratis
+### Free
 
-| Modelo | Provider | Fortalezas |
+| Model | Provider | Strengths |
 |--------|----------|------------|
-| **Big Pickle** | OpenCode Zen | **Build & Plan General**: Modelo versátil gratuito. Buen equilibrio para codificación diaria, debugging y análisis de código. Ideal como modelo principal *zero-cost*. |
-| **DeepSeek V4 Flash Free** | OpenCode Zen | **Build Rápido**: Contraparte gratuita del DeepSeek V4. Menor capacidad que la versión Pro pero suficiente para tareas de código recurrentes, refactoring ligero y generación de boilerplate. |
-| **Nemotron 3 Super Free** | OpenCode Zen | **Build & Debug Técnico**: Optimizado por NVIDIA para tareas técnicas. Buen rendimiento en generación de shaders, CUDA y código de sistemas. Alternativa gratuita sólida para agentes de build. |
-| **Qwen3 Coder 480B (free)** | OpenRouter | **Build**: El modelo gratuito más potente para generación de software (contexto 262K). Ideal como modelo principal de agentes de codificación. |
-| **DeepSeek R1 (free)** | OpenRouter | **Plan & Debug**: Razonamiento matemático y lógico de nivel GPT-4 (contexto 128K). Excelente para análisis estático, revisión de PRs y depuración de bugs complejos. |
-| **Meta Llama 4 Scout (free)** | OpenRouter | **Explore Masivo**: Contexto de 10M de tokens. Sin rival para navegar repositorios enormes o analizar logs extensos en una sola pasada. |
-| **Meta Llama 3.3 70B (free)** | OpenRouter | **Build & Plan General**: Sólido propósito general (contexto 128K). Buen equilibrio calidad/velocidad para codificación diaria y planificación de features. |
-| **Google Gemini 2.0 Flash (free)** | OpenRouter | **Explore & Summary Multimodal**: Contexto 1M, multimodal. Ideal para analizar documentación técnica, diagramas y resumir repositorios grandes. |
-| **DeepSeek V3 (free)** | OpenRouter | **Build Económico**: Alternante general sólida (contexto 128K). Bueno para tareas de código recurrentes cuando Qwen3 Coder no está disponible. |
-| **Mistral Small 24B (free)** | OpenRouter | **Build Alternativo**: Alojado en EU (contexto 128K). Buena opción para equipos con requisitos de residencia de datos europeos. |
-| **Z-AI GLM 4.5 Air (free)** | OpenRouter | **small_model / Title/Summary**: Ligero y rápido. Ideal como modelo pequeño del sistema para generar títulos, resúmenes y compactación. |
-| **MiniMax M2.5 (free)** | OpenRouter | **Build General**: Alternativa gratuita sólida. Buen rendimiento en tareas de codificación estándar. |
-| **Nous Hermes 3 (free)** | OpenRouter | **Debug**: Variante de Llama fine-tuneada (contexto 128K). Fuerte en tareas de depuración y análisis de código legado. |
-| **Google Gemma 3 12B (free)** | OpenRouter | **Explore Ligero**: Modelo abierto de Google, rápido y eficiente (contexto 128K). Ideal para agentes de exploración en proyectos pequeños. |
+| **Big Pickle** | OpenCode Zen | **General Build & Plan**: Versatile free model. Good balance for daily coding, debugging, and code analysis. Ideal as a *zero-cost* primary model. |
+| **DeepSeek V4 Flash Free** | OpenCode Zen | **Fast Build**: Free counterpart to DeepSeek V4. Lower capacity than Pro version but sufficient for recurring code tasks, light refactoring, and boilerplate generation. |
+| **Nemotron 3 Super Free** | OpenCode Zen | **Technical Build & Debug**: Optimized by NVIDIA for technical tasks. Good performance in shader generation, CUDA, and systems code. Solid free alternative for build agents. |
+| **Qwen3 Coder 480B (free)** | OpenRouter | **Build**: Most powerful free model for software generation (262K context). Ideal as primary model for coding agents. |
+| **DeepSeek R1 (free)** | OpenRouter | **Plan & Debug**: GPT-4 level mathematical and logical reasoning (128K context). Excellent for static analysis, PR review, and debugging complex bugs. |
+| **Meta Llama 4 Scout (free)** | OpenRouter | **Massive Explore**: 10M token context. Unrivaled for navigating enormous repositories or analyzing extensive logs in one pass. |
+| **Meta Llama 3.3 70B (free)** | OpenRouter | **General Build & Plan**: Solid general purpose (128K context). Good quality/speed balance for daily coding and feature planning. |
+| **Google Gemini 2.0 Flash (free)** | OpenRouter | **Multimodal Explore & Summary**: 1M context, multimodal. Ideal for analyzing technical documentation, diagrams, and summarizing large repositories. |
+| **DeepSeek V3 (free)** | OpenRouter | **Economic Build**: Solid general alternative (128K context). Good for recurring code tasks when Qwen3 Coder is unavailable. |
+| **Mistral Small 24B (free)** | OpenRouter | **Alternative Build**: Hosted in EU (128K context). Good option for teams with European data residency requirements. |
+| **Z-AI GLM 4.5 Air (free)** | OpenRouter | **small_model / Title/Summary**: Lightweight and fast. Ideal as system small model for generating titles, summaries, and compaction. |
+| **MiniMax M2.5 (free)** | OpenRouter | **General Build**: Solid free alternative. Good performance in standard coding tasks. |
+| **Nous Hermes 3 (free)** | OpenRouter | **Debug**: Fine-tuned Llama variant (128K context). Strong in debugging tasks and legacy code analysis. |
+| **Google Gemma 3 12B (free)** | OpenRouter | **Lightweight Explore**: Google's open model, fast and efficient (128K context). Ideal for exploration agents in small projects. |
 
-> 💡 **Tip:** Puedes usar el router inteligente `openrouter/free` que selecciona automáticamente el mejor modelo gratuito disponible según tu solicitud. O específica uno concreto con `openrouter/<modelo>:free`.
+> 💡 **Tip:** You can use the smart router `openrouter/free` which automatically selects the best available free model based on your request. Or specify a specific one with `openrouter/<model>:free`.
 
 ---
 
-## Estrategia de Modelos: Modelos Correctos para Tareas Correctas
+## Model Strategy: Right Models for Right Tasks
 
-### La regla de oro: No uses el modelo más caro en todas partes
+### The golden rule: Don't use the most expensive model everywhere
 
 ```
-# Pago
-Agente Build     -> Modelo potente    (Sonnet 4.5, Opus 4.5, GPT 5.2)
-Agente Plan      -> Modelo económico (Haiku 4.5, GPT 5.1 Codex)
-Agente Explore   -> Modelo económico (Haiku 4.5)
-Agente Title/Summary -> Modelo más pequeño (automático via small_model)
+# Paid
+Build Agent     -> Powerful model    (Sonnet 4.5, Opus 4.5, GPT 5.2)
+Plan Agent      -> Economic model (Haiku 4.5, GPT 5.1 Codex)
+Explore Agent   -> Economic model (Haiku 4.5)
+Title/Summary Agent -> Smallest model (automatic via small_model)
 
 # Open source
-Agente Build     -> DeepSeek V4 Pro, Kimi K2.6 Thinking, Qwen3.6 Plus, GLM 5.1, Llama 4 Maverick
-Agente Plan      -> DeepSeek R1, Kimi K2.6 Thinking, Qwen3.5 Plus, GLM 5.1
-Agente Explore   -> DeepSeek V3.2, Llama 4 Scout, Qwen3.5 Plus (versión free), Mistral Small
-Agente Title/Summary -> Llama 3.2 3B Instruct, Gemma 4 4B/9B, Mistral Small, Qwen3 8B
+Build Agent     -> DeepSeek V4 Pro, Kimi K2.6 Thinking, Qwen3.6 Plus, GLM 5.1, Llama 4 Maverick
+Plan Agent      -> DeepSeek R1, Kimi K2.6 Thinking, Qwen3.5 Plus, GLM 5.1
+Explore Agent   -> DeepSeek V3.2, Llama 4 Scout, Qwen3.5 Plus (free version), Mistral Small
+Title/Summary Agent -> Llama 3.2 3B Instruct, Gemma 4 4B/9B, Mistral Small, Qwen3 8B
 
-# Gratis
-Agente Build     -> opencode/deepseek-v4-flash-free / opencode/big-pickle / openrouter/qwen/qwen3-coder-480b:free / openrouter/meta-llama/llama-3.3-70b-instruct:free
-Agente Plan      -> opencode/big-pickle / opencode/nemotron-3-super-free / openrouter/deepseek/deepseek-r1:free / openrouter/mistral/mistral-small-24b:free
-Agente Explore   -> opencode/nemotron-3-super-free / opencode/deepseek-v4-flash-free / openrouter/meta-llama/llama-4-scout:free / openrouter/google/gemini-2.0-flash:free
-Agente Title/Summary -> opencode/deepseek-v4-flash-free / openrouter/z-ai/glm-4.5-air:free / openrouter/google/gemma-3-12b:free
+# Free
+Build Agent     -> opencode/deepseek-v4-flash-free / opencode/big-pickle / openrouter/qwen/qwen3-coder-480b:free / openrouter/meta-llama/llama-3.3-70b-instruct:free
+Plan Agent      -> opencode/big-pickle / opencode/nemotron-3-super-free / openrouter/deepseek/deepseek-r1:free / openrouter/mistral/mistral-small-24b:free
+Explore Agent   -> opencode/nemotron-3-super-free / opencode/deepseek-v4-flash-free / openrouter/meta-llama/llama-4-scout:free / openrouter/google/gemini-2.0-flash:free
+Title/Summary Agent -> opencode/deepseek-v4-flash-free / openrouter/z-ai/glm-4.5-air:free / openrouter/google/gemma-3-12b:free
 ```
 
-### Configuración en opencode.json
+### Configuration in opencode.json
 
-#### Para modelos de pago
+#### For paid models
 
 ```json
 {
@@ -112,7 +112,7 @@ Agente Title/Summary -> opencode/deepseek-v4-flash-free / openrouter/z-ai/glm-4.
 }
 ```
 
-#### Para modelos gratuitos
+#### For free models
 
 ```json
 {
@@ -135,9 +135,9 @@ Agente Title/Summary -> opencode/deepseek-v4-flash-free / openrouter/z-ai/glm-4.
 
 ---
 
-## Optimización de Tokens
+## Token Optimization
 
-### 1. small_model para tareas del sistema
+### 1. small_model for system tasks
 
 ```json
 {
@@ -145,11 +145,11 @@ Agente Title/Summary -> opencode/deepseek-v4-flash-free / openrouter/z-ai/glm-4.
 }
 ```
 
-Se usa automáticamente para generación de títulos y tareas ligeras.
+Automatically used for title generation and light tasks.
 
-### 2. Modelos económicos para Subagents
+### 2. Economic models for Subagents
 
-Los Subagents por defecto heredan el modelo del Primary Agent que los llama. Anula esto:
+Subagents by default inherit the model of the Primary Agent that calls them. Override this:
 
 ```json
 {
@@ -164,19 +164,19 @@ Los Subagents por defecto heredan el modelo del Primary Agent que los llama. Anu
 }
 ```
 
-### 3. Limitar Steps
+### 3. Limit Steps
 
-`steps` controla cuántas iteraciones agenticas puede ejecutar un agente como máximo. Si se alcanza el límite, el agente debe resumir su trabajo y listar las tareas restantes.
+`steps` controls the maximum number of agentic iterations an agent can execute. When the limit is reached, the agent must summarize its work and list remaining tasks.
 
-**Límites de Steps recomendados por tipo de agente:**
+**Recommended Steps limits by agent type:**
 
-| Tipo de Agente       | Steps | Justificación                               |
-|----------------------|-------|--------------------------------------------|
-| Agentes de escritura de código | ilimitado | Deben iterar hasta que el código esté listo |
-| Agentes Review/Análisis | 10-15  | Leen, analizan, crean reporte             |
-| Agentes Orquestación  | 5-10   | Delegan, no ejecutan ellos mismos        |
-| Agentes Docs/Fast     | 5-10   | Tareas rápidas y enfocadas               |
-| Agentes Debugging    | 15-20  | Necesitan más pasos para trace analysis    |
+| Agent Type       | Steps | Justification                               |
+|------------------|-------|--------------------------------------------|
+| Code writing agents | unlimited | Should iterate until code is ready |
+| Review/Analysis agents | 10-15  | Read, analyze, create report             |
+| Orchestration agents  | 5-10   | Delegate, don't execute themselves        |
+| Docs/Fast agents     | 5-10   | Quick, focused tasks               |
+| Debugging agents    | 15-20  | Need more steps for trace analysis    |
 
 ```json
 {
@@ -197,9 +197,9 @@ Los Subagents por defecto heredan el modelo del Primary Agent que los llama. Anu
 }
 ```
 
-### 4. Configurar Compaction
+### 4. Configure Compaction
 
-La compaction comprime automáticamente el contexto de conversación cuando se vuelve demasiado largo. Sin compaction, una sesión larga puede superar el límite de tokens.
+Compaction automatically compresses conversation context when it becomes too long. Without compaction, a long session can exceed the token limit.
 
 ```json
 {
@@ -211,17 +211,17 @@ La compaction comprime automáticamente el contexto de conversación cuando se v
 }
 ```
 
-| Opción    | Descripción                                       |
+| Option    | Description                                       |
 |-----------|---------------------------------------------------|
-| `auto`    | Compacción automática cuando el contexto es largo |
-| `prune`   | Eliminar mensajes antiguos después de compaction |
-| `reserved` | Mínimo de tokens reservados para nuevos mensajes (predeterminado: 10000) |
+| `auto`    | Automatic compaction when context is long |
+| `prune`   | Delete old messages after compaction |
+| `reserved` | Minimum tokens reserved for new messages (default: 10000) |
 
-### 5. Usar MCP Servers con moderación
+### 5. Use MCP Servers with moderation
 
-Cada MCP Server agrega sus descripciones de herramientas al contexto. Esto son a menudo 500-2000 tokens por servidor. Con 10 servidores son 5000-20000 tokens que se envían en CADA petición.
+Each MCP Server adds its tool descriptions to the context. This is often 500-2000 tokens per server. With 10 servers, that's 5000-20000 tokens sent on EVERY request.
 
-**Estrategia:** Desactivar MCP Servers globalmente y activarlos solo para agentes específicos:
+**Strategy:** Disable MCP Servers globally and enable them only for specific agents:
 
 ```json
 {
@@ -238,9 +238,9 @@ Cada MCP Server agrega sus descripciones de herramientas al contexto. Esto son a
 }
 ```
 
-### 6. Estrategia de Tier de Agentes (Resumen de Costos)
+### 6. Agent Tier Strategy (Cost Summary)
 
-Una optimización completa de costos combina todas las medidas:
+Complete cost optimization combines all measures:
 
 ```json
 {
@@ -260,7 +260,7 @@ Una optimización completa de costos combina todas las medidas:
 
 ---
 
-### Variantes Custom
+### Custom Variants
 
 ```json
 {
@@ -285,13 +285,13 @@ Una optimización completa de costos combina todas las medidas:
 }
 ```
 
-Cambia con el keybind `variant_cycle`.
+Switch with the `variant_cycle` keybind.
 
 ---
 
-## Configuración de Provider
+## Provider Configuration
 
-### Ajustar Timeouts
+### Adjust Timeouts
 
 ```json
 {
@@ -323,26 +323,26 @@ Cambia con el keybind `variant_cycle`.
 
 ---
 
-## Comparación de Costos (Valores aproximados)
+## Cost Comparison (Approximate values)
 
-| Modelo              | Input $/1M Tokens | Output $/1M Tokens | Recomendación               |
-|---------------------|-------------------|---------------------|-----------------------------|
-| Claude Opus 4.5     | ~$15              | ~$75                | Solo para tareas complejas   |
-| Claude Sonnet 4.5   | ~$3               | ~$15                | Estándar para Agente Build  |
+| Model              | Input $/1M Tokens | Output $/1M Tokens | Recommendation               |
+|--------------------|-------------------|---------------------|-----------------------------|
+| Claude Opus 4.5     | ~$15              | ~$75                | Only for complex tasks   |
+| Claude Sonnet 4.5   | ~$3               | ~$15                | Standard for Build Agent  |
 | Claude Haiku 4.5   | ~$0.80            | ~$4                 | Plan/Explore/Subagents      |
-| GPT 5.2             | ~$5               | ~$20                | Alternativa para Build      |
-| GPT 5.1 Codex       | ~$3               | ~$12                | Generación de código        |
+| GPT 5.2             | ~$5               | ~$20                | Alternative for Build      |
+| GPT 5.1 Codex       | ~$3               | ~$12                | Code generation        |
 
-*Los precios son valores orientativos y pueden cambiar.*
+*Prices are approximate values and may change.*
 
 ---
 
-## Mejores Prácticas
+## Best Practices
 
-1. **Build = Modelo potente:** Aquí se escribe código, la calidad es importante
-2. **Plan/Explore = Modelo económico:** Leer y analizar no necesita un modelo caro
-3. **Establecer small_model:** Ahorra en Title/Summary/tareas del sistema
-4. **Limitar Steps:** Evita costos no controlados
-5. **Usar variantes:** Ajusta el reasoning-effort según la situación
-6. **Activar compaction:** Deja el consumo de tokens en sesiones largas controlable
-7. **Minimizar MCP Servers:** Menos servidores = menos consumo de contexto
+1. **Build = Powerful model:** Code is written here, quality matters
+2. **Plan/Explore = Economic model:** Reading and analyzing doesn't need an expensive model
+3. **Set small_model:** Saves on Title/Summary/system tasks
+4. **Limit Steps:** Avoid uncontrolled costs
+5. **Use variants:** Adjust reasoning-effort based on situation
+6. **Enable compaction:** Keeps token consumption controllable in long sessions
+7. **Minimize MCP Servers:** Fewer servers = less context consumption

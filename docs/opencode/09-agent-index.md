@@ -8,9 +8,9 @@ Complete catalog of all available agent personas in this project.
 
 ---
 
-## 🖥️ Ingeniería de Sistemas
+## 🖥️ Systems Engineering
 
-Agentes especializados en construir, probar, desplegar y operar software.
+Agents specialized in building, testing, deploying, and operating software.
 
 ### Backend & APIs
 
@@ -70,7 +70,7 @@ Agentes especializados en construir, probar, desplegar y operar software.
 | [postgres-pro](../../agents/postgres-pro.md) | PostgreSQL specialist | Advanced queries, extensions, performance tuning |
 | [sql-pro](../../agents/sql-pro.md) | Advanced SQL expert | Window functions, CTEs, query optimization, migrations |
 
-### DevOps & Infraestructura
+### DevOps & Infrastructure
 
 | Agent | Role | Best for |
 |-------|------|----------|
@@ -86,14 +86,14 @@ Agentes especializados en construir, probar, desplegar y operar software.
 | [sre-engineer](../../agents/sre-engineer.md) | Site reliability engineer | SLIs/SLOs, observability, incident procedures |
 | [terraform-engineer](../../agents/terraform-engineer.md) | Infrastructure as Code expert | Terraform modules, state management, providers |
 
-### Seguridad & Compliance
+### Security & Compliance
 
 | Agent | Role | Best for |
 |-------|------|----------|
 | [dependency-manager](../../agents/dependency-manager.md) | Dependency audit specialist | CVE scanning, license audit, outdated deps |
 | [security-auditor](../../agents/security-auditor.md) | Security engineer | Threat modeling, vulnerability detection, secure coding |
 
-### Testing & Calidad
+### Testing & Quality
 
 | Agent | Role | Best for |
 |-------|------|----------|
@@ -105,13 +105,13 @@ Agentes especializados en construir, probar, desplegar y operar software.
 | [refactorer](../../agents/refactorer.md) | Code refactoring specialist | Readability, performance, behavior-preserving transformation |
 | [test-engineer](../../agents/test-engineer.md) | QA engineer | Test strategy, test writing, coverage analysis |
 
-### Debugging & Rendimiento
+### Debugging & Performance
 
 | Agent | Role | Best for |
 |-------|------|----------|
 | [debugger](../../agents/debugger.md) | Root-cause analysis expert | Hard-to-reproduce bugs, systematic debugging |
 
-### Arquitectura & Diseño
+### Architecture & Design
 
 | Agent | Role | Best for |
 |-------|------|----------|
@@ -138,14 +138,14 @@ Agentes especializados en construir, probar, desplegar y operar software.
 | [mcp-developer](../../agents/mcp-developer.md) | MCP server developer | Model Context Protocol, tools, integrations |
 | [tooling-engineer](../../agents/tooling-engineer.md) | Developer tooling configurator | Linters, formatters, IDE plugins, automation |
 
-### Procesos
+### Processes
 
 | Agent | Role | Best for |
 |-------|------|----------|
 | [git-workflow-manager](../../agents/git-workflow-manager.md) | Git workflow specialist | Branching strategies, commit hygiene, releases |
 | [incident-responder](../../agents/incident-responder.md) | Incident commander | Triage, communication, blameless postmortems |
 
-### Dominios Especializados
+### Specialized Domains
 
 | Agent | Role | Best for |
 |-------|------|----------|
@@ -158,11 +158,11 @@ Agentes especializados en construir, probar, desplegar y operar software.
 
 ---
 
-## 🧩 Multidisciplinar & Negocio
+## 🧩 Multidisciplinary & Business
 
-Agentes para investigación, documentación, producto, mercado y otras áreas transversales.
+Agents for research, documentation, product, market, and other cross-functional areas.
 
-### Documentación & Research
+### Documentation & Research
 
 | Agent | Role | Best for |
 |-------|------|----------|
@@ -172,7 +172,7 @@ Agentes para investigación, documentación, producto, mercado y otras áreas tr
 | [scientific-literature-researcher](../../agents/scientific-literature-researcher.md) | Scientific literature expert | Evidence synthesis, citation analysis |
 | [search-specialist](../../agents/search-specialist.md) | Information retrieval expert | Advanced query strategies, source curation |
 
-### Producto & Proyecto
+### Product & Project
 
 | Agent | Role | Best for |
 |-------|------|----------|
@@ -181,7 +181,7 @@ Agentes para investigación, documentación, producto, mercado y otras áreas tr
 | [project-manager](../../agents/project-manager.md) | Project planner | Timelines, risk management, stakeholder coordination |
 | [scrum-master](../../agents/scrum-master.md) | Agile facilitator | Ceremonies, Scrum practices, impediment removal |
 
-### Mercado & Contenido
+### Market & Content
 
 | Agent | Role | Best for |
 |-------|------|----------|
@@ -208,7 +208,7 @@ Agentes para investigación, documentación, producto, mercado y otras áreas tr
 
 ## Primary Agents
 
-Los 3 agentes principales del pipeline SDD. Documentados en [08-orchestration-patterns.md](./08-orchestration-patterns.md).
+The 3 primary agents of the SDD pipeline. Documented in [08-orchestration-patterns.md](./08-orchestration-patterns.md).
 
 | Agent | Role | Best for |
 |-------|------|----------|

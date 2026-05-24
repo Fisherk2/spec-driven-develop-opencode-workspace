@@ -1,31 +1,31 @@
-# Tools & Custom Tools en OpenCode
+# Tools & Custom Tools in OpenCode
 
-OpenCode viene con un conjunto de herramientas integradas y permite crear tus propias Custom Tools.
+OpenCode comes with a set of built-in tools and allows you to create your own Custom Tools.
 
-> **Documentación oficial:** [opencode.ai/docs/tools](https://opencode.ai/docs/tools/) | [opencode.ai/docs/custom-tools](https://opencode.ai/docs/custom-tools/)
+> **Official documentation:** [opencode.ai/docs/tools](https://opencode.ai/docs/tools/) | [opencode.ai/docs/custom-tools](https://opencode.ai/docs/custom-tools/)
 
 ---
 
 ## Built-in Tools
 
-| Tool       | Descripción                                    | Permission Key |
+| Tool       | Description                                    | Permission Key |
 |------------|------------------------------------------------|----------------|
-| `bash`     | Ejecutar comandos shell                         | `bash`         |
-| `edit`     | Editar archivos (exact string replacement)      | `edit`         |
-| `write`    | Crear nuevos archivos / sobreescribir          | `edit`         |
-| `read`     | Leer contenidos de archivos                    | `read`         |
-| `grep`     | Buscar contenidos con regex                    | `grep`         |
-| `glob`     | Encontrar archivos por pattern                  | `glob`         |
-| `list`     | Listar directorios                              | `list`         |
-| `patch`    | Aplicar patches                                | `edit`         |
-| `skill`    | Cargar skills                                  | `skill`        |
-| `todowrite` | Administrar listas de tareas                    | `todowrite`    |
-| `webfetch` | Obtener contenidos web                          | `webfetch`     |
-| `websearch` | Búsqueda web (Exa AI)                         | `websearch`   |
-| `question` | Hacer preguntas al usuario                     | `question`     |
-| `lsp`      | Consultas LSP (experimental)                   | `lsp`          |
+| `bash`     | Execute shell commands                         | `bash`         |
+| `edit`     | Edit files (exact string replacement)      | `edit`         |
+| `write`    | Create new files / overwrite          | `edit`         |
+| `read`     | Read file contents                    | `read`         |
+| `grep`     | Search contents with regex                    | `grep`         |
+| `glob`     | Find files by pattern                  | `glob`         |
+| `list`     | List directories                              | `list`         |
+| `patch`    | Apply patches                                | `edit`         |
+| `skill`    | Load skills                                  | `skill`        |
+| `todowrite` | Manage task lists                    | `todowrite`    |
+| `webfetch` | Fetch web contents                          | `webfetch`     |
+| `websearch` | Web search (Exa AI)                         | `websearch`   |
+| `question` | Ask questions to the user                     | `question`     |
+| `lsp`      | LSP queries (experimental)                   | `lsp`          |
 
-### Configurar Tool Permissions
+### Configure Tool Permissions
 
 ```json
 {
@@ -39,7 +39,7 @@ OpenCode viene con un conjunto de herramientas integradas y permite crear tus pr
 }
 ```
 
-### Wildcards para MCP Tools
+### Wildcards for MCP Tools
 
 ```json
 {
@@ -51,16 +51,16 @@ OpenCode viene con un conjunto de herramientas integradas y permite crear tus pr
 
 ---
 
-## Crear Custom Tools
+## Creating Custom Tools
 
-Custom Tools son archivos TypeScript/JavaScript que el LLM puede llamar durante conversaciones.
+Custom Tools are TypeScript/JavaScript files that the LLM can call during conversations.
 
-### Ubicaciones de almacenamiento
+### Storage Locations
 
 - **Local:** `.opencode/tools/`
 - **Global:** `~/.config/opencode/tools/`
 
-### Estructura básica
+### Basic Structure
 
 ```typescript
 // .opencode/tools/database.ts
@@ -77,9 +77,9 @@ export default tool({
 })
 ```
 
-El **nombre del archivo** se convierte en el **nombre de la herramienta** (`database.ts` -> Tool `database`).
+The **filename** becomes the **tool name** (`database.ts` -> Tool `database`).
 
-### Múltiples herramientas por archivo
+### Multiple Tools Per File
 
 ```typescript
 // .opencode/tools/math.ts
@@ -108,9 +108,9 @@ export const multiply = tool({
 })
 ```
 
-Crea: `math_add` y `math_multiply`.
+Creates: `math_add` and `math_multiply`.
 
-### Usar Context
+### Using Context
 
 ```typescript
 export default tool({
@@ -123,9 +123,9 @@ export default tool({
 })
 ```
 
-### Tools en otros lenguajes
+### Tools in Other Languages
 
-Ejemplo: Tool Python vía TypeScript Wrapper:
+Example: Python Tool via TypeScript Wrapper:
 
 ```typescript
 // .opencode/tools/python-add.ts
@@ -148,9 +148,9 @@ export default tool({
 
 ---
 
-## Archivo .ignore
+## .ignore File
 
-Tools como `grep`, `glob`, `list` usan internamente ripgrep y respetan `.gitignore`. Para incluir archivos ignorados:
+Tools like `grep`, `glob`, `list` internally use ripgrep and respect `.gitignore`. To include ignored files:
 
 ```
 # .ignore
@@ -161,10 +161,10 @@ Tools como `grep`, `glob`, `list` usan internamente ripgrep y respetan `.gitigno
 
 ---
 
-## Mejores Prácticas
+## Best Practices
 
-1. **Custom Tools para tareas recurrentes:** DB queries, API calls, build scripts
-2. **Descripciones claras:** El agente decide basado en la descripción cuándo usa la herramienta
-3. **Usar Zod schemas:** Argumentos tipificados con buenos textos `.describe()`
-4. **Respetar permissions:** Custom Tools con el mismo nombre que Built-in Tools los anulan
-5. **Usar context.worktree:** Para rutas relativas dentro del proyecto
+1. **Custom Tools for recurring tasks:** DB queries, API calls, build scripts
+2. **Clear descriptions:** The agent decides based on the description when to use the tool
+3. **Use Zod schemas:** Typed arguments with good `.describe()` text
+4. **Respect permissions:** Custom Tools with the same name as Built-in Tools override them
+5. **Use context.worktree:** For relative paths within the project

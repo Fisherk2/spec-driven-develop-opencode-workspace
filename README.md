@@ -1,4 +1,4 @@
-# Plantilla Dev AI
+# Spec-Driven Development AI Workspace with OpenCode
 
 **Workspace OpenCode para desarrollo asistido por IA con metodología Spec-Driven Development.**
 
@@ -10,10 +10,24 @@ Una plantilla production-grade que integra 33 skills de ingeniería organizados 
 
 - **33 Skills de Ingeniería** — TDD, Spec-Driven Development, Code Review, Seguridad, Performance, UI/UX, DDD/Hexagonal, patrones de diseño, y más, organizados en 6 fases SDD
 - **7 Comandos Slash** — `/spec`, `/plan`, `/build`, `/test`, `/review`, `/ship`, `/code-simplify`
-- **5 Agentes Especializados** — Analysis, Implement, Code-Reviewer, Test-Engineer, Security-Auditor
+- **3 Agentes Principales + 90+ Subagentes** — huitzilopochtli (propósito general), quetzalcoatl (especificaciones), tezcatlipoca (build), y más de 90 subagentes especializados en frontend, backend, DevOps, testing, seguridad, y más
 - **Nativo OpenCode** — Comandos slash, agentes y skills cargados desde `.opencode/`
 - **Documentación Técnica Integrada** — Referencias de Clean Code, DDD, UI/UX, Testing, Seguridad y más
 - **Licencia MIT** — Libre para proyectos personales y comerciales
+
+---
+
+### Agentes Principales
+
+Tres agentes primarios orquestan el ciclo SDD. Cada uno tiene un rol y perspectiva única:
+
+| Agente | Rol | Cuándo usarlo | Ejemplo de aplicación |
+|--------|-----|---------------|-----------------------|
+| [huitzilopochtli](agents/huitzilopochtli.md) | General Purpose Agent | Tareas de ciclo completo en cualquier dominio — investigar, planificar, organizar, documentar | "Investiga las mejores prácticas de CI/CD y propón un pipeline para este proyecto" |
+| [quetzalcoatl](agents/quetzalcoatl.md) | Arquitecto de Especificaciones | Antes de escribir código — analizar, diseñar, planificar, documentar especificaciones | "Diseña la arquitectura del módulo de autenticación y genera una especificación detallada" |
+| [tezcatlipoca](agents/tezcatlipoca.md) | Build Agent | Después del análisis — implementar, construir, configurar, ejecutar planes validados | "Implementa la API REST de tareas siguiendo la especificación en specs/tasks-api.md" |
+
+Además, más de **90 subagentes especializados** están disponibles para tareas concretas: revisión de código, auditoría de seguridad, optimización de BD, diseño UI/UX, debugging, y más. Se invocan vía `task()` desde los agentes principales o directamente por el usuario. Ver el [catálogo completo](docs/opencode/09-agent-index.md).
 
 ---
 
@@ -29,7 +43,7 @@ Una plantilla production-grade que integra 33 skills de ingeniería organizados 
 
 ### 1. Clona la plantilla
 ```bash
-git clone https://github.com/Fisherk2/plantilla-dev-ai.git mi-proyecto
+git clone https://github.com/Fisherk2/spec-driven-develop-opencode-workspace.git mi-proyecto
 cd mi-proyecto
 ```
 
@@ -131,12 +145,15 @@ commands/                 # 7 comandos slash para OpenCode
 ├── skills/ → skills/     # Symlink a skills/
 └── package.json          # Dependencias del plugin
 
-agents/                   # 5 agentes especializados
+agents/                   # 3 agentes principales + 90+ subagentes
+├── huitzilopochtli.md    #   General Purpose Agent
 ├── quetzalcoatl.md       #   Arquitecto de especificaciones
 ├── tezcatlipoca.md       #   Build agent
-├── code-reviewer.md      #   Senior Staff Engineer
-├── test-engineer.md      #   QA Specialist
-└── security-auditor.md   #   Security Engineer
+├── code-reviewer.md      #   Code reviewer
+├── security-auditor.md   #   Security engineer
+├── test-engineer.md      #   QA specialist
+├── database-optimizer.md #   DB specialist
+└── ... (catálogo completo en docs/opencode/09-agent-index.md)
 
 skills/                   # 33 skills organizados por fase SDD
 ├── idea-refine/              # DEFINE
@@ -179,20 +196,43 @@ skills/                   # 33 skills organizados por fase SDD
 │
 └── using-agent-skills/            # META: descubrimiento de skills
 
-references/               # Guías de referencia técnica
+references/               # 59 guías de referencia técnica
 ├── testing-patterns.md
 ├── security-checklist.md
 ├── performance-checklist.md
 ├── accessibility-checklist.md
-└── orchestration-patterns.md
+├── clean-code.md
+├── code-smells.md
+├── design-patterns.md
+├── solid-principles.md
+├── error-handling.md
+├── tdd.md
+├── architecture.md
+├── DDD-STRATEGIC.md
+├── DDD-TACTICAL.md
+├── HEXAGONAL.md
+├── CQRS-EVENTS.md
+├── refactoring-smell-catalog.md
+├── component-patterns.md
+├── color-system.md
+├── typography.md
+└── ... (59 archivos — ver references/ para la lista completa)
 
 docs/                     # Documentación del proyecto
-├── ai-agent-setup/
-│   ├── opencode-setup.md
-│   ├── prompt-anatomy.md
-│   └── skill-anatomy.md
-├── decisions/            # ADRs (Architecture Decision Records)
-└── ...
+├── API_REFERENCE.md
+├── ARCHITECTURE.md
+├── SETUP.md
+└── opencode/             # Guías de configuración de OpenCode
+    ├── 00-setup.md
+    ├── 01-agents.md
+    ├── 02-skills.md
+    ├── 03-mcp-servers.md
+    ├── 04-models.md
+    ├── 05-rules.md
+    ├── 06-tools-and-custom-tools.md
+    ├── 07-permissions.md
+    ├── 08-orchestration-patterns.md
+    └── 09-agent-index.md
 
 scripts/                  # Scripts auxiliares
 specs/                    # Especificaciones del proyecto (SPEC.md)
@@ -205,7 +245,7 @@ tests/                    # Tests del proyecto
 ## Configuración
 
 ### Personalizar Skills
-Cada skill en `skills/` se puede modificar para adaptarlo a tu stack. Ver [USER_GUIDE.md](USER_GUIDE.md#crear-un-nuevo-skill) para crear skills propios.
+Cada skill en `skills/` se puede modificar para adaptarlo a tu stack. Ver [CONTRIBUTING.md](CONTRIBUTING.md) para crear skills propios.
 
 ### Comandos y Agentes
 Los comandos slash y agentes se cargan automáticamente desde `commands/` y `.opencode/agents/`.
@@ -238,4 +278,15 @@ MIT — Ver [LICENSE](LICENSE) para más detalles.
 
 ---
 
-*Última revisión: 2026-05-21*
+## Agradecimientos
+
+Este proyecto no existiría sin el trabajo de:
+
+- **[awesome-opencode](https://github.com/weisser-dev/awesome-opencode)** — Fuente de inspiración para la implementación de nuevas skills, los 90+ agentes especializados y la documentación de OpenCode.
+- **[addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)** — Base de este proyecto. Este repositorio es un fork de ese trabajo, que sentó las bases del ecosistema de skills para agentes de IA.
+
+Gracias a sus autores y contribuyentes por su invaluable aporte a la comunidad.
+
+---
+
+*Última revisión: 2026-05-23*

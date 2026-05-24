@@ -1,124 +1,92 @@
-# Configuración de OpenCode
+# OpenCode Setup
 
-Esta guía explica cómo configurar OpenCode para esta plantilla — comandos slash, personas de agente, skills y el flujo de trabajo SDD completo.
+This guide explains how to configure OpenCode for this template — slash commands, agent personas, skills, and the complete SDD workflow.
 
-> **Para una referencia completa de todos los skills y comandos**, consulta [USER_GUIDE.md](../../USER_GUIDE.md).
+> **For a complete reference of all skills and commands**, see [USER_GUIDE.md](../../USER_GUIDE.md).
 
 ---
 
-## Prerrequisitos
+## Prerequisites
 
-- **OpenCode IDE** — El único IDE compatible con esta plantilla
-- **Node.js >= 18** y **bun**
+- **OpenCode IDE** — The only IDE compatible with this template
+- **Node.js >= 18** and **bun**
 - **Git**
 
 ---
 
-## Resumen de la Estructura del Proyecto
+## What OpenCode Does Automatically
 
-Cuando abres este proyecto en OpenCode, estos son los archivos y directorios clave con los que el IDE interactúa:
+### 1. Loads Slash Commands
 
-```
-project-root/
-├── AGENTS.md              # Personas de agente, reglas y orquestación
-├── commands/              # 7 comandos slash cargados por OpenCode
-│   ├── spec.md            #   /spec  → fase DEFINE
-│   ├── plan.md            #   /plan  → fase PLAN
-│   ├── build.md           #   /build → fase BUILD
-│   ├── test.md            #   /test  → fase VERIFY
-│   ├── review.md          #   /review → fase REVIEW
-│   ├── code-simplify.md   #   /code-simplify → simplificación
-│   └── ship.md            #   /ship  → fase SHIP
-├── agents/                # 99 agentes (3 principales + 96 subagentes)
-│   ├── huitzilopochtli.md #   General Purpose Agent
-│   ├── quetzalcoatl.md    #   Arquitecto de Especificaciones
-│   └── tezcatlipoca.md    #   Agente de Build
-├── skills/                # 33 skills de ingeniería (SKILL.md por directorio)
-│   ├── spec-driven-development/
-│   ├── test-driven-development/
-│   └── ...
-└── .opencode/             # Configuración de OpenCode
-    ├── agents/ → agents/  #   Symlink a agents/
-    ├── commands/ → commands/ # Symlink a commands/
-    ├── skills/ → skills/  #   Symlink a skills/
-    └── package.json       #   Dependencias de plugins
-```
+The `commands/` directory is automatically detected by OpenCode. Type `/` in the chat to see all available commands:
 
----
+| Command | Phase | What it does |
+|---------|-------|--------------|
+| `/spec` | DEFINE | Creates a structured specification before writing code |
+| `/plan` | PLAN | Breaks specifications into small, ordered tasks |
+| `/build` | BUILD | Incremental implementation with TDD |
+| `/test` | VERIFY | Writes failing tests, implements, refactors |
+| `/review` | REVIEW | Multi-axis code review before merge |
+| `/code-simplify` | REVIEW | Simplifies complex code without changing behavior |
+| `/ship` | SHIP | Pre-launch checklist, gradual deployment, monitoring |
 
-## Qué Hace OpenCode Automáticamente
+Commands also automatically trigger complementary skills. For example, `/build` activates `incremental-implementation` plus `solid`, `error-handling-patterns`, `ui-ux-design-pro`, and others depending on the task.
 
-### 1. Carga Comandos Slash
+### 2. Provides Agent Personas
 
-El directorio `commands/` es detectado automáticamente por OpenCode. Escribe `/` en el chat para ver todos los comandos disponibles:
+The `agents/` directory contains **99 agents**: 3 primary agents (SDD orchestration) and 96 specialized subagents. The 3 main agents are directly invocable:
 
-| Comando | Fase | Qué hace |
-|---------|------|----------|
-| `/spec` | DEFINE | Crea una especificación estructurada antes de escribir código |
-| `/plan` | PLAN | Divide especificaciones en tareas pequeñas y ordenadas |
-| `/build` | BUILD | Implementación incremental con TDD |
-| `/test` | VERIFY | Escribe tests fallidos, implementa, refactoriza |
-| `/review` | REVIEW | Revisión de código multi-eje antes del merge |
-| `/code-simplify` | REVIEW | Simplifica código complejo sin cambiar su comportamiento |
-| `/ship` | SHIP | Lista de verificación pre-lanzamiento, despliegue gradual, monitoreo |
+- `huitzilopochtli` — General purpose, full lifecycle in any domain
+- `quetzalcoatl` — Architect of Specifications: analyze, design, plan
+- `tezcatlipoca` — Build Agent: execute validated implementation plans
 
-Los comandos también activan skills complementarios automáticamente. Por ejemplo, `/build` activa `incremental-implementation` más `solid`, `error-handling-patterns`, `ui-ux-design-pro`, y otros dependiendo de la tarea.
+> For the complete subagent catalog (90+ specialists in frontend, backend, devops, testing, security, etc.), see [09-agent-index.md](./09-agent-index.md).
 
-### 2. Proporciona Personas de Agente
+Commands like `/review` and `/ship` automatically compose multiple agents.
 
-El directorio `agents/` contiene **99 agentes**: 3 agentes primarios (orquestación SDD) y 96 subagentes especializados. Los 3 agentes principales son invocables directamente:
+### 3. Discovers Skills
 
-- `huitzilopochtli` — Propósito general, ciclo completo en cualquier dominio
-- `quetzalcoatl` — Arquitecto de Especificaciones: analizar, diseñar, planificar
-- `tezcatlipoca` — Agente de Build: ejecutar planes de implementación validados
+The 33 skills live in `skills/<skill-name>/SKILL.md`. OpenCode agents receive instructions (via `AGENTS.md`) to:
 
-> Para el catálogo completo de subagentes (90+ especialistas en frontend, backend, devops, testing, seguridad, etc.), consulta [09-agent-index.md](./09-agent-index.md).
+1. Detect when a skill applies to the current task
+2. Load the skill using the built-in `skill` tool
+3. Follow the skill's workflow step by step
 
-Comandos como `/review` y `/ship` componen múltiples agentes automáticamente.
-
-### 3. Descubre Skills
-
-Los 33 skills viven en `skills/<nombre-skill>/SKILL.md`. Los agentes de OpenCode reciben instrucciones (vía `AGENTS.md`) para:
-
-1. Detectar cuándo un skill aplica a la tarea actual
-2. Cargar el skill usando la herramienta integrada `skill`
-3. Seguir el flujo de trabajo del skill paso a paso
-
-Los skills se activan tanto a través de comandos slash como automáticamente según el contexto — diseñar una API activa `api-and-interface-design`, construir UI activa `frontend-ui-engineering`, depurar activa `debugging-and-error-recovery`, y así sucesivamente.
+Skills are activated both through slash commands and automatically based on context — designing an API activates `api-and-interface-design`, building UI activates `frontend-ui-engineering`, debugging activates `debugging-and-error-recovery`, and so on.
 
 ---
 
-## Primeros Pasos Después de Abrir el Proyecto
+## First Steps After Opening the Project
 
-### 1. Instalar Dependencias de Plugins
+### 1. Install Plugin Dependencies
 
 ```bash
 cd .opencode && bun install && cd ..
 ```
 
-### 2. Configurar Context7 (Opcional pero Recomendado)
+### 2. Configure Context7 (Optional but Recommended)
 
-Context7 proporciona documentación actualizada para cualquier librería o framework:
+Context7 provides up-to-date documentation for any library or framework:
 
 ```bash
 npx ctx7@latest setup
 ```
 
-Una vez configurado, el skill `find-docs` obtiene automáticamente la documentación actual de la API cuando preguntas sobre cualquier librería.
+Once configured, the `find-docs` skill automatically retrieves current API documentation when you ask about any library.
 
-### 3. Comenzar con el Meta-Skill
+### 3. Start with the Meta-Skill
 
-Carga el [Meta-Skill](../../skills/using-agent-skills/SKILL.md) para descubrir qué skill aplica a tu tarea actual. Contiene:
-- Un **árbol de decisión** que mapea tipos de tarea (implementar código, diseñar API, depurar, etc.) al skill apropiado
-- **Comportamientos operativos centrales** que aplican a todos los skills (superficiar suposiciones, gestionar confusión, objetar)
-- Una tabla de **Referencia Rápida** que resume cada skill por fase
+Load the [Meta-Skill](../../skills/using-agent-skills/SKILL.md) to discover which skill applies to your current task. It contains:
+- A **decision tree** that maps task types (implement code, design API, debug, etc.) to the appropriate skill
+- **Core operational behaviors** that apply to all skills (surface assumptions, manage confusion, object)
+- A **Quick Reference** table that summarizes each skill by phase
 
-> Este es el punto de entrada canónico para el descubrimiento de skills. Tanto agentes como humanos deberían consultarlo cuando no estén seguros de qué skill aplica.
+> This is the canonical entry point for skill discovery. Both agents and humans should consult it when unsure which skill applies.
 
-### 4. Ejecutar tu Primer Flujo de Trabajo
+### 4. Run Your First Workflow
 
 ```bash
-/spec "Describe lo que quieres construir"
+/spec "Describe what you want to build"
 /plan
 /build
 /test
@@ -128,23 +96,23 @@ Carga el [Meta-Skill](../../skills/using-agent-skills/SKILL.md) para descubrir q
 
 ---
 
-> **📖 Para la anatomía completa de los skills (diagrama, principios clave, cómo funcionan los skills):** consulta [USER_GUIDE.md > Skills Reference](../../USER_GUIDE.md#skills-reference). Esta guía de configuración se enfoca solo en la configuración de OpenCode.
+> **📖 For the complete anatomy of skills (diagram, key principles, how skills work):** see [USER_GUIDE.md > Skills Reference](../../USER_GUIDE.md#skills-reference). This setup guide focuses only on OpenCode configuration.
 
 ---
 
-## Archivos de Configuración
+## Configuration Files
 
 ### AGENTS.md
 
-Este archivo define las personas de agente, sus reglas y orquestación. Instruye a los agentes para:
-- Verificar siempre si un skill aplica antes de actuar
-- Seguir los skills exactamente cuando aplican
-- Nunca saltarse flujos de trabajo requeridos (spec, plan, test)
-- Superficiar suposiciones y gestionar la confusión activamente
+This file defines agent personas, their rules, and orchestration. It instructs agents to:
+- Always check if a skill applies before acting
+- Follow skills exactly when they apply
+- Never skip required workflows (spec, plan, test)
+- Surface assumptions and actively manage confusion
 
 ### .opencode/package.json
 
-Contiene la dependencia de plugin de OpenCode requerida:
+Contains the required OpenCode plugin dependency:
 
 ```json
 {
@@ -156,21 +124,21 @@ Contiene la dependencia de plugin de OpenCode requerida:
 
 ---
 
-## Solución de Problemas
+## Troubleshooting
 
-| Problema | Causa Posible | Solución |
-|----------|---------------|----------|
-| `/spec` no funciona | Plugin no instalado | Ejecuta `cd .opencode && bun install` |
+| Problem | Possible Cause | Solution |
+|---------|----------------|----------|
+| `/spec` doesn't work | Plugin not installed | Run `cd .opencode && bun install` |
 
-> **Para la tabla completa de solución de problemas (Context7, skills, y más):** consulta [USER_GUIDE.md](../../USER_GUIDE.md#troubleshooting).
+> **For the complete troubleshooting table (Context7, skills, and more):** see [USER_GUIDE.md](../../USER_GUIDE.md#troubleshooting).
 
 ---
 
-## Documentación Relacionada
+## Related Documentation
 
-| Guía | Cubre |
-|------|-------|
-| [Meta-Skill (using-agent-skills)](../../skills/using-agent-skills/SKILL.md) | Árbol de decisión para descubrimiento de skills, comportamientos operativos centrales, modos de fallo e índice de Referencia Rápida de todos los skills |
-| [USER_GUIDE.md](../../USER_GUIDE.md) | Referencia completa de los 33 skills, comandos y flujos de trabajo |
-| [08-orchestration-patterns.md](./08-orchestration-patterns.md) | Personas de agente, patrones de orquestación y matriz de decisión |
-| [09-agent-index.md](./09-agent-index.md) | Catálogo completo de los 99 agentes clasificados por dominio |
+| Guide | Covers |
+|------|--------|
+| [Meta-Skill (using-agent-skills)](../../skills/using-agent-skills/SKILL.md) | Decision tree for skill discovery, core operational behaviors, failure modes, and Quick Reference index of all skills |
+| [USER_GUIDE.md](../../USER_GUIDE.md) | Complete reference of the 33 skills, commands, and workflows |
+| [08-orchestration-patterns.md](./08-orchestration-patterns.md) | Agent personas, orchestration patterns, and decision matrix |
+| [09-agent-index.md](./09-agent-index.md) | Complete catalog of the 99 agents classified by domain |

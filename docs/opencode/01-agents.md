@@ -1,44 +1,44 @@
-# Agentes en OpenCode
+# Agents in OpenCode
 
-Los agentes son asistentes de IA especializados en OpenCode que pueden ser configurados para tareas y flujos de trabajo específicos. Permiten crear herramientas enfocadas con sus propios prompts, modelos y acceso a herramientas.
+Agents are specialized AI assistants in OpenCode that can be configured for specific tasks and workflows. They allow you to create focused tools with their own prompts, models, and tool access.
 
-> **Documentación oficial:** [opencode.ai/docs/agents](https://opencode.ai/docs/agents/)
+> **Official documentation:** [opencode.ai/docs/agents](https://opencode.ai/docs/agents/)
 
 ---
 
-## Tipos de Agentes
+## Agent Types
 
 ### Primary Agents
 
-Primary Agents son los asistentes principales con los que interactúas directamente. Cambias entre ellos con **Tab**.
+Primary Agents are the main assistants you interact with directly. You switch between them with **Tab**.
 
-| Agente      | Modo     | Descripción                                  |
-|-------------|----------|---------------------------------------------|
-| **Build**   | `primary` | Agente estándar con todas las herramientas activadas |
-| **Plan**    | `primary` | Agente de análisis y planificación, de solo lectura |
+| Agent      | Mode     | Description                                  |
+|------------|----------|---------------------------------------------|
+| **Build**   | `primary` | Standard agent with all tools enabled |
+| **Plan**    | `primary` | Analysis and planning agent, read-only |
 
 ### Subagents
 
-Subagents son llamados por Primary Agents para tareas especializadas o mencionados manualmente con `@mention`.
+Subagents are called by Primary Agents for specialized tasks or mentioned manually with `@mention`.
 
-| Agente      | Modo       | Descripción                                         |
-|-------------|------------|-----------------------------------------------------|
-| **General** | `subagent` | Agente de propósito general, acceso completo a herramientas |
-| **Explore** | `subagent` | Agente de solo lectura rápido para exploración de código base |
+| Agent      | Mode       | Description                                         |
+|------------|------------|-----------------------------------------------------|
+| **General** | `subagent` | General-purpose agent, full tool access |
+| **Explore** | `subagent` | Fast read-only agent for codebase exploration |
 
-### Agentes de Sistema Ocultos
+### Hidden System Agents
 
-| Agente       | Función                          |
-|--------------|----------------------------------|
-| **Compaction** | Comprime el contexto largo       |
-| **Title**     | Genera títulos cortos de sesión  |
-| **Summary**   | Crea resúmenes de sesión        |
+| Agent       | Function                          |
+|-------------|----------------------------------|
+| **Compaction** | Compresses long context       |
+| **Title**     | Generates short session titles  |
+| **Summary**   | Creates session summaries        |
 
 ---
 
-## Configurar Agentes
+## Configuring Agents
 
-### Por JSON (opencode.json)
+### Via JSON (opencode.json)
 
 ```json
 {
@@ -54,7 +54,7 @@ Subagents son llamados por Primary Agents para tareas especializadas o mencionad
       "model": "anthropic/claude-haiku-4-20250514"
     },
     "code-reviewer": {
-      "description": "Revisa código por mejores prácticas y posibles problemas",
+      "description": "Reviews code for best practices and potential issues",
       "mode": "subagent",
       "model": "anthropic/claude-sonnet-4-20250514",
       "prompt": "You are a code reviewer. Focus on security, performance, and maintainability.",
@@ -67,18 +67,18 @@ Subagents son llamados por Primary Agents para tareas especializadas o mencionad
 }
 ```
 
-### Por Markdown (.opencode/agents/*.md)
+### Via Markdown (.opencode/agents/*.md)
 
-Los agentes también pueden definirse como archivos Markdown:
+Agents can also be defined as Markdown files:
 
 - **Global:** `~/.config/opencode/agents/`
-- **Por proyecto:** `.opencode/agents/`
+- **Per project:** `.opencode/agents/`
 
-El nombre del archivo se convierte en el nombre del agente (ej. `review.md` -> Agente `review`).
+The filename becomes the agent name (e.g., `review.md` -> Agent `review`).
 
 ```markdown
 ---
-description: Revisa código por calidad y mejores prácticas
+description: Reviews code for quality and best practices
 mode: subagent
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.1
@@ -103,17 +103,17 @@ Provide constructive feedback without making direct changes.
 
 ---
 
-## Opciones de Configuración Importantes
+## Important Configuration Options
 
-### Description (Obligatorio)
+### Description (Required)
 
 ```json
-"description": "Revisa código por mejores prácticas y posibles problemas"
+"description": "Reviews code for best practices and potential issues"
 ```
 
 ### Model
 
-Anula el modelo por agente. Si no se especifica, los Primary Agents usan el modelo global; los Subagents usan el modelo del Primary Agent que los llama.
+Overrides the model per agent. If not specified, Primary Agents use the global model; Subagents use the model of the Primary Agent that calls them.
 
 ```json
 "model": "anthropic/claude-haiku-4-20250514"
@@ -121,14 +121,14 @@ Anula el modelo por agente. Si no se especifica, los Primary Agents usan el mode
 
 ### Temperature
 
-Controla la creatividad (0.0-1.0):
-- **0.0-0.2:** Determinístico, ideal para análisis de código
-- **0.3-0.5:** Equilibrado, bueno para desarrollo
-- **0.6-1.0:** Creativo, bueno para brainstorming
+Controls creativity (0.0-1.0):
+- **0.0-0.2:** Deterministic, ideal for code analysis
+- **0.3-0.5:** Balanced, good for development
+- **0.6-1.0:** Creative, good for brainstorming
 
 ### Max Steps
 
-Limita las iteraciones agenticas:
+Limits agentic iterations:
 
 ```json
 "steps": 5
@@ -148,11 +148,11 @@ Limita las iteraciones agenticas:
 }
 ```
 
-Posibles valores: `"allow"`, `"ask"`, `"deny"`
+Possible values: `"allow"`, `"ask"`, `"deny"`
 
-### Task Permissions (Control de Subagents)
+### Task Permissions (Subagent Control)
 
-Controla qué Subagents puede llamar un agente:
+Controls which Subagents an agent can call:
 
 ```json
 "permission": {
@@ -166,7 +166,7 @@ Controla qué Subagents puede llamar un agente:
 
 ### Hidden
 
-Oculta un subagent del menú de autocompletado `@`:
+Hides a subagent from the `@` autocomplete menu:
 
 ```json
 "hidden": true
@@ -180,32 +180,32 @@ Oculta un subagent del menú de autocompletado `@`:
 
 ---
 
-## Crear Agente (CLI)
+## Create Agent (CLI)
 
 ```bash
 opencode agent create
 ```
 
-Wizard interactivo que:
-1. Pregunta si es global o específico del proyecto
-2. Solicita la descripción
-3. Genera el system prompt
-4. Configura el acceso a herramientas
-5. Crea el archivo Markdown
+Interactive wizard that:
+1. Asks if it's global or project-specific
+2. Requests the description
+3. Generates the system prompt
+4. Configures tool access
+5. Creates the Markdown file
 
 ---
 
-## Mejores Prácticas
+## Best Practices
 
-1. **Usa modelos separados por agente:** Haiku para Plan/Explore, Sonnet/Opus para Build
-2. **Mínimos permisos:** Dale a los agentes solo las herramientas que necesitan
-3. **Prompts específicos:** Cuanto más claro sea el system prompt, mejor el resultado
-4. **Subagents para tareas recurrentes:** Code Review, Docs, Security Audit
-5. **Usa Task Permissions:** Controla qué subagents pueden ser llamados
-6. **Ajusta temperature:** Bajo para análisis, alto para tareas creativas
+1. **Use separate models per agent:** Haiku for Plan/Explore, Sonnet/Opus for Build
+2. **Minimum permissions:** Give agents only the tools they need
+3. **Specific prompts:** The clearer the system prompt, the better the result
+4. **Subagents for recurring tasks:** Code Review, Docs, Security Audit
+5. **Use Task Permissions:** Control which subagents can be called
+6. **Adjust temperature:** Low for analysis, high for creative tasks
 
 ---
 
-## Ejemplos de Agentes
+## Agent Examples
 
-Definiciones de agentes listas para usar las encuentras en [`skills/`](../../skills/).
+Ready-to-use agent definitions can be found in [`skills/`](../../skills/).

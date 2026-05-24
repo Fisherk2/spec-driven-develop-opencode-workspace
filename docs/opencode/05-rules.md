@@ -1,26 +1,26 @@
-# Rules (AGENTS.md) en OpenCode
+# Rules (AGENTS.md) in OpenCode
 
-Rules son instrucciones específicas de proyecto y usuario que OpenCode proporciona en el contexto del LLM. Se definen a través de archivos `AGENTS.md` o la configuración `instructions`.
+Rules are project-specific and user-specific instructions that OpenCode provides in the LLM context. They are defined through `AGENTS.md` files or the `instructions` configuration.
 
-> **Documentación oficial:** [opencode.ai/docs/rules](https://opencode.ai/docs/rules/)
+> **Official documentation:** [opencode.ai/docs/rules](https://opencode.ai/docs/rules/)
 
 ---
 
-## Crear AGENTS.md
+## Creating AGENTS.md
 
-### Automáticamente
+### Automatically
 
 ```bash
 opencode
-# Luego en el TUI:
+# Then in the TUI:
 /init
 ```
 
-Escanea el proyecto y genera un `AGENTS.md` apropiado.
+Scans the project and generates an appropriate `AGENTS.md`.
 
-### Manualmente
+### Manually
 
-Crea un `AGENTS.md` en la raíz del proyecto:
+Create an `AGENTS.md` at the project root:
 
 ```markdown
 # My Project
@@ -49,44 +49,44 @@ This is a TypeScript monorepo using bun workspaces.
 
 ---
 
-## Tipos de Archivos y Ubicaciones
+## File Types and Locations
 
-### Específico del proyecto
+### Project-specific
 
-`AGENTS.md` en la raíz del proyecto. Se commitea a Git y se comparte con el equipo.
+`AGENTS.md` at the project root. Committed to Git and shared with the team.
 
 ### Global (personal)
 
-`~/.config/opencode/AGENTS.md` -- aplica a todas las sesiones de OpenCode.
+`~/.config/opencode/AGENTS.md` -- applies to all OpenCode sessions.
 
-**Recomendación:** Preferencias personales aquí (ej. idioma, estilo de código, patrones preferidos).
+**Recommendation:** Personal preferences here (e.g., language, code style, preferred patterns).
 
-### Compatibilidad con Claude Code
+### Claude Code Compatibility
 
-Como fallback también se soportan:
-- `CLAUDE.md` (si no hay `AGENTS.md`)
-- `~/.claude/CLAUDE.md` (si no hay `AGENTS.md` global)
+As fallback, the following are also supported:
+- `CLAUDE.md` (if no `AGENTS.md` exists)
+- `~/.claude/CLAUDE.md` (if no global `AGENTS.md` exists)
 
-Se puede desactivar con:
+Can be disabled with:
 ```bash
 export OPENCODE_DISABLE_CLAUDE_CODE=1
 ```
 
 ---
 
-## Prioridad
+## Priority
 
-1. Archivos locales (hacia arriba desde el directorio actual): `AGENTS.md`, `CLAUDE.md`
-2. Archivo global: `~/.config/opencode/AGENTS.md`
-3. Archivo Claude Code: `~/.claude/CLAUDE.md`
+1. Local files (searching upward from current directory): `AGENTS.md`, `CLAUDE.md`
+2. Global file: `~/.config/opencode/AGENTS.md`
+3. Claude Code file: `~/.claude/CLAUDE.md`
 
-Gana el primer archivo coincidente por categoría.
+The first matching file per category wins.
 
 ---
 
-## Instrucciones Custom por Config
+## Custom Instructions via Config
 
-### Incluir archivos locales
+### Include local files
 
 ```json
 {
@@ -99,7 +99,7 @@ Gana el primer archivo coincidente por categoría.
 }
 ```
 
-### URLs remotas
+### Remote URLs
 
 ```json
 {
@@ -109,13 +109,13 @@ Gana el primer archivo coincidente por categoría.
 }
 ```
 
-Las instrucciones remotas se cargan con timeout de 5 segundos.
+Remote instructions are loaded with a 5-second timeout.
 
 ---
 
-## Referenciar archivos externos
+## Referencing External Files
 
-### Recomendado: opencode.json
+### Recommended: opencode.json
 
 ```json
 {
@@ -127,7 +127,7 @@ Las instrucciones remotas se cargan con timeout de 5 segundos.
 }
 ```
 
-### Alternativa: Lazy Loading en AGENTS.md
+### Alternative: Lazy Loading in AGENTS.md
 
 ```markdown
 # Project Rules
@@ -145,12 +145,12 @@ For testing: @test/testing-guidelines.md
 
 ---
 
-## Mejores Prácticas
+## Best Practices
 
-1. **Commitear AGENTS.md a Git:** Estándares del equipo
-2. **AGENTS.md global para preferencias personales:** Idioma, estilo, comportamiento del editor
-3. **instructions en opencode.json:** Reutilizar docs existentes en lugar de duplicar
-4. **Glob Patterns para monorepos:** `packages/*/AGENTS.md`
-5. **Mantenerlo compacto:** Solo lo importante. El agente tiene contexto limitado.
-6. **Documentar estructura de proyecto:** Ayuda masivamente al agente a navegar
-7. **Usar /init:** Generación automática como punto de partida
+1. **Commit AGENTS.md to Git:** Team standards
+2. **Global AGENTS.md for personal preferences:** Language, style, editor behavior
+3. **instructions in opencode.json:** Reuse existing docs instead of duplicating
+4. **Glob Patterns for monorepos:** `packages/*/AGENTS.md`
+5. **Keep it compact:** Only what's important. The agent has limited context.
+6. **Document project structure:** Massively helps the agent navigate
+7. **Use /init:** Automatic generation as a starting point

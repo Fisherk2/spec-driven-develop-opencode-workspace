@@ -441,7 +441,7 @@ Nuevas secciones agregadas al `.gitignore`:
 ### Repositorio
 - **Nombre**: Plantilla Dev AI
 - **Descripción**: Espacio de trabajo nativo para OpenCode con metodología Spec-Driven Development, 33 skills integradas, 5 agentes especialistas y pipeline SDD automatizado
-- **Repositorio**: https://github.com/Fisherk2/plantilla-dev-ai
+- **Repositorio**: https://github.com/Fisherk2/spec-driven-develop-opencode-workspace
 - **Licencia**: MIT License
 
 ### Stack Tecnológico
