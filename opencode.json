@@ -23,6 +23,8 @@
 
   "instructions": [
     "CONTRIBUTING.md",
+    "WORKFLOW.md",
+    "SPEC.md",
     "USER_GUIDE.md",
     "docs/opencode/08-orchestration-patterns.md"
   ],
