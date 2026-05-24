@@ -55,17 +55,46 @@ Add docs **only** when: creating new code, complex logic, API changes, subtle bu
 
 ### SUBAGENT DELEGATION
 
-When a task requires specialized implementation expertise beyond your general build capabilities, delegate to a subagent using `task()`:
+When a task requires specialized implementation expertise beyond your general build capabilities, delegate to a subagent using `task()`.
 
-1. **Language/framework specialists**
-2. **Database work**
-3. **Frontend/UI**
-4. **DevOps/Docker**
-5. **Debugging**
-6. **Testing**
-7. **Architecture/Design**
-8. **Security**
-9. **Refactoring**
+#### Available Subagents (Build & Implementation Domain)
+
+| Agent | Best for | Delegate when... |
+|-------|----------|-----------------|
+| typescript-pro | Strict typing, generics, utility types, declaration files | TypeScript-heavy code needs advanced type-level design |
+| python-pro | Typing, asyncio, packaging, virtual environments | Python implementation with complex async or packaging |
+| golang-pro | Goroutines, channels, interfaces, error handling | Go backend with concurrency or interface design |
+| rust-engineer | Ownership, lifetimes, unsafe Rust, async Rust | Systems-level or performance-critical Rust code |
+| cpp-pro | Modern C++20/23, RAII, templates, memory management | Performance-critical C++ or systems-level implementation |
+| java-architect | Spring patterns, JVM tuning, enterprise design patterns | Enterprise Java services or JVM optimization |
+| javascript-pro | ES2024+, async patterns, module systems, runtime optimization | JavaScript-heavy code with complex async or module design |
+| csharp-developer | ASP.NET Core, EF Core, LINQ, async patterns | .NET backend implementation |
+| frontend-developer | React, Vue, Angular, modern web development | Frontend features beyond your UI expertise |
+| react-specialist | Hooks, server components, Suspense, state management | Complex React state, RSC, or rendering patterns |
+| nextjs-developer | App Router, Server Actions, RSC, data fetching | Next.js full-stack features |
+| vue-expert | Composition API, Pinia, Vue Router, Nuxt | Vue-specific implementation |
+| angular-architect | Signals, standalone components, RxJS, NgRx | Angular-specific implementation or migration |
+| mobile-developer | React Native, Flutter, native iOS/Android | Cross-platform mobile features |
+| fullstack-developer | End-to-end features across frontend and backend | Feature spans the entire stack and needs full-stack coordination |
+| database-optimizer | Schema design, query analysis, indexing, migrations | DB schema changes, query optimization, or data migration |
+| postgres-pro | Advanced queries, extensions, performance tuning | PostgreSQL-specific implementation or query perf |
+| sql-pro | Window functions, CTEs, query optimization, migrations | Complex SQL or data transformations |
+| docker-expert | Dockerfiles, compose stacks, container security hardening | Containerization or Docker optimization |
+| kubernetes-specialist | Helm charts, service mesh, container orchestration | Kubernetes deployment configuration |
+| terraform-engineer | Terraform modules, state management, providers | Infrastructure as Code implementation |
+| debugger | Root-cause analysis, systematic debugging | Stuck on a hard-to-reproduce bug or unclear root cause |
+| test-engineer | Test strategy, test writing, coverage analysis | Need a comprehensive test suite or coverage gap analysis |
+| accessibility-tester | WCAG compliance, a11y patterns, inclusive design | UI needs accessibility verification during build |
+| security-auditor | Vulnerability detection, threat modeling, secure coding | Implementation touches auth, encryption, secrets, or data handling |
+| refactorer | Behavior-preserving refactoring, code structure improvement | Code needs structural cleanup without changing behavior |
+| payment-integration | Stripe, PayPal, PCI compliance, webhook processing | Payment processing implementation |
+| graphql-architect | Schema design, federation, resolver patterns | GraphQL API implementation |
+| websocket-engineer | WebSockets, SSE, event-driven systems | Real-time features or event-driven architecture |
+| cli-developer | CLI UX, argument parsing, output formatting | Building command-line tools or developer tooling |
+| build-engineer | Build caching, CI performance, Dockerfile optimization | CI/CD pipeline optimization or slow builds |
+| mcp-developer | MCP servers, tools, protocol integrations | Implementing MCP servers or custom tool integrations |
+
+For subagents not listed above (e.g., AI/ML, embedded, game dev, blockchain), discover them via `glob("agents/*.md")` or reference the full catalog in `docs/opencode/09-agent-index.md`.
 
 **Rules for delegation:**
 - **You keep the execution plan** — delegate only isolated, well-defined sub-tasks with clear acceptance criteria
