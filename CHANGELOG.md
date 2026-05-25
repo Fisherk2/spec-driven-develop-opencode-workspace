@@ -7,7 +7,28 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Sin Lanzar]
 
-## [2.1.1] - 2026-05-24
+## [2.1.2] - 2026-05-25
+
+### Cambiado
+
+#### Comandos — Agentes de Review y Ship Reasignados
+
+- `commands/review.md` — Agente cambiado de `quetzalcoatl` a `huitzilopochtli`.
+  - El comando `/review` ahora orquesta la revisión de código bajo el **General Purpose Agent**, permitiendo tanto análisis como correcciones directas.
+  - Consistente con el flujo SDD donde `huitzilopochtli` maneja las fases mixtas (revisión + escritura) para finalizar especificaciones y ciclos de desarrollo.
+- `commands/ship.md` — Agente cambiado de `quetzalcoatl` a `huitzilopochtli`.
+  - El comando `/ship` ahora ejecuta el fan-out paralelo (code-reviewer, security-auditor, test-engineer) y la síntesis go/no-go bajo el **General Purpose Agent**, aprovechando su capacidad de orquestación multi-agente y escritura de documentación.
+
+#### Configuración — Modelos Dedicados por Agente Primario
+
+- `opencode.json` — Nuevo esquema de modelos para los 3 agentes primarios:
+  - **Modelo principal**: `opencode/deepseek-v4-flash-free` → `opencode-go/kimi-k2.6`
+  - `huitzilopochtli` → `opencode-go/qwen3.6-plus` (modelo dedicado para tareas full-lifecycle)
+  - `quetzalcoatl` → `opencode-go/glm-5.1` (modelo analítico para planificación y especificaciones)
+  - `tezcatlipoca` → `opencode-go/deepseek-v4-pro` (modelo para ejecución de builds y tests)
+- Agentes `build` y `plan` legacy deshabilitados (`disable: true`) — ya reemplazados por el pipeline SDD.
+- Agente `explore` actualizado: `opencode/nemotron-3-super-free` → `opencode-go/deepseek-v4-flash`.
+- Agente `general` configurado con `opencode-go/minimax-m2.5`.
 
 ### Cambiado
 
