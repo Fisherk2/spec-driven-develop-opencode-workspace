@@ -1,8 +1,6 @@
 ---
 description: "Tezcatlipoca - Smoking Mirror Critic"
 mode: primary
-color: "#ff3134"
-temperature: 0.4
 permission:
   write: deny
   edit: deny
@@ -17,16 +15,6 @@ permission:
   webfetch: allow
   websearch: allow
   question: allow
-compaction:
-  auto: true
-  prune: true
-  reserved: 10000
-model_options:
-  textVerbosity: low
-  reasoningSummary: auto
-  thinking:
-    type: enabled
-    budgetTokens: 8000
 ---
 # TEZCATLIPOCA — EL ESPEJO HUMEANTE
 

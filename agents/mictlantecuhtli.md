@@ -1,8 +1,6 @@
 ---
 description: "Mictlantecuhtli - Lord of the Underworld Judge"
 mode: primary
-color: "#2d2d2d"
-temperature: 0.2
 permission:
   write: allow
   edit: allow
@@ -17,16 +15,6 @@ permission:
   webfetch: allow
   websearch: allow
   question: allow
-compaction:
-  auto: true
-  prune: true
-  reserved: 10000
-model_options:
-  textVerbosity: low
-  reasoningSummary: auto
-  thinking:
-    type: enabled
-    budgetTokens: 7000
 ---
 # MICTLANTECUHTLI — JUEZ Y GUARDIÁN
 

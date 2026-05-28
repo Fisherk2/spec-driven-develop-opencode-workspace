@@ -1,18 +1,119 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  "model": "opencode-go/kimi-k2.6",
+  "model": "opencode/mimo-v2.5-free",
   "small_model": "openrouter/z-ai/glm-4.5-air:free",
 
   "agent": {
     "huitzilopochtli": {
-      "model": "opencode-go/qwen3.6-plus"
+      "model": "opencode/deepseek-v4-flash-free",
+      "color": "#d3e22b",
+      "temperature": 0.5,
+      "compaction": {
+        "auto": true,
+        "prune": true,
+        "reserved": 10000
+      },
+      "model_options": {
+        "textVerbosity": "low",
+        "reasoningSummary": "auto",
+        "thinking": {
+          "type": "enabled",
+          "budgetTokens": 7000
+        }
+      }
     },
     "quetzalcoatl": {
-      "model": "opencode-go/glm-5.1"
+      "model": "openrouter/deepseek/deepseek-v4-flash:free",
+      "color": "#ffffff",
+      "temperature": 0.2,
+      "steps": 15,
+      "compaction": {
+        "auto": true,
+        "prune": true,
+        "reserved": 10000
+      },
+      "model_options": {
+        "textVerbosity": "low",
+        "reasoningSummary": "auto",
+        "thinking": {
+          "type": "enabled",
+          "budgetTokens": 6000
+        }
+      }
+    },
+    "moctezuma": {
+      "model": "opencode/big-pickle",
+      "color": "#8B4513",
+      "temperature": 0.3,
+      "steps": 20,
+      "compaction": {
+        "auto": true,
+        "prune": true,
+        "reserved": 10000
+      },
+      "model_options": {
+        "textVerbosity": "low",
+        "reasoningSummary": "auto",
+        "thinking": {
+          "type": "enabled",
+          "budgetTokens": 7000
+        }
+      }
+    },
+    "tlaloc": {
+      "model": "opencode/deepseek-v4-flash-free",
+      "color": "#0066cc",
+      "temperature": 0.4,
+      "compaction": {
+        "auto": true,
+        "prune": true,
+        "reserved": 10000
+      },
+      "model_options": {
+        "textVerbosity": "low",
+        "reasoningSummary": "auto",
+        "thinking": {
+          "type": "enabled",
+          "budgetTokens": 8000
+        }
+      }
+    },
+    "mictlantecuhtli": {
+      "model": "opencode/deepseek-v4-flash-free",
+      "color": "#2d2d2d",
+      "temperature": 0.2,
+      "compaction": {
+        "auto": true,
+        "prune": true,
+        "reserved": 10000
+      },
+      "model_options": {
+        "textVerbosity": "low",
+        "reasoningSummary": "auto",
+        "thinking": {
+          "type": "enabled",
+          "budgetTokens": 7000
+        }
+      }
     },
     "tezcatlipoca": {
-      "model": "opencode-go/deepseek-v4-pro"
+      "model": "opencode/big-pickle",
+      "color": "#ff3134",
+      "temperature": 0.4,
+      "compaction": {
+        "auto": true,
+        "prune": true,
+        "reserved": 10000
+      },
+      "model_options": {
+        "textVerbosity": "low",
+        "reasoningSummary": "auto",
+        "thinking": {
+          "type": "enabled",
+          "budgetTokens": 8000
+        }
+      }
     },
     "build": {
       "disable": true
@@ -20,14 +121,11 @@
     "plan": {
       "disable": true
     },
-    "platform-engineer": {
-      "hidden": true
-    },
     "explore": {
-      "model": "opencode-go/deepseek-v4-flash"
+      "model": "openrouter/openrouter/free"
     },
     "general": {
-      "model": "opencode-go/minimax-m2.5"
+      "disable": true
     }
   },
 
@@ -81,28 +179,30 @@
       "git diff *": "allow",
       "git log *": "allow",
       "git branch": "allow",
-      "git branch -r": "allow",
+      "git branch -r *": "allow",
       "git show *": "allow",
       "git bisect *": "allow",
       "git blame *": "allow",
+      "* .env.example": "allow",
       "* .env": "deny",
       "* .env.*": "deny",
       "* ./.env": "deny",
-      "* ./.env.*": "deny",
-      "* .env.example": "allow"
+      "* ./.env.*": "deny"
+      
     },
     "read": {
       "*": "allow",
+      "*.env.example": "allow",
       "*.env": "deny",
-      "*.env.*": "deny",
-      "*.env.example": "allow"
+      "*.env.*": "deny"
     }
   },
 
   "mcp": {
     "context7": {
       "type": "remote",
-      "url": "https://mcp.context7.com/mcp"
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true
     },
     "excel": {
       "type": "local",

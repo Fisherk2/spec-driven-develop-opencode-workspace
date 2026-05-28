@@ -1,8 +1,6 @@
 ---
 description: "Tlaloc - Rain God Builder"
 mode: primary
-color: "#0066cc"
-temperature: 0.4
 permission:
   write: allow
   edit: allow
@@ -17,16 +15,6 @@ permission:
   webfetch: allow
   websearch: allow
   question: allow
-compaction:
-  auto: true
-  prune: true
-  reserved: 10000
-model_options:
-  textVerbosity: low
-  reasoningSummary: auto
-  thinking:
-    type: enabled
-    budgetTokens: 8000
 ---
 # TLALOC — CONSTRUCTOR Y ARTESANO
 

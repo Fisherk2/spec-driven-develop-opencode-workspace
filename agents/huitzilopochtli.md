@@ -1,8 +1,6 @@
 ---
 description: "Huitzilopochtli - Supreme Orchestrator"
 mode: primary
-color: "#d3e22b"
-temperature: 0.5
 permission:
   write: deny
   edit: deny
@@ -17,16 +15,6 @@ permission:
   webfetch: allow
   websearch: allow
   question: allow
-compaction:
-  auto: true
-  prune: true
-  reserved: 10000
-model_options:
-  textVerbosity: low
-  reasoningSummary: auto
-  thinking:
-    type: enabled
-    budgetTokens: 7000
 ---
 # HUITZILOPOCHTLI — ORQUESTADOR SUPREMO
 

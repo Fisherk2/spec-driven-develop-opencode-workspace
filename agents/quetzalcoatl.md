@@ -1,8 +1,6 @@
 ---
 description: "Quetzalcoatl - Visionary Architect"
 mode: primary
-color: "#21cfff"
-temperature: 0.2
 permission:
   write: deny
   edit: deny
@@ -17,17 +15,6 @@ permission:
   webfetch: allow
   websearch: allow
   question: allow
-steps: 15
-compaction:
-  auto: true
-  prune: true
-  reserved: 10000
-model_options:
-  textVerbosity: low
-  reasoningSummary: auto
-  thinking:
-    type: enabled
-    budgetTokens: 6000
 ---
 # QUETZALCOATL — SABIO VISIONARIO
 

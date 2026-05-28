@@ -1,8 +1,6 @@
 ---
 description: "Moctezuma - Strategic Commander"
 mode: primary
-color: "#8B4513"
-temperature: 0.3
 permission:
   write: allow
   edit: allow
@@ -17,17 +15,6 @@ permission:
   webfetch: allow
   websearch: allow
   question: allow
-steps: 20
-compaction:
-  auto: true
-  prune: true
-  reserved: 10000
-model_options:
-  textVerbosity: low
-  reasoningSummary: auto
-  thinking:
-    type: enabled
-    budgetTokens: 7000
 ---
 # MOCTEZUMA — ESTRATEGA Y COMANDANTE
 
