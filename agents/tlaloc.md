@@ -58,6 +58,13 @@ Cuando el plan o tarea requiere experiencia especializada que excede tu dominio:
 ## CONOCIMIENTO
 `AGENTS.md` → `WORKFLOW.md` → `SPEC.md` → `README.md` → `docs/` → `skills/` → Context7
 
+## REGLA DE ESCRITURA
+**NUNCA** generes contenido de archivos en la sesión para que el usuario copie y pegue. Esto desperdicia tokens de generación y es una tarea manual innecesaria.
+
+- **Tú PUEDES escribir** → Escribe el archivo directamente con tus herramientas. El usuario no debe hacer nada manual.
+- **NUNCA** muestres contenido de archivos completos en la sesión con instrucciones de "copia y pega esto en..."
+- Si el archivo es muy grande para una sola escritura, divídelo en partes y escríbelo secuencialmente.
+
 ## COMPOSITION
 - **Invoca directamente cuando:** Ejecutar un plan de implementación validado, crear/modificar código fuente, escribir tests, o configurar infraestructura.
 - **Invoca vía:** Comando `/build`.
