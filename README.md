@@ -21,14 +21,59 @@ Una plantilla production-grade que integra 42 skills de ingeniería + 1 meta-ski
 
 Seis agentes primarios orquestan el ciclo SDD, cada uno con un rol y permisos específicos inspirados en la mitología mexica:
 
-| Agente | Rol | Permisos | Cuándo usarlo |
-|--------|-----|----------|---------------|
-| [huitzilopochtli](agents/huitzilopochtli.md) | **Orquestador Supremo** — "Colibrí Zurdo", dios de la guerra y el sol. Comandante que jamás escribe una línea, solo decide qué guerrero debe actuar. | `[Escribir:❌]` `[Delega:✅]` `[Flexible:✅]` | Orquestación pura — analizar intención y delegar al agente correcto. |
-| [quetzalcoatl](agents/quetzalcoatl.md) | **Sabio Visionario** — "Serpiente Emplumada", dios del conocimiento y los vientos. Concibe la visión arquitectónica y convoca escribas divinos. | `[Escribir:❌]` `[Delega-Docs:✅]` | Antes de escribir código — especificaciones, arquitectura, diseño de sistemas. |
-| [moctezuma](agents/moctezuma.md) | **Estratega y Comandante** — Gran organizador del imperio en calpullis (tareas atómicas). Descompone la visión en tareas ejecutables. | `[Escribir-Planes:✅]` `[Código:❌]` `[Delega:❌]` | Después de la especificación — planificar, dividir en tareas, estimar esfuerzo. |
-| [tlaloc](agents/tlaloc.md) | **Constructor y Artesano** — Dios de la lluvia que hace "llover" código sobre el proyecto. Materializa lo planeado invocando a los tlaloques (subagentes). | `[Escribir:✅]` `[Delega:✅]` | Implementación — construir, codificar, testear, configurar. |
-| [mictlantecuhtli](agents/mictlantecuhtli.md) | **Juez y Guardián** — Señor del Mictlán (inframundo), juez implacable que somete el código a 9 pruebas. Su veredicto es inapelable. | `[Escribir-Tests:✅]` `[Delega:❌]` | Validación — escribir tests, ejecutar suites, preparar despliegue. |
-| [tezcatlipoca](agents/tezcatlipoca.md) | **Analista y Crítico** — "Espejo Humeante", dios que todo lo ve pero no actúa. Solo observa y critica, revelando fallas ocultas. | `[Escribir:❌]` `[Delega:❌]` | Revisión — analizar calidad, seguridad, rendimiento antes de merge. |
+> ### 🏛️ [Huitzilopochtli](agents/huitzilopochtli.md) — Orquestador Supremo
+> ![Huitzilopochtli](docs/opencode/img/Huitzilopochtli.jpeg)
+>
+> **Modelos LLM recomendados:** DeepSeek V4 Flash → **Gemini 3.1 Flash** → MiniMax M2.5
+>
+> **Cuándo usarlo:** Orquestación pura — analizar la intención del usuario y delegar al agente más apto. Ideal para tareas de ciclo completo que requieren coordinación entre múltiples especialistas.
+>
+> `[Escribir:❌]` `[Delega:✅]` `[Flexible:✅]`
+
+> ### 🌬️ [Quetzalcoatl](agents/quetzalcoatl.md) — Sabio Visionario
+> ![Quetzalcoatl](docs/opencode/img/Quetzalcoatl.png)
+>
+> **Modelos LLM recomendados:** MiniMax M2.7 → **Gemini 3.1 Pro** → Qwen3.5 Plus
+>
+> **Cuándo usarlo:** Antes de escribir código. Para concebir la visión arquitectónica, diseñar sistemas, crear especificaciones técnicas y delegar la documentación a escribas divinos.
+>
+> `[Escribir:❌]` `[Delega-Docs:✅]`
+
+> ### ⚔️ [Moctezuma](agents/moctezuma.md) — Estratega y Comandante
+> ![Moctezuma](docs/opencode/img/Moctezuma.jpeg)
+>
+> **Modelos LLM recomendados:** MiniMax M2.7 → **Claude 3.5 Haiku** → Kimi K2.5
+>
+> **Cuándo usarlo:** Después de la especificación. Para descomponer la visión en tareas atómicas (calpullis), estimar esfuerzo y establecer dependencias.
+>
+> `[Escribir-Planes:✅]` `[Código:❌]` `[Delega:❌]`
+
+> ### 🌧️ [Tlaloc](agents/tlaloc.md) — Constructor y Artesano
+> ![Tlaloc](docs/opencode/img/Tlaloc.jpeg)
+>
+> **Modelos LLM recomendados:** DeepSeek V4 Flash → MiMo-V2.5 → **Claude 3.5 Sonnet**
+>
+> **Cuándo usarlo:** Después de la planificación. Para hacer "llover" código sobre el proyecto — implementar, construir, testear y configurar. Delega a subagentes cuando se requiere experiencia especializada.
+>
+> `[Escribir:✅]` `[Delega:✅]`
+
+> ### 💀 [Mictlantecuhtli](agents/mictlantecuhtli.md) — Juez y Guardián
+> ![Mictlantecuhtli](docs/opencode/img/Mictlantecuhtli.jpeg)
+>
+> **Modelos LLM recomendados:** DeepSeek V4 Flash → **Gemini 3.1 Pro** → Qwen3.6 Plus
+>
+> **Cuándo usarlo:** Después de la construcción. Para someter el código a las 9 pruebas del Mictlán — escribir tests, ejecutar suites de validación y preparar el despliegue a producción. Su veredicto es inapelable.
+>
+> `[Escribir-Tests:✅]` `[Delega:❌]`
+
+> ### 🔮 [Tezcatlipoca](agents/tezcatlipoca.md) — El Espejo Humeante
+> ![Tezcatlipoca](docs/opencode/img/Tezcatlipoca.png)
+>
+> **Modelos LLM recomendados:** GLM-5.1 → Qwen3.7 Max → **Claude 3.5 Opus**
+>
+> **Cuándo usarlo:** Antes del merge. Para revisar calidad, seguridad y rendimiento del código. Tezcatlipoca todo lo ve pero no actúa — solo revela fallas ocultas.
+>
+> `[Escribir:❌]` `[Delega:❌]`
 
 Además, más de **90 subagentes especializados** están disponibles para tareas concretas: revisión de código, auditoría de seguridad, optimización de BD, diseño UI/UX, debugging, y más. Se invocan vía `task()` desde los agentes principales o directamente por el usuario. Ver el [catálogo completo](docs/opencode/09-agent-index.md).
 
