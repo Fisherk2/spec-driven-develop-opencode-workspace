@@ -205,7 +205,7 @@ flowchart LR
 | Branch | Archivos a modificar | Archivos a crear | Complejidad |
 |--------|:---:|:---:|:---:|
 | `docs/quickstart-migration` | 1 | 0 | Baja (solo documentación) |
-| `feat/agent-permission-hierarchy` | 5 | 3 | Alta (nuevos agentes + lore + docs cruzadas) |
+| `feat/agent-permission-hierarchy` | 5 | 3 | Alta ✅ Completada (en revisión) |
 | `feat/plugin-orchestration` | 1-5 | 0-4 | Alta (lógica de plugin TypeScript) |
 
 ---

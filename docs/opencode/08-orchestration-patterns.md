@@ -10,13 +10,16 @@ The governing rule: **the user (or a slash command) is the orchestrator. Persona
 
 Specialist personas that play a single role with a single perspective. Each persona is a Markdown file in `agents/` (sincronizado con `.opencode/agents/`) y consumido como system prompt por OpenCode.
 
-> **Full agent catalog (90+ subagents):** See [09-agent-index.md](./09-agent-index.md) for the complete classified index of all available subagents. This section only lists the 3 primary agents that participate in orchestration patterns.
+> **Full agent catalog (90+ subagents):** See [09-agent-index.md](./09-agent-index.md) for the complete classified index of all available subagents. This section only lists the 6 primary agents that participate in orchestration patterns.
 
 | Persona | Role | Best for |
 |---------|------|----------|
-| [huitzilopochtli](../../agents/huitzilopochtli.md) | General Purpose Agent | Full-lifecycle tasks across domains, research, documentation, planning, and orchestrating specialized sub-tasks |
-| [quetzalcoatl](../../agents/quetzalcoatl.md) | Architect of Specifications | Spec-Driven Analysis, planning, and design |
-| [tezcatlipoca](../../agents/tezcatlipoca.md) | Build Agent | Execute validated execution plans — build, test, and modify code |
+| [huitzilopochtli](../../agents/huitzilopochtli.md) | Supreme Orchestrator | Full-lifecycle orchestration, pure delegation, deciding which agent should act |
+| [quetzalcoatl](../../agents/quetzalcoatl.md) | Visionary Architect | Spec-driven analysis, architecture design, documentation delegation |
+| [moctezuma](../../agents/moctezuma.md) | Strategic Commander | Task breakdown, planning, effort estimation, roadmap creation |
+| [tlaloc](../../agents/tlaloc.md) | Rain God Builder | Code implementation, testing, infrastructure, with delegation to specialized subagents |
+| [mictlantecuhtli](../../agents/mictlantecuhtli.md) | Underworld Judge | Testing, validation, quality assurance, shipping preparation |
+| [tezcatlipoca](../../agents/tezcatlipoca.md) | Smoking Mirror Critic | Code review, security audit, performance analysis, hidden flaw detection |
 
 ### How personas relate to skills and commands
 
@@ -41,7 +44,10 @@ The user (or a slash command) is the orchestrator. **Personas do not call other 
 - "Are there security issues in `auth.ts`?" → invoke `security-auditor` directly
 - "What tests are missing for the checkout flow?" → invoke `test-engineer` directly
 - "Analyze and plan this feature" → invoke `quetzalcoatl` directly
-- "Build this feature" → invoke `tezcatlipoca` directly
+- "Build this feature" → invoke `tlaloc` directly
+- "Plan this implementation" → invoke `moctezuma` directly
+- "Write tests and validate" → invoke `mictlantecuhtli` directly
+- "Review and critique the code" → invoke `tezcatlipoca` directly
 - "Write docs for this API" → invoke `docs-writer` directly
 - "Design a deployment pipeline" → invoke `deployment-engineer` directly
 - "Check database performance" → invoke `database-optimizer` directly
@@ -68,6 +74,9 @@ The user (or a slash command) is the orchestrator. **Personas do not call other 
 4. **All primary agents may delegate specialized sub-tasks to subagents**, subject to domain boundaries:
    - A general-purpose persona (e.g., `huitzilopochtli`) may delegate to any subagent in the catalog for any domain.
    - A specialized primary agent (e.g., `quetzalcoatl`, `tezcatlipoca`) may delegate only to subagents relevant to its domain (analysis/review for quetzalcoatl; build/debug for tezcatlipoca). The core work must stay in the primary agent; delegation is for isolated, narrow concerns.
+   - `moctezuma` (planner) does NOT delegate — writes plans directly.
+   - `mictlantecuhtli` (judge) does NOT delegate — writes and runs tests directly.
+   - `tlaloc` (builder) may delegate to implementation subagents when specialized expertise is needed.
 5. Every persona file ends with a "Composition" block stating where it fits.
 
 ---
@@ -90,7 +99,10 @@ user → code-reviewer → report → user
 - "Find security issues in `auth.ts`" → `security-auditor`
 - "What tests are missing for the checkout flow?" → `test-engineer`
 - "Analyze and plan this feature" → `quetzalcoatl`
-- "Build this feature" → `tezcatlipoca`
+- "Build this feature" → `tlaloc`
+- "Plan this implementation" → `moctezuma`
+- "Write tests and validate" → `mictlantecuhtli`
+- "Review and critique the code" → `tezcatlipoca`
 - "Write docs for this API" → `docs-writer`
 - "Design a deployment pipeline" → `deployment-engineer`
 - "Check database performance" → `database-optimizer`

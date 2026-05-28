@@ -50,60 +50,60 @@
 ### Issue #7 — Nuevos agentes especializados (jerarquía de permisos)
 
 #### 7.1 Huitzilopochtli (REEMPLAZAR)
-- [ ] **7.1.1** Reescribir `agents/huitzilopochtli.md`:
-  - [ ] Frontmatter: `Escribir:❌`, `Docs:❌`, `Código:❌`, `Delega-Docs:✅`, `Delega-Code:✅`, `Flexible:✅`
-  - [ ] System prompt: Orquestador puro — solo analiza y delega
-  - [ ] NO escribe código ni documentación
-  - [ ] Invoca cualquier subagente del catálogo (Flexible)
-  - [ ] Flujo: AGENTS.md → WORKFLOW.md → SPEC.md → README.md → docs/ → skills/ → Context7 → Web search
-  - [ ] Bloque Composition actualizado
+- [x] **7.1.1** Reescribir `agents/huitzilopochtli.md`:
+  - [x] Frontmatter: `Escribir:❌`, `Docs:❌`, `Código:❌`, `Delega-Docs:✅`, `Delega-Code:✅`, `Flexible:✅`
+  - [x] System prompt: Orquestador puro — solo analiza y delega
+  - [x] NO escribe código ni documentación
+  - [x] Invoca cualquier subagente del catálogo (Flexible)
+  - [x] Flujo: AGENTS.md → WORKFLOW.md → SPEC.md → README.md → docs/ → skills/ → Context7 → Web search
+  - [x] Bloque Composition actualizado
 
 #### 7.2 Quetzalcoatl (REEMPLAZAR)
-- [ ] **7.2.1** Reescribir `agents/quetzalcoatl.md`:
-  - [ ] Frontmatter: `Escribir:❌`, `Docs:❌`, `Código:❌`, `Delega-Docs:✅`, `Delega-Code:❌`, `Flexible:❌`
-  - [ ] System prompt: Sabio / Visionario — concibe arquitectura, delega documentación
-  - [ ] Para `/spec`, `/design`
-  - [ ] Solo delega documentación a subagentes de docs
-  - [ ] NO escribe código bajo ninguna circunstancia
+- [x] **7.2.1** Reescribir `agents/quetzalcoatl.md`:
+  - [x] Frontmatter: `Escribir:❌`, `Docs:❌`, `Código:❌`, `Delega-Docs:✅`, `Delega-Code:❌`, `Flexible:❌`
+  - [x] System prompt: Sabio / Visionario — concibe arquitectura, delega documentación
+  - [x] Para `/spec`, `/design`
+  - [x] Solo delega documentación a subagentes de docs
+  - [x] NO escribe código bajo ninguna circunstancia
 
 #### 7.3 Moctezuma (CREAR)
-- [ ] **7.3.1** Crear `agents/moctezuma.md`:
-  - [ ] Frontmatter: `Escribir:✅`, `Docs:✅`, `Código:❌`, `Delega-Docs:❌`, `Delega-Code:❌`, `Flexible:❌`
-  - [ ] System prompt: Estratega / Comandante — descompone visión en tareas
-  - [ ] Para `/plan`
-  - [ ] Escribe planes y documentación de planificación
-  - [ ] NO delega, NO escribe código
+- [x] **7.3.1** Crear `agents/moctezuma.md`:
+  - [x] Frontmatter: `Escribir:✅`, `Docs:✅`, `Código:❌`, `Delega-Docs:❌`, `Delega-Code:❌`, `Flexible:❌`
+  - [x] System prompt: Estratega / Comandante — descompone visión en tareas
+  - [x] Para `/plan`
+  - [x] Escribe planes y documentación de planificación
+  - [x] NO delega, NO escribe código
 
 #### 7.4 Tlaloc (CREAR)
-- [ ] **7.4.1** Crear `agents/tlaloc.md`:
-  - [ ] Frontmatter: `Escribir:✅`, `Docs:✅`, `Código:✅`, `Delega-Docs:✅`, `Delega-Code:✅`, `Flexible:❌`
-  - [ ] System prompt: Constructor / Artesano — materializa código
-  - [ ] Para `/build`
-  - [ ] Escribe código y documentación técnica
-  - [ ] Delega a subagentes especializados si se agotan steps
-  - [ ] Tabla de subagentes de implementación (hereda de tezcatlipoca actual)
+- [x] **7.4.1** Crear `agents/tlaloc.md`:
+  - [x] Frontmatter: `Escribir:✅`, `Docs:✅`, `Código:✅`, `Delega-Docs:✅`, `Delega-Code:✅`, `Flexible:❌`
+  - [x] System prompt: Constructor / Artesano — materializa código
+  - [x] Para `/build`
+  - [x] Escribe código y documentación técnica
+  - [x] Delega a subagentes especializados si se agotan steps
+  - [x] Tabla de subagentes de implementación (hereda de tezcatlipoca actual)
 
 #### 7.5 Mictlantecuhtli (CREAR)
-- [ ] **7.5.1** Crear `agents/mictlantecuhtli.md`:
-  - [ ] Frontmatter: `Escribir:✅`, `Docs:✅`, `Código:✅`, `Delega-Docs:❌`, `Delega-Code:❌`, `Flexible:❌`
-  - [ ] System prompt: Juez / Guardián — valida calidad
-  - [ ] Para `/test`, `/ship`
-  - [ ] Escribe tests y reportes
-  - [ ] NO delega la ejecución de tests (él es el juez final)
+- [x] **7.5.1** Crear `agents/mictlantecuhtli.md`:
+  - [x] Frontmatter: `Escribir:✅`, `Docs:✅`, `Código:✅`, `Delega-Docs:❌`, `Delega-Code:❌`, `Flexible:❌`
+  - [x] System prompt: Juez / Guardián — valida calidad
+  - [x] Para `/test`, `/ship`
+  - [x] Escribe tests y reportes
+  - [x] NO delega la ejecución de tests (él es el juez final)
 
 #### 7.6 Tezcatlipoca (REEMPLAZAR)
-- [ ] **7.6.1** Reescribir `agents/tezcatlipoca.md`:
-  - [ ] Frontmatter: `Escribir:❌`, `Docs:❌`, `Código:❌`, `Delega-Docs:❌`, `Delega-Code:❌`, `Flexible:❌`
-  - [ ] System prompt: Analista / Crítico — solo observa y critica
-  - [ ] Para `/review`
-  - [ ] NO escribe código, NO escribe documentación, NO delega
-  - [ ] Solo produce reportes de revisión
+- [x] **7.6.1** Reescribir `agents/tezcatlipoca.md`:
+  - [x] Frontmatter: `Escribir:❌`, `Docs:❌`, `Código:❌`, `Delega-Docs:❌`, `Delega-Code:❌`, `Flexible:❌`
+  - [x] System prompt: Analista / Crítico — solo observa y critica
+  - [x] Para `/review`
+  - [x] NO escribe código, NO escribe documentación, NO delega
+  - [x] Solo produce reportes de revisión
 
 #### 7.7 Actualizar documentación cruzada
-- [ ] **7.7.1** `USER_GUIDE.md` — Actualizar tabla Agent Personas (3 → 6 agentes)
-- [ ] **7.7.2** `docs/opencode/08-orchestration-patterns.md` — Actualizar tabla + agregar pattern de delegación por permisos
-- [ ] **7.7.3** `docs/opencode/09-agent-index.md` — Actualizar sección Primary Agents (3 → 6)
-- [ ] **7.7.4** `README.md` — Actualizar sección "Agentes Principales" con lore mexica completo
+- [x] **7.7.1** `USER_GUIDE.md` — Actualizar tabla Agent Personas (3 → 6 agentes)
+- [x] **7.7.2** `docs/opencode/08-orchestration-patterns.md` — Actualizar tabla + reglas de delegación por permisos
+- [x] **7.7.3** `docs/opencode/09-agent-index.md` — Actualizar sección Primary Agents (3 → 6)
+- [x] **7.7.4** `README.md` — Actualizar sección "Agentes Principales" con lore mexica completo
 
 ### Branch 2 — Finalización
 
@@ -176,6 +176,6 @@
 | Branch | Avance | Estado |
 |--------|:------:|:------:|
 | `docs/quickstart-migration` | 25/25 tasks | ✅ Completada |
-| `feat/agent-permission-hierarchy` | 0/33 tasks | ⏳ Pendiente |
+| `feat/agent-permission-hierarchy` | 33/33 tasks | 🔍 En revisión (no mergear) |
 | `feat/plugin-orchestration` | 0/21 tasks | ⏳ Pendiente |
 | **Total** | **0/79 tasks** | **⏳ Sin iniciar** |

@@ -2,9 +2,9 @@
 
 Complete catalog of all available agent personas in this project.
 
-**98 subagents** + **3 primary agents** = **99 total**.
+**93 subagents** + **6 primary agents** = **99 total**.
 
-> **Primary agents** (`huitzilopochtli`, `quetzalcoatl`, `tezcatlipoca`) are documented in [08-orchestration-patterns.md](./08-orchestration-patterns.md) — this index covers the full catalog including subagents available for delegation via `task()`.
+> **Primary agents** (`huitzilopochtli`, `quetzalcoatl`, `moctezuma`, `tlaloc`, `mictlantecuhtli`, `tezcatlipoca`) are documented in [08-orchestration-patterns.md](./08-orchestration-patterns.md) — this index covers the full catalog including subagents available for delegation via `task()`.
 
 ---
 
@@ -208,13 +208,16 @@ Agents for research, documentation, product, market, and other cross-functional 
 
 ## Primary Agents
 
-The 3 primary agents of the SDD pipeline. Documented in [08-orchestration-patterns.md](./08-orchestration-patterns.md).
+The 6 primary agents of the SDD pipeline. Documented in [08-orchestration-patterns.md](./08-orchestration-patterns.md).
 
 | Agent | Role | Best for |
 |-------|------|----------|
-| [huitzilopochtli](../../agents/huitzilopochtli.md) | General Purpose Agent | Full-lifecycle across domains, research, planning, execution |
-| [quetzalcoatl](../../agents/quetzalcoatl.md) | Architect of Specifications | Spec-driven analysis, planning, design, documentation |
-| [tezcatlipoca](../../agents/tezcatlipoca.md) | Build Agent | Execute validated plans — code, test, configure |
+| [huitzilopochtli](../../agents/huitzilopochtli.md) | Supreme Orchestrator | Full-lifecycle orchestration, pure delegation, deciding which agent should act |
+| [quetzalcoatl](../../agents/quetzalcoatl.md) | Visionary Architect | Spec-driven analysis, architecture design, documentation delegation |
+| [moctezuma](../../agents/moctezuma.md) | Strategic Commander | Task breakdown, planning, effort estimation, roadmap creation |
+| [tlaloc](../../agents/tlaloc.md) | Rain God Builder | Code implementation, testing, infrastructure, delegation to subagents |
+| [mictlantecuhtli](../../agents/mictlantecuhtli.md) | Underworld Judge | Testing, validation, quality assurance, shipping preparation |
+| [tezcatlipoca](../../agents/tezcatlipoca.md) | Smoking Mirror Critic | Code review, security audit, performance analysis, hidden flaws |
 
 ---
 

@@ -10,22 +10,25 @@ Una plantilla production-grade que integra 42 skills de ingeniería + 1 meta-ski
 
 - **42 Skills de Ingeniería + 1 Meta-Skill** — TDD, Spec-Driven Development, Code Review, Seguridad, Performance, UI/UX, DDD/Hexagonal, patrones de diseño, manipulación de spreadsheets, notebooks, y más, organizados en 6 fases SDD + Extra
 - **7 Comandos Slash** — `/spec`, `/plan`, `/build`, `/test`, `/review`, `/ship`, `/code-simplify`
-- **3 Agentes Principales + 90+ Subagentes** — huitzilopochtli (propósito general), quetzalcoatl (especificaciones), tezcatlipoca (build), y más de 90 subagentes especializados en frontend, backend, DevOps, testing, seguridad, y más
+- **6 Agentes Principales + 90+ Subagentes** — huitzilopochtli (orquestador), quetzalcoatl (visión), moctezuma (planificación), tlaloc (construcción), mictlantecuhtli (validación), tezcatlipoca (revisión), y más de 90 subagentes especializados en frontend, backend, DevOps, testing, seguridad, y más
 - **Nativo OpenCode** — Comandos slash, agentes y skills cargados desde `.opencode/`
 - **Documentación Técnica Integrada** — Referencias de Clean Code, DDD, UI/UX, Testing, Seguridad y más
 - **Licencia MIT** — Libre para proyectos personales y comerciales
 
 ---
 
-### Agentes Principales
+### Panteón Mexica del Desarrollo — Agentes Principales
 
-Tres agentes primarios orquestan el ciclo SDD. Cada uno tiene un rol y perspectiva única:
+Seis agentes primarios orquestan el ciclo SDD, cada uno con un rol y permisos específicos inspirados en la mitología mexica:
 
-| Agente | Rol | Cuándo usarlo | Ejemplo de aplicación |
-|--------|-----|---------------|-----------------------|
-| [huitzilopochtli](agents/huitzilopochtli.md) | General Purpose Agent | Tareas de ciclo completo en cualquier dominio — investigar, planificar, organizar, documentar | "Investiga las mejores prácticas de CI/CD y propón un pipeline para este proyecto" |
-| [quetzalcoatl](agents/quetzalcoatl.md) | Arquitecto de Especificaciones | Antes de escribir código — analizar, diseñar, planificar, documentar especificaciones | "Diseña la arquitectura del módulo de autenticación y genera una especificación detallada" |
-| [tezcatlipoca](agents/tezcatlipoca.md) | Build Agent | Después del análisis — implementar, construir, configurar, ejecutar planes validados | "Implementa la API REST de tareas siguiendo la especificación en specs/tasks-api.md" |
+| Agente | Rol | Permisos | Cuándo usarlo |
+|--------|-----|----------|---------------|
+| [huitzilopochtli](agents/huitzilopochtli.md) | **Orquestador Supremo** — "Colibrí Zurdo", dios de la guerra y el sol. Comandante que jamás escribe una línea, solo decide qué guerrero debe actuar. | `[Escribir:❌]` `[Delega:✅]` `[Flexible:✅]` | Orquestación pura — analizar intención y delegar al agente correcto. |
+| [quetzalcoatl](agents/quetzalcoatl.md) | **Sabio Visionario** — "Serpiente Emplumada", dios del conocimiento y los vientos. Concibe la visión arquitectónica y convoca escribas divinos. | `[Escribir:❌]` `[Delega-Docs:✅]` | Antes de escribir código — especificaciones, arquitectura, diseño de sistemas. |
+| [moctezuma](agents/moctezuma.md) | **Estratega y Comandante** — Gran organizador del imperio en calpullis (tareas atómicas). Descompone la visión en tareas ejecutables. | `[Escribir-Planes:✅]` `[Código:❌]` `[Delega:❌]` | Después de la especificación — planificar, dividir en tareas, estimar esfuerzo. |
+| [tlaloc](agents/tlaloc.md) | **Constructor y Artesano** — Dios de la lluvia que hace "llover" código sobre el proyecto. Materializa lo planeado invocando a los tlaloques (subagentes). | `[Escribir:✅]` `[Delega:✅]` | Implementación — construir, codificar, testear, configurar. |
+| [mictlantecuhtli](agents/mictlantecuhtli.md) | **Juez y Guardián** — Señor del Mictlán (inframundo), juez implacable que somete el código a 9 pruebas. Su veredicto es inapelable. | `[Escribir-Tests:✅]` `[Delega:❌]` | Validación — escribir tests, ejecutar suites, preparar despliegue. |
+| [tezcatlipoca](agents/tezcatlipoca.md) | **Analista y Crítico** — "Espejo Humeante", dios que todo lo ve pero no actúa. Solo observa y critica, revelando fallas ocultas. | `[Escribir:❌]` `[Delega:❌]` | Revisión — analizar calidad, seguridad, rendimiento antes de merge. |
 
 Además, más de **90 subagentes especializados** están disponibles para tareas concretas: revisión de código, auditoría de seguridad, optimización de BD, diseño UI/UX, debugging, y más. Se invocan vía `task()` desde los agentes principales o directamente por el usuario. Ver el [catálogo completo](docs/opencode/09-agent-index.md).
 
@@ -158,10 +161,13 @@ commands/                 # 7 comandos slash para OpenCode
 ├── skills/ → skills/     # Symlink a skills/
 └── package.json          # Dependencias del plugin
 
-agents/                   # 3 agentes principales + 90+ subagentes
-├── huitzilopochtli.md    #   General Purpose Agent
-├── quetzalcoatl.md       #   Arquitecto de especificaciones
-├── tezcatlipoca.md       #   Build agent
+agents/                   # 6 agentes principales + 90+ subagentes
+├── huitzilopochtli.md    #   Orquestador Supremo
+├── quetzalcoatl.md       #   Sabio Visionario
+├── moctezuma.md          #   Estratega y Comandante
+├── tlaloc.md             #   Constructor y Artesano
+├── mictlantecuhtli.md    #   Juez y Guardián
+└── tezcatlipoca.md       #   Espejo Humeante
 ├── code-reviewer.md      #   Code reviewer
 ├── security-auditor.md   #   Security engineer
 ├── test-engineer.md      #   QA specialist

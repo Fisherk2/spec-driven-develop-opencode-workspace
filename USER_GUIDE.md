@@ -260,9 +260,12 @@ For more information about agent formats, orchestration, and the complete catalo
 
 | Agent | Role | Perspective | Use When |
 |-------|------|-------------|----------|
-| [huitzilopochtli](agents/huitzilopochtli.md) | General Purpose Agent | Full-lifecycle orchestration | Any task needing research, planning, execution, or organization across domains |
-| [quetzalcoatl](agents/quetzalcoatl.md) | Architect of Specifications | Spec-driven analysis, planning, design | Before writing code |
-| [tezcatlipoca](agents/tezcatlipoca.md) | Build Agent | Execute validated plans — code, test, configure | After analysis — build features, fix bugs |
+| [huitzilopochtli](agents/huitzilopochtli.md) | Supreme Orchestrator | Full-lifecycle orchestration, pure delegation | Any task needing orchestration — decide which agent should act |
+| [quetzalcoatl](agents/quetzalcoatl.md) | Visionary Architect | Spec-driven analysis, architecture design, documentation delegation | Before writing code — conceive architecture and specs |
+| [moctezuma](agents/moctezuma.md) | Strategic Commander | Task breakdown, planning, effort estimation | After spec — decompose vision into executable tasks |
+| [tlaloc](agents/tlaloc.md) | Rain God Builder | Code implementation, testing, infrastructure | After planning — build, code, test, configure |
+| [mictlantecuhtli](agents/mictlantecuhtli.md) | Underworld Judge | Testing, validation, quality assurance, shipping | After build — validate quality, prepare deployment |
+| [tezcatlipoca](agents/tezcatlipoca.md) | Smoking Mirror Critic | Code review, security audit, performance analysis | Before merge — review, critique, find hidden flaws |
 
 ### How Personas Relate to Skills and Commands
 
@@ -283,7 +286,7 @@ Three composable layers:
 To add a new specialized agent, follow these steps. The project has **two types of agents** with different procedures:
 
 - **Subagent** (~96 currently) — expert in a specific domain, invoked via `task()` from a primary agent
-- **Primary agent** (3 currently: huitzilopochtli, quetzalcoatl, tezcatlipoca) — main entry point for slash commands, with ability to delegate to subagents
+- **Primary agent** (6 currently: huitzilopochtli, quetzalcoatl, moctezuma, tlaloc, mictlantecuhtli, tezcatlipoca) — main entry point for slash commands, with ability to delegate to subagents
 
 #### Adding a Subagent
 
@@ -369,10 +372,13 @@ project-root/
 │
 ├── .opencode/                  # OpenCode config (symlinks → agents/, commands/, skills/)
 │
-├── agents/                     # 96 agent personas (3 primary + 93 subagents)
-│   ├── huitzilopochtli.md      #   General Purpose Agent
-│   ├── quetzalcoatl.md         #   Architect of Specifications
-│   └── tezcatlipoca.md         #   Build Agent
+├── agents/                     # 99 agent personas (6 primary + 93 subagents)
+│   ├── huitzilopochtli.md      #   Supreme Orchestrator
+│   ├── quetzalcoatl.md         #   Visionary Architect
+│   ├── moctezuma.md            #   Strategic Commander
+│   ├── tlaloc.md               #   Rain God Builder
+│   ├── mictlantecuhtli.md      #   Underworld Judge
+│   └── tezcatlipoca.md         #   Smoking Mirror Critic
 │
 ├── skills/                     # 43 skills (42 engineering + 1 meta-skill)
     │   ├── using-agent-skills/     #   META: skill discovery
