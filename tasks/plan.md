@@ -69,6 +69,8 @@
 
 ### Branch 2: `feat/agent-permission-hierarchy`
 **Issues:** #7
+**Base:** `develop` (fusionar aquí al finalizar y eliminar branch)
+**Push a remoto:** ❌ No — solo trabajo local entre branches y `develop`.
 **Archivos a modificar/crear:**
 - `agents/huitzilopochtli.md` — Reemplazar completamente
 - `agents/quetzalcoatl.md` — Reemplazar completamente
@@ -123,6 +125,8 @@ Actualizar sección "Agentes Principales" con descripciones míticas:
 
 ### Branch 3: `feat/plugin-orchestration`
 **Issues:** #5
+**Base:** `develop` (fusionar aquí al finalizar y eliminar branch)
+**Push a remoto:** ❌ No — solo trabajo local entre branches y `develop`.
 **Dependencia conceptual:** Requiere que #7 esté definido (los agentes que el plugin orquestará)
 **Archivos a modificar:**
 - `.opencode/plugins/sdd-pipeline.ts` — Reescritura parcial con matriz de decisiones

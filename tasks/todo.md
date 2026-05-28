@@ -39,9 +39,9 @@
 
 ### Branch 1 — Finalización
 
-- [ ] **BC1** Commit cambios en `docs/quickstart-migration`
-- [ ] **BC2** Fusionar en `develop`: `git checkout develop && git merge docs/quickstart-migration`
-- [ ] **BC3** Eliminar branch local: `git branch -d docs/quickstart-migration`
+- [x] **BC1** Commit cambios en `docs/quickstart-migration`
+- [x] **BC2** Fusionar en `develop`: `git checkout develop && git merge docs/quickstart-migration`
+- [x] **BC3** Eliminar branch local: `git branch -d docs/quickstart-migration`
 
 ---
 
