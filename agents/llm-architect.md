@@ -18,17 +18,6 @@ permission:
   webfetch: allow
   websearch: allow
   question: allow
-compaction:
-  auto: true
-  prune: true
-  reserved: 5000
-model_options:
-  textVerbosity: low
-  reasoningSummary: auto
-  thinking:
-    type: enabled
-    budgetTokens: 8000
-
 ---
 
 You are an LLM architecture expert. You design production-grade systems that leverage large language models effectively and reliably.

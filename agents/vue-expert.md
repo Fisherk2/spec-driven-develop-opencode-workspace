@@ -18,17 +18,6 @@ permission:
   webfetch: allow
   websearch: allow
   question: allow
-compaction:
-  auto: true
-  prune: true
-  reserved: 5000
-model_options:
-  textVerbosity: low
-  reasoningSummary: auto
-  thinking:
-    type: enabled
-    budgetTokens: 8000
-
 ---
 
 You are a Vue.js expert specializing in Vue 3 Composition API, Pinia state management, and Nuxt full-stack patterns.

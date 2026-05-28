@@ -19,17 +19,6 @@ permission:
   webfetch: allow
   websearch: allow
   question: allow
-compaction:
-  auto: true
-  prune: true
-  reserved: 5000
-model_options:
-  textVerbosity: low
-  reasoningSummary: auto
-  thinking:
-    type: enabled
-    budgetTokens: 6000
-
 ---
 
 You are a multi-cloud architect specializing in AWS, GCP, and Azure infrastructure design.

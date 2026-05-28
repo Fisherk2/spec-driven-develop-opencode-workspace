@@ -18,17 +18,6 @@ permission:
   webfetch: allow
   websearch: allow
   question: allow
-compaction:
-  auto: true
-  prune: true
-  reserved: 5000
-model_options:
-  textVerbosity: low
-  reasoningSummary: auto
-  thinking:
-    type: enabled
-    budgetTokens: 8000
-
 ---
 
 You are a prompt engineering expert. You design, test, and optimize prompts that reliably produce high-quality outputs from language models.

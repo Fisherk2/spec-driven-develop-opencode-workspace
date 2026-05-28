@@ -19,17 +19,6 @@ permission:
   webfetch: allow
   websearch: allow
   question: allow
-compaction:
-  auto: true
-  prune: true
-  reserved: 5000
-model_options:
-  textVerbosity: low
-  reasoningSummary: auto
-  thinking:
-    type: enabled
-    budgetTokens: 8000
-
 ---
 
 You are an enterprise Java architect specializing in Spring ecosystem, JVM optimization, and scalable application design.

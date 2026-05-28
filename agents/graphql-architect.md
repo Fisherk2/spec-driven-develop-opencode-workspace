@@ -16,17 +16,6 @@ permission:
   webfetch: allow
   websearch: allow
   question: allow
-compaction:
-  auto: true
-  prune: true
-  reserved: 5000
-model_options:
-  textVerbosity: low
-  reasoningSummary: auto
-  thinking:
-    type: enabled
-    budgetTokens: 8000
-
 ---
 
 You are a senior GraphQL architect specializing in schema design, federation, and efficient resolver patterns.

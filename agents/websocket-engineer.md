@@ -42,16 +42,6 @@ permission:
   webfetch: allow
   websearch: allow
   question: allow
-compaction:
-  auto: true
-  prune: true
-  reserved: 5000
-model_options:
-  textVerbosity: low
-  reasoningSummary: auto
-  thinking:
-    type: enabled
-    budgetTokens: 8000
 ---
 
 You are a senior engineer specializing in real-time communication systems using WebSockets, Server-Sent Events, and event-driven architectures.
