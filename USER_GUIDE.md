@@ -12,22 +12,76 @@
 
 ---
 
-## Quick Start
+## 📋 Project Cleanup & Setup
 
-### 1. Clone and install dependencies
+After cloning this template for your own project, follow these steps to strip template-specific content and configure it for your needs.
+
+### 1. Clone the template
 
 ```bash
 git clone https://github.com/Fisherk2/spec-driven-develop-opencode-workspace mi-proyecto && cd mi-proyecto
+```
+
+### 2. Clean up template files
+
+#### README.md
+
+Replace the **entire content** with your own project's README. The template's README contains project-specific branding and descriptions that don't apply to your project.
+
+#### CONTRIBUTING.md
+
+Replace the **entire content** with your own contribution guidelines, or delete the file if you don't need them.
+
+#### CHANGELOG.md
+
+Remove only the **version entries** (the tagged releases `[x.x.x]`), keeping the format definition and structure. Your changelog starts fresh with your own versions.
+
+### 3. Configure opencode.json
+
+Replace `opencode.json` with your preferred models and agent setup:
+
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  "model": "opencode-go/kimi-k2.6",
+  "small_model": "openrouter/z-ai/glm-4.5-air:free",
+
+  "agent": {
+    "huitzilopochtli": {
+      "model": "opencode-go/qwen3.6-plus"
+    },
+    "quetzalcoatl": {
+      "model": "opencode-go/kimi-k2.6"
+    },
+    "tezcatlipoca": {
+      "model": "opencode-go/deepseek-v4-pro"
+    }
+  },
+
+  "instructions": [
+    "CONTRIBUTING.md",
+    "WORKFLOW.md",
+    "SPEC.md"
+  ]
+}
+```
+
+The `instructions` array tells the agent which context files to read on startup. Adjust the list to match your project's documentation.
+
+### 4. Install OpenCode plugin dependencies
+
+```bash
 cd .opencode && bun install && cd ..
 ```
 
-### 2. Configure Context7 (live library docs)
+### 5. Configure Context7 (live library docs)
 
 ```bash
 npx ctx7@latest setup
 ```
 
-### 3. Install Excel MCP Server (local development)
+### 6. (Optional) Install Excel MCP Server
 
 Enables spreadsheet manipulation (.xlsx) directly from agents.
 
@@ -37,7 +91,7 @@ uvx excel-mcp-server stdio
 
 > **Repository:** [github.com/haris-musa/excel-mcp-server](https://github.com/haris-musa/excel-mcp-server)
 
-### 4. (Optional) Jupyter Notebook MCP Server
+### 7. (Optional) Jupyter Notebook MCP Server
 
 Enables AI-powered notebook automation — run code, add markdown, manage packages, and inspect variables in a live Jupyter session.
 
@@ -49,14 +103,14 @@ In `opencode.json`, enable the `jupyter` MCP server (change `"enabled": false` �
 >
 > **Full config reference:** [docs/opencode/03-mcp-servers.md](docs/opencode/03-mcp-servers.md#jupyter-notebook----ai-powered-notebook-automation)
 
-### 5. Verify commands
+### 8. Verify commands
 
 ```bash
 ls .opencode/commands/
 # → build.md  code-simplify.md  plan.md  review.md  ship.md  spec.md  test.md
 ```
 
-### 6. Run your first SDD workflow
+### 9. Run your first SDD workflow
 
 | Step | Command | Phase |
 |------|---------|-------|
@@ -68,6 +122,45 @@ ls .opencode/commands/
 | Ship to production | `/ship` | SHIP |
 
 Skills activate automatically by phase — API design triggers `api-and-interface-design`, UI work triggers `frontend-ui-engineering`, error handling triggers `error-handling-patterns`, and so on.
+
+---
+
+## 🔄 Manual Version Migration
+
+When upgrading from a previous version of this template to a newer one, some files cannot be merged automatically. This section lists which files require manual attention and how to handle each.
+
+### Migration Strategy
+
+```bash
+# 1. Fetch the latest version
+git remote add upstream https://github.com/Fisherk2/spec-driven-develop-opencode-workspace.git
+git fetch upstream
+
+# 2. Compare your project against the latest
+git diff --stat your-branch..upstream/main
+```
+
+### Files to Migrate Manually
+
+| File / Directory | Action | Details |
+|-----------------|--------|---------|
+| `skills/` | Selective diff | Review new, modified, or deprecated skills. Copy new skills entirely; merge changes to existing ones selectively. |
+| `agents/` | Selective diff | System prompts change between versions. Review diffs for your active agents and merge only relevant changes. |
+| `commands/` | Selective diff | Slash command definitions rarely change, but when they do, review the diff and apply updates manually. |
+| `opencode.json` | Selective merge | Model configs, MCP server definitions, and agent settings change between versions. Compare and merge selectively. |
+| `.opencode/` | Review & update | Plugin code, symlinks, and configuration. Update `.opencode/package.json` for new dependencies. |
+| `USER_GUIDE.md` | Selective diff | Reference documentation changes between versions. Review updates relevant to your workflow. |
+| `docs/opencode/` | Selective diff | Technical documentation of OpenCode configuration. Review and accept relevant changes. |
+| `.windsurf/` (optional) | Review | If you use Windsurf, check for configuration changes. |
+
+### Step-by-Step
+
+1. **Fetch upstream** — Add the original repo as a remote and fetch
+2. **Create a migration branch** from your current work
+3. **For each directory**, run `git diff upstream/main -- <path>` and review changes
+4. **Merge selectively** — Apply only the changes that are relevant to your project
+5. **Test** — Verify that your project still works after migration
+6. **Commit** the migration changes
 
 ---
 
