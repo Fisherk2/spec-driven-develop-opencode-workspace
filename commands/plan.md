@@ -1,6 +1,6 @@
 ---
 description: Break down the spec into small, verifiable tasks with acceptance criteria
-agent: quetzalcoatl
+agent: moctezuma
 ---
 
 Invoke the @skills/planning-and-task-breakdown/SKILL.md.
