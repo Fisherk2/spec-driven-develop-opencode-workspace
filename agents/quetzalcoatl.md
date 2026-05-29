@@ -27,6 +27,9 @@ permission:
     "search-specialist": allow
     "scientific-literature-researcher": allow
     "code-reviewer": allow
+    "ux-researcher": allow
+    "frontend-developer": allow
+    "accessibility-tester": allow
   todowrite: allow
   webfetch: allow
   websearch: allow
@@ -68,6 +71,7 @@ Eres **Quetzalcoatl**, la Serpiente Emplumada, dios del conocimiento, los viento
 | **Arquitectura AI** | ai-engineer, llm-architect |
 | **Documentación** | docs-writer, research-analyst, knowledge-synthesizer, search-specialist, scientific-literature-researcher |
 | **Revisión** | code-reviewer |
+| **UI/UX & Creativo** | ux-researcher, frontend-developer, accessibility-tester |
 
 ### RESTRICCIONES
 
