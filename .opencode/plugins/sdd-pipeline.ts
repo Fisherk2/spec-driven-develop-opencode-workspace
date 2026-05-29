@@ -69,10 +69,205 @@ const INTENT_PATTERNS: Record<string, string[]> = {
 
 const DESTRUCTIVE_PATTERNS = ["rm -rf", "git push --force", "DROP TABLE", "DROP DATABASE"]
 
+// ---------------------------------------------------------------------------
+// Agent Detection Patterns
+// ---------------------------------------------------------------------------
+
 const AGENT_DETECT_PATTERNS: Record<string, RegExp[]> = {
-  huitzilopochtli: [/GENERAL PURPOSE AGENT/],
-  quetzalcoatl: [/ARCHITECT OF SPECIFICATIONS PLANNER/, /Planning & Documentation Architect/],
-  tezcatlipoca: [/PLAN EXECUTER/, /BUILD-MODE Agent/],
+  huitzilopochtli: [
+    /HUITZILOPOCHTLI/,
+    /Supreme Orchestrator/,
+    /LEFT-HANDED HUMMINGBIRD/,
+    /NEVER writes a single line/,
+  ],
+  quetzalcoatl: [
+    /QUETZALCOATL/,
+    /Visionary Sage/,
+    /FEATHERED SERPENT/,
+    /CONCEIVE the architectural vision/,
+  ],
+  moctezuma: [
+    /MOCTEZUMA/,
+    /Strategic Commander/,
+    /STRATEGIST AND COMMANDER/,
+    /DECOMPOSE the vision/,
+  ],
+  tlaloc: [
+    /TLALOC/,
+    /Rain God Builder/,
+    /rain that nourishes/,
+    /MATERIALIZE code/,
+  ],
+  mictlantecuhtli: [
+    /MICTLANTECUHTLI/,
+    /Lord of the Underworld/,
+    /JUDGE AND GUARDIAN/,
+    /VALIDATE that code/,
+  ],
+  tezcatlipoca: [
+    /TEZCATLIPOCA/,
+    /Smoking Mirror/,
+    /SMOKING MIRROR/,
+    /OBSERVE and CRITICIZE/,
+  ],
+}
+
+// ---------------------------------------------------------------------------
+// Tool Permissions Matrix
+// ---------------------------------------------------------------------------
+
+const TOOL_PERMISSIONS: Record<string, Record<string, "allow" | "deny" | "ask">> = {
+  huitzilopochtli: {
+    write: "deny",
+    edit: "deny",
+    patch: "deny",
+    bash: "ask",
+    task: "allow",
+    skill: "allow",
+  },
+  quetzalcoatl: {
+    write: "deny",
+    edit: "deny",
+    patch: "deny",
+    bash: "ask",
+    task: "allow",
+    skill: "allow",
+  },
+  moctezuma: {
+    write: "allow",
+    edit: "allow",
+    patch: "allow",
+    bash: "ask",
+    task: "deny",
+    skill: "allow",
+  },
+  tlaloc: {
+    write: "allow",
+    edit: "allow",
+    patch: "allow",
+    bash: "ask",
+    task: "ask",
+    skill: "allow",
+  },
+  mictlantecuhtli: {
+    write: "allow",
+    edit: "allow",
+    patch: "allow",
+    bash: "ask",
+    task: "allow",
+    skill: "allow",
+  },
+  tezcatlipoca: {
+    write: "deny",
+    edit: "deny",
+    patch: "deny",
+    bash: "ask",
+    task: "deny",
+    skill: "allow",
+  },
+}
+
+// ---------------------------------------------------------------------------
+// Bash Write Rules (deny for read-only agents)
+// ---------------------------------------------------------------------------
+
+const AGENT_BASH_DENY_RULES: Record<string, string[]> = {
+  quetzalcoatl: [
+    "> *", ">> *",
+    "touch *", "mkdir *",
+    "cp *", "mv *", "rm *",
+    "chmod *", "chown *", "ln *",
+    "git add *", "git commit *", "git push *", "git stash *",
+  ],
+  tezcatlipoca: [
+    "> *", ">> *",
+    "touch *", "mkdir *",
+    "cp *", "mv *", "rm *",
+    "chmod *", "chown *", "ln *",
+    "git add *", "git commit *", "git push *", "git stash *",
+  ],
+  moctezuma: [
+    "> *", ">> *",
+    "touch *", "mkdir *",
+    "cp *", "mv *", "rm *",
+    "git add *", "git commit *", "git push *", "git stash *",
+  ],
+  huitzilopochtli: [
+    "> *", ">> *",
+    "touch *", "mkdir *",
+    "cp *", "mv *", "rm *",
+    "chmod *", "chown *", "ln *",
+    "git add *", "git commit *", "git push *", "git stash *",
+  ],
+}
+
+// ---------------------------------------------------------------------------
+// SDD Phase Enforcement
+// ---------------------------------------------------------------------------
+
+const PHASE_AGENT_ALLOWLIST: Record<string, string[]> = {
+  idle: ["huitzilopochtli", "quetzalcoatl", "moctezuma"],
+  define: ["quetzalcoatl"],
+  plan: ["moctezuma"],
+  build: ["tlaloc"],
+  verify: ["mictlantecuhtli"],
+  review: ["tezcatlipoca"],
+  ship: ["mictlantecuhtli"],
+}
+
+// ---------------------------------------------------------------------------
+// Agent Role Rules
+// ---------------------------------------------------------------------------
+
+const AGENT_ROLE_RULES: Record<string, string[]> = {
+  huitzilopochtli: [
+    "### Role Rules",
+    "You are **Huitzilopochtli** — Supreme Orchestrator.",
+    "- **ONLY** analyze intent and delegate to subagents.",
+    "- You DO NOT write code. You DO NOT write documentation.",
+    "- You invoke subagents via `task()` to execute work.",
+    "- Your value is in orchestration and delegation decisions.",
+  ],
+  quetzalcoatl: [
+    "### Role Rules",
+    "You are **Quetzalcoatl** — Visionary Architect.",
+    "- **PLAN and DESIGN** specifications, architectures, diagrams.",
+    "- You DO NOT write code — NEVER.",
+    "- Delegate documentation to subagents (docs-writer, etc.).",
+    "- Your value is in architectural vision and direction.",
+  ],
+  moctezuma: [
+    "### Role Rules",
+    "You are **Moctezuma** — Strategic Commander.",
+    "- **DECOMPOSE** visions into executable tasks and plans.",
+    "- You write plans and task breakdowns.",
+    "- You DO NOT write code — NEVER.",
+    "- You DO NOT delegate — write all plans directly.",
+  ],
+  tlaloc: [
+    "### Role Rules",
+    "You are **Tlaloc** — Rain God Builder.",
+    "- **IMPLEMENT** code, tests, infrastructure.",
+    "- You write code and technical documentation.",
+    "- Delegate to specialized subagents when needed.",
+    "- Your value is in materializing specifications into working code.",
+  ],
+  mictlantecuhtli: [
+    "### Role Rules",
+    "You are **Mictlantecuhtli** — Underworld Judge.",
+    "- **VALIDATE** code quality, run tests, prepare deployment.",
+    "- You write tests and validation reports.",
+    "- Delegate to review/audit subagents for deep analysis.",
+    "- Your value is in ensuring code meets quality standards.",
+  ],
+  tezcatlipoca: [
+    "### Role Rules",
+    "You are **Tezcatlipoca** — Smoking Mirror Critic.",
+    "- **OBSERVE and CRITICIZE** code — NEVER write.",
+    "- You DO NOT write code. You DO NOT write documentation.",
+    "- You DO NOT invoke subagents.",
+    "- Your value is in perception and critique, not action.",
+  ],
 }
 
 const SPEC_SECTIONS = ["objective", "commands", "structure", "code style", "testing", "boundaries"]
@@ -159,36 +354,11 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
   // ── Build role rules per agent type ────────────────────────────────────
 
   const buildRoleRules = (): string[] => {
-    switch (sddState.agent_type) {
-      case "huitzilopochtli":
-        return [
-          "### Role Rules",
-          "You are the **General Purpose Agent** — full lifecycle across domains.",
-          "- Research, plan, write code, document, execute. No SDD restrictions apply.",
-          "- You have write/edit access. Use it responsibly.",
-        ]
-      case "quetzalcoatl":
-        return [
-          "### Role Rules",
-          "You are the **Architect of Specifications** — PLANNING & DOCUMENTATION MODE.",
-          "- Read, plan, design, review, document. NEVER write or edit code.",
-          "- Produce specs, plans, ADRs, diagrams, and documentation only.",
-        ]
-      case "tezcatlipoca":
-        return [
-          "### Role Rules",
-          "You are the **Build Agent** — BUILD MODE.",
-          "- Implement, build, test, configure, execute plans.",
-          "- Write code, run tests. NEVER modify SPEC.md or specs/ files.",
-        ]
-      default:
-        return [
-          "### Role Rules",
-          `Operating as: **${sddState.agent_type}**.`,
-          "If you are an analysis agent: read, plan, review. NEVER write code.",
-          "If you are an implement agent: build, test. NEVER modify specs.",
-        ]
-    }
+    return AGENT_ROLE_RULES[sddState.agent_type] ?? [
+      "### Role Rules",
+      `Operating as: **${sddState.agent_type}**.`,
+      "Follow your agent-specific permissions and restrictions.",
+    ]
   }
 
   // ── Build injected context strings ───────────────────────────────────────
@@ -208,6 +378,21 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
       ...buildRoleRules(),
     ]
     return lines.join("\n")
+  }
+
+  // ── Bash command matching ────────────────────────────────────────────────
+
+  const matchBashCommand = (cmd: string, pattern: string): boolean => {
+    // Simple glob-like matching
+    const regex = new RegExp(
+      "^" +
+      pattern
+        .replace(/[.+^${}()|[\]\\]/g, "\\$&")
+        .replace(/\*/g, ".*")
+        .replace(/\s+/g, "\\s+") +
+      "$"
+    )
+    return regex.test(cmd.trim())
   }
 
   // ── Hooks ────────────────────────────────────────────────────────────────
@@ -274,7 +459,7 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
 
     /**
      * Fires before a tool executes.
-     * Blocks destructive commands and enforces quetzalcoatl/tezcatlipoca role separation.
+     * Enforces tool permissions, bash write rules, and SDD phase enforcement.
      */
     "tool.execute.before": async (
       input: unknown,
@@ -286,6 +471,7 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
       try {
         const tool = inp?.tool ?? ""
         const args = out?.args ?? {}
+        const agentType = sddState.agent_type
 
         // --- Always block destructive commands ---
         if (tool === "Bash" || tool === "bash") {
@@ -300,26 +486,44 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
           }
         }
 
-        // --- Block quetzalcoatl agents from writing code ---
-        if (sddState.agent_type === "quetzalcoatl") {
-          if (tool === "Edit" || tool === "Write") {
-            audit("tool.before", `BLOCKED ${tool}: quetzalcoatl agent writing code`)
+        // --- Tool Permissions Matrix ---
+        const agentPermissions = TOOL_PERMISSIONS[agentType]
+        if (agentPermissions) {
+          const toolLower = tool.toLowerCase()
+          const permission = agentPermissions[toolLower]
+
+          if (permission === "deny") {
+            audit("tool.before", `BLOCKED ${tool}: ${agentType} not allowed`)
             throw new Error(
-              "[sdd-pipeline] Quetzalcoatl agent cannot write code. Switch to BUILD mode with /build.",
+              `[sdd-pipeline] Agent ${agentType} cannot use ${tool}.`,
             )
           }
         }
 
-        // --- Block tezcatlipoca agents from modifying specs ---
-        if (sddState.agent_type === "tezcatlipoca") {
-          const filePath = ((args.filePath ?? args.file) as string) ?? ""
-          if (filePath.includes("SPEC.md") || filePath.includes("specs/")) {
-            audit("tool.before", `BLOCKED ${tool}: tezcatlipoca agent modifying specs`)
-            throw new Error(
-              "[sdd-pipeline] Tezcatlipoca agent cannot modify specs. Use /spec to request changes.",
-            )
+        // --- Bash Write Rules per Agent ---
+        if (tool === "Bash" || tool === "bash") {
+          const cmd = (args.command as string) ?? ""
+          const bashDenyRules = AGENT_BASH_DENY_RULES[agentType] ?? []
+
+          for (const pattern of bashDenyRules) {
+            if (matchBashCommand(cmd, pattern)) {
+              audit("tool.before", `BLOCKED bash: write command for ${agentType}`)
+              throw new Error(
+                `[sdd-pipeline] Agent ${agentType} cannot execute write commands in bash.`,
+              )
+            }
           }
         }
+
+        // --- SDD Phase Enforcement ---
+        const allowedAgents = PHASE_AGENT_ALLOWLIST[sddState.pipeline_phase]
+        if (allowedAgents && !allowedAgents.includes(agentType)) {
+          audit("tool.before", `BLOCKED: ${agentType} not allowed in phase ${sddState.pipeline_phase}`)
+          throw new Error(
+            `[sdd-pipeline] Agent ${agentType} is not allowed in phase ${sddState.pipeline_phase}.`,
+          )
+        }
+
       } catch (err: unknown) {
         // Re-throw our own blocking errors; log everything else
         if (err instanceof Error && err.message.includes("sdd-pipeline")) throw err
