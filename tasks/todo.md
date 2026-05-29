@@ -105,11 +105,25 @@
 - [x] **7.7.3** `docs/opencode/09-agent-index.md` — Actualizar sección Primary Agents (3 → 6)
 - [x] **7.7.4** `README.md` — Actualizar sección "Agentes Principales" con lore mexica completo
 
+#### 7.8 Comandos actualizados
+- [x] **7.8.1** `commands/spec.md` — Asignar a quetzalcoatl
+- [x] **7.8.2** `commands/plan.md` — Asignar a moctezuma
+- [x] **7.8.3** `commands/build.md` — Asignar a tlaloc
+- [x] **7.8.4** `commands/test.md` — Asignar a mictlantecuhtli
+- [x] **7.8.5** `commands/review.md` — Asignar a tezcatlipoca
+- [x] **7.8.6** `commands/code-simplify.md` — Asignar a tlaloc
+- [x] **7.8.7** `commands/ship.md` — Asignar a mictlantecuhtli, expandir fan-out a 5 subagentes
+
+#### 7.9 Nuevo comando /design
+- [x] **7.9.1** `commands/design.md` — Crear comando con fan-out a 3 subagentes UI/UX
+- [x] **7.9.2** `agents/quetzalcoatl.md` — Agregar ux-researcher, frontend-developer, accessibility-tester a task allowlist
+- [x] **7.9.3** `agents/quetzalcoatl.md` — Actualizar tabla SUBAGENTES DISPONIBLES con dominio UI/UX & Creativo
+
 ### Branch 2 — Finalización
 
-- [ ] **BC4** Commit cambios en `feat/agent-permission-hierarchy`
-- [ ] **BC5** Fusionar en `develop`: `git checkout develop && git merge feat/agent-permission-hierarchy`
-- [ ] **BC6** Eliminar branch local: `git branch -d feat/agent-permission-hierarchy`
+- [x] **BC4** Commit cambios en `feat/agent-permission-hierarchy`
+- [x] **BC5** Fusionar en `develop`: `git checkout develop && git merge feat/agent-permission-hierarchy`
+- [x] **BC6** Eliminar branch local: `git branch -d feat/agent-permission-hierarchy`
 
 ---
 
@@ -176,6 +190,6 @@
 | Branch | Avance | Estado |
 |--------|:------:|:------:|
 | `docs/quickstart-migration` | 25/25 tasks | ✅ Completada |
-| `feat/agent-permission-hierarchy` | 33/33 tasks | 🔍 En revisión (no mergear) |
+| `feat/agent-permission-hierarchy` | 36/36 tasks | ✅ Completada |
 | `feat/plugin-orchestration` | 0/21 tasks | ⏳ Pendiente |
-| **Total** | **0/79 tasks** | **⏳ Sin iniciar** |
+| **Total** | **61/82 tasks** | **🔄 En progreso** |
