@@ -198,6 +198,54 @@ const AGENT_BASH_DENY_RULES: Record<string, string[]> = {
 }
 
 // ---------------------------------------------------------------------------
+// SDD Phase Suggestions (advisory, not enforced)
+// ---------------------------------------------------------------------------
+
+const PHASE_SUGGESTIONS: Record<string, Record<string, string>> = {
+  idle: {},
+  define: {
+    moctezuma: 'Consider /spec or /design first to define requirements.',
+    tlaloc: 'Consider /spec first to define requirements.',
+    mictlantecuhtli: 'Consider /spec first to define requirements.',
+    tezcatlipoca: 'Consider /spec first to define requirements.',
+  },
+  plan: {
+    quetzalcoatl: 'Consider /spec or /design first to define requirements.',
+    tlaloc: 'Consider /plan first to break work into tasks.',
+    mictlantecuhtli: 'Consider /plan first to break work into tasks.',
+    tezcatlipoca: 'Consider /plan first to break work into tasks.',
+  },
+  build: {
+    huitzilopochtli: 'Consider /plan first to break work into tasks.',
+    quetzalcoatl: 'Consider /spec or /design first, then /plan.',
+    moctezuma: 'Consider /plan first, then /build.',
+    mictlantecuhtli: 'Consider /build first to implement code.',
+    tezcatlipoca: 'Consider /build first to implement code.',
+  },
+  verify: {
+    huitzilopochtli: 'Consider /build first to implement code.',
+    quetzalcoatl: 'Consider /spec → /plan → /build before testing.',
+    moctezuma: 'Consider /build first, then /test.',
+    tlaloc: 'Consider /test to verify your implementation.',
+    tezcatlipoca: 'Consider /test to verify code quality.',
+  },
+  review: {
+    huitzilopochtli: 'Consider /test first to verify code quality.',
+    quetzalcoatl: 'Consider /spec → /plan → /build → /test before review.',
+    moctezuma: 'Consider /test first, then /review.',
+    tlaloc: 'Consider /test first, then /review.',
+    mictlantecuhtli: 'Consider /review to audit code quality.',
+  },
+  ship: {
+    huitzilopochtli: 'Consider /test and /review before shipping.',
+    quetzalcoatl: 'Consider full SDD cycle before shipping.',
+    moctezuma: 'Consider /test and /review before shipping.',
+    tlaloc: 'Consider /test and /review before shipping.',
+    tezcatlipoca: 'Consider /ship to prepare deployment.',
+  },
+}
+
+// ---------------------------------------------------------------------------
 // Agent Role Rules
 // ---------------------------------------------------------------------------
 
@@ -400,8 +448,15 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
         }
 
         // Inject SDD state at the beginning so it appears early in the system prompt
-        out.system.unshift(buildSddContext())
-        audit("system.transform", `Injected SDD state (agent: ${sddState.agent_type})`)
+        const sddContext = buildSddContext()
+        
+        // Add phase suggestion if agent is used outside typical phase
+        const suggestion = PHASE_SUGGESTIONS[sddState.pipeline_phase]?.[sddState.agent_type]
+        const suggestionLine = suggestion ? `
+> **Suggestion:** ${suggestion}` : ''
+        
+        out.system.unshift(sddContext + suggestionLine)
+        audit("system.transform", `Injected SDD state (agent: ${sddState.agent_type}, phase: ${sddState.pipeline_phase})`)
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : String(err)
         console.error("[sdd-pipeline] Error in system.transform:", msg)
