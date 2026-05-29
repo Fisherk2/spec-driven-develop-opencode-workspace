@@ -203,7 +203,7 @@ const TOOL_PERMISSIONS: Record<string, Record<string, "allow" | "deny" | "ask">>
     edit: "allow",
     patch: "allow",
     bash: "allow",
-    task: "ask",
+    task: "allow",
     skill: "allow",
   },
   mictlantecuhtli: {
