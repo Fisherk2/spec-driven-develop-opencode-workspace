@@ -34,13 +34,18 @@ Commands also automatically trigger complementary skills. For example, `/build` 
 
 ### 2. Provides Agent Personas
 
-The `agents/` directory contains **99 agents**: 3 primary agents (SDD orchestration) and 96 specialized subagents. The 3 main agents are directly invocable:
+The `agents/` directory contains **102 agents**: 6 primary agents (SDD orchestration) and 96 specialized subagents. The 6 main agents are directly invocable:
 
-- `huitzilopochtli` — General purpose, full lifecycle in any domain
-- `quetzalcoatl` — Architect of Specifications: analyze, design, plan
-- `tezcatlipoca` — Build Agent: execute validated implementation plans
+| Agent | Role | Command |
+|-------|------|---------|
+| `huitzilopochtli` | Supreme Orchestrator — pure delegation | Any task needing orchestration |
+| `quetzalcoatl` | Visionary Architect — specs and design | `/spec`, `/design` |
+| `moctezuma` | Strategic Commander — task breakdown | `/plan` |
+| `tlaloc` | Rain God Builder — code implementation | `/build`, `/code-simplify` |
+| `mictlantecuhtli` | Underworld Judge — testing and validation | `/test`, `/ship` |
+| `tezcatlipoca` | Smoking Mirror Critic — code review | `/review` |
 
-> For the complete subagent catalog (90+ specialists in frontend, backend, devops, testing, security, etc.), see [09-agent-index.md](./09-agent-index.md).
+> For the complete subagent catalog (96 specialists in frontend, backend, devops, testing, security, etc.), see [09-agent-index.md](./09-agent-index.md).
 
 Commands like `/review` and `/ship` automatically compose multiple agents.
 
@@ -56,15 +61,59 @@ Skills are activated both through slash commands and automatically based on cont
 
 ---
 
-## First Steps After Opening the Project
+## First Steps After Opening OpenCode
 
-### 1. Install Plugin Dependencies
+### 1. Configure opencode.json
+
+Edit `opencode.json` to set your models, agents, context files, and MCP servers:
+
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // Primary models
+  "model": "openrouter/openrouter/free",
+  "small_model": "openrouter/z-ai/glm-4.5-air:free",
+
+  // Per-agent model overrides (each agent can use a different model)
+  "agent": {
+    "huitzilopochtli": { "model": "openrouter/openrouter/free" },
+    "quetzalcoatl":    { "model": "opencode/big-pickle" },
+    "moctezuma":       { "model": "openrouter/deepseek/deepseek-v4-flash:free" },
+    "tlaloc":          { "model": "opencode/mimo-v2.5-free" },
+    "mictlantecuhtli": { "model": "opencode/mimo-v2.5-free" },
+    "tezcatlipoca":    { "model": "opencode/big-pickle" }
+  },
+
+  // Context files loaded on startup
+  "instructions": [
+    "CONTRIBUTING.md",
+    "WORKFLOW.md",
+    "SPEC.md"
+  ],
+
+  // MCP servers (add the ones you need)
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true
+    }
+  }
+}
+```
+
+**Customization tips:**
+- Execute `opencode models` to search connected LLMs and providers
+- Add MCP servers as needed — see [03-mcp-servers.md](./03-mcp-servers.md) for all options
+
+### 2. Install Plugin Dependencies
 
 ```bash
 cd .opencode && bun install && cd ..
 ```
 
-### 2. Configure Context7 (Optional but Recommended)
+### 3. Configure Context7 (Optional but Recommended)
 
 Context7 provides up-to-date documentation for any library or framework:
 
@@ -74,7 +123,7 @@ npx ctx7@latest setup
 
 Once configured, the `find-docs` skill automatically retrieves current API documentation when you ask about any library.
 
-### 3. Start with the Meta-Skill
+### 4. Start with the Meta-Skill
 
 Load the [Meta-Skill](../../skills/using-agent-skills/SKILL.md) to discover which skill applies to your current task. It contains:
 - A **decision tree** that maps task types (implement code, design API, debug, etc.) to the appropriate skill
@@ -83,7 +132,7 @@ Load the [Meta-Skill](../../skills/using-agent-skills/SKILL.md) to discover whic
 
 > This is the canonical entry point for skill discovery. Both agents and humans should consult it when unsure which skill applies.
 
-### 4. Run Your First Workflow
+### 5. Run Your First Workflow
 
 ```bash
 /spec "Describe what you want to build"
@@ -101,6 +150,20 @@ Load the [Meta-Skill](../../skills/using-agent-skills/SKILL.md) to discover whic
 ---
 
 ## Configuration Files
+
+### opencode.json
+
+The main configuration file. Key parameters:
+
+| Parameter | Purpose | Required |
+|-----------|---------|:--------:|
+| `model` | Primary model used by agents | ✅ |
+| `small_model` | Fast/cheap model for lightweight tasks | ✅ |
+| `agent` | Per-agent model overrides | ✅ |
+| `instructions` | Context files loaded on startup | ✅ |
+| `mcp` | MCP server connections | Optional |
+
+See [04-models.md](./04-models.md) for model configuration details and [03-mcp-servers.md](./03-mcp-servers.md) for MCP server options.
 
 ### AGENTS.md
 
@@ -129,8 +192,12 @@ Contains the required OpenCode plugin dependency:
 | Problem | Possible Cause | Solution |
 |---------|----------------|----------|
 | `/spec` doesn't work | Plugin not installed | Run `cd .opencode && bun install` |
+| Context7 quota error | API limit reached | Run `npx ctx7@latest login` or set `CONTEXT7_API_KEY` |
+| Skills won't load | Wrong path or session not restarted | Use `skills/<skill-name>/SKILL.md` path, then restart OpenCode |
+| New skills not recognized | Session cached before install | Restart OpenCode after adding or updating skills in `skills/` |
+| Agent not found or not available | Agent disabled or hidden in `opencode.json` | Check `opencode.json` for `"disable": true` or `"hidden": true` on the agent |
 
-> **For the complete troubleshooting table (Context7, skills, and more):** see [USER_GUIDE.md](../../USER_GUIDE.md#troubleshooting).
+> **For more troubleshooting (Jupyter MCP, Excel MCP, Git issues):** see [USER_GUIDE.md](../../USER_GUIDE.md#troubleshooting).
 
 ---
 
@@ -141,4 +208,4 @@ Contains the required OpenCode plugin dependency:
 | [Meta-Skill (using-agent-skills)](../../skills/using-agent-skills/SKILL.md) | Decision tree for skill discovery, core operational behaviors, failure modes, and Quick Reference index of all skills |
 | [USER_GUIDE.md](../../USER_GUIDE.md) | Complete reference of the 43 skills, commands, and workflows |
 | [08-orchestration-patterns.md](./08-orchestration-patterns.md) | Agent personas, orchestration patterns, and decision matrix |
-| [09-agent-index.md](./09-agent-index.md) | Complete catalog of the 99 agents classified by domain |
+| [09-agent-index.md](./09-agent-index.md) | Complete catalog of the 102 agents classified by domain |
