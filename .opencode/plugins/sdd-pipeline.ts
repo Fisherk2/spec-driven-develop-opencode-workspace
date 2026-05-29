@@ -28,8 +28,13 @@ const INTENT_PATTERNS: Record<string, string[]> = {
   "/spec": [
     "nueva feature", "requisito", "idea", "necesito", "quiero crear",
     "new feature", "requirement", "spec", "especificacion", "especifica",
-    "create", "define", "write spec", "documentation", "specification",
-    "what should", "design", "describe", "proposal", "need a feature",
+    "create", "define", "write spec", "specification",
+    "what should", "proposal", "need a feature",
+  ],
+  "/design": [
+    "design", "diseña", "diseñar", "ui", "ux", "interface", "interfaz",
+    "mockup", "wireframe", "layout", "component design", "design system",
+    "user experience", "user interface", "visual", "frontend design",
   ],
   "/plan": [
     "planifica", "divide", "tasks", "plan", "divide en tareas",
@@ -177,42 +182,19 @@ const AGENT_BASH_DENY_RULES: Record<string, string[]> = {
     "touch *", "mkdir *",
     "cp *", "mv *", "rm *",
     "chmod *", "chown *", "ln *",
-    "git add *", "git commit *", "git push *", "git stash *",
   ],
   tezcatlipoca: [
     "> *", ">> *",
     "touch *", "mkdir *",
     "cp *", "mv *", "rm *",
     "chmod *", "chown *", "ln *",
-    "git add *", "git commit *", "git push *", "git stash *",
-  ],
-  moctezuma: [
-    "> *", ">> *",
-    "touch *", "mkdir *",
-    "cp *", "mv *", "rm *",
-    "git add *", "git commit *", "git push *", "git stash *",
   ],
   huitzilopochtli: [
     "> *", ">> *",
     "touch *", "mkdir *",
     "cp *", "mv *", "rm *",
     "chmod *", "chown *", "ln *",
-    "git add *", "git commit *", "git push *", "git stash *",
   ],
-}
-
-// ---------------------------------------------------------------------------
-// SDD Phase Enforcement
-// ---------------------------------------------------------------------------
-
-const PHASE_AGENT_ALLOWLIST: Record<string, string[]> = {
-  idle: ["huitzilopochtli", "quetzalcoatl", "moctezuma"],
-  define: ["quetzalcoatl"],
-  plan: ["moctezuma"],
-  build: ["tlaloc"],
-  verify: ["mictlantecuhtli"],
-  review: ["tezcatlipoca"],
-  ship: ["mictlantecuhtli"],
 }
 
 // ---------------------------------------------------------------------------
@@ -269,8 +251,6 @@ const AGENT_ROLE_RULES: Record<string, string[]> = {
     "- Your value is in perception and critique, not action.",
   ],
 }
-
-const SPEC_SECTIONS = ["objective", "commands", "structure", "code style", "testing", "boundaries"]
 
 const MAX_AUDIT_LINES = 500
 
@@ -513,15 +493,6 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
               )
             }
           }
-        }
-
-        // --- SDD Phase Enforcement ---
-        const allowedAgents = PHASE_AGENT_ALLOWLIST[sddState.pipeline_phase]
-        if (allowedAgents && !allowedAgents.includes(agentType)) {
-          audit("tool.before", `BLOCKED: ${agentType} not allowed in phase ${sddState.pipeline_phase}`)
-          throw new Error(
-            `[sdd-pipeline] Agent ${agentType} is not allowed in phase ${sddState.pipeline_phase}.`,
-          )
         }
 
       } catch (err: unknown) {
