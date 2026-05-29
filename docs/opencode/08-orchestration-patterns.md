@@ -10,7 +10,7 @@ The governing rule: **the user (or a slash command) is the orchestrator. Persona
 
 Specialist personas that play a single role with a single perspective. Each persona is a Markdown file in `agents/` (sincronizado con `.opencode/agents/`) y consumido como system prompt por OpenCode.
 
-> **Full agent catalog (90+ subagents):** See [09-agent-index.md](./09-agent-index.md) for the complete classified index of all available subagents. This section only lists the 6 primary agents that participate in orchestration patterns.
+> **Full agent catalog (96 subagents):** See [09-agent-index.md](./09-agent-index.md) for the complete classified index of all available subagents. This section only lists the 6 primary agents that participate in orchestration patterns.
 
 | Persona | Role | Best for |
 |---------|------|----------|
@@ -37,7 +37,7 @@ The user (or a slash command) is the orchestrator. **Personas do not call other 
 
 **Direct persona invocation** — Pick this when you want one perspective on the current change and the user is in the loop.
 
-> For the full catalog of 90+ available subagents beyond those listed here, see [09-agent-index.md](./09-agent-index.md).
+> For the full catalog of 96 available subagents beyond those listed here, see [09-agent-index.md](./09-agent-index.md).
 
 - "Handle any general task end-to-end" → invoke `huitzilopochtli` directly
 - "Review this PR" → invoke `code-reviewer` directly
@@ -59,24 +59,26 @@ The user (or a slash command) is the orchestrator. **Personas do not call other 
 
 **Slash command (single persona behind it)** — Pick this when there's a repeatable workflow you'd otherwise re-explain every time.
 
-- `/review` → wraps `code-reviewer` with the project's review skill
-- `/test` → wraps `test-engineer` with TDD skill
+- `/review` → wraps `tezcatlipoca` with the project's review skill
+- `/test` → wraps `mictlantecuhtli` with TDD skill
+- `/code-simplify` → wraps `tlaloc` with code simplification skill
 
 **Slash command (orchestrator — fan-out)** — Pick this only when **independent** investigations can run in parallel and produce reports that a single agent then merges.
 
-- `/ship` → fans out to `code-reviewer` + `security-auditor` + `test-engineer` + `deployment-engineer` + `dependency-manager` in parallel, then synthesizes their reports into a go/no-go decision
+- `/ship` → `mictlantecuhtli` orchestrates fan-out to `code-reviewer` + `security-auditor` + `test-engineer` + `dependency-manager` + `accessibility-tester` in parallel, then synthesizes their reports into a go/no-go decision
 
 ### Rules for personas
 
 1. A persona is a single role with a single output format. If you find yourself adding a second role, create a second persona.
 2. **Personas do not invoke other personas.** Composition is the job of slash commands or the user. This rule refers to OpenCode personas (files in `agents/` loaded as system prompts). It does **not** prohibit a persona from delegating specialized sub-tasks to subagents via the `task` tool — that is a different mechanism (isolated sub-contexts, not persona chaining).
 3. A persona may invoke skills (the *how*).
-4. **All primary agents may delegate specialized sub-tasks to subagents**, subject to domain boundaries:
-   - A general-purpose persona (e.g., `huitzilopochtli`) may delegate to any subagent in the catalog for any domain.
-   - A specialized primary agent (e.g., `quetzalcoatl`, `tezcatlipoca`) may delegate only to subagents relevant to its domain (analysis/review for quetzalcoatl; build/debug for tezcatlipoca). The core work must stay in the primary agent; delegation is for isolated, narrow concerns.
+4. **All primary agents may delegate specialized sub-tasks to subagents**, subject to task allowlists:
+   - `huitzilopochtli` (orchestrator) may delegate to any subagent in the catalog (flexible).
+   - `quetzalcoatl` (architect) may delegate only to architecture, data, documentation, and review subagents.
+   - `tlaloc` (builder) may delegate to implementation, testing, DevOps, AI, and security subagents.
    - `moctezuma` (planner) does NOT delegate — writes plans directly.
    - `mictlantecuhtli` (judge) does NOT delegate — writes and runs tests directly.
-   - `tlaloc` (builder) may delegate to implementation subagents when specialized expertise is needed.
+   - `tezcatlipoca` (critic) does NOT delegate — only observes and critiques.
 5. Every persona file ends with a "Composition" block stating where it fits.
 
 ---
@@ -121,12 +123,12 @@ user → code-reviewer → report → user
 A slash command that wraps one persona with the project's skills. Saves the user from re-explaining the workflow every time.
 
 ```
-/review → code-reviewer (with code-review-and-quality skill) → report
+/review → tezcatlipoca (with code-review-and-quality skill) → report
 ```
 
 **Use when:** the same single-persona invocation happens repeatedly with the same setup.
 
-**Examples in this repo:** `/review`, `/test`, `/code-simplify`.
+**Examples in this repo:** `/review` (tezcatlipoca), `/test` (mictlantecuhtli), `/code-simplify` (code-simplifier).
 
 **Cost:** same as direct invocation. The slash command is just a saved prompt.
 
@@ -142,8 +144,8 @@ Multiple personas operate on the same input concurrently, each producing an inde
                     ┌─→ code-reviewer       ─┐
                     ├─→ security-auditor    ─┤
 /ship → fan out  ───┼─→ test-engineer       ─┤→ merge → go/no-go + rollback
-                    ├─→ deployment-engineer ─┤
-                    └─→ dependency-manager  ─┘
+                    ├─→ dependency-manager  ─┤
+                    └─→ accessibility-tester ─┘
 ```
 
 **Use when:**
@@ -152,7 +154,7 @@ Multiple personas operate on the same input concurrently, each producing an inde
 - The merge step is small enough to stay in the main context
 - Wall-clock latency matters
 
-**Examples in this repo:** `/ship`.
+**Examples in this repo:** `/ship` (mictlantecuhtli orchestrates parallel review).
 
 **Cost:** N parallel sub-agent contexts + one merge turn. Higher than direct invocation, but faster wall-clock and produces better reports because each sub-agent stays focused on its single perspective.
 
@@ -161,6 +163,7 @@ Multiple personas operate on the same input concurrently, each producing an inde
 - They have no dependencies on each other → genuine parallelism, real wall-clock savings
 - Each runs in a fresh context window → main session stays uncluttered
 - The merge step is small and benefits from full context, so it stays in the main agent
+- Five perspectives cover all launch concerns: code quality, security, testing, dependencies, and accessibility
 
 **Validation checklist before adopting this pattern:**
 - [ ] Can I run all sub-agents at the same time without ordering issues?
@@ -237,7 +240,7 @@ user → huitzilopochtli (general purpose)
 - The agent handles the full lifecycle; delegation is a small part of the workflow, not the entirety of it.
 - The user invokes it for the agent's own capabilities, not as a dispatcher.
 
-**NOTE:** This pattern is exclusive to general-purpose personas like `huitzilopochtli`. Specialized subagents (code reviewers, security auditors, etc.) should **not** adopt it, as that would violate the single-perspective rule (Rule 1). However, specialized **primary agents** (like `quetzalcoatl` and `tezcatlipoca`) have their own version of delegation — see [Pattern 7](#7-specialized-primary-agent-with-targeted-delegation).
+**NOTE:** This pattern is exclusive to general-purpose personas like `huitzilopochtli`. Specialized subagents (code reviewers, security auditors, etc.) should **not** adopt it, as that would violate the single-perspective rule (Rule 1). However, specialized **primary agents** (like `quetzalcoatl` and `tlaloc`) have their own version of delegation — see [Pattern 7](#7-specialized-primary-agent-with-targeted-delegation).
 
 ---
 
@@ -253,7 +256,7 @@ user → quetzalcoatl (analysis/planning)
       spec → user
 ```
 ```
-user → tezcatlipoca (build/execution)
+user → tlaloc (build/execution)
          ↓ (implements, tests, builds core work)
          └─→ delegates to build subagents (debugger, db-optimizer, docker-expert, etc.)
          ↓ (integrates results)
@@ -268,7 +271,7 @@ user → tezcatlipoca (build/execution)
 
 **Examples in this repo:**
 - `quetzalcoatl` delegates code review to `code-reviewer`, security audit to `security-auditor`, or database analysis to `database-optimizer` while keeping control of the spec
-- `tezcatlipoca` delegates a tricky bug to `debugger`, schema design to `database-optimizer`, or Docker optimization to `docker-expert` while keeping control of the build
+- `tlaloc` delegates a tricky bug to `debugger`, schema design to `database-optimizer`, or Docker optimization to `docker-expert` while keeping control of the build
 
 **Cost:** one main context + one isolated subagent context per delegation. Each delegation costs 1 step from the primary agent's step budget.
 
@@ -280,7 +283,7 @@ user → tezcatlipoca (build/execution)
 **Rules for delegation:**
 - The core work stays in the primary agent — delegation is for isolated, narrow concerns only
 - Each delegated subagent must be relevant to the primary agent's domain (analysis → analysis subs; build → build subs)
-- Do NOT delegate to other Primary Agents (huitzilopochtli, quetzalcoatl, tezcatlipoca) — those are for the user to invoke
+- Do NOT delegate to other Primary Agents (huitzilopochtli, quetzalcoatl, moctezuma, tlaloc, mictlantecuhtli, tezcatlipoca) — those are for the user to invoke
 - Review and integrate the subagent's output before continuing
 
 ---
@@ -377,7 +380,10 @@ Is the work one perspective on one artifact?
 2. Define the role, scope, output format, and rules.
 3. Add a **Composition** block at the bottom (Invoke directly when / Invoke via / Do not invoke from another persona).
 4. Add the persona to the catalog in [09-agent-index.md](./09-agent-index.md). If it's a primary agent that participates in orchestration patterns, also add it to the table in [Agent Personas](#agent-personas).
-5. If the persona enables a new orchestration pattern, add it to this catalog's [Endorsed Patterns](#endorsed-patterns) or [Anti-Patterns](#anti-patterns) section rather than inventing the pattern in the persona file itself.
+5. Update the task allowlists of primary agents that might delegate to this subagent:
+   - **[agents/quetzalcoatl.md](../../agents/quetzalcoatl.md)** — If the agent is useful for analysis, review, specifications, or documentation
+   - **[agents/tlaloc.md](../../agents/tlaloc.md)** — If the agent is useful for implementation, build, testing, or deployment
+6. If the persona enables a new orchestration pattern, add it to this catalog's [Endorsed Patterns](#endorsed-patterns) or [Anti-Patterns](#anti-patterns) section rather than inventing the pattern in the persona file itself.
 
 ---
 

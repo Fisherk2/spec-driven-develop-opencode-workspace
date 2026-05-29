@@ -54,6 +54,15 @@ Replace `opencode.json` with your preferred models and agent setup:
     "quetzalcoatl": {
       "model": "opencode-go/kimi-k2.6"
     },
+    "moctezuma": {
+      "model": "opencode-go/deepseek-v4-flash"
+    },
+    "tlaloc": {
+      "model": "opencode-go/mimo-v2.5"
+    },
+    "mictlantecuhtli": {
+      "model": "opencode-go/mimo-v2.5"
+    },
     "tezcatlipoca": {
       "model": "opencode-go/deepseek-v4-pro"
     }
@@ -166,17 +175,17 @@ git diff --stat your-branch..upstream/main
 
 ## Commands
 
-Seven slash commands map to the development lifecycle. Each activates the right skills automatically.
+Seven slash commands map to the development lifecycle. Each activates the right skills automatically via a primary agent.
 
-| Action | Command | Principle | Primary Skills Activated |
-|--------|---------|-----------|------------------------|
-| Define what to build | `/spec` | Spec before code | spec-driven-development, clean-ddd-hexagonal, architecture-diagrams, ui-ux-design-pro |
-| Plan how to build it | `/plan` | Small, atomic tasks | planning-and-task-breakdown |
-| Build incrementally | `/build` | One slice at a time | incremental-implementation, test-driven-development, solid |
-| Prove it works | `/test` | Tests are proof | test-driven-development, browser-testing-with-devtools, debugging-and-error-recovery |
-| Review before merge | `/review` | Improve code health | code-review-and-quality, solid, refactoring-patterns |
-| Simplify the code | `/code-simplify` | Clarity over cleverness | code-simplification |
-| Ship to production | `/ship` | Faster is safer | shipping-and-launch, git-workflow-and-versioning, ci-cd-and-automation, documentation-and-adrs |
+| Action | Command | Primary Agent | Principle | Primary Skills Activated |
+|--------|---------|---------------|-----------|------------------------|
+| Define what to build | `/spec` | quetzalcoatl | Spec before code | spec-driven-development, clean-ddd-hexagonal, architecture-diagrams, ui-ux-design-pro |
+| Plan how to build it | `/plan` | moctezuma | Small, atomic tasks | planning-and-task-breakdown |
+| Build incrementally | `/build` | tlaloc | One slice at a time | incremental-implementation, test-driven-development, solid |
+| Prove it works | `/test` | mictlantecuhtli | Tests are proof | test-driven-development, browser-testing-with-devtools, debugging-and-error-recovery |
+| Review before merge | `/review` | tezcatlipoca | Improve code health | code-review-and-quality, solid, refactoring-patterns |
+| Simplify the code | `/code-simplify` | tlaloc | Clarity over cleverness | code-simplification |
+| Ship to production | `/ship` | mictlantecuhtli | Faster is safer | shipping-and-launch, git-workflow-and-versioning, ci-cd-and-automation, documentation-and-adrs |
 
 For skill discovery guidance, see the [Meta-Skill](skills/using-agent-skills/SKILL.md) — it contains the flowchart mapping task types to the appropriate skill.
 
@@ -279,6 +288,9 @@ Three composable layers:
 
 **Rules:**
 - Personas do not invoke other personas. Skills are mandatory hops inside a persona's workflow.
+- **Primary agents can delegate to subagents** via `task()` for specialized, well-defined tasks. Subagents operate in isolated subcontexts and return their result to the primary agent.
+- **Subagents do NOT delegate to other subagents.** If a subagent needs specialized help, it must report it to the primary agent that invoked it.
+- **Primary agents do NOT invoke other primary agents.** Composition between primaries is the responsibility of slash commands or the user.
 - The only multi-persona pattern is parallel fan-out with merge — used by `/ship`.
 
 ### Adding a New Agent
@@ -302,7 +314,7 @@ To add a new specialized agent, follow these steps. The project has **two types 
 
 5. **Update the SUBAGENT DELEGATION tables of primary agents** that might delegate to this new agent. This is critical — without this, the primary agent won't know it exists:
    - **[agents/quetzalcoatl.md](agents/quetzalcoatl.md)** — If the agent is useful for analysis, review, specifications, or documentation (code reviews, DB analysis, accessibility, research, etc.)
-   - **[agents/tezcatlipoca.md](agents/tezcatlipoca.md)** — If the agent is useful for implementation, build, testing, or deployment (languages, frameworks, DevOps, DB, testing, etc.)
+   - **[agents/tlaloc.md](agents/tlaloc.md)** — If the agent is useful for implementation, build, testing, or deployment (languages, frameworks, DevOps, DB, testing, etc.)
    - Add a row to the table with: agent name, what it does best ("Best for"), and when to delegate ("Delegate when...")
 
 6. **Update the huitzilopochtli catalog** in [agents/huitzilopochtli.md](agents/huitzilopochtli.md):
@@ -372,7 +384,7 @@ project-root/
 │
 ├── .opencode/                  # OpenCode config (symlinks → agents/, commands/, skills/)
 │
-├── agents/                     # 99 agent personas (6 primary + 93 subagents)
+├── agents/                     # 102 agent personas (6 primary + 96 subagents)
 │   ├── huitzilopochtli.md      #   Supreme Orchestrator
 │   ├── quetzalcoatl.md         #   Visionary Architect
 │   ├── moctezuma.md            #   Strategic Commander
@@ -508,7 +520,7 @@ Quick-reference material that skills pull in when needed:
 | [performance-checklist.md](references/performance-checklist.md) | Core Web Vitals targets, frontend/backend checklists, measurement commands |
 | [accessibility-checklist.md](references/accessibility-checklist.md) | Keyboard nav, screen readers, visual design, ARIA, testing tools |
 | [08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md) | Agent personas, orchestration patterns, and decision matrix |
-| [09-agent-index.md](docs/opencode/09-agent-index.md) | Complete classified catalog of all 96 agents |
+| [09-agent-index.md](docs/opencode/09-agent-index.md) | Complete classified catalog of all 102 agents |
 | [00-setup.md](docs/opencode/00-setup.md) | OpenCode configuration, commands, agents, skill loading |
 | [02-skills.md](docs/opencode/02-skills.md) | Skill creation, format specification, frontmatter, anatomy, naming conventions |
 

@@ -2,7 +2,7 @@
 
 Complete catalog of all available agent personas in this project.
 
-**93 subagents** + **6 primary agents** = **99 total**.
+**96 subagents** + **6 primary agents** = **102 total**.
 
 > **Primary agents** (`huitzilopochtli`, `quetzalcoatl`, `moctezuma`, `tlaloc`, `mictlantecuhtli`, `tezcatlipoca`) are documented in [08-orchestration-patterns.md](./08-orchestration-patterns.md) — this index covers the full catalog including subagents available for delegation via `task()`.
 
@@ -223,7 +223,7 @@ The 6 primary agents of the SDD pipeline. Documented in [08-orchestration-patter
 
 ## How to Use This Index
 
-- **Subagents** are invoked via `task()` for specialized work within a primary agent's session
-- **Each agent** has a `## Composition` block in its Markdown file explaining when to invoke it directly, via slash command, or from another agent
-- **OpenCode** automatically selects subagents based on task description matching; you can also invoke them explicitly: `@agent-name`
+- **Subagents** are invoked via `task()` by primary agents for specialized work
+- **Each agent** has a `## Composition` block in its Markdown file explaining when to invoke it directly or from a primary agent
+- **OpenCode** automatically selects subagents based on task description matching; primary agents can also invoke them explicitly via `task()`
 - For orchestration rules and patterns (who invokes whom, how to compose), see [08-orchestration-patterns.md](./08-orchestration-patterns.md)
