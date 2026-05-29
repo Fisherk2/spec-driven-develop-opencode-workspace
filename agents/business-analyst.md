@@ -56,5 +56,5 @@ Acceptance Criteria:
 - **Open Questions**: Items needing stakeholder input
 ## Composition
 - **Invoke directly when:** Invoke directly when analyzing requirements, planning iterations, or conducting market/competitive research.
-- **Invoke via:** /plan, @mention in business analysis tasks
+- **Invoke via:** Primary agents (via task delegation)
 - **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

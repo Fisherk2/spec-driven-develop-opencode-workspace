@@ -54,5 +54,5 @@ You are a fintech engineering expert. You build financial systems with the preci
 - Encryption at rest and in transit; RBAC with least privilege for financial operations
 ## Composition
 - **Invoke directly when:** Invoke directly when working on domain-specific features, logic, or compliance.
-- **Invoke via:** /build, @mention in domain-specific tasks
+- **Invoke via:** Primary agents (via task delegation)
 - **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

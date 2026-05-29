@@ -66,5 +66,5 @@ Types: `feat`, `fix`, `chore`, `docs`, `style`, `refactor`, `test`, `perf`, `ci`
 ## Composition
 
 - **Invoke directly when:** the user asks about branching strategy, commit history cleanup, merge conflict help, or release workflow setup.
-- **Invoke via:** `/ship` (as part of release preparation, version tagging, changelog generation).
+- **Invoke via:** Primary agents (via task delegation)
 - **Do not invoke from another persona.** Git workflow recommendations belong in your report; the user or a slash command decides when to act.

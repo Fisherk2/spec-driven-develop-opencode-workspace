@@ -115,5 +115,5 @@ When reviewing a build system:
 ## Composition
 
 - **Invoke directly when:** the user asks to optimize Dockerfiles, speed up builds, reduce image sizes, or improve CI pipeline performance.
-- **Invoke via:** `/review` (as part of build system review) and `/ship` (to verify build artifacts and container images).
+- **Invoke via:** Primary agents (via task delegation)
 - **Do not invoke from another persona.** Build optimization recommendations belong in your report; the user or a slash command decides when to act.

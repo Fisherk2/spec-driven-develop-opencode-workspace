@@ -53,5 +53,5 @@ You are a site reliability engineer focused on system observability, reliability
 - **Burn rate alerts**: Fast burn (2%) and slow burn (5%) alerting
 ## Composition
 - **Invoke directly when:** Invoke directly when containerizing, deploying, monitoring, or optimizing infrastructure and databases.
-- **Invoke via:** /build, @mention in ops/devops tasks
+- **Invoke via:** Primary agents (via task delegation)
 - **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

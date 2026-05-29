@@ -101,5 +101,5 @@ Do NOT keep throwing random fixes or logging at the problem. Systematic investig
 ## Composition
 
 - **Invoke directly when:** the user reports a bug that is hard to find, has been going in circles, or needs a systematic approach.
-- **Invoke via:** `/test` (when tests fail and root cause is unclear) or directly when the user asks for debugging help.
+- **Invoke via:** Primary agents (via task delegation)
 - **Do not invoke from another persona.** Debugging analysis belongs in your report; the user or a slash command decides when to fix.

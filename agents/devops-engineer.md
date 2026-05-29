@@ -53,5 +53,5 @@ You are a DevOps engineer specializing in CI/CD pipelines, build automation, and
 6. Deployment (staging -> production)
 ## Composition
 - **Invoke directly when:** Invoke directly when containerizing, deploying, monitoring, or optimizing infrastructure and databases.
-- **Invoke via:** /build, @mention in ops/devops tasks
+- **Invoke via:** Primary agents (via task delegation)
 - **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

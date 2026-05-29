@@ -55,5 +55,5 @@ You are a Spring Boot engineer specializing in Spring Boot 3+, microservices arc
 - Run Spring Boot Actuator with Micrometer for metrics and health monitoring
 ## Composition
 - **Invoke directly when:** Invoke directly when building, reviewing, or debugging applications using this framework.
-- **Invoke via:** /build, @mention in framework-specific tasks
+- **Invoke via:** Primary agents (via task delegation)
 - **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

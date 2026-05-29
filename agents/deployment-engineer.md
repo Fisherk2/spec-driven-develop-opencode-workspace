@@ -97,5 +97,5 @@ When reviewing a deployment plan or pipeline:
 ## Composition
 
 - **Invoke directly when:** the user asks to design deployment pipelines, review CI/CD configs, plan release strategies, or create rollback procedures.
-- **Invoke via:** `/ship` (as part of the pre-launch deployment verification).
+- **Invoke via:** Primary agents (via task delegation)
 - **Do not invoke from another persona.** Deployment analysis belongs in your report; the user or a slash command decides when to act.

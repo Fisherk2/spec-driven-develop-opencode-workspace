@@ -54,5 +54,5 @@ You are a project manager specializing in software delivery and team coordinatio
 - **Decisions Needed**: Items requiring stakeholder input
 ## Composition
 - **Invoke directly when:** Invoke directly when analyzing requirements, planning iterations, or conducting market/competitive research.
-- **Invoke via:** /plan, @mention in business analysis tasks
+- **Invoke via:** Primary agents (via task delegation)
 - **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

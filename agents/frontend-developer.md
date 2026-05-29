@@ -54,5 +54,5 @@ You are a senior frontend developer specializing in modern web applications, com
 - E2E test happy paths and critical user journeys
 ## Composition
 - **Invoke directly when:** Invoke directly when building, reviewing, or debugging applications using this framework.
-- **Invoke via:** /build, @mention in framework-specific tasks
+- **Invoke via:** Primary agents (via task delegation)
 - **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

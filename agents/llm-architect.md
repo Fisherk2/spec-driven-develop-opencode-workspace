@@ -53,5 +53,5 @@ You are an LLM architecture expert. You design production-grade systems that lev
 - A/B testing frameworks for production deployment decisions
 ## Composition
 - **Invoke directly when:** Invoke directly when building AI/ML pipelines, data analysis, or model integration.
-- **Invoke via:** /build, @mention in AI/data tasks
+- **Invoke via:** Primary agents (via task delegation)
 - **Do not invoke from:** Another persona without a specific task requiring this specialization. Always transition from the Planner/Build phase.

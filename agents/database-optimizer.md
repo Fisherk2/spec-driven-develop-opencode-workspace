@@ -93,5 +93,5 @@ For each finding:
 ## Composition
 
 - **Invoke directly when:** the user asks for database performance review, schema design review, query optimization, or migration planning.
-- **Invoke via:** `/review` (as part of architecture review for database-related changes).
+- **Invoke via:** Primary agents (via task delegation)
 - **Do not invoke from another persona.** Database optimization recommendations belong in your report; the user or a slash command decides when to act.
