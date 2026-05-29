@@ -13,11 +13,34 @@ interface SddState {
   completed_tasks: string[]
   pending_tasks: string[]
   agent_type: string
+  last_intent: string | null
 }
 
 interface MessageEvent {
   message?: { content?: string }
   parts?: unknown[]
+}
+
+// Agent mention patterns — detect agent switches from user messages
+const AGENT_MENTION_PATTERNS: Record<string, RegExp[]> = {
+  huitzilopochtli: [/@huitzilopochtli\b/i, /agente\s+huitzilopochtli/i],
+  quetzalcoatl:    [/@quetzalcoatl\b/i, /agente\s+quetzalcoatl/i],
+  moctezuma:       [/@moctezuma\b/i, /agente\s+moctezuma/i],
+  tlaloc:          [/@tlaloc\b/i, /agente\s+tlaloc/i],
+  mictlantecuhtli: [/@mictlantecuhtli\b/i, /agente\s+mictlantecuhtli/i],
+  tezcatlipoca:    [/@tezcatlipoca\b/i, /agente\s+tezcatlipoca/i],
+}
+
+// Map slash commands to their primary agent
+const COMMAND_AGENT_MAP: Record<string, string> = {
+  "/spec": "quetzalcoatl",
+  "/design": "quetzalcoatl",
+  "/plan": "moctezuma",
+  "/build": "tlaloc",
+  "/test": "mictlantecuhtli",
+  "/review": "tezcatlipoca",
+  "/ship": "mictlantecuhtli",
+  "/code-simplify": "tlaloc",
 }
 
 // ---------------------------------------------------------------------------
@@ -72,7 +95,27 @@ const INTENT_PATTERNS: Record<string, string[]> = {
   ],
 }
 
-const DESTRUCTIVE_PATTERNS = ["rm -rf", "git push --force", "DROP TABLE", "DROP DATABASE"]
+// Case-insensitive regex patterns for destructive commands
+// NOTE: Use \s (single backslash) in regex literals — \\s matches literal backslash+letter
+const DESTRUCTIVE_PATTERNS: RegExp[] = [
+  /rm\s+-rf/i,
+  /git\s+push\s+--force/i,
+  /drop\s+table/i,
+  /drop\s+database/i,
+]
+
+// ---------------------------------------------------------------------------
+// Agent Identity Patterns (high-confidence — checked FIRST)
+// ---------------------------------------------------------------------------
+
+const AGENT_IDENTITY_PATTERNS: Record<string, RegExp[]> = {
+  huitzilopochtli: [/You are \*\*Huitzilopochtli\*\*/],
+  quetzalcoatl:    [/You are \*\*Quetzalcoatl\*\*/],
+  moctezuma:       [/You are \*\*Moctezuma\*\*/],
+  tlaloc:          [/You are \*\*Tlaloc\*\*/],
+  mictlantecuhtli: [/You are \*\*Mictlantecuhtli\*\*/],
+  tezcatlipoca:    [/You are \*\*Tezcatlipoca\*\*/],
+}
 
 // ---------------------------------------------------------------------------
 // Agent Detection Patterns
@@ -122,6 +165,15 @@ const AGENT_DETECT_PATTERNS: Record<string, RegExp[]> = {
 // ---------------------------------------------------------------------------
 
 const TOOL_PERMISSIONS: Record<string, Record<string, "allow" | "deny" | "ask">> = {
+  // Unknown agents: deny all write operations (conservative default)
+  unknown: {
+    write: "deny",
+    edit: "deny",
+    patch: "deny",
+    bash: "allow",
+    task: "deny",
+    skill: "allow",
+  },
   huitzilopochtli: {
     write: "deny",
     edit: "deny",
@@ -176,26 +228,42 @@ const TOOL_PERMISSIONS: Record<string, Record<string, "allow" | "deny" | "ask">>
 // Bash Write Rules (deny for read-only agents)
 // ---------------------------------------------------------------------------
 
+// Glob patterns for bash command deny rules
+// Only block destructive operations — safe read-only commands are allowed
 const AGENT_BASH_DENY_RULES: Record<string, string[]> = {
   quetzalcoatl: [
-    "> *", ">> *",
-    "touch *", "mkdir *",
-    "cp *", "mv *", "rm *",
-    "chmod *", "chown *", "ln *",
+    "> *", ">> *",                    // File redirection (write)
+    "touch *", "mkdir *",            // Create files/dirs
+    "cp *", "mv *",                  // Copy/move files
+    "rm -r*", "rm --recursi*",       // Recursive delete (dangerous)
+    "chmod *", "chown *", "ln *",    // Permission/link changes
   ],
   tezcatlipoca: [
     "> *", ">> *",
     "touch *", "mkdir *",
-    "cp *", "mv *", "rm *",
+    "cp *", "mv *",
+    "rm -r*", "rm --recursi*",
     "chmod *", "chown *", "ln *",
   ],
   huitzilopochtli: [
     "> *", ">> *",
     "touch *", "mkdir *",
-    "cp *", "mv *", "rm *",
+    "cp *", "mv *",
+    "rm -r*", "rm --recursi*",
     "chmod *", "chown *", "ln *",
   ],
 }
+
+// ---------------------------------------------------------------------------
+// Intent → Command mapping (for visible suggestions in system prompt)
+// ---------------------------------------------------------------------------
+
+// Maps keywords to their suggested command (reverse of INTENT_PATTERNS structure)
+const INTENT_SUGGESTION_MAP: Record<string, string> = Object.fromEntries(
+  Object.entries(INTENT_PATTERNS).flatMap(([cmd, keywords]) =>
+    keywords.map((kw) => [kw, cmd])
+  ),
+)
 
 // ---------------------------------------------------------------------------
 // SDD Phase Suggestions (advisory, not enforced)
@@ -216,7 +284,7 @@ const PHASE_SUGGESTIONS: Record<string, Record<string, string>> = {
     tezcatlipoca: 'Consider /plan first to break work into tasks.',
   },
   build: {
-    huitzilopochtli: 'Consider /plan first to break work into tasks.',
+    huitzilopochtli: 'Consider delegating implementation to tlaloc via /build.',
     quetzalcoatl: 'Consider /spec or /design first, then /plan.',
     moctezuma: 'Consider /plan first, then /build.',
     mictlantecuhtli: 'Consider /build first to implement code.',
@@ -241,7 +309,7 @@ const PHASE_SUGGESTIONS: Record<string, Record<string, string>> = {
     quetzalcoatl: 'Consider full SDD cycle before shipping.',
     moctezuma: 'Consider /test and /review before shipping.',
     tlaloc: 'Consider /test and /review before shipping.',
-    tezcatlipoca: 'Consider /ship to prepare deployment.',
+    // tezcatlipoca: read-only agent, cannot ship — no suggestion
   },
 }
 
@@ -323,6 +391,7 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
     completed_tasks: [],
     pending_tasks: [],
     agent_type: "unknown",
+    last_intent: null,
   }
 
   const sddState: SddState = { ...defaultState }
@@ -331,8 +400,24 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
       const saved = JSON.parse(readFileSync(statePath, "utf-8"))
       Object.assign(sddState, saved)
     }
-  } catch {
-    // Corrupted state — use defaults
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err)
+    console.debug("[sdd-pipeline] Corrupted state file, using defaults:", msg)
+  }
+
+  // ── Truncate audit log on init if exceeds threshold ──────────────────────
+  try {
+    if (existsSync(auditLogPath)) {
+      const content = readFileSync(auditLogPath, "utf-8")
+      const lines = content.split("\n")
+      if (lines.length >= MAX_AUDIT_LINES) {
+        writeFileSync(auditLogPath, lines.slice(-(MAX_AUDIT_LINES / 2)).join("\n") + "\n")
+        console.debug("[sdd-pipeline] Audit log truncated on init")
+      }
+    }
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err)
+    console.debug("[sdd-pipeline] Could not truncate audit log:", msg)
   }
 
   // ── Helpers ──────────────────────────────────────────────────────────────
@@ -341,8 +426,9 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
     try {
       if (!existsSync(pluginsDir)) mkdirSync(pluginsDir, { recursive: true })
       writeFileSync(statePath, JSON.stringify(sddState, null, 2))
-    } catch {
-      // Ignore write errors
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err)
+      console.debug("[sdd-pipeline] Could not save state:", msg)
     }
   }
 
@@ -361,14 +447,25 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
       }
 
       appendFileSync(auditLogPath, entry)
-    } catch {
-      // Ignore logging errors
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err)
+      console.debug("[sdd-pipeline] Could not write audit log:", msg)
     }
   }
 
   // ── Agent detection ────────────────────────────────────────────────────
 
   const detectAgentType = (systemParts: string[]): string => {
+    // Phase 1: High-confidence identity check ("You are **AgentName**")
+    for (const part of systemParts) {
+      for (const [agentType, patterns] of Object.entries(AGENT_IDENTITY_PATTERNS)) {
+        if (patterns.some((p) => p.test(part))) {
+          return agentType
+        }
+      }
+    }
+
+    // Phase 2: Fallback to general patterns (keyword-based)
     for (const part of systemParts) {
       for (const [agentType, patterns] of Object.entries(AGENT_DETECT_PATTERNS)) {
         if (patterns.some((p) => p.test(part))) {
@@ -423,6 +520,10 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
     return regex.test(cmd.trim())
   }
 
+  // ── Error factory ──────────────────────────────────────────────────────
+
+  const blockError = (msg: string): Error => new Error(`[sdd-pipeline] ${msg}`)
+
   // ── Hooks ────────────────────────────────────────────────────────────────
 
   return {
@@ -440,8 +541,9 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
         const out = output as { system: string[] }
 
         // Detect which agent persona is active from system prompt parts
+        // Only update if agent is "unknown" (initial state) — chat.message has priority
         const detected = detectAgentType(out.system)
-        if (detected !== sddState.agent_type) {
+        if (detected !== sddState.agent_type && sddState.agent_type === "unknown") {
           sddState.agent_type = detected
           saveState()
           audit("system.transform", `Agent detected and persisted: ${detected}`)
@@ -455,7 +557,14 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
         const suggestionLine = suggestion ? `
 > **Suggestion:** ${suggestion}` : ''
         
-        out.system.unshift(sddContext + suggestionLine)
+        // Add intent suggestion if detected in last user message (visible to model)
+        let intentLine = ''
+        if (sddState.last_intent) {
+          intentLine = `\n> **Intent detected:** User wants to \`${sddState.last_intent}\`. Suggest they use the command.`
+          sddState.last_intent = null // Consume intent after injecting
+        }
+        
+        out.system.unshift(sddContext + suggestionLine + intentLine)
         audit("system.transform", `Injected SDD state (agent: ${sddState.agent_type}, phase: ${sddState.pipeline_phase})`)
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : String(err)
@@ -477,11 +586,37 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
         if (!content) return
 
         const lower = content.toLowerCase()
+
+        // --- Detect agent mentions (e.g., "@tlaloc", "agente tezcatlipoca") ---
+        for (const [agentType, patterns] of Object.entries(AGENT_MENTION_PATTERNS)) {
+          if (patterns.some((p) => p.test(content))) {
+            if (sddState.agent_type !== agentType) {
+              sddState.agent_type = agentType
+              saveState()
+              audit("chat.message", `Agent switched via mention: ${agentType}`)
+            }
+            break
+          }
+        }
+
+        // --- Detect slash commands that load specific agents ---
+        // Commands override mentions — they represent explicit user intent
+        for (const [command, agentType] of Object.entries(COMMAND_AGENT_MAP)) {
+          if (lower.startsWith(command)) {
+            if (sddState.agent_type !== agentType) {
+              sddState.agent_type = agentType
+              saveState()
+              audit("chat.message", `Agent switched via command ${command}: ${agentType}`)
+            }
+            break
+          }
+        }
+
+        // --- Detect SDD intent keywords ---
+        // Store intent so system.transform can inject a visible suggestion
         for (const [command, keywords] of Object.entries(INTENT_PATTERNS)) {
           if (keywords.some((kw) => lower.includes(kw))) {
-            console.log(
-              `[sdd-pipeline] Intent detected: "${command}" — type ${command} to proceed`,
-            )
+            sddState.last_intent = command
             audit("chat.message", `intent=${command}`)
             break
           }
@@ -512,11 +647,9 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
         if (tool === "Bash" || tool === "bash") {
           const cmd = (args.command as string) ?? ""
           for (const pattern of DESTRUCTIVE_PATTERNS) {
-            if (cmd.includes(pattern)) {
+            if (pattern.test(cmd)) {
               audit("tool.before", `BLOCKED ${tool}: destructive command`)
-              throw new Error(
-                "[sdd-pipeline] Destructive command blocked. Use safe alternatives.",
-              )
+              throw blockError("Destructive command blocked. Use safe alternatives.")
             }
           }
         }
@@ -529,9 +662,7 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
 
           if (permission === "deny") {
             audit("tool.before", `BLOCKED ${tool}: ${agentType} not allowed`)
-            throw new Error(
-              `[sdd-pipeline] Agent ${agentType} cannot use ${tool}.`,
-            )
+            throw blockError(`Agent ${agentType} cannot use ${tool}.`)
           }
         }
 
@@ -543,9 +674,7 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
           for (const pattern of bashDenyRules) {
             if (matchBashCommand(cmd, pattern)) {
               audit("tool.before", `BLOCKED bash: write command for ${agentType}`)
-              throw new Error(
-                `[sdd-pipeline] Agent ${agentType} cannot execute write commands in bash.`,
-              )
+              throw blockError(`Agent ${agentType} cannot execute write commands in bash.`)
             }
           }
         }

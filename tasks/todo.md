@@ -187,6 +187,19 @@
 #### 5.9 Verificación
 - [x] **5.9.1** Verificar que el plugin compila (`cd .opencode && bun install`)
 - [x] **5.9.2** Verificar TypeScript syntax
+
+#### 5.10 Corrección de detección de agentes
+- [x] **5.10.1** Investigar por qué el plugin detecta huitzilopochtli en lugar del agente actual
+- [x] **5.10.2** Agregar `AGENT_IDENTITY_PATTERNS` — patrones de alta confianza `You are **AgentName**`
+- [x] **5.10.3** Modificar `detectAgentType()` — dos fases: identidad primero, keywords como fallback
+- [x] **5.10.4** Resetear `.sdd-state.json` para re-detección en próxima carga
+- [x] **5.10.5** Actualizar README.md con arquitectura de detección
+- [x] **5.10.6** Agregar `AGENT_MENTION_PATTERNS` — detección de `@agent-name` en mensajes
+- [x] **5.10.7** Agregar `COMMAND_AGENT_MAP` — mapeo slash commands → agente primario
+- [x] **5.10.8** Actualizar `chat.message` — detectar menciones, comandos, e intención
+- [x] **5.10.9** Actualizar plugins/README.md con documentación de detección
+- [x] **5.10.10** Corregir conflicto: system.transform no sobreescribe agente seteado por chat.message
+- [x] **5.10.11** system.transform solo actualiza si agente es "unknown" (estado inicial)
 - [ ] **5.9.3** Test manual: `/spec` con Quetzalcoatl (debe poder delegar docs)
 - [ ] **5.9.4** Test manual: `/review` con Tezcatlipoca (debe ser solo lectura)
 - [ ] **5.9.5** Test manual: `/build` con Tlaloc (debe poder escribir código)
@@ -221,5 +234,5 @@
 |--------|:------:|:------:|
 | `docs/quickstart-migration` | 25/25 tasks | ✅ Completada |
 | `feat/agent-permission-hierarchy` | 36/36 tasks | ✅ Completada |
-| `feat/plugin-orchestration` | 26/29 tasks | 🔄 En progreso |
-| **Total** | **87/90 tasks** | **🔄 En progreso** |
+| `feat/plugin-orchestration` | 36/37 tasks | 🔄 En progreso |
+| **Total** | **97/100 tasks** | **🔄 En progreso** |

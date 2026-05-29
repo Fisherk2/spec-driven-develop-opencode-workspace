@@ -37,13 +37,44 @@ Ambos ignorados por git.
 
 ## Cómo funciona
 
-1. **Al iniciar sesión**: `experimental.chat.system.transform` detecta qué agente primario está activo (huitzilopochtli/quetzalcoatl/tezcatlipoca), lo persiste en `.sdd-state.json`, e inyecta el estado SDD + role rules en el system prompt
-2. **Cada mensaje**: `chat.message` detecta palabras clave y sugiere `/spec`, `/build`, etc.
+1. **Al iniciar sesión**: `experimental.chat.system.transform` detecta qué agente primario está activo (6 agentes: huitzilopochtli, quetzalcoatl, moctezuma, tlaloc, mictlantecuhtli, tezcatlipoca), lo persiste en `.sdd-state.json`, e inyecta el estado SDD + role rules en el system prompt. La detección usa dos fases: primero un patrón de identidad de alta confianza (`You are **AgentName**`), luego keywords como fallback.
+2. **Cada mensaje**: `chat.message` detecta menciones de agente (`@tlaloc`, `agente tezcatlipoca`), comandos slash (`/build`, `/review`), y palabras clave de intención (`/spec`, `/build`, etc.). Cuando detecta una mención o comando, actualiza el agente activo y persiste el cambio.
 3. **Antes de cada herramienta**: `tool.execute.before` bloquea comandos destructivos (rm -rf, git push --force), escritura de código para quetzalcoatl, y modificación de specs para tezcatlipoca
 4. **Después de cada herramienta**: `tool.execute.after` registra en el log de auditoría
 5. **En compactación**: `experimental.session.compacting` re-inyecta el estado SDD + role rules y persiste el estado del pipeline
 
 > El meta-skill (`using-agent-skills`) **no** se inyecta automáticamente para ahorrar tokens (~4,000 por llamada). OpenCode lo expone como skill disponible; los agentes lo cargan bajo demanda con la herramienta `skill`.
+
+
+## Agent Detection Architecture
+
+La detección de agentes usa **tres mecanismos**:
+
+### 1. Identity Patterns (alta confianza — system prompt)
+Patrones que matchean en el prompt del agente activo:
+```
+"You are **Tlaloc**" → detecta tlaloc
+"You are **Huitzilopochtli**" → detecta huitzilopochtli
+```
+
+### 2. Agent Mention Patterns (user messages)
+Detección de menciones en mensajes del usuario:
+```
+@tlaloc, agente tezcatlipoca → actualiza agente activo
+```
+
+### 3. Command-Agent Map (slash commands)
+Mapeo de comandos slash a su agente primario:
+```
+/build → tlaloc
+/review → tezcatlipoca
+/spec → quetzalcoatl
+```
+
+**Flujo completo:**
+1. `system.transform` detecta agente desde system prompt (identity → keywords)
+2. `chat.message` detecta menciones y comandos en mensajes del usuario
+3. Estado persistido en `.sdd-state.json` se actualiza en ambos hooks
 
 ## Fuente
 
