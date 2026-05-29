@@ -73,13 +73,32 @@ DESTRUCTIVE_PATTERNS = [
 
 ### Subagent Name Validation
 
-El plugin valida que los nombres de subagentes en `task()` existen en el catálogo (102 agentes). Si el LLM inventa un nombre, recibe un error:
+The plugin validates that subagent names in `task()` exist in the catalog (**102 agents**: 96 subagents + 6 primary). If the LLM invents a name, it receives an error:
 
 ```
 Unknown subagent: python-wizard. Use a valid agent name from the catalog.
 ```
 
-Esto previene que el LLM invoque subagentes inexistentes. La validación busca el nombre en `args.agent`, `args.name`, `args.type`, o `args.subagent`.
+The `VALID_SUBAGENTS` array contains all valid agent names organized by domain:
+
+| Domain | Count | Agents |
+|--------|:-----:|--------|
+| Primary | 6 | huitzilopochtli, quetzalcoatl, moctezuma, tlaloc, mictlantecuhtli, tezcatlipoca |
+| Backend & APIs | 22 | backend-developer, typescript-pro, python-pro, golang-pro, rust-engineer, java-architect, csharp-developer, fastapi-developer, graphql-architect, spring-boot-engineer, django-developer, laravel-specialist, php-pro, nextjs-developer, elixir-expert, ruby-pro, kotlin-specialist, websocket-engineer, microservices-architect, cpp-pro, javascript-pro, fullstack-developer |
+| Frontend & Mobile | 8 | angular-architect, flutter-expert, frontend-developer, mobile-app-developer, mobile-developer, react-specialist, swift-expert, vue-expert |
+| Database & Data | 8 | database-optimizer, postgres-pro, sql-pro, data-analyst, data-engineer, data-scientist, data-researcher, database-administrator |
+| DevOps & Infra | 11 | docker-expert, kubernetes-specialist, terraform-engineer, devops-engineer, build-engineer, sre-engineer, cloud-architect, platform-engineer, network-engineer, azure-infra-engineer, deployment-engineer |
+| Security | 3 | security-auditor, dependency-manager, legal-advisor |
+| Testing & QA | 7 | test-engineer, code-reviewer, accessibility-tester, chaos-engineer, refactorer, error-detective, error-coordinator |
+| Debugging | 1 | debugger |
+| AI / ML | 6 | ai-engineer, llm-architect, mlops-engineer, machine-learning-engineer, nlp-engineer, prompt-engineer |
+| DX & Tooling | 5 | cli-developer, tooling-engineer, mcp-developer, dx-optimizer, context-manager |
+| Processes | 5 | git-workflow-manager, incident-responder, project-manager, scrum-master, legacy-modernizer |
+| Specialized Domains | 6 | fintech-engineer, payment-integration, blockchain-developer, game-developer, iot-engineer, embedded-systems |
+| Documentation & Research | 5 | docs-writer, research-analyst, knowledge-synthesizer, scientific-literature-researcher, search-specialist |
+| Product & Business | 9 | business-analyst, product-manager, competitive-analyst, content-marketer, market-researcher, sales-engineer, seo-specialist, trend-analyst, ux-researcher |
+
+Validation checks `args.agent`, `args.name`, `args.type`, or `args.subagent` for the name.
 
 ## SDD Phase Enforcement
 
@@ -179,9 +198,11 @@ Primary agents can delegate to subagents via `task()`. Each subagent operates in
 | quetzalcoatl | ✅ docs only | docs-writer, accessibility-tester, ux-researcher |
 | moctezuma | ❌ | (does not delegate) |
 | tlaloc | ✅ docs + code | backend-developer, frontend-developer, test-engineer, etc. |
-| mictlantecuhtli | ❌ | (does not delegate — he is the final judge) |
+| mictlantecuhtli | ✅ docs + code | test-engineer, code-reviewer (when steps exhausted) |
 | tezcatlipoca | ❌ | (does not delegate — only observes and critiques) |
+
+> **Note:** Subagent names are validated against the `VALID_SUBAGENTS` catalog. Invented names are rejected with an error.
 
 ## Source
 
-Plugin: `sdd-pipeline.ts` (730 lines)
+Plugin: `sdd-pipeline.ts` (797 lines)

@@ -21,6 +21,14 @@ interface MessageEvent {
   parts?: unknown[]
 }
 
+/** Typed error for SDD pipeline blocking — avoids string prefix coupling. */
+class SddError extends Error {
+  constructor(msg: string) {
+    super(msg)
+    this.name = "SddError"
+  }
+}
+
 // Agent mention patterns — detect agent switches from user messages
 const AGENT_MENTION_PATTERNS: Record<string, RegExp[]> = {
   huitzilopochtli: [/@huitzilopochtli\b/i, /agente\s+huitzilopochtli/i],
@@ -164,64 +172,28 @@ const AGENT_DETECT_PATTERNS: Record<string, RegExp[]> = {
 // Tool Permissions Matrix
 // ---------------------------------------------------------------------------
 
-const TOOL_PERMISSIONS: Record<string, Record<string, "allow" | "deny" | "ask">> = {
-  // Unknown agents: deny all write operations (conservative default)
-  unknown: {
-    write: "deny",
-    edit: "deny",
-    patch: "deny",
-    bash: "allow",
-    task: "deny",
-    skill: "allow",
-  },
-  huitzilopochtli: {
-    write: "deny",
-    edit: "deny",
-    patch: "deny",
-    bash: "allow",
-    task: "allow",
-    skill: "allow",
-  },
-  quetzalcoatl: {
-    write: "deny",
-    edit: "deny",
-    patch: "deny",
-    bash: "allow",
-    task: "allow",
-    skill: "allow",
-  },
-  moctezuma: {
-    write: "allow",
-    edit: "allow",
-    patch: "allow",
-    bash: "allow",
-    task: "deny",
-    skill: "allow",
-  },
-  tlaloc: {
-    write: "allow",
-    edit: "allow",
-    patch: "allow",
-    bash: "allow",
-    task: "allow",
-    skill: "allow",
-  },
-  mictlantecuhtli: {
-    write: "allow",
-    edit: "allow",
-    patch: "allow",
-    bash: "allow",
-    task: "allow",
-    skill: "allow",
-  },
-  tezcatlipoca: {
-    write: "deny",
-    edit: "deny",
-    patch: "deny",
-    bash: "allow",
-    task: "deny",
-    skill: "allow",
-  },
+type ToolPermission = "allow" | "deny" | "ask"
+type ToolPermissions = Record<string, ToolPermission>
+
+// Base configs to reduce duplication — each agent extends or overrides
+const READONLY_AGENT: ToolPermissions = {
+  write: "deny", edit: "deny", patch: "deny",
+  bash: "allow", task: "allow", skill: "allow",
+}
+
+const WRITE_AGENT: ToolPermissions = {
+  write: "allow", edit: "allow", patch: "allow",
+  bash: "allow", task: "deny", skill: "allow",
+}
+
+const TOOL_PERMISSIONS: Record<string, ToolPermissions> = {
+  unknown:            { ...READONLY_AGENT, task: "deny" },
+  huitzilopochtli:    { ...READONLY_AGENT },
+  quetzalcoatl:       { ...READONLY_AGENT },
+  moctezuma:          { ...WRITE_AGENT },
+  tlaloc:             { ...WRITE_AGENT, task: "allow" },
+  mictlantecuhtli:    { ...WRITE_AGENT, task: "allow" },
+  tezcatlipoca:       { ...READONLY_AGENT, task: "deny" },
 }
 
 // ---------------------------------------------------------------------------
@@ -282,28 +254,19 @@ const VALID_SUBAGENTS: readonly string[] = [
 
 // Glob patterns for bash command deny rules
 // Only block destructive operations — safe read-only commands are allowed
+// Shared across read-only agents — defined once, reused via reference
+const BASH_DENY_RULES: readonly string[] = [
+  "> *", ">> *",                    // File redirection (write)
+  "touch *", "mkdir *",            // Create files/dirs
+  "cp *", "mv *",                  // Copy/move files
+  "rm -r*", "rm --recursi*",       // Recursive delete (dangerous)
+  "chmod *", "chown *", "ln *",    // Permission/link changes
+]
+
 const AGENT_BASH_DENY_RULES: Record<string, string[]> = {
-  quetzalcoatl: [
-    "> *", ">> *",                    // File redirection (write)
-    "touch *", "mkdir *",            // Create files/dirs
-    "cp *", "mv *",                  // Copy/move files
-    "rm -r*", "rm --recursi*",       // Recursive delete (dangerous)
-    "chmod *", "chown *", "ln *",    // Permission/link changes
-  ],
-  tezcatlipoca: [
-    "> *", ">> *",
-    "touch *", "mkdir *",
-    "cp *", "mv *",
-    "rm -r*", "rm --recursi*",
-    "chmod *", "chown *", "ln *",
-  ],
-  huitzilopochtli: [
-    "> *", ">> *",
-    "touch *", "mkdir *",
-    "cp *", "mv *",
-    "rm -r*", "rm --recursi*",
-    "chmod *", "chown *", "ln *",
-  ],
+  quetzalcoatl:    [...BASH_DENY_RULES],
+  tezcatlipoca:    [...BASH_DENY_RULES],
+  huitzilopochtli: [...BASH_DENY_RULES],
 }
 
 // ---------------------------------------------------------------------------
@@ -451,22 +414,45 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
     if (existsSync(statePath)) {
       const saved = JSON.parse(readFileSync(statePath, "utf-8"))
       Object.assign(sddState, saved)
+      // [C1] Reset transient fields on session start — stale values cause
+      //      incorrect intent injection on the first system.transform call.
+      sddState.last_intent = null
     }
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err)
     console.debug("[sdd-pipeline] Corrupted state file, using defaults:", msg)
   }
 
-  // ── Truncate audit log on init if exceeds threshold ──────────────────────
-  try {
-    if (existsSync(auditLogPath)) {
-      const content = readFileSync(auditLogPath, "utf-8")
-      const lines = content.split("\n")
-      if (lines.length >= MAX_AUDIT_LINES) {
-        writeFileSync(auditLogPath, lines.slice(-(MAX_AUDIT_LINES / 2)).join("\n") + "\n")
-        console.debug("[sdd-pipeline] Audit log truncated on init")
-      }
+  // ── Audit log helpers ────────────────────────────────────────────────────
+
+  // [P1] In-memory line count — avoids re-reading the file on every append.
+  //      Reset to 0 if file doesn't exist; set on init; tracked in audit().
+  let auditLineCount = 0
+
+  /**
+   * [R1] Single source of truth for audit log rotation.
+   * Reads the file, counts lines, and truncates to half if >= MAX_AUDIT_LINES.
+   * Updates the in-memory line count.
+   */
+  const maybeRotateAuditLog = () => {
+    if (!existsSync(auditLogPath)) {
+      auditLineCount = 0
+      return
     }
+    const content = readFileSync(auditLogPath, "utf-8")
+    const lines = content.split("\n")
+    auditLineCount = lines.length
+    if (auditLineCount >= MAX_AUDIT_LINES) {
+      const keep = lines.slice(-(MAX_AUDIT_LINES / 2))
+      writeFileSync(auditLogPath, keep.join("\n") + "\n")
+      auditLineCount = keep.length
+      console.debug("[sdd-pipeline] Audit log truncated on init")
+    }
+  }
+
+  // Init: rotate if needed and seed line count
+  try {
+    maybeRotateAuditLog()
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err)
     console.debug("[sdd-pipeline] Could not truncate audit log:", msg)
@@ -489,16 +475,13 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
       const timestamp = new Date().toISOString()
       const entry = `[${timestamp}] [${source}] ${detail}\n`
 
-      // Rotate if file exceeds max lines (keeps most recent half)
-      if (existsSync(auditLogPath)) {
-        const content = readFileSync(auditLogPath, "utf-8")
-        const lines = content.split("\n")
-        if (lines.length >= MAX_AUDIT_LINES) {
-          writeFileSync(auditLogPath, lines.slice(-(MAX_AUDIT_LINES / 2)).join("\n") + "\n")
-        }
+      // [P1] Rotate only when in-memory count reaches threshold
+      if (auditLineCount >= MAX_AUDIT_LINES) {
+        maybeRotateAuditLog()
       }
 
       appendFileSync(auditLogPath, entry)
+      auditLineCount++
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err)
       console.debug("[sdd-pipeline] Could not write audit log:", msg)
@@ -571,10 +554,6 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
     )
     return regex.test(cmd.trim())
   }
-
-  // ── Error factory ──────────────────────────────────────────────────────
-
-  const blockError = (msg: string): Error => new Error(`[sdd-pipeline] ${msg}`)
 
   // ── Hooks ────────────────────────────────────────────────────────────────
 
@@ -701,7 +680,7 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
           for (const pattern of DESTRUCTIVE_PATTERNS) {
             if (pattern.test(cmd)) {
               audit("tool.before", `BLOCKED ${tool}: destructive command`)
-              throw blockError("Destructive command blocked. Use safe alternatives.")
+              throw new SddError("Destructive command blocked. Use safe alternatives.")
             }
           }
         }
@@ -714,7 +693,7 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
 
           if (permission === "deny") {
             audit("tool.before", `BLOCKED ${tool}: ${agentType} not allowed`)
-            throw blockError(`Agent ${agentType} cannot use ${tool}.`)
+            throw new SddError(`Agent ${agentType} cannot use ${tool}.`)
           }
         }
 
@@ -726,13 +705,14 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
           for (const pattern of bashDenyRules) {
             if (matchBashCommand(cmd, pattern)) {
               audit("tool.before", `BLOCKED bash: write command for ${agentType}`)
-              throw blockError(`Agent ${agentType} cannot execute write commands in bash.`)
+              throw new SddError(`Agent ${agentType} cannot execute write commands in bash.`)
             }
           }
         }
 
         // --- Task() Subagent Name Validation ---
-        if (tool === "task" || tool === "Task") {
+        // [C2] Use .toLowerCase() to handle any case variant ("task", "Task", "TASK")
+        if (tool.toLowerCase() === "task") {
           // Extract subagent name from args (check common keys)
           const subagentName = (args.agent as string)
             ?? (args.name as string)
@@ -742,13 +722,13 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
 
           if (subagentName && !VALID_SUBAGENTS.includes(subagentName)) {
             audit("tool.before", `BLOCKED task: unknown subagent "${subagentName}"`)
-            throw blockError(`Unknown subagent: ${subagentName}. Use a valid agent name from the catalog.`)
+            throw new SddError(`Unknown subagent: ${subagentName}. Use a valid agent name from the catalog.`)
           }
         }
 
       } catch (err: unknown) {
-        // Re-throw our own blocking errors; log everything else
-        if (err instanceof Error && err.message.includes("sdd-pipeline")) throw err
+        // [R2] Re-throw our own SddError instances; log everything else
+        if (err instanceof SddError) throw err
         const msg = err instanceof Error ? err.message : String(err)
         console.error("[sdd-pipeline] Error in tool.before:", msg)
       }
