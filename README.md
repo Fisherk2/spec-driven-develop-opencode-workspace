@@ -4,6 +4,8 @@
 
 Una plantilla production-grade que integra 42 skills de ingeniería + 1 meta-skill organizados en 6 fases del ciclo SDD + Extra, comandos slash y agentes especializados para acelerar el desarrollo con IA. Diseñada para equipos y desarrolladores que quieren calidad consistente en proyectos asistidos por IA.
 
+> **⚠️ Esto es una plantilla, no un repositorio para clonar.** Usa **"Use this template"** o **descarga el ZIP** para crear tu propio proyecto con historial limpio. Consulta la sección [Quick Start](#quick-start) para más detalles.
+
 ---
 
 ## Características
@@ -149,10 +151,29 @@ Además, más de **90 subagentes especializados** están disponibles para tareas
 
 ## Quick Start
 
-### 1. Clona la plantilla
+Esta plantilla está diseñada para crear **nuevos proyectos**. No la clones directamente — usa una de estas opciones:
+
+### Opción A: Usa esta plantilla (Recomendado)
+
+1. Haz clic en **"Use this template"** → **"Create a new repository"**
+2. Nombra tu proyecto y créalo
+3. Clona tu nuevo repositorio:
+
 ```bash
-git clone https://github.com/Fisherk2/spec-driven-develop-opencode-workspace.git mi-proyecto
-cd mi-proyecto
+git clone https://github.com/TU-USUARIO/tu-proyecto.git
+cd tu-proyecto
+```
+
+### Opción B: Descargar ZIP
+
+1. Haz clic en **Code** → **Download ZIP**
+2. Extrae el ZIP en tu carpeta de proyecto
+3. Elimina la carpeta `.git` para empezar limpio:
+
+```bash
+cd tu-proyecto
+rm -rf .git
+git init
 ```
 
 ### 2. Instala dependencias del plugin OpenCode
@@ -165,7 +186,7 @@ cd .opencode && bun install && cd ..
 npx ctx7@latest setup
 ```
 
-### 4. Instala Excel MCP Server (desarrollo local)
+### 4. (Opcional) Instala Excel MCP Server (desarrollo local)
 Habilita la manipulación de hojas de cálculo (.xlsx) directamente desde los agentes.
 
 ```bash
@@ -431,4 +452,4 @@ Gracias a sus autores y contribuyentes por su invaluable aporte a la comunidad.
 
 ---
 
-*Última revisión: 2026-05-23*
+*Última revisión: 2026-05-28*
