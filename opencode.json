@@ -9,7 +9,7 @@
     "prune": true,
     "reserved": 10000
   },
-  
+
   "provider": {
     "openai": {
       "models": {
@@ -359,6 +359,7 @@
     },
     "bash": {
       "*": "ask",
+      "cd *": "allow",
       "ls": "allow",
       "ls *": "allow",
       "tree *": "allow",
