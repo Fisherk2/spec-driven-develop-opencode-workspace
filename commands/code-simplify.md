@@ -15,7 +15,7 @@ Skills that complement the simplification workflow:
 
 Simplify recently changed code (or the specified scope) while preserving exact behavior:
 
-1. Read AGENTS.md and check project conventions
+1. Read @AGENTS.md and check project conventions
 2. Identify the target code — recent changes unless a broader scope is specified
 3. Understand the code's purpose, callers, edge cases, and test coverage before touching it
 4. Scan for simplification opportunities:

@@ -24,7 +24,6 @@ Skills that complement the spec workflow:
 - **Backend Architecture**: @skills/clean-ddd-hexagonal/SKILL.md — Clean Architecture + DDD + Hexagonal patterns
 - **Design Patterns**: @skills/design-patterns/SKILL.md — GoF and enterprise patterns for recurring problems
 - **Architecture Diagrams**: @skills/architecture-diagrams/SKILL.md — Document system architecture with Mermaid/PlantUML/C4
-- **UI/UX Design**: @skills/ui-ux-design-pro/SKILL.md — Professional UI/UX design with design systems and high-fidelity prototyping
 
 ---
 

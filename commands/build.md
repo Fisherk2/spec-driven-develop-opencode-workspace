@@ -17,7 +17,7 @@ Skills that complement the build workflow:
 
 ---
 
-Pick the next pending task from the plan. For each task:
+Pick the next pending @tasks/ from the plan. For each task:
 
 1. Read the task's acceptance criteria
 2. Load relevant context (existing code, patterns, types)
@@ -28,4 +28,4 @@ Pick the next pending task from the plan. For each task:
 7. Commit with a descriptive message
 8. Mark the task complete and move to the next one
 
-If any step fails, follow the @skills/debugging-and-error-recovery/SKILL.md.
+If any step fails, follow the @skills/debugging-and-error-recovery/SKILL.md
