@@ -14,13 +14,34 @@
 
 ## 📋 Project Cleanup & Setup
 
-After cloning this template for your own project, follow these steps to strip template-specific content and configure it for your needs.
+This workspace is a **template** for building AI-assisted projects. Don't clone it directly — use one of these methods instead:
 
-### 1. Clone the template
+### Option A: Use this template (Recommended)
+
+1. Go to [github.com/Fisherk2/spec-driven-develop-opencode-workspace](https://github.com/Fisherk2/spec-driven-develop-opencode-workspace)
+2. Click **"Use this template"** → **"Create a new repository"**
+3. Name your project and create it
+4. Clone your new repository:
 
 ```bash
-git clone https://github.com/Fisherk2/spec-driven-develop-opencode-workspace mi-proyecto && cd mi-proyecto
+git clone https://github.com/TU-USUARIO/tu-proyecto.git
+cd your-project
 ```
+
+### Option B: Download ZIP
+
+1. Go to [github.com/Fisherk2/spec-driven-develop-opencode-workspace](https://github.com/Fisherk2/spec-driven-develop-opencode-workspace)
+2. Click **Code** → **Download ZIP**
+3. Extract the ZIP to your project folder
+4. Remove the `.git` folder to start fresh:
+
+```bash
+cd your-project
+rm -rf .git
+git init
+```
+
+> **Why not `git clone`?** Cloning inherits the template's commit history, which is not what you want for your own project. The methods above give you a clean slate.
 
 ### 2. Clean up template files
 
@@ -38,45 +59,51 @@ Remove only the **version entries** (the tagged releases `[x.x.x]`), keeping the
 
 ### 3. Configure opencode.json
 
-Replace `opencode.json` with your preferred models and agent setup:
+Edit `opencode.json` to set your models, agents, context files, and MCP servers. Here are the key parameters:
+
+| Parameter | Purpose | Required |
+|-----------|---------|:--------:|
+| `model` | Primary model used by agents | ✅ |
+| `small_model` | Fast/cheap model for lightweight tasks | ✅ |
+| `agent` | Per-agent model overrides | ✅ |
+| `instructions` | Context files loaded on startup | ✅ |
+| `mcp` | MCP server connections (Context7, Jupyter, Excel, etc.) | Optional |
 
 ```jsonc
 {
   "$schema": "https://opencode.ai/config.json",
 
-  "model": "opencode-go/kimi-k2.6",
+  // Primary models
+  "model": "openrouter/openrouter/free",
   "small_model": "openrouter/z-ai/glm-4.5-air:free",
 
+  // Per-agent model overrides (each agent can use a different model)
   "agent": {
-    "huitzilopochtli": {
-      "model": "opencode-go/qwen3.6-plus"
-    },
-    "quetzalcoatl": {
-      "model": "opencode-go/kimi-k2.6"
-    },
-    "moctezuma": {
-      "model": "opencode-go/deepseek-v4-flash"
-    },
-    "tlaloc": {
-      "model": "opencode-go/mimo-v2.5"
-    },
-    "mictlantecuhtli": {
-      "model": "opencode-go/mimo-v2.5"
-    },
-    "tezcatlipoca": {
-      "model": "opencode-go/deepseek-v4-pro"
-    }
+    "huitzilopochtli": { "model": "openrouter/openrouter/free" },
+    "quetzalcoatl":    { "model": "opencode/big-pickle" },
+    "moctezuma":       { "model": "openrouter/deepseek/deepseek-v4-flash:free" },
+    "tlaloc":          { "model": "opencode/mimo-v2.5-free" },
+    "mictlantecuhtli": { "model": "opencode/mimo-v2.5-free" },
+    "tezcatlipoca":    { "model": "opencode/big-pickle" }
   },
 
+  // Context files loaded on startup
   "instructions": [
     "CONTRIBUTING.md",
     "WORKFLOW.md",
     "SPEC.md"
-  ]
+  ],
+
+  // MCP servers (add the ones you need)
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true
+    }
+  }
 }
 ```
-
-The `instructions` array tells the agent which context files to read on startup. Adjust the list to match your project's documentation.
 
 ### 4. Install OpenCode plugin dependencies
 
