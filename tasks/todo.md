@@ -131,35 +131,65 @@
 
 ### Issue #5 — Establecer orquestación de agentes en el plugin
 
-- [ ] **5.1** Leer y entender plugin actual (`sdd-pipeline.ts`) — 371 líneas
-- [ ] **5.2** Actualizar `AGENT_DETECT_PATTERNS` para 6 agentes:
-  - [ ] 5.2.1 huitzilopochtli: patrón de detección actualizado
-  - [ ] 5.2.2 quetzalcoatl: patrón actualizado
-  - [ ] 5.2.3 moctezuma: NUEVO patrón
-  - [ ] 5.2.4 tlaloc: NUEVO patrón
-  - [ ] 5.2.5 mictlantecuhtli: NUEVO patrón
-  - [ ] 5.2.6 tezcatlipoca: patrón actualizado
-- [ ] **5.3** Actualizar `buildRoleRules()`:
-  - [ ] 5.3.1 Huitzilopochtli: "Solo delega. No escribes código ni documentación."
-  - [ ] 5.3.2 Quetzalcoatl: "Planeas y diseñas. Delegas documentación. NO escribes código."
-  - [ ] 5.3.3 Moctezuma: "Escribes planes y tareas. NO escribes código. NO delegas."
-  - [ ] 5.3.4 Tlaloc: "Implementas. Escribes código y documentación. Delega si es necesario."
-  - [ ] 5.3.5 Mictlantecuhtli: "Pruebas y validas. Escribes tests. NO delegas."
-  - [ ] 5.3.6 Tezcatlipoca: "Revisas y criticas. NO escribes nada. NO delegas."
-- [ ] **5.4** Implementar matriz de decisiones de delegación en `tool.execute.before`:
-  - [ ] 5.4.1 Huitzilopochtli: bloquear Write/Edit completamente
-  - [ ] 5.4.2 Quetzalcoatl: bloquear Write/Edit en extensiones de código (.ts, .js, .py, etc.)
-  - [ ] 5.4.3 Moctezuma: bloquear bash (ejecución de código), permitir Write para docs
-  - [ ] 5.4.4 Tezcatlipoca: bloquear Write/Edit+Bash completamente
-  - [ ] 5.4.5 Mantener restricciones existentes (quetzalcoatl no escribe código, tezcatlipoca no modifica specs)
-- [ ] **5.5** (Opcional) Separar en archivos modulares:
-  - [ ] 5.5.1 `sdd-agents.ts` — Configuración y detección de agentes
-  - [ ] 5.5.2 `sdd-permissions.ts` — Matriz de permisos y restricciones
-  - [ ] 5.5.3 `sdd-delegation.ts` — Lógica de decisión de delegación
-  - [ ] 5.5.4 `sdd-pipeline.ts` — Plugin principal (importa los módulos)
-- [ ] **5.6** Verificar que el plugin compila:
-  - [ ] 5.6.1 `cd .opencode && bun install` (si hay nuevas dependencias)
-  - [ ] 5.6.2 Verificar typescript sintaxis
+#### 5.1 Análisis y preparación
+- [x] **5.1.1** Analizar repo oh-my-opencode-slim como referencia
+- [x] **5.1.2** Documentar hallazgos en `tasks/plan.md`
+- [ ] **5.1.3** Leer y entender plugin actual (`sdd-pipeline.ts`) — 371 líneas
+
+#### 5.2 Actualizar `AGENT_DETECT_PATTERNS`
+- [ ] **5.2.1** huitzilopochtli: patrón de detección actualizado
+- [ ] **5.2.2** quetzalcoatl: patrón actualizado
+- [ ] **5.2.3** moctezuma: NUEVO patrón
+- [ ] **5.2.4** tlaloc: NUEVO patrón
+- [ ] **5.2.5** mictlantecuhtli: NUEVO patrón
+- [ ] **5.2.6** tezcatlipoca: patrón actualizado
+
+#### 5.3 Actualizar `buildRoleRules()`
+- [ ] **5.3.1** Huitzilopochtli: "Solo delega. No escribes código ni documentación."
+- [ ] **5.3.2** Quetzalcoatl: "Planeas y diseñas. Delegas documentación. NO escribes código."
+- [ ] **5.3.3** Moctezuma: "Escribes planes y tareas. NO escribes código. NO delegas."
+- [ ] **5.3.4** Tlaloc: "Implementas. Escribes código y documentación. Delega si es necesario."
+- [ ] **5.3.5** Mictlantecuhtli: "Pruebas y validas. Escribes tests. NO delegas."
+- [ ] **5.3.6** Tezcatlipoca: "Revisas y criticas. NO escribes nada. NO delegas."
+
+#### 5.4 Implementar Tool Permissions Matrix
+- [ ] **5.4.1** Definir `TOOL_PERMISSIONS` por agente (write, edit, patch, bash, task)
+- [ ] **5.4.2** Huitzilopochtli: write:deny, edit:deny, patch:deny, bash:ask, task:allow
+- [ ] **5.4.3** Quetzalcoatl: write:deny, edit:deny, patch:deny, bash:ask, task:allow
+- [ ] **5.4.4** Moctezuma: write:allow, edit:allow, patch:allow, bash:ask, task:deny
+- [ ] **5.4.5** Tlaloc: write:allow, edit:allow, patch:allow, bash:ask, task:ask
+- [ ] **5.4.6** Mictlantecuhtli: write:allow, edit:allow, patch:allow, bash:ask, task:allow
+- [ ] **5.4.7** Tezcatlipoca: write:deny, edit:deny, patch:deny, bash:ask, task:deny
+
+#### 5.5 Implementar Bash Write Rules
+- [ ] **5.5.1** Definir `AGENT_BASH_DENY_RULES` para agentes de solo-lectura
+- [ ] **5.5.2** Quetzalcoatl: deny comandos de escritura (>, >>, touch, mkdir, cp, mv, rm, chmod, chown, ln)
+- [ ] **5.5.3** Tezcatlipoca: deny comandos de escritura (misma lista)
+- [ ] **5.5.4** Moctezuma: deny comandos de escritura (>', >>, touch, mkdir, cp, mv, rm)
+
+#### 5.6 Implementar SDD Phase Enforcement
+- [ ] **5.6.1** Definir `PHASE_AGENT_ALLOWLIST` por fase SDD
+- [ ] **5.6.2** Implementar validación en `tool.execute.before`
+- [ ] **5.6.3** Bloquear agentes no válidos para fase actual
+
+#### 5.7 Implementar en `tool.execute.before`
+- [ ] **5.7.1** Validar tool permissions contra `TOOL_PERMISSIONS`
+- [ ] **5.7.2** Validar bash commands contra `AGENT_BASH_DENY_RULES`
+- [ ] **5.7.3** Validar phase enforcement contra `PHASE_AGENT_ALLOWLIST`
+- [ ] **5.7.4** Mantener destructive command blocking existente
+
+#### 5.8 (Opcional) Separar en archivos modulares
+- [ ] **5.8.1** `sdd-agents.ts` — Configuración y detección de agentes
+- [ ] **5.8.2** `sdd-permissions.ts` — Matriz de permisos y restricciones
+- [ ] **5.8.3** `sdd-delegation.ts` — Lógica de decisión de delegación
+- [ ] **5.8.4** `sdd-pipeline.ts` — Plugin principal (importa los módulos)
+
+#### 5.9 Verificación
+- [ ] **5.9.1** Verificar que el plugin compila (`cd .opencode && bun install`)
+- [ ] **5.9.2** Verificar TypeScript syntax
+- [ ] **5.9.3** Test manual: `/spec` con Quetzalcoatl (debe poder delegar docs)
+- [ ] **5.9.4** Test manual: `/review` con Tezcatlipoca (debe ser solo lectura)
+- [ ] **5.9.5** Test manual: `/build` con Tlaloc (debe poder escribir código)
 
 ### Branch 3 — Finalización
 
@@ -191,5 +221,5 @@
 |--------|:------:|:------:|
 | `docs/quickstart-migration` | 25/25 tasks | ✅ Completada |
 | `feat/agent-permission-hierarchy` | 36/36 tasks | ✅ Completada |
-| `feat/plugin-orchestration` | 0/21 tasks | ⏳ Pendiente |
-| **Total** | **61/82 tasks** | **🔄 En progreso** |
+| `feat/plugin-orchestration` | 2/29 tasks | 🔄 En progreso |
+| **Total** | **63/90 tasks** | **🔄 En progreso** |

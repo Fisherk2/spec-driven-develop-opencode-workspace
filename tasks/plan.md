@@ -165,7 +165,15 @@ Actualizar sección "Agentes Principales" con descripciones míticas:
    - Tezcatlipoca: bloquear Write/Edit completamente (solo lectura)
    - Moctezuma: bloquear ejecución de código (solo docs de planificación)
 
-5. **Considerar separación en múltiples archivos**:
+5. **Implementar SDD Phase Enforcement**:
+   - Solo agentes válidos por fase pueden operar
+   - Bloquear tool.execute.before si agente no es válido para fase actual
+
+6. **Implementar Bash Write Rules por agente**:
+   - Quetzalcoatl, Tezcatlipoca, Moctezuma: deny comandos de escritura
+   - Huitzilopochtli, Tlaloc, Mictlantecuhtli: heredan ask global
+
+7. **Considerar separación en múltiples archivos**:
    - `sdd-pipeline.ts` — Plugin principal + hooks
    - `sdd-agents.ts` — Configuración de agentes (detect patterns, role rules)
    - `sdd-delegation.ts` — Matriz de decisiones de delegación
@@ -176,6 +184,8 @@ Actualizar sección "Agentes Principales" con descripciones míticas:
 - [ ] Role rules inyectadas correctamente para cada agente
 - [ ] Tool restrictions bloquean acciones no permitidas por agente
 - [ ] Matriz de decisiones implementada (flujo de delegación)
+- [ ] SDD Phase Enforcement implementado
+- [ ] Bash Write Rules por agente funcionando
 - [ ] Plugin compila sin errores (`bun build` o typecheck)
 
 ---
@@ -207,6 +217,83 @@ flowchart LR
 | `docs/quickstart-migration` | 1 | 0 | Baja (solo documentación) |
 | `feat/agent-permission-hierarchy` | 5 | 3 | Alta ✅ Completada (en revisión) |
 | `feat/plugin-orchestration` | 1-5 | 0-4 | Alta (lógica de plugin TypeScript) |
+
+---
+
+## 🔍 Análisis: oh-my-opencode-slim vs Nuestro Plugin
+
+### Referencia Externa
+
+Se analizó [oh-my-opencode-slim](https://github.com/alvinunreal/oh-my-opencode-slim) como referencia de arquitectura de orquestación de agentes. Este repo es un plugin instalador con 7 agentes principales + 2 opcionales.
+
+### Arquitectura de Permisos por Herramienta
+
+**Decisión clave:** Todos los agentes principales pueden usar bash en modo lectura por defecto. Solo se deniegan comandos de escritura para agentes de solo-lectura.
+
+```typescript
+// Matriz de permisos por agente
+const TOOL_PERMISSIONS = {
+  huitzilopochtli: { write: 'deny', edit: 'deny', patch: 'deny', bash: 'ask', task: 'allow' },
+  quetzalcoatl:    { write: 'deny', edit: 'deny', patch: 'deny', bash: 'ask', task: 'allow' },
+  moctezuma:       { write: 'allow', edit: 'allow', patch: 'allow', bash: 'ask', task: 'deny' },
+  tlaloc:          { write: 'allow', edit: 'allow', patch: 'allow', bash: 'ask', task: 'ask' },
+  mictlantecuhtli: { write: 'allow', edit: 'allow', patch: 'allow', bash: 'ask', task: 'allow' },
+  tezcatlipoca:    { write: 'deny', edit: 'deny', patch: 'deny', bash: 'ask', task: 'deny' },
+}
+```
+
+### Bash Write Rules por Agente
+
+**Decisión clave:** Bash hereda `ask` global de `opencode.json`. Solo se agregan `deny` para comandos de escritura en agentes de solo-lectura.
+
+```typescript
+// Reglas de bash para agentes de solo-lectura
+const AGENT_BASH_DENY_RULES = {
+  quetzalcoatl: ['> *', '>> *', 'touch *', 'mkdir *', 'cp *', 'mv *', 'rm *', 'chmod *', 'chown *', 'ln *'],
+  tezcatlipoca: ['> *', '>> *', 'touch *', 'mkdir *', 'cp *', 'mv *', 'rm *', 'chmod *', 'chown *', 'ln *'],
+  moctezuma:    ['> *', '>> *', 'touch *', 'mkdir *', 'cp *', 'mv *', 'rm *'],  // Solo lectura
+}
+```
+
+### Herencia de Permisos en Delegación
+
+**Descubrimiento crítico:** Los subagentes ejecutan en sesiones hijas con sus **propios permisos**, NO con los del padre.
+
+```
+Quetzalcoatl (write: deny)
+  └── task("docs-writer", "Escribe la spec")
+        └── docs-writer en sesión hija
+              └── docs-writer tiene write: allow
+                    └── ✅ PUEDE escribir
+```
+
+**Implicación:** Las restricciones del primario NO bloquean al subagente. Cada agente resuelve sus permisos independientemente.
+
+### SDD Phase Enforcement
+
+**Decisión clave:** Solo agentes válidos por fase SDD pueden operar.
+
+```typescript
+const PHASE_AGENT_ALLOWLIST = {
+  idle:    ['huitzilopochtli', 'quetzalcoatl', 'moctezuma'],
+  define:  ['quetzalcoatl'],
+  plan:    ['moctezuma'],
+  build:   ['tlaloc'],
+  verify:  ['mictlantecuhtli'],
+  review:  ['tezcatlipoca'],
+  ship:    ['mictlantecuhtli'],
+}
+```
+
+### Comparación con oh-my-opencode-slim
+
+| Aspecto | oh-my-opencode-slim | Nuestro Plugin |
+|---------|---------------------|----------------|
+| Bash permissions | Sin restricciones granulares | Ask global + deny por agente |
+| Tool permissions | En config JSON | En frontmatter YAML |
+| MCP permissions | Por agente con wildcard | Global (futuro: por agente) |
+| Phase enforcement | No tiene | SDD phases nativas |
+| Delegation rules | En orchestrator prompt | En system prompt + plugin |
 
 ---
 
