@@ -72,14 +72,16 @@ Para añadir un nuevo agente especializado, sigue estos pasos. El proyecto tiene
 
 5. **Actualiza las tablas SUBAGENT DELEGATION de los agentes primarios** que puedan delegar a este nuevo agente. Esto es crítico — sin esto, el agente primario no sabrá que existe:
    - **[agents/quetzalcoatl.md](agents/quetzalcoatl.md)** — Si el agente es útil para análisis, revisión, especificaciones o documentación (code reviews, DB analysis, accessibility, research, etc.)
-   - **[agents/tezcatlipoca.md](agents/tezcatlipoca.md)** — Si el agente es útil para implementación, build, testing o despliegue (lenguajes, frameworks, DevOps, DB, testing, etc.)
+   - **[agents/tlaloc.md](agents/tlaloc.md)** — Si el agente es útil para implementación, build, testing o despliegue (lenguajes, frameworks, DevOps, DB, testing, etc.)
    - Añade una fila a la tabla con: nombre del agente, qué hace mejor ("Best for"), y cuándo delegar ("Delegate when...")
 
 6. **Actualiza el catálogo de huitzilopochtli** en [agents/huitzilopochtli.md](agents/huitzilopochtli.md):
    - Si el agente encaja en un dominio existente (Backend, Frontend, DevOps, etc.), añade su nombre a la lista separada por comas
    - Si el agente introduce un dominio nuevo, añade una fila nueva a la tabla "Catalog by Domain"
 
-7. **Reinicia tu sesión de OpenCode** para que reconozca el nuevo agente
+7. **Añade el nombre al array `VALID_SUBAGENTS`** en [.opencode/plugins/sdd-pipeline.ts](.opencode/plugins/sdd-pipeline.ts). Este array valida que los subagentes invocados vía `task()` existan en el catálogo. Si omites este paso, el plugin rechazará el subagente con un error: `Unknown subagent: <nombre>`. Consulta la tabla de dominios en [.opencode/plugins/README.md](.opencode/plugins/README.md#subagent-name-validation) para ver el formato correcto.
+
+8. **Reinicia tu sesión de OpenCode** para que reconozca el nuevo agente
 
 ### Añadir un Agente Primario
 

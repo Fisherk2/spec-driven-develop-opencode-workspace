@@ -355,7 +355,9 @@ To add a new specialized agent, follow these steps. The project has **two types 
    - If the agent fits an existing domain (Backend, Frontend, DevOps, etc.), add its name to the comma-separated list
    - If the agent introduces a new domain, add a new row to the "Catalog by Domain" table
 
-7. **Restart your OpenCode session** so it recognizes the new agent
+7. **Add the name to the `VALID_SUBAGENTS` array** in [.opencode/plugins/sdd-pipeline.ts](.opencode/plugins/sdd-pipeline.ts). This array validates that subagents invoked via `task()` exist in the catalog. If you skip this step, the plugin will reject the subagent with: `Unknown subagent: <name>`. See the domain table in [.opencode/plugins/README.md](.opencode/plugins/README.md#subagent-name-validation) for the correct format.
+
+8. **Restart your OpenCode session** so it recognizes the new agent
 
 #### Adding a Primary Agent
 
