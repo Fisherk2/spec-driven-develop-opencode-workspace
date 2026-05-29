@@ -23,6 +23,7 @@ The `commands/` directory is automatically detected by OpenCode. Type `/` in the
 | Command | Phase | What it does |
 |---------|-------|--------------|
 | `/spec` | DEFINE | Creates a structured specification before writing code |
+| `/design` | DESIGN | Creates UI/UX design specifications with fan-out to specialist subagents |
 | `/plan` | PLAN | Breaks specifications into small, ordered tasks |
 | `/build` | BUILD | Incremental implementation with TDD |
 | `/test` | VERIFY | Writes failing tests, implements, refactors |

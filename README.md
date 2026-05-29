@@ -11,7 +11,7 @@ Una plantilla production-grade que integra 42 skills de ingeniería + 1 meta-ski
 ## Características
 
 - **42 Skills de Ingeniería + 1 Meta-Skill** — TDD, Spec-Driven Development, Code Review, Seguridad, Performance, UI/UX, DDD/Hexagonal, patrones de diseño, manipulación de spreadsheets, notebooks, y más, organizados en 6 fases SDD + Extra
-- **7 Comandos Slash** — `/spec`, `/plan`, `/build`, `/test`, `/review`, `/ship`, `/code-simplify`
+- **8 Comandos Slash** — `/spec`, `/design`, `/plan`, `/build`, `/test`, `/review`, `/ship`, `/code-simplify`
 - **6 Agentes Principales + 90+ Subagentes** — huitzilopochtli (orquestador), quetzalcoatl (visión), moctezuma (planificación), tlaloc (construcción), mictlantecuhtli (validación), tezcatlipoca (revisión), y más de 90 subagentes especializados en frontend, backend, DevOps, testing, seguridad, y más
 - **Nativo OpenCode** — Comandos slash, agentes y skills cargados desde `.opencode/`
 - **Documentación Técnica Integrada** — Referencias de Clean Code, DDD, UI/UX, Testing, Seguridad y más
@@ -272,8 +272,9 @@ CONTRIBUTING.md           # Directrices de contribución
 USER_GUIDE.md             # Referencia completa de skills
 README.md                 # Este archivo
 
-commands/                 # 7 comandos slash para OpenCode
+commands/                 # 8 comandos slash para OpenCode
 ├── spec.md               #   DEFINE
+├── design.md             #   DESIGN (UI/UX)
 ├── plan.md               #   PLAN
 ├── build.md              #   BUILD
 ├── test.md               #   VERIFY

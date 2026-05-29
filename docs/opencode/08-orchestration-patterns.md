@@ -62,10 +62,12 @@ The user (or a slash command) is the orchestrator. **Personas do not call other 
 - `/review` → wraps `tezcatlipoca` with the project's review skill
 - `/test` → wraps `mictlantecuhtli` with TDD skill
 - `/code-simplify` → wraps `tlaloc` with code simplification skill
+- `/design` → wraps `quetzalcoatl` with UI/UX design skills (fan-out to `ux-researcher` + `frontend-developer` + `accessibility-tester`)
 
 **Slash command (orchestrator — fan-out)** — Pick this only when **independent** investigations can run in parallel and produce reports that a single agent then merges.
 
 - `/ship` → `mictlantecuhtli` orchestrates fan-out to `code-reviewer` + `security-auditor` + `test-engineer` + `dependency-manager` + `accessibility-tester` in parallel, then synthesizes their reports into a go/no-go decision
+- `/design` → `quetzalcoatl` orchestrates fan-out to `ux-researcher` + `frontend-developer` + `accessibility-tester` in parallel, then synthesizes their reports into a design specification
 
 ### Rules for personas
 
@@ -74,10 +76,10 @@ The user (or a slash command) is the orchestrator. **Personas do not call other 
 3. A persona may invoke skills (the *how*).
 4. **All primary agents may delegate specialized sub-tasks to subagents**, subject to task allowlists:
    - `huitzilopochtli` (orchestrator) may delegate to any subagent in the catalog (flexible).
-   - `quetzalcoatl` (architect) may delegate only to architecture, data, documentation, and review subagents.
+   - `quetzalcoatl` (architect) may delegate to architecture, data, documentation, review, and UI/UX subagents.
    - `tlaloc` (builder) may delegate to implementation, testing, DevOps, AI, and security subagents.
    - `moctezuma` (planner) does NOT delegate — writes plans directly.
-   - `mictlantecuhtli` (judge) does NOT delegate — writes and runs tests directly.
+   - `mictlantecuhtli` (judge) may delegate to code review, security, testing, dependency, accessibility, debugging, and deployment subagents.
    - `tezcatlipoca` (critic) does NOT delegate — only observes and critiques.
 5. Every persona file ends with a "Composition" block stating where it fits.
 
@@ -136,7 +138,7 @@ A slash command that wraps one persona with the project's skills. Saves the user
 
 ---
 
-### 3. Parallel fan-out with merge (canonical example: `/ship`)
+### 3. Parallel fan-out with merge (canonical examples: `/ship`, `/design`)
 
 Multiple personas operate on the same input concurrently, each producing an independent report. A merge step (in the main agent's context) synthesizes them into a single decision.
 
@@ -148,13 +150,19 @@ Multiple personas operate on the same input concurrently, each producing an inde
                     └─→ accessibility-tester ─┘
 ```
 
+```
+                    ┌─→ ux-researcher       ─┐
+/design → fan out ──┼─→ frontend-developer  ─┤→ merge → design specification
+                    └─→ accessibility-tester ─┘
+```
+
 **Use when:**
 - The sub-tasks are genuinely independent (no shared mutable state, no ordering dependency)
 - Each sub-agent benefits from its own context window
 - The merge step is small enough to stay in the main context
 - Wall-clock latency matters
 
-**Examples in this repo:** `/ship` (mictlantecuhtli orchestrates parallel review).
+**Examples in this repo:** `/ship` (mictlantecuhtli orchestrates parallel review), `/design` (quetzalcoatl orchestrates parallel UI/UX design).
 
 **Cost:** N parallel sub-agent contexts + one merge turn. Higher than direct invocation, but faster wall-clock and produces better reports because each sub-agent stays focused on its single perspective.
 
@@ -164,6 +172,12 @@ Multiple personas operate on the same input concurrently, each producing an inde
 - Each runs in a fresh context window → main session stays uncluttered
 - The merge step is small and benefits from full context, so it stays in the main agent
 - Five perspectives cover all launch concerns: code quality, security, testing, dependencies, and accessibility
+
+**Why this works (the `/design` example):**
+- `ux-researcher` focuses on user needs, personas, and journeys
+- `frontend-developer` focuses on technical feasibility and architecture
+- `accessibility-tester` focuses on WCAG compliance and inclusive design
+- Three perspectives cover all design concerns: user experience, technical constraints, and accessibility
 
 **Validation checklist before adopting this pattern:**
 - [ ] Can I run all sub-agents at the same time without ordering issues?
@@ -183,9 +197,15 @@ The user runs slash commands in a defined order, carrying context (or commit his
 user runs:  /spec  →  /plan  →  /build  →  /test  →  /review  →  /ship
 ```
 
+**Secondary commands** (not part of the main pipeline) can be inserted at relevant points:
+
+```
+user runs:  /design  →  /spec  →  /plan  →  /build  →  /code-simplify  →  /test  →  /review  →  /ship
+```
+
 **Use when:** the workflow has dependencies (each step needs the previous step's output) and human judgment between steps adds value.
 
-**Examples in this repo:** the entire DEFINE → PLAN → BUILD → VERIFY → REVIEW → SHIP lifecycle.
+**Examples in this repo:** the entire DEFINE → PLAN → BUILD → VERIFY → REVIEW → SHIP lifecycle, with secondary commands `/design` (UI/UX design) and `/code-simplify` (code clarity) available as needed.
 
 **Cost:** one sub-agent context per step. Free for the orchestration layer because there is no orchestrator agent.
 

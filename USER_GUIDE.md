@@ -202,11 +202,12 @@ git diff --stat your-branch..upstream/main
 
 ## Commands
 
-Seven slash commands map to the development lifecycle. Each activates the right skills automatically via a primary agent.
+Eight slash commands map to the development lifecycle. Each activates the right skills automatically via a primary agent.
 
 | Action | Command | Primary Agent | Principle | Primary Skills Activated |
 |--------|---------|---------------|-----------|------------------------|
 | Define what to build | `/spec` | quetzalcoatl | Spec before code | spec-driven-development, clean-ddd-hexagonal, architecture-diagrams, ui-ux-design-pro |
+| Design UI/UX | `/design` | quetzalcoatl | Design before implementation | ui-ux-design-pro, design-taste-frontend, frontend-ui-engineering |
 | Plan how to build it | `/plan` | moctezuma | Small, atomic tasks | planning-and-task-breakdown |
 | Build incrementally | `/build` | tlaloc | One slice at a time | incremental-implementation, test-driven-development, solid |
 | Prove it works | `/test` | mictlantecuhtli | Tests are proof | test-driven-development, browser-testing-with-devtools, debugging-and-error-recovery |
@@ -228,9 +229,15 @@ flowchart LR
     D --> E["/review<br/>REVIEW"]
     E --> F["/ship<br/>SHIP"]
     F --> G["Go Live"]
+    
+    H["/design<br/>DESIGN"] -.-> A
+    H -.-> C
+    I["/code-simplify<br/>SIMPLIFY"] -.-> E
 ```
 
 Spec-Driven Development (SDD) is the core workflow: define → plan → build → verify → review → ship. Each phase has dedicated commands and skills with verification gates.
+
+Secondary commands (`/design`, `/code-simplify`) support the main cycle without being mandatory steps.
 
 ---
 
