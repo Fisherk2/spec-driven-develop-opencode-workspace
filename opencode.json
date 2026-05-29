@@ -9,7 +9,7 @@
     "prune": true,
     "reserved": 10000
   },
-
+  
   "provider": {
     "openai": {
       "models": {
@@ -301,19 +301,18 @@
       "model": "openrouter/openrouter/free",
       "color": "#d3e22b",
       "temperature": 0.5,
-      "steps": 5
+      "steps": 20
     },
     "quetzalcoatl": {
       "model": "opencode/big-pickle",
       "color": "#ffffff",
       "temperature": 0.3,
-      "steps": 5
+      "steps": 15
     },
     "moctezuma": {
       "model": "openrouter/deepseek/deepseek-v4-flash:free",
       "color": "#8B4513",
-      "temperature": 0.1,
-      "steps": 20
+      "temperature": 0.1
     },
     "tlaloc": {
       "model": "opencode/mimo-v2.5-free",
@@ -329,7 +328,7 @@
       "model": "opencode/big-pickle",
       "color": "#ff3134",
       "temperature": 0.1,
-      "steps": 5
+      "steps": 15
     },
     "build": {
       "disable": true
@@ -355,6 +354,9 @@
   ],
 
   "permission": {
+    "task": {
+      "*": "deny"
+    },
     "bash": {
       "*": "ask",
       "ls": "allow",
