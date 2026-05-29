@@ -44,7 +44,7 @@ Each primary agent has specific permissions per tool:
 | huitzilopochtli | deny | deny | deny | ask | allow |
 | quetzalcoatl | deny | deny | deny | ask | allow |
 | moctezuma | allow | allow | allow | ask | deny |
-| tlaloc | allow | allow | allow | ask | ask |
+| tlaloc | allow | allow | allow | ask | allow |
 | mictlantecuhtli | allow | allow | allow | ask | allow |
 | tezcatlipoca | deny | deny | deny | ask | deny |
 
