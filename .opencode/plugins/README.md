@@ -35,30 +35,9 @@ Based on `@opencode-ai/plugin/dist/index.d.ts` (v1.14.41):
 
 Both ignored by git.
 
-## Tool Permissions Matrix
+## Destructive Command Blocking
 
-Each primary agent has specific permissions per tool:
-
-| Agent | write | edit | patch | bash | task |
-|--------|:-----:|:----:|:-----:|:----:|:----:|
-| huitzilopochtli | deny | deny | deny | ask | allow |
-| quetzalcoatl | deny | deny | deny | ask | allow |
-| moctezuma | allow | allow | allow | ask | deny |
-| tlaloc | allow | allow | allow | ask | allow |
-| mictlantecuhtli | allow | allow | allow | ask | allow |
-| tezcatlipoca | deny | deny | deny | ask | deny |
-
-- `deny` = blocked by the plugin
-- `ask` = global permission from `opencode.json` (default: read-only)
-- `allow` = explicitly allowed
-
-### Bash Write Rules
-
-Read-only agents (quetzalcoatl, tezcatlipoca, moctezuma) have explicit deny for bash write commands: `>`, `>>`, `touch`, `mkdir`, `cp`, `mv`, `rm`, `chmod`, `chown`, `ln`. Other agents inherit the global `ask`.
-
-### Destructive Command Blocking
-
-El plugin bloquea comandos destructivos para TODOS los agentes (incluyendo los que pueden escribir):
+The plugin blocks destructive commands for ALL agents (including those that can write):
 
 ```typescript
 DESTRUCTIVE_PATTERNS = [
@@ -70,6 +49,8 @@ DESTRUCTIVE_PATTERNS = [
   /DELETE\s+FROM/i,          // DELETE FROM
 ]
 ```
+
+This is the only enforcement the plugin applies. All other permissions (write, edit, task, bash write rules) are managed by OpenCode via the agent file YAML frontmatter.
 
 ### Subagent Name Validation
 
@@ -152,7 +133,7 @@ Slash commands (`/build`, `/review`) have priority over mentions (`@tlaloc`). If
 
 1. **On session start**: `experimental.chat.system.transform` detects which primary agent is active (6 agents), persists it in `.sdd-state.json`, and injects the SDD state + role rules + intent suggestions in the system prompt. Detection uses three mechanisms (see Agent Detection Architecture).
 2. **Each message**: `chat.message` detects agent mentions, slash commands, and intent. Commands have priority over mentions. When it detects a mention or command, it updates the active agent and persists the change.
-3. **Before each tool**: `tool.execute.before` validates agent permissions against `TOOL_PERMISSIONS`, blocks destructive commands, and verifies SDD phase enforcement.
+3. **Before each tool**: `tool.execute.before` blocks destructive commands and validates subagent names.
 4. **After each tool**: `tool.execute.after` logs to the audit log.
 5. **On compaction**: `experimental.session.compacting` re-injects the SDD state + role rules and persists the pipeline state.
 

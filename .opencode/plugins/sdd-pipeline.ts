@@ -169,34 +169,6 @@ const AGENT_DETECT_PATTERNS: Record<string, RegExp[]> = {
 }
 
 // ---------------------------------------------------------------------------
-// Tool Permissions Matrix
-// ---------------------------------------------------------------------------
-
-type ToolPermission = "allow" | "deny" | "ask"
-type ToolPermissions = Record<string, ToolPermission>
-
-// Base configs to reduce duplication — each agent extends or overrides
-const READONLY_AGENT: ToolPermissions = {
-  write: "deny", edit: "deny", patch: "deny",
-  bash: "allow", task: "allow", skill: "allow",
-}
-
-const WRITE_AGENT: ToolPermissions = {
-  write: "allow", edit: "allow", patch: "allow",
-  bash: "allow", task: "deny", skill: "allow",
-}
-
-const TOOL_PERMISSIONS: Record<string, ToolPermissions> = {
-  unknown:            { ...READONLY_AGENT, task: "deny" },
-  huitzilopochtli:    { ...READONLY_AGENT },
-  quetzalcoatl:       { ...READONLY_AGENT },
-  moctezuma:          { ...WRITE_AGENT },
-  tlaloc:             { ...WRITE_AGENT, task: "allow" },
-  mictlantecuhtli:    { ...WRITE_AGENT, task: "allow" },
-  tezcatlipoca:       { ...READONLY_AGENT, task: "deny" },
-}
-
-// ---------------------------------------------------------------------------
 // Valid Subagent Names (for task() validation)
 // ---------------------------------------------------------------------------
 
@@ -247,27 +219,6 @@ const VALID_SUBAGENTS: readonly string[] = [
   "business-analyst", "product-manager", "competitive-analyst", "content-marketer",
   "market-researcher", "sales-engineer", "seo-specialist", "trend-analyst", "ux-researcher",
 ]
-
-// ---------------------------------------------------------------------------
-// Bash Write Rules (deny for read-only agents)
-// ---------------------------------------------------------------------------
-
-// Glob patterns for bash command deny rules
-// Only block destructive operations — safe read-only commands are allowed
-// Shared across read-only agents — defined once, reused via reference
-const BASH_DENY_RULES: readonly string[] = [
-  "> *", ">> *",                    // File redirection (write)
-  "touch *", "mkdir *",            // Create files/dirs
-  "cp *", "mv *",                  // Copy/move files
-  "rm -r*", "rm --recursi*",       // Recursive delete (dangerous)
-  "chmod *", "chown *", "ln *",    // Permission/link changes
-]
-
-const AGENT_BASH_DENY_RULES: Record<string, string[]> = {
-  quetzalcoatl:    [...BASH_DENY_RULES],
-  tezcatlipoca:    [...BASH_DENY_RULES],
-  huitzilopochtli: [...BASH_DENY_RULES],
-}
 
 // ---------------------------------------------------------------------------
 // Intent → Command mapping (for visible suggestions in system prompt)
@@ -583,21 +534,6 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
     return map[command] ?? "idle"
   }
 
-  // ── Bash command matching ────────────────────────────────────────────────
-
-  const matchBashCommand = (cmd: string, pattern: string): boolean => {
-    // Simple glob-like matching
-    const regex = new RegExp(
-      "^" +
-      pattern
-        .replace(/[.+^${}()|[\]\\]/g, "\\$&")
-        .replace(/\*/g, ".*")
-        .replace(/\s+/g, "\\s+") +
-      "$"
-    )
-    return regex.test(cmd.trim())
-  }
-
   // ── Hooks ────────────────────────────────────────────────────────────────
 
   return {
@@ -719,7 +655,6 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
       try {
         const tool = inp?.tool ?? ""
         const args = out?.args ?? {}
-        const agentType = sddState.agent_type
 
         // --- Always block destructive commands ---
         if (tool === "Bash" || tool === "bash") {
@@ -728,31 +663,6 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
             if (pattern.test(cmd)) {
               audit("tool.before", `BLOCKED ${tool}: destructive command`)
               throw new SddError("Destructive command blocked. Use safe alternatives.")
-            }
-          }
-        }
-
-        // --- Tool Permissions Matrix ---
-        const agentPermissions = TOOL_PERMISSIONS[agentType]
-        if (agentPermissions) {
-          const toolLower = tool.toLowerCase()
-          const permission = agentPermissions[toolLower]
-
-          if (permission === "deny") {
-            audit("tool.before", `BLOCKED ${tool}: ${agentType} not allowed`)
-            throw new SddError(`Agent ${agentType} cannot use ${tool}.`)
-          }
-        }
-
-        // --- Bash Write Rules per Agent ---
-        if (tool === "Bash" || tool === "bash") {
-          const cmd = (args.command as string) ?? ""
-          const bashDenyRules = AGENT_BASH_DENY_RULES[agentType] ?? []
-
-          for (const pattern of bashDenyRules) {
-            if (matchBashCommand(cmd, pattern)) {
-              audit("tool.before", `BLOCKED bash: write command for ${agentType}`)
-              throw new SddError(`Agent ${agentType} cannot execute write commands in bash.`)
             }
           }
         }
