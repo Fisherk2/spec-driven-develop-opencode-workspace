@@ -540,6 +540,22 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
     return lines.join("\n")
   }
 
+  // ── Command → SDD phase mapping ──────────────────────────────────────────
+
+  const commandToPhase = (command: string): string => {
+    const map: Record<string, string> = {
+      "/spec": "define",
+      "/design": "define",
+      "/plan": "plan",
+      "/build": "build",
+      "/test": "verify",
+      "/review": "review",
+      "/ship": "ship",
+      "/code-simplify": "review",
+    }
+    return map[command] ?? "idle"
+  }
+
   // ── Bash command matching ────────────────────────────────────────────────
 
   const matchBashCommand = (cmd: string, pattern: string): boolean => {
@@ -631,12 +647,16 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
         }
 
         // --- Detect slash commands that load specific agents ---
-        // Commands override mentions — they represent explicit user intent
+        // Commands override EVERYTHING — they represent explicit user intent.
+        // Always set the agent, even if it's the same (ensures state is persisted
+        // on the first command after session start when agent is "unknown").
         for (const [command, agentType] of Object.entries(COMMAND_AGENT_MAP)) {
           if (lower.startsWith(command)) {
-            if (sddState.agent_type !== agentType) {
-              sddState.agent_type = agentType
-              saveState()
+            const prev = sddState.agent_type
+            sddState.agent_type = agentType
+            sddState.pipeline_phase = commandToPhase(command)
+            saveState()
+            if (prev !== agentType) {
               audit("chat.message", `Agent switched via command ${command}: ${agentType}`)
             }
             break
