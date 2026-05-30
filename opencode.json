@@ -312,7 +312,8 @@
     "moctezuma": {
       "model": "nvidia/openai/gpt-oss-120b",
       "color": "#8B4513",
-      "temperature": 0.1
+      "temperature": 0.1,
+      "steps": 20
     },
     "tlaloc": {
       "model": "opencode/mimo-v2.5-free",
