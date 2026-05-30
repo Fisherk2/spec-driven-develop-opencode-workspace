@@ -2,13 +2,30 @@
 
 OpenCode plugin that hooks into the lifecycle of the actual SDK API `@opencode-ai/plugin`.
 
+## Design Principle
+
+**The plugin only handles what OpenCode cannot manage natively.**
+
+OpenCode already manages permissions, agent configs, skills, and commands via YAML frontmatter and `opencode.json`. The plugin should NOT duplicate this logic. When agents, skills, or commands change, you only update the OpenCode configs — not the plugin.
+
+| Managed by OpenCode | Managed by this plugin |
+|---------------------|----------------------|
+| Agent permissions (write/edit/patch/task/bash) | Agent detection from system prompt |
+| Agent model, temperature, steps | SDD pipeline state (phase, tasks, spec) |
+| Skill loading and discovery | Slash command → agent mapping |
+| Command definitions | Intent detection from free text |
+| Bash permission rules | Destructive command blocking (safety net) |
+| Subagent delegation rules | Subagent name validation (catalog integrity) |
+| | Anti-content-generation for read-only agents |
+| | Phase suggestions (advisory) |
+
 ## Implemented Hooks
 
 | Event (actual API) | Purpose |
 |---|---|
 | `experimental.chat.system.transform` | Detects active agent + injects SDD state + role rules + intent suggestions in system prompt |
 | `chat.message` | Detects agent mentions, slash commands, and user intent. Commands have priority over mentions |
-| `tool.execute.before` | Blocks destructive commands + per-agent permissions (write/edit/patch/bash/task) + SDD phase enforcement |
+| `tool.execute.before` | Blocks destructive commands + validates subagent names |
 | `tool.execute.after` | Tool auditing with automatic rotation |
 | `experimental.session.compacting` | Re-injects SDD state + role rules + persists pipeline state |
 
@@ -35,9 +52,11 @@ Based on `@opencode-ai/plugin/dist/index.d.ts` (v1.14.41):
 
 Both ignored by git.
 
-## Destructive Command Blocking
+## What the Plugin Enforces
 
-The plugin blocks destructive commands for ALL agents (including those that can write):
+### 1. Destructive Command Blocking
+
+The plugin blocks destructive commands for ALL agents — a global safety net that OpenCode's per-agent permissions don't cover:
 
 ```typescript
 DESTRUCTIVE_PATTERNS = [
@@ -50,9 +69,7 @@ DESTRUCTIVE_PATTERNS = [
 ]
 ```
 
-This is the only enforcement the plugin applies. All other permissions (write, edit, task, bash write rules) are managed by OpenCode via the agent file YAML frontmatter.
-
-### Subagent Name Validation
+### 2. Subagent Name Validation
 
 The plugin validates that subagent names in `task()` exist in the catalog (**102 agents**: 96 subagents + 6 primary). If the LLM invents a name, it receives an error:
 
@@ -81,21 +98,22 @@ The `VALID_SUBAGENTS` array contains all valid agent names organized by domain:
 
 Validation checks `args.agent`, `args.name`, `args.type`, or `args.subagent` for the name.
 
-## SDD Phase Enforcement
+### 3. Anti-Content-Generation for Read-Only Agents
 
-Only valid agents per SDD phase can operate. If an invalid agent attempts to use tools, it receives an error.
+For agents that cannot write (quetzalcoatl, tezcatlipoca, huitzilopochtli), the plugin injects instructions to prevent generating file content in the session. This wastes tokens and clutters the conversation. These agents should output ANALYSIS and RECOMMENDATIONS only — not code blocks, JSON, or markdown documents.
 
-| Phase | Valid agents |
-|------|----------------|
-| idle | huitzilopochtli, quetzalcoatl, moctezuma |
-| define | quetzalcoatl |
-| plan | moctezuma |
-| build | tlaloc |
-| verify | mictlantecuhtli |
-| review | tezcatlipoca |
-| ship | mictlantecuhtli |
+## What OpenCode Manages (not the plugin)
 
-## Phase Suggestions
+These are configured in agent file YAML frontmatter and `opencode.json`:
+
+- **Agent permissions**: write, edit, patch, task, bash per agent
+- **Agent models**: which model each agent uses
+- **Skill loading**: which skills are available
+- **Command definitions**: slash command definitions
+- **Bash rules**: per-agent bash permission patterns
+- **Subagent delegation**: which agents can delegate to which subagents
+
+## SDD Phase Suggestions
 
 When an agent is used outside its typical phase, the plugin suggests using the correct command. Example:
 
@@ -171,7 +189,7 @@ Mapping of slash commands to their primary agent:
 
 ## Subagent Delegation
 
-Primary agents can delegate to subagents via `task()`. Each subagent operates in an isolated subcontext with its **own permissions**, not the parent's.
+Primary agents can delegate to subagents via `task()`. Each subagent operates in an isolated subcontext with its **own permissions**, not the parent's. Delegation rules are configured in agent file YAML frontmatter — the plugin only validates the subagent name exists in the catalog.
 
 | Primary agent | Can delegate? | Typical subagents |
 |----------------|:---:|---|
@@ -182,8 +200,6 @@ Primary agents can delegate to subagents via `task()`. Each subagent operates in
 | mictlantecuhtli | ✅ docs + code | test-engineer, code-reviewer (when steps exhausted) |
 | tezcatlipoca | ❌ | (does not delegate — only observes and critiques) |
 
-> **Note:** Subagent names are validated against the `VALID_SUBAGENTS` catalog. Invented names are rejected with an error.
-
 ## Source
 
-Plugin: `sdd-pipeline.ts` (797 lines)
+Plugin: `sdd-pipeline.ts` (~734 lines)
