@@ -5,6 +5,7 @@ temperature: 0.1
 color: "#90dc3b"
 hidden: true
 permission:
+  write: allow
   edit: allow
   bash:
     "stripe *": allow

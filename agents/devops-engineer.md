@@ -5,6 +5,13 @@ temperature: 0.1
 color: "#a9dc3b"
 hidden: true
 permission:
+  write:
+    "*": ask
+    ".github/*": allow
+    ".gitlab-ci*": allow
+    "Jenkinsfile*": allow
+    "*.yaml": allow
+    "*.yml": allow
   edit:
     "*": ask
     ".github/*": allow

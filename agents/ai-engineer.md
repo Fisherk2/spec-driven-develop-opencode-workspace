@@ -5,6 +5,8 @@ temperature: 0.1
 color: "#dc993b"
 hidden: true
 permission:
+  write:
+    "*": allow
   edit:
     "*": allow
   bash:

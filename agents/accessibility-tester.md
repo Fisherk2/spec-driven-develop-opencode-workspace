@@ -5,6 +5,7 @@ temperature: 0.1
 color: "#3b97dc"
 hidden: true
 permission:
+  write: deny
   edit: deny
   bash:
     "curl *": allow

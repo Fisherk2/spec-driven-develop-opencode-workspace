@@ -5,6 +5,7 @@ temperature: 0.1
 color: "#dc3b84"
 hidden: true
 permission:
+  write: deny
   edit: deny
   bash:
     "*": deny

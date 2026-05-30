@@ -5,6 +5,7 @@ temperature: 0.1
 color: "#6bdc3b"
 hidden: true
 permission:
+  write: ask
   edit: ask
   bash:
     "psql *": allow

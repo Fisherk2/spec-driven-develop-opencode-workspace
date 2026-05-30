@@ -5,6 +5,13 @@ temperature: 0.1
 color: "#3b49dc"
 hidden: true
 permission:
+  write:
+    "*": deny
+    "k8s/*": allow
+    "helm/*": allow
+    "charts/*": allow
+    "*.yaml": ask
+    "*.yml": ask
   edit:
     "*": deny
     "k8s/*": allow

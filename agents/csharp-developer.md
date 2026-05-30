@@ -5,6 +5,7 @@ temperature: 0.1
 color: "#d63bdc"
 hidden: true
 permission:
+  write: allow
   edit: allow
   bash:
     "dotnet *": allow

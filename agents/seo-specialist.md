@@ -5,6 +5,7 @@ temperature: 0.1
 color: "#dcb23b"
 hidden: true
 permission:
+  write: allow
   edit: allow
   bash:
     "npx *": allow

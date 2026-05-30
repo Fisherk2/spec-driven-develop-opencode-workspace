@@ -5,6 +5,12 @@ temperature: 0.1
 color: "#46dc3b"
 hidden: true
 permission:
+  write:
+    "*": deny
+    "Dockerfile*": allow
+    "docker-compose*": allow
+    "compose*": allow
+    ".dockerignore": allow
   edit:
     "*": deny
     "Dockerfile*": allow

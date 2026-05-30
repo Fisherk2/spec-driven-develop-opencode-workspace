@@ -5,6 +5,7 @@ temperature: 0.1
 color: "#dc3b7a"
 hidden: true
 permission:
+  write: allow
   edit: allow
   bash:
     "go *": allow

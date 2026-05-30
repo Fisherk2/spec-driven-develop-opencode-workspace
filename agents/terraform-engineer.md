@@ -5,6 +5,12 @@ temperature: 0.1
 color: "#dc3b6e"
 hidden: true
 permission:
+  write:
+    "*": deny
+    "*.tf": allow
+    "*.tfvars": allow
+    "*.hcl": allow
+    "modules/*": allow
   edit:
     "*": deny
     "*.tf": allow

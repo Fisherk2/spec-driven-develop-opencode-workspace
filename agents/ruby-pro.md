@@ -5,6 +5,7 @@ temperature: 0.1
 color: "#dc3b4f"
 hidden: true
 permission:
+  write: allow
   edit: allow
   bash:
     "bundle *": allow

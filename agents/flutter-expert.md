@@ -5,6 +5,7 @@ temperature: 0.1
 color: "#723bdc"
 hidden: true
 permission:
+  write: allow
   edit: allow
   bash:
     "flutter *": allow

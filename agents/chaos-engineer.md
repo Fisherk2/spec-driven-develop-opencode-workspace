@@ -5,6 +5,7 @@ temperature: 0.3
 color: "#3b56dc"
 hidden: true
 permission:
+  write: deny
   edit: deny
   bash:
     "kubectl *": allow

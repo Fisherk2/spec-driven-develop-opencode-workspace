@@ -5,6 +5,7 @@ temperature: 0.1
 color: "#dc583b"
 hidden: true
 permission:
+  write: allow
   edit: allow
   bash:
     "composer *": allow

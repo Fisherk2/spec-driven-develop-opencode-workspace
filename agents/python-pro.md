@@ -5,6 +5,7 @@ temperature: 0.1
 color: "#9cdc3b"
 hidden: true
 permission:
+  write: allow
   edit: allow
   bash:
     "pip *": allow

@@ -5,6 +5,7 @@ temperature: 0.1
 color: "#dc3ba9"
 hidden: true
 permission:
+  write: allow
   edit: allow
   bash:
     "npm *": allow

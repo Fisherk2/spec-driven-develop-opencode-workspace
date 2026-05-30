@@ -5,6 +5,7 @@ temperature: 0.1
 color: "#dcca3b"
 hidden: true
 permission:
+  write: deny
   edit: deny
   bash:
     "egrep *": allow

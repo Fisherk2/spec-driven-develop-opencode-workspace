@@ -5,6 +5,7 @@ temperature: 0.1
 color: "#dcb73b"
 hidden: true
 permission:
+  write: allow
   edit: allow
   bash:
     "python *": allow

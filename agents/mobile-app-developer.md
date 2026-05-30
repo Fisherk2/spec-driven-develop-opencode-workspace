@@ -5,6 +5,7 @@ temperature: 0.1
 color: "#c53bdc"
 hidden: true
 permission:
+  write: allow
   edit: allow
   bash:
     "xcodebuild *": allow

@@ -5,6 +5,12 @@ temperature: 0.1
 color: "#3bdcbe"
 hidden: true
 permission:
+  write:
+    "*": deny
+    "platform/*": allow
+    "templates/*": allow
+    "*.yaml": ask
+    "*.yml": ask
   edit:
     "*": deny
     "platform/*": allow

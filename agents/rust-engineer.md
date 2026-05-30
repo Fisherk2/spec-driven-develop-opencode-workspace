@@ -5,6 +5,7 @@ temperature: 0.1
 color: "#5c3bdc"
 hidden: true
 permission:
+  write: allow
   edit: allow
   bash:
     "cargo *": allow
