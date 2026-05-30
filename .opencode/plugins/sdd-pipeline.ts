@@ -174,51 +174,51 @@ const AGENT_DETECT_PATTERNS: Record<string, RegExp[]> = {
 
 // All 102 agents: 96 subagents + 6 primary agents
 // Used to validate task() calls — rejects invented subagent names
-const VALID_SUBAGENTS: readonly string[] = [
+const VALID_SUBAGENTS = new Set([
   // Primary agents
-  "huitzilopochtli", "quetzalcoatl", "moctezuma", "tlaloc", "mictlantecuhtli", "tezcatlipoca",
+  'huitzilopochtli', 'quetzalcoatl', 'moctezuma', 'tlaloc', 'mictlantecuhtli', 'tezcatlipoca',
   // Backend & APIs
-  "backend-developer", "typescript-pro", "python-pro", "golang-pro", "rust-engineer",
-  "java-architect", "csharp-developer", "fastapi-developer", "graphql-architect",
-  "spring-boot-engineer", "django-developer", "laravel-specialist", "php-pro",
-  "nextjs-developer", "elixir-expert", "ruby-pro", "kotlin-specialist",
-  "websocket-engineer", "microservices-architect", "cpp-pro", "javascript-pro",
-  "fullstack-developer",
+  'backend-developer', 'typescript-pro', 'python-pro', 'golang-pro', 'rust-engineer',
+  'java-architect', 'csharp-developer', 'fastapi-developer', 'graphql-architect',
+  'spring-boot-engineer', 'django-developer', 'laravel-specialist', 'php-pro',
+  'nextjs-developer', 'elixir-expert', 'ruby-pro', 'kotlin-specialist',
+  'websocket-engineer', 'microservices-architect', 'cpp-pro', 'javascript-pro',
+  'fullstack-developer',
   // Frontend & Mobile
-  "angular-architect", "flutter-expert", "frontend-developer", "mobile-app-developer",
-  "mobile-developer", "react-specialist", "swift-expert", "vue-expert",
+  'angular-architect', 'flutter-expert', 'frontend-developer', 'mobile-app-developer',
+  'mobile-developer', 'react-specialist', 'swift-expert', 'vue-expert',
   // Database & Data
-  "database-optimizer", "postgres-pro", "sql-pro", "data-analyst", "data-engineer",
-  "data-scientist", "data-researcher", "database-administrator",
+  'database-optimizer', 'postgres-pro', 'sql-pro', 'data-analyst', 'data-engineer',
+  'data-scientist', 'data-researcher', 'database-administrator',
   // DevOps & Infra
-  "docker-expert", "kubernetes-specialist", "terraform-engineer", "devops-engineer",
-  "build-engineer", "sre-engineer", "cloud-architect", "platform-engineer",
-  "network-engineer", "azure-infra-engineer", "deployment-engineer",
+  'docker-expert', 'kubernetes-specialist', 'terraform-engineer', 'devops-engineer',
+  'build-engineer', 'sre-engineer', 'cloud-architect', 'platform-engineer',
+  'network-engineer', 'azure-infra-engineer', 'deployment-engineer',
   // Security
-  "security-auditor", "dependency-manager", "legal-advisor",
+  'security-auditor', 'dependency-manager', 'legal-advisor',
   // Testing & QA
-  "test-engineer", "code-reviewer", "accessibility-tester", "chaos-engineer",
-  "refactorer", "error-detective", "error-coordinator",
+  'test-engineer', 'code-reviewer', 'accessibility-tester', 'chaos-engineer',
+  'refactorer', 'error-detective', 'error-coordinator',
   // Debugging
-  "debugger",
+  'debugger',
   // AI / ML
-  "ai-engineer", "llm-architect", "mlops-engineer", "machine-learning-engineer",
-  "nlp-engineer", "prompt-engineer",
+  'ai-engineer', 'llm-architect', 'mlops-engineer', 'machine-learning-engineer',
+  'nlp-engineer', 'prompt-engineer',
   // DX & Tooling
-  "cli-developer", "tooling-engineer", "mcp-developer", "dx-optimizer", "context-manager",
+  'cli-developer', 'tooling-engineer', 'mcp-developer', 'dx-optimizer', 'context-manager',
   // Processes
-  "git-workflow-manager", "incident-responder", "project-manager", "scrum-master",
-  "legacy-modernizer",
+  'git-workflow-manager', 'incident-responder', 'project-manager', 'scrum-master',
+  'legacy-modernizer',
   // Specialized Domains
-  "fintech-engineer", "payment-integration", "blockchain-developer", "game-developer",
-  "iot-engineer", "embedded-systems",
+  'fintech-engineer', 'payment-integration', 'blockchain-developer', 'game-developer',
+  'iot-engineer', 'embedded-systems',
   // Documentation & Research
-  "docs-writer", "research-analyst", "knowledge-synthesizer",
-  "scientific-literature-researcher", "search-specialist",
+  'docs-writer', 'research-analyst', 'knowledge-synthesizer',
+  'scientific-literature-researcher', 'search-specialist',
   // Product & Business
-  "business-analyst", "product-manager", "competitive-analyst", "content-marketer",
-  "market-researcher", "sales-engineer", "seo-specialist", "trend-analyst", "ux-researcher",
-]
+  'business-analyst', 'product-manager', 'competitive-analyst', 'content-marketer',
+  'market-researcher', 'sales-engineer', 'seo-specialist', 'trend-analyst', 'ux-researcher',
+])
 
 // ---------------------------------------------------------------------------
 // Intent → Command mapping (for visible suggestions in system prompt)
@@ -379,12 +379,8 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
   //      Reset to 0 if file doesn't exist; set on init; tracked in audit().
   let auditLineCount = 0
 
-  /**
-   * [R1] Single source of truth for audit log rotation.
-   * Reads the file, counts lines, and truncates to half if >= MAX_AUDIT_LINES.
-   * Updates the in-memory line count.
-   */
-  const maybeRotateAuditLog = () => {
+  /** Reads the audit log, counts lines, and truncates to half if >= MAX_AUDIT_LINES. */
+  const maybeRotateAuditLog = (): void => {
     if (!existsSync(auditLogPath)) {
       auditLineCount = 0
       return
@@ -410,7 +406,8 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
 
   // ── Helpers ──────────────────────────────────────────────────────────────
 
-  const audit = (source: string, detail: string) => {
+  /** Writes a timestamped entry to the audit log file. Handles rotation when line count exceeds limit. */
+  const audit = (source: string, detail: string): void => {
     try {
       const timestamp = new Date().toISOString()
       const entry = `[${timestamp}] [${source}] ${detail}\n`
@@ -430,6 +427,7 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
 
   // ── Agent detection ────────────────────────────────────────────────────
 
+  /** Detects the active agent type from system prompt parts using two-phase matching. */
   const detectAgentType = (systemParts: string[]): string => {
     // Phase 1: High-confidence identity check ("You are **AgentName**")
     for (const part of systemParts) {
@@ -453,6 +451,7 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
 
   // ── Build role rules per agent type ────────────────────────────────────
 
+  /** Returns role-specific rules for the current agent type, or a generic fallback. */
   const buildRoleRules = (): string[] => {
     return AGENT_ROLE_RULES[sddState.agent_type] ?? [
       "### Role Rules",
@@ -463,6 +462,7 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
 
   // ── Build injected context strings ───────────────────────────────────────
 
+  /** Constructs the full SDD context string including pipeline state, role rules, and anti-content generation rules. */
   const buildSddContext = (): string => {
     const lines = [
       "## SDD Pipeline State",
@@ -486,6 +486,7 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
 
   // ── Command → SDD phase mapping ──────────────────────────────────────────
 
+  /** Maps a slash command to its corresponding SDD pipeline phase. */
   const commandToPhase = (command: string): string => {
     const map: Record<string, string> = {
       "/spec": "define",
@@ -640,9 +641,9 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
             ?? (args.subagent as string)
             ?? ""
 
-          if (subagentName && !VALID_SUBAGENTS.includes(subagentName)) {
-            audit("tool.before", `BLOCKED task: unknown subagent "${subagentName}"`)
-            throw new SddError(`Unknown subagent: ${subagentName}. Use a valid agent name from the catalog.`)
+          if (subagentName && !VALID_SUBAGENTS.has(subagentName)) {
+            audit('tool.before', `BLOCKED task: unknown subagent "${subagentName}"`)
+            throw new SddError(`Unknown subagent: "${subagentName}". Valid names: backend-developer, typescript-pro, python-pro, etc. See VALID_SUBAGENTS catalog.`)
           }
         }
 
