@@ -344,16 +344,10 @@ const READ_ONLY_AGENTS = new Set([
 ])
 
 const ANTI_CONTENT_GENERATION = `
-## CRITICAL: DO NOT generate file content
+## CRITICAL: No file content in session
 
-You MUST NOT output file content (code, markdown, JSON, config, or any structured text) in the chat session. This wastes tokens and clutters the conversation.
-
-- Do NOT write code blocks with file content
-- Do NOT write JSON, YAML, or config files in the session
-- Do NOT write markdown documents in the session
-- Do NOT show "here's what I would write" — just say WHAT to write and WHERE
-- If you need to create/modify a file, delegate to a subagent or notify the user
-- Your output should be ANALYSIS, RECOMMENDATIONS, and DECISIONS — not file content
+NEVER output code, markdown, JSON, or config in chat — wastes tokens for read-only agents. Say WHAT and WHERE, then delegate or notify.
+Your value is ANALYSIS, RECOMMENDATIONS, and DECISIONS — not file content.
 `
 
 // ---------------------------------------------------------------------------
