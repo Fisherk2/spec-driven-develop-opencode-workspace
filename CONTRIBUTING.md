@@ -79,7 +79,7 @@ Para añadir un nuevo agente especializado, sigue estos pasos. El proyecto tiene
    - Si el agente encaja en un dominio existente (Backend, Frontend, DevOps, etc.), añade su nombre a la lista separada por comas
    - Si el agente introduce un dominio nuevo, añade una fila nueva a la tabla "Catalog by Domain"
 
-7. **Añade el nombre al array `VALID_SUBAGENTS`** en [.opencode/plugins/sdd-pipeline.ts](.opencode/plugins/sdd-pipeline.ts). Este array valida que los subagentes invocados vía `task()` existan en el catálogo. Si omites este paso, el plugin rechazará el subagente con un error: `Unknown subagent: <nombre>`. Consulta la tabla de dominios en [.opencode/plugins/README.md](.opencode/plugins/README.md#subagent-name-validation) para ver el formato correcto.
+7. **Añade el nombre al Set `VALID_SUBAGENTS`** en [.opencode/plugins/sdd-pipeline.ts](.opencode/plugins/sdd-pipeline.ts). Este Set valida que los subagentes invocados vía `task()` existan en el catálogo. Si omites este paso, el plugin rechazará el subagente con un error: `Unknown subagent: <nombre>`. Consulta la tabla de dominios en [.opencode/plugins/README.md](.opencode/plugins/README.md#subagent-name-validation) para ver el formato correcto.
 
 8. **Reinicia tu sesión de OpenCode** para que reconozca el nuevo agente
 
@@ -96,8 +96,13 @@ Los agentes primarios son entradas principales del pipeline SDD. Además de los 
 7. **Añade SUBAGENT DELEGATION section** al nuevo agente primario, siguiendo el patrón de los existentes (tabla de subagentes relevantes + reglas de delegación)
 
 8. **Crea los hooks necesarios en el plugin SDD** (`.opencode/plugins/sdd-pipeline.ts`) si el agente necesita:
-   - Detección automática en `AGENT_DETECT_PATTERNS`
-   - Role rules en `buildRoleRules()`
+   - Patrón de identidad de alta confianza en `AGENT_IDENTITY_PATTERNS` (formato: `/You are \*\*Nombre\*\*/`)
+   - Patrón de detección por keywords en `AGENT_DETECT_PATTERNS`
+   - Mapeo de comandos slash en `COMMAND_AGENT_MAP` (si el agente tiene comandos asociados)
+   - Patrón de mención en `AGENT_MENTION_PATTERNS` (formato: `/@nombre\b/i`)
+   - Reglas de rol en `buildRoleRules()`
+   - Agregar al Set `READ_ONLY_AGENTS` (si el agente es de solo lectura)
+   - Sugerencias de fase en `PHASE_SUGGESTIONS` (si aplica)
    - Restricciones de herramientas en `tool.execute.before`
 
 9. Si el agente habilita un nuevo patrón de orquestación, documéntalo en [docs/opencode/08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md)

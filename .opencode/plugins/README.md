@@ -59,12 +59,10 @@ The plugin blocks destructive commands for ALL agents — a global safety net th
 
 ```typescript
 DESTRUCTIVE_PATTERNS = [
-  /rm\s+-r[f]?/i,           // rm -rf, rm -r
-  /rm\s+--recursi/i,         // rm --recursive
+  /rm\s+-rf/i,               // rm -rf
   /git\s+push\s+--force/i,   // git push --force
-  /git\s+push\s+-f/i,        // git push -f
-  /DROP\s+TABLE/i,           // DROP TABLE
-  /DELETE\s+FROM/i,          // DELETE FROM
+  /drop\s+table/i,           // DROP TABLE
+  /drop\s+database/i,        // DROP DATABASE
 ]
 ```
 
@@ -76,7 +74,7 @@ The plugin validates that subagent names in `task()` exist in the catalog (**102
 Unknown subagent: python-wizard. Use a valid agent name from the catalog.
 ```
 
-The `VALID_SUBAGENTS` array contains all valid agent names organized by domain:
+The `VALID_SUBAGENTS` Set contains all valid agent names organized by domain:
 
 | Domain | Count | Agents |
 |--------|:-----:|--------|
@@ -158,7 +156,7 @@ Slash commands (`/build`, `/review`) have priority over mentions (`@tlaloc`). If
 
 ## Agent Detection Architecture
 
-Agent detection uses **three mechanisms**:
+Agent detection uses **four mechanisms**:
 
 ### 1. Identity Patterns (high confidence — system prompt)
 Patterns that match in the active agent's prompt:
@@ -167,13 +165,20 @@ Patterns that match in the active agent's prompt:
 "You are **Huitzilopochtli**" → detects huitzilopochtli
 ```
 
-### 2. Agent Mention Patterns (user messages)
+### 2. Detection Patterns (fallback — keyword-based)
+Keyword patterns that match when identity patterns don't:
+```
+HUITZILOPOCHTLI, Supreme Orchestrator → detects huitzilopochtli
+QUETZALCOATL, Visionary Sage → detects quetzalcoatl
+```
+
+### 3. Agent Mention Patterns (user messages)
 Detection of mentions in user messages:
 ```
 @tlaloc, agente tezcatlipoca → updates active agent
 ```
 
-### 3. Command-Agent Map (slash commands)
+### 4. Command-Agent Map (slash commands)
 Mapping of slash commands to their primary agent:
 ```
 /build → tlaloc
@@ -201,4 +206,4 @@ Primary agents can delegate to subagents via `task()`. Each subagent operates in
 
 ## Source
 
-Plugin: `sdd-pipeline.ts` (~701 lines)
+Plugin: `sdd-pipeline.ts` (~696 lines)

@@ -355,7 +355,7 @@ To add a new specialized agent, follow these steps. The project has **two types 
    - If the agent fits an existing domain (Backend, Frontend, DevOps, etc.), add its name to the comma-separated list
    - If the agent introduces a new domain, add a new row to the "Catalog by Domain" table
 
-7. **Add the name to the `VALID_SUBAGENTS` array** in [.opencode/plugins/sdd-pipeline.ts](.opencode/plugins/sdd-pipeline.ts). This array validates that subagents invoked via `task()` exist in the catalog. If you skip this step, the plugin will reject the subagent with: `Unknown subagent: <name>`. See the domain table in [.opencode/plugins/README.md](.opencode/plugins/README.md#subagent-name-validation) for the correct format.
+7. **Add the name to the `VALID_SUBAGENTS` Set** in [.opencode/plugins/sdd-pipeline.ts](.opencode/plugins/sdd-pipeline.ts). This Set validates that subagents invoked via `task()` exist in the catalog. If you skip this step, the plugin will reject the subagent with: `Unknown subagent: <name>`. See the domain table in [.opencode/plugins/README.md](.opencode/plugins/README.md#subagent-name-validation) for the correct format.
 
 8. **Restart your OpenCode session** so it recognizes the new agent
 
@@ -372,8 +372,13 @@ Primary agents are main entry points in the SDD pipeline. In addition to steps 1
 7. **Add SUBAGENT DELEGATION section** to the new primary agent, following the pattern of existing ones (table of relevant subagents + delegation rules)
 
 8. **Create necessary hooks in the SDD plugin** (`.opencode/plugins/sdd-pipeline.ts`) if the agent needs:
-   - Automatic detection in `AGENT_DETECT_PATTERNS`
+   - High-confidence identity pattern in `AGENT_IDENTITY_PATTERNS` (format: `/You are \*\*Name\*\*/`)
+   - Keyword detection patterns in `AGENT_DETECT_PATTERNS`
+   - Slash command mapping in `COMMAND_AGENT_MAP` (if agent has associated commands)
+   - Mention pattern in `AGENT_MENTION_PATTERNS` (format: `/@name\b/i`)
    - Role rules in `buildRoleRules()`
+   - Add to `READ_ONLY_AGENTS` Set (if agent is read-only)
+   - Phase suggestions in `PHASE_SUGGESTIONS` (if applicable)
    - Tool restrictions in `tool.execute.before`
 
 9. If the agent enables a new orchestration pattern, document it in [docs/opencode/08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md)
