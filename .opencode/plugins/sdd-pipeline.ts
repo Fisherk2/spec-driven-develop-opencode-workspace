@@ -417,6 +417,9 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
       // [C1] Reset transient fields on session start — stale values cause
       //      incorrect intent injection on the first system.transform call.
       sddState.last_intent = null
+      // agent_type is session-specific — always re-detect from system prompt.
+      // Without this, a stale agent from the previous session overrides detection.
+      sddState.agent_type = "unknown"
     }
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err)
