@@ -1,5 +1,5 @@
 import type { Plugin } from "@opencode-ai/plugin"
-import { readFileSync, writeFileSync, existsSync, mkdirSync, appendFileSync } from "fs"
+import { readFileSync, writeFileSync, existsSync, appendFileSync } from "fs"
 import { join } from "path"
 
 // ---------------------------------------------------------------------------
@@ -366,11 +366,10 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
   // ── Paths ────────────────────────────────────────────────────────────────
   const projectDir = directory || process.cwd()
   const pluginsDir = join(projectDir, ".opencode", "plugins")
-  const statePath = join(pluginsDir, ".sdd-state.json")
   const auditLogPath = join(pluginsDir, ".sdd-audit.log")
 
-  // ── Load persisted SDD state ─────────────────────────────────────────────
-  const defaultState: SddState = {
+  // ── In-memory SDD state (no persistence — detected fresh each session) ──
+  const sddState: SddState = {
     pipeline_phase: "idle",
     active_spec: null,
     current_task: null,
@@ -378,23 +377,6 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
     pending_tasks: [],
     agent_type: "unknown",
     last_intent: null,
-  }
-
-  const sddState: SddState = { ...defaultState }
-  try {
-    if (existsSync(statePath)) {
-      const saved = JSON.parse(readFileSync(statePath, "utf-8"))
-      Object.assign(sddState, saved)
-      // [C1] Reset transient fields on session start — stale values cause
-      //      incorrect intent injection on the first system.transform call.
-      sddState.last_intent = null
-      // agent_type is session-specific — always re-detect from system prompt.
-      // Without this, a stale agent from the previous session overrides detection.
-      sddState.agent_type = "unknown"
-    }
-  } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : String(err)
-    console.debug("[sdd-pipeline] Corrupted state file, using defaults:", msg)
   }
 
   // ── Audit log helpers ────────────────────────────────────────────────────
@@ -433,16 +415,6 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
   }
 
   // ── Helpers ──────────────────────────────────────────────────────────────
-
-  const saveState = () => {
-    try {
-      if (!existsSync(pluginsDir)) mkdirSync(pluginsDir, { recursive: true })
-      writeFileSync(statePath, JSON.stringify(sddState, null, 2))
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : String(err)
-      console.debug("[sdd-pipeline] Could not save state:", msg)
-    }
-  }
 
   const audit = (source: string, detail: string) => {
     try {
@@ -555,8 +527,7 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
         const detected = detectAgentType(out.system)
         if (detected !== sddState.agent_type && sddState.agent_type === "unknown") {
           sddState.agent_type = detected
-          saveState()
-          audit("system.transform", `Agent detected and persisted: ${detected}`)
+          audit("system.transform", `Agent detected: ${detected}`)
         }
 
         // Inject SDD state at the beginning so it appears early in the system prompt
@@ -602,7 +573,6 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
           if (patterns.some((p) => p.test(content))) {
             if (sddState.agent_type !== agentType) {
               sddState.agent_type = agentType
-              saveState()
               audit("chat.message", `Agent switched via mention: ${agentType}`)
             }
             break
@@ -618,7 +588,6 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
             const prev = sddState.agent_type
             sddState.agent_type = agentType
             sddState.pipeline_phase = commandToPhase(command)
-            saveState()
             if (prev !== agentType) {
               audit("chat.message", `Agent switched via command ${command}: ${agentType}`)
             }
@@ -709,7 +678,7 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
 
     /**
      * Fires during context compaction.
-     * Persists the SDD pipeline state.
+     * Re-injects SDD state into the compacted context.
      */
     "experimental.session.compacting": async (
       _input: unknown,
@@ -720,9 +689,7 @@ export const SddPipelinePlugin: Plugin = async (ctx) => {
 
         out.context?.push(buildSddContext())
 
-        // Persist state on compaction (replaces the missing session.ended hook)
-        saveState()
-        audit("session.compacting", "Injected SDD state + persisted state")
+        audit("session.compacting", "Injected SDD state")
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : String(err)
         console.error("[sdd-pipeline] Error in session.compacting:", msg)

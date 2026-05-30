@@ -47,10 +47,9 @@ Based on `@opencode-ai/plugin/dist/index.d.ts` (v1.14.41):
 
 ## Runtime Files
 
-- `.opencode/plugins/.sdd-state.json` — persisted pipeline state (phase, tasks, agent type, last intent)
 - `.opencode/plugins/.sdd-audit.log` — audit trace with automatic rotation (>500 lines → truncates to 250)
 
-Both ignored by git.
+Ignored by git.
 
 ## What the Plugin Enforces
 
@@ -149,11 +148,11 @@ Slash commands (`/build`, `/review`) have priority over mentions (`@tlaloc`). If
 
 ## How it works
 
-1. **On session start**: `experimental.chat.system.transform` detects which primary agent is active (6 agents), persists it in `.sdd-state.json`, and injects the SDD state + role rules + intent suggestions in the system prompt. Detection uses three mechanisms (see Agent Detection Architecture).
-2. **Each message**: `chat.message` detects agent mentions, slash commands, and intent. Commands have priority over mentions. When it detects a mention or command, it updates the active agent and persists the change.
+1. **On session start**: `experimental.chat.system.transform` detects which primary agent is active (6 agents) and injects the SDD state + role rules + intent suggestions in the system prompt. Detection uses three mechanisms (see Agent Detection Architecture). State is in-memory only — no persistence between sessions.
+2. **Each message**: `chat.message` detects agent mentions, slash commands, and intent. Commands have priority over mentions. When it detects a mention or command, it updates the active agent in memory.
 3. **Before each tool**: `tool.execute.before` blocks destructive commands and validates subagent names.
 4. **After each tool**: `tool.execute.after` logs to the audit log.
-5. **On compaction**: `experimental.session.compacting` re-injects the SDD state + role rules and persists the pipeline state.
+5. **On compaction**: `experimental.session.compacting` re-injects the SDD state + role rules into the compacted context.
 
 > The meta-skill (`using-agent-skills`) is **not** injected automatically to save tokens (~4,000 per call). OpenCode exposes it as an available skill; agents load it on demand with the `skill` tool.
 
@@ -185,7 +184,7 @@ Mapping of slash commands to their primary agent:
 **Complete flow:**
 1. `system.transform` detects agent from system prompt (identity → keywords)
 2. `chat.message` detects mentions and commands in user messages (commands > mentions)
-3. Persisted state in `.sdd-state.json` is updated in both hooks
+3. State lives in memory for the session duration
 
 ## Subagent Delegation
 
@@ -202,4 +201,4 @@ Primary agents can delegate to subagents via `task()`. Each subagent operates in
 
 ## Source
 
-Plugin: `sdd-pipeline.ts` (~734 lines)
+Plugin: `sdd-pipeline.ts` (~701 lines)
