@@ -310,7 +310,7 @@
       "steps": 15
     },
     "moctezuma": {
-      "model": "openrouter/deepseek/deepseek-v4-flash:free",
+      "model": "nvidia/openai/gpt-oss-120b",
       "color": "#8B4513",
       "temperature": 0.1
     },
