@@ -206,15 +206,15 @@
 
 ### Branch 3 — Finalización
 
-- [ ] **BC7** Commit cambios en `feat/plugin-orchestration`
-- [ ] **BC8** Fusionar en `develop`: `git checkout develop && git merge feat/plugin-orchestration`
-- [ ] **BC9** Eliminar branch local: `git branch -d feat/plugin-orchestration`
+- [x] **BC7** Commit cambios en `feat/plugin-orchestration`
+- [x] **BC8** Fusionar en `develop`: `git checkout develop && git merge feat/plugin-orchestration`
+- [x] **BC9** Eliminar branch local: `git branch -d feat/plugin-orchestration`
 
 ---
 
 ## Post-Merge (en develop)
 
-- [ ] **PM1** Verificar que todo está integrado en `develop` (`git log --oneline --graph`)
+- [x] **PM1** Verificar que todo está integrado en `develop` (`git log --oneline --graph`)
 - [ ] **PM2** Verificar que `opencode.json` reconoce los 6 agentes primarios
 - [ ] **PM3** Reiniciar sesión de OpenCode
 - [ ] **PM4** Probar `/spec` con Quetzalcoatl
@@ -234,5 +234,5 @@
 |--------|:------:|:------:|
 | `docs/quickstart-migration` | 25/25 tasks | ✅ Completada |
 | `feat/agent-permission-hierarchy` | 36/36 tasks | ✅ Completada |
-| `feat/plugin-orchestration` | 36/37 tasks | 🔄 En progreso |
-| **Total** | **97/100 tasks** | **🔄 En progreso** |
+| `feat/plugin-orchestration` | 39/39 tasks | ✅ Completada |
+| **Total** | **100/100 tasks** | **✅ Completada** |
