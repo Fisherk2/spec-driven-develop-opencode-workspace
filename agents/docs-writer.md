@@ -5,8 +5,8 @@ color: "#FFD700"
 temperature: 0.1
 hidden: true
 permission:
-  write: ask
-  edit: ask
+  write: allow
+  edit: allow
   bash:
     "less *": allow
     "more *": allow
