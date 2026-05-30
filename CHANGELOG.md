@@ -7,6 +7,223 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Sin Lanzar]
 
+## [2.2.0] - 2026-05-30
+
+### Cambios Importantes
+
+Este lanzamiento representa una expansión significativa del ecosistema de agentes y la maduración del pipeline SDD:
+
+- **6 agentes primarios** (3 nuevos): moctezuma (Strategic Commander), tlaloc (Rain God Builder), mictlantecuhtli (Underworld Judge) — se unen a huitzilopochtli, quetzalcoatl, tezcatlipoca.
+- **Jerarquía de permisos especializada**: Cada agente primario tiene permisos específicos (lectura, escritura, bash, task) según su rol en el pipeline.
+- **Nuevo comando /design**: Fan-out paralelo a 3 subagentes UI/UX con detección automática de interfaces.
+- **Plugin SDD Pipeline completo**: Auto-detección de agente (4 mecanismos), matriz de permisos, validación de subagentes, advisory phasing, anti-content-generation para read-only, estado en memoria.
+- **Configuración centralizada en opencode.json**: Modelos, colores, providers con thinking/reasoning parameters — removidos del frontmatter de 96 subagentes.
+- **Permisos bash globales**: 106 reglas allow/deny con deny para read-only agents.
+- **Tokens optimizados**: ~1,000 tokens menos por sesión gracias a compresión de tablas, fusión de reglas, y reducción de KNOWLEDGE paths.
+
+### Agregado
+
+#### Nuevos Agentes Primarios (3 nuevos, total: 6)
+
+- `agents/moctezuma.md` — **Strategic Commander**: Planificador de tareas, escribe solo planes. Rol puro de estrategia y descomposición de trabajo.
+- `agents/tlaloc.md` — **Rain God Builder**: Implementador principal, escribe código y delega subagentes. Rol principal de construcción.
+- `agents/mictlantecuhtli.md` — **Underworld Judge**: Validador de calidad, escribe tests y documentación. Rol de verificación y aseguramiento.
+- Los 3 se unen a los existentes `huitzilopochtli` (General Purpose), `quetzalcoatl` (Architect of Specifications), `tezcatlipoca` (Build Agent), completando la arquitectura de 6 agentes primarios.
+
+#### Jerarquía de Permisos por Agente (Issue #7)
+
+- **huitzilopochtli**: Orquestador puro — solo lectura + delegación a subagentes.
+- **quetzalcoatl**: Arquitecto visionario — solo lectura, delega únicamente documentación.
+- **tezcatlipoca**: Crítico — solo lectura (espejo humeante), sin permisos de escritura.
+- **moctezuma**: Comandante estratégico — solo escribe planes, sin permisos de código.
+- **tlaloc**: Constructor — escribe código, bash, y delega a todos los subagentes.
+- **mictlantecuhtli**: Juez — solo escribe tests y documentación, sin bash amplio.
+- Implementado via matriz de permisos en `opencode.json` (write/edit/patch/bash/task por agente).
+
+#### Nuevo Comando /design (Issue #6)
+
+- `commands/design.md` — Nuevo comando para diseño UI/UX con fan-out paralelo:
+  - `ux-researcher` — Investigación de UX y patrones de interacción.
+  - `ui-ux-design-pro` — Diseño de interfaces premium con design tokens.
+  - `accessibility-tester` — Validación de accesibilidad WCAG.
+- Detección automática de UI en el prompt antes de ejecutar el fan-out.
+- `docs/opencode/08-orchestration-patterns.md` — Documentado como patrón de fan-out condicional.
+- Referencias actualizadas en README.md, USER_GUIDE.md, 00-setup.md, y meta-skill.
+
+#### Plugin SDD Pipeline (Orquestación Completa)
+
+- `.opencode/plugins/sdd-pipeline.ts` — Implementación completa del pipeline SDD:
+  - **Auto-detección de agente**: 4 mecanismos combinados:
+    1. Identity patterns (rol naming de alta confianza)
+    2. Keyword detection (palabras clave en el prompt)
+    3. Mention detection (@nombre de agente)
+    4. Command mapping (slash command — agente)
+  - **Matriz de permisos**: Control granular de write/edit/patch/bash/task por tipo de agente (orchestrator, architect, critic, commander, builder, judge).
+  - **Validación de subagentes**: Set O(1) con 102 nombres válidos — rechaza `task()` a agentes no registrados.
+  - **Sugerencias de fase**: Advisory (no bloqueante) que sugiere comandos según la intención detectada.
+  - **Detección de intención**: Analiza mensajes de texto libre y sugiere el comando SDD apropiado.
+  - **Anti-generación de contenido**: Previene que agentes read-only generen contenido (archivos, ediciones) en la sesión.
+  - **Safety net**: Bloqueo de comandos destructivos (forzados, eliminaciones recursivas, etc.) según patrones predefinidos.
+  - **Estado en memoria**: Sin persistencia entre sesiones — todo el estado se pierde al cerrar (más simple, sin archivos de estado).
+  - **JSDoc completo**: Todas las funciones documentadas con TypeScript.
+  - **Early returns**: Optimización de flujo con returns tempranos para reducir anidamiento.
+  - **824 — 696 líneas**: Simplificación y optimización del código.
+
+#### Configuración Centralizada
+
+- `opencode.json` — Modelos, colores, temperature y steps movidos del frontmatter YAML de cada agente a configuración central:
+  - **6 agentes primarios**: Cada uno con modelo dedicado y steps configurados.
+  - **8 providers** configurados con parámetros thinking/reasoning:
+    - `opencode-go/deepseek-v4-flash-free` — Modelo principal.
+    - `opencode-go/kimi-k2.6` — Modelo alternativo principal.
+    - `opencode-go/qwen3.6-plus` — Agente huitzilopochtli.
+    - `opencode-go/minimax-m2.7` — Agente quetzalcoatl.
+    - `opencode-go/mimo-v2.5` — Agente tezcatlipoca.
+    - `opencode-go/qwen3.7-max` — Agente moctezuma.
+    - `opencode-go/source-deepseek-v4-flash` — Agente tlaloc.
+    - `opencode-go/glm-5.1` — Agente mictlantecuhtli.
+  - **Permisos bash globales**: 106 reglas allow/deny organizadas en:
+    - GLOBAL_BASH_ALLOW: patrones seguros (ls, cat, grep, git log, etc.)
+    - GLOBAL_BASH_DENY: patrones peligrosos (sudo, chmod, pipes a shell, etc.)
+    - AGENT_BASH_DENY_RULES: deny adicionales por tipo de agente.
+  - **Variables de temperatura y steps**: Configurados por agente (moctezuma steps: 20, tlaloc/mictlantecuhtli steps: 40).
+- **Clean subagent frontmatter**: Removidos `compaction` y `model_options` de 96 subagentes — ahora heredan del agente primario.
+- **Provider variants**: Cada provider con variante thinking (deep-thinking/reasoning) configurada.
+
+#### Nuevas Imágenes de Agentes
+
+- `docs/opencode/img/` — 6 retratos locales de agentes (sin dependencias externas):
+  - `huitzilopochtli.png` — General Purpose Agent.
+  - `quetzalcoatl.png` — Architect of Specifications.
+  - `tezcatlipoca.png` — Build/Critic Agent.
+  - `moctezuma.png` — Strategic Commander.
+  - `tlaloc.png` — Rain God Builder.
+  - `mictlantecuhtli.png` — Underworld Judge.
+- `README.md` — Agent card portraits integrados en la tabla de agentes primarios.
+
+#### Expansión de Permisos Bash
+
+- `opencode.json` — Bash permissions globales expandidos:
+  - **106 reglas totales** (vs ~30 en v2.1.2): 79 allow + 27 deny.
+  - Nuevos patrones allow: `cd`, `python3`, `node`, `npx`, `docker`, `uvx`, `just`, `make`, `git commit`, `git push`, `gh`, `aws`, `gcloud`.
+  - Nuevos patrones deny: curl piped a shell, wget a shell, chown, chmod 777, fork bomb.
+  - Deny condicional para read-only agents.
+- `agents/huitzilopochtli.md`, `agents/quetzalcoatl.md`, `agents/tezcatlipoca.md` — Permisos bash endurecidos.
+- Permiso `Write` añadido respecto al permiso `Edit` para agentes constructores.
+
+### Cambiado
+
+#### Agentes Principales Traducidos al Inglés
+
+- `agents/huitzilopochtli.md`, `agents/quetzalcoatl.md`, `agents/tezcatlipoca.md` — Prompts completos traducidos al inglés.
+- `agents/moctezuma.md`, `agents/tlaloc.md`, `agents/mictlantecuhtli.md` — Creados directamente en inglés.
+- Consistencia de naming en todos los archivos de agente (inglés como idioma canónico).
+
+#### Delegación Refactorizada
+
+- **96 subagentes**: Invocación refactorizada de command-based a primary agent delegation.
+  - `Invoke via` en cada subagente ahora apunta a agentes primarios en lugar de comandos slash.
+  - Consistente con la arquitectura de 6 agentes primarios y sus dominios específicos.
+- **Comando /ship expandido**: Fan-out de 2 a 5 subagentes:
+  - Nuevos: `dependency-manager`, `accessibility-tester`, `docs-writer`.
+  - Existentes: `code-reviewer`, `security-auditor`.
+  - Acceso condicional: se salta subagentes no disponibles sin romper el flujo.
+- **mictlantecuhtli**: Task allowlist expandido a 11 subagentes.
+
+#### Comandos Reasignados
+
+- /build: tezcatlipoca — **tlaloc** (Rain God Builder, rol de implementación).
+- /code-simplify: tezcatlipoca — **tlaloc** (simplificación como tarea de implementación).
+- /plan: quetzalcoatl — **moctezuma** (Strategic Commander, planificación estratégica).
+- /review: huitzilopochtli — **tezcatlipoca** (Smoking Mirror, crítica pura).
+- /test: tezcatlipoca — **mictlantecuhtli** (Underworld Judge, validación de calidad).
+- Asignaciones validadas en `commands/` y actualizadas en `opencode.json`.
+
+#### Plugin Simplificado
+
+- **Gestión de permisos eliminada**: Se eliminó la gestión de permisos a nivel plugin — ahora se confía en OpenCode. El plugin solo maneja lo que OpenCode no puede.
+- **Persistencia eliminada**: `sdd-state.json` eliminado — el estado es completamente in-memory.
+- **Anti-content-generation**: Nuevo hook para prevenir que read-only agents generen contenido.
+- **Optimización de tamaño**: 824 — 696 líneas (reducción de ~128 líneas).
+- **Consumo de tokens**: ~1,000 tokens menos por sesión.
+- **Design principle documentado**: `Only handle what OpenCode cannot.`
+
+#### Documentación
+
+- `README.md` — Rewrite completo:
+  - Template-first approach: Clarificado que esto es una plantilla, no un proyecto final.
+  - Agent card portraits: 6 retratos locales con tabla de agentes primarios.
+  - Quick Start: Reescrito con pasos claros para usar como template.
+  - Modelos de agentes: Tabla actualizada con los 6 agentes y sus modelos opencode-go.
+- `USER_GUIDE.md` — Template usage clarificado:
+  - `opencode.json` config actualizada para 6 agentes primarios.
+  - Troubleshooting expandido con casos comunes.
+  - Referencias actualizadas de 3 a 6 agentes primarios.
+- `docs/opencode/00-setup.md`:
+  - Workspace cleanup steps añadidos a First Steps section.
+  - Troubleshooting table expandida con 5 nuevas filas.
+  - Documentación del comando /design añadida.
+- `docs/opencode/08-orchestration-patterns.md`:
+  - Añadido /design command como patrón de fan-out condicional.
+  - Actualizado a 6 agentes primarios con sus roles.
+  - Delegation rules actualizadas para la jerarquía de permisos.
+- `docs/opencode/09-agent-index.md`:
+  - Actualizado con 6 primary agents (antes 3).
+  - Total de agentes: 6 primarios + 96 subagentes = 102.
+  - Catálogo por dominio actualizado.
+- `CONTRIBUTING.md`:
+  - VALID_SUBAGENTS update step: array de strings — Set.
+  - Agent creation hooks: 3 — 8 items.
+  - Referencias a agentes actualizadas de 3 a 6 primarios.
+- `.opencode/plugins/README.md`:
+  - Arquitectura completa del plugin documentada.
+  - Design principle: `Only handle what OpenCode cannot.`
+  - 4 detection mechanisms documentados.
+  - Tabla de permisos actualizada con tlaloc task = allow.
+- `docs/opencode/02-skills.md` — Frontmatter specs actualizados.
+
+#### Optimización de Tokens
+
+- **Tablas de subagentes comprimidas**: Markdown tables — compact bullets (ahorro ~20 líneas).
+- **RESTRICTIONS + WRITING RULE fusionadas**: Combinadas en RULES (ahorro ~10 líneas).
+- **README.md removido de KNOWLEDGE path**: En 6 agentes primarios (ahorro ~6 líneas).
+- **ANTI_CONTENT_GENERATION comprimido**: De 12 a 5 líneas (misma efectividad).
+- **Ahorro total**: ~46 líneas, ~3.7KB de caracteres, ~1,000 tokens por sesión.
+
+#### Configuración de Modelos
+
+- `opencode.json` — Modelos de agentes actualizados:
+  - `moctezuma` — `opencode-go/qwen3.7-max` (modelo óptimo para planeación).
+  - `tlaloc` — `opencode-go/source-deepseek-v4-flash` (modelo para implementación).
+  - `mictlantecuhtli` — `opencode-go/glm-5.1` (modelo analítico para validación).
+  - Agent `explore`: `opencode-go/deepseek-v4-flash`.
+  - `quetzalcoatl`: `opencode-go/minimax-m2.7`.
+  - `tezcatlipoca`: `opencode-go/mimo-v2.5`.
+- Permisos `cd` añadidos a la configuración bash.
+- Archivos `html` habilitados en permisos de escritura.
+
+### Corregido
+
+#### Plugin SDD Pipeline
+
+- **Reset de agent_type**: Ahora se reinicia a `unknown` al inicio de cada sesión.
+- **Command override incondicional**: `chat.message` detection cambia el `agent_type` sin condiciones.
+- **Permiso task de tlaloc**: Cambiado de `ask` a `allow` (Issue #7 spec).
+- **Permiso bash**: Cambiado de `ask` a `allow` en `TOOL_PERMISSIONS`.
+- **7 code review findings**: Corregidos (case-insensitive task check, SddError, early returns, JSDoc, Set O(1), nested conditionals, dead code).
+- **6 observations**: Corregidas (AGENT_BASH_DENY_RULES refinado, PHASE_AGENT_ALLOWLIST eliminado, regex double backslash, git commands removidos de deny, moctezuma removido de deny, read-only filter).
+
+#### Documentación
+
+- `CONTRIBUTING.md` — Agent instructions corregidas en 3 referencias (VALID_SUBAGENTS, hooks 3—8, enlaces).
+- `USER_GUIDE.md` — Agent instructions corregidas para 6 agentes primarios.
+- `.opencode/plugins/README.md` — Tabla de permisos y documentación de hooks actualizada.
+
+#### Configuración
+
+- `opencode.json` — Corregido: `cd` permission, formato de permisos, modelos de agentes, provider configs.
+- `commands/` — Referencias y formato de comandos corregidos.
+
 ## [2.1.2] - 2026-05-25
 
 ### Cambiado
@@ -684,22 +901,22 @@ Nuevas secciones agregadas al `.gitignore`:
 - SKILL.md de `security-and-hardening` incluye OWASP Top 10 prevention
 - Principios de menor privilegio en configuración de agentes
 - Validación de entrada en workflows de skills
-
 ---
 
 ## Información del Proyecto
 
 ### Repositorio
 - **Nombre**: Plantilla Dev AI
-- **Descripción**: Espacio de trabajo nativo para OpenCode con metodología Spec-Driven Development, 33 skills integradas, 5 agentes especialistas y pipeline SDD automatizado
+- **Descripción**: Espacio de trabajo nativo para OpenCode con metodología Spec-Driven Development, 43 skills integradas, 6 agentes primarios + 90+ subagentes (total ~102), pipeline SDD Plugin con orquestación completa y modelos opencode-go
 - **Repositorio**: https://github.com/Fisherk2/spec-driven-develop-opencode-workspace
 - **Licencia**: MIT License
 
 ### Stack Tecnológico
 - **Plataforma**: OpenCode Agentic Workspace
-- **Pipeline**: SDD Pipeline Plugin (5 hooks nativos de OpenCode)
-- **Skills**: 43 skills de desarrollo profesional (42 + 1 meta-skill)
-- **Agentes**: 5 especialistas (analysis, implement, code-reviewer, test-engineer, security-auditor)
+- **Pipeline**: SDD Pipeline Plugin (5 hooks nativos, ~696 líneas)
+- **Skills**: 43 skills de desarrollo profesional (42 ingeniería + 1 meta-skill)
+- **Agentes**: 6 primarios + 90+ subagentes (total ~102 agents)
+- **Models**: opencode-go (deepseek-v4-flash, qwen3.6-plus, minimax-m2.7, mimo-v2.5, qwen3.7-max)
 - **Documentación**: Context7 para APIs actualizadas · Markdown con diagramas Mermaid
 - **Gestión de paquetes**: Bun (`.opencode/`)
 - **Control de Versiones**: Git
@@ -707,14 +924,25 @@ Nuevas secciones agregadas al `.gitignore`:
 ### Documentación Relacionada
 
 - **[README.md](README.md)** - Guía rápida y flujo de trabajo
-- **[USER_GUIDE.md](USER_GUIDE.md)** - Referencia completa de 43 skills
-- **[references/orchestration-patterns.md](references/orchestration-patterns.md)** - Agentes y orquestación (AGENTS_GUIDE.md fusionado)
-- **[skills/using-agent-skills/SKILL.md](skills/using-agent-skills/SKILL.md)** - Meta-skill orquestador: descubrimiento e invocación de skills
+- **[USER_GUIDE.md](USER_GUIDE.md)** - Referencia completa de 43 skills y 6 agentes primarios
+- **[Plugin SDD Pipeline](.opencode/plugins/README.md)** - Documentación del plugin de orquestación
+- **[docs/opencode/08-orchestration-patterns.md](docs/opencode/08-orchestration-patterns.md)** - Agentes y orquestación
+- **[skills/using-agent-skills/SKILL.md](skills/using-agent-skills/SKILL.md)** - Meta-skill orquestador
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** - Directrices de contribución
 
 ### Instrucciones de Actualización
 
 #### Desde Versiones Anteriores
+
+**Al actualizar desde 2.1.x a 2.2.0:**
+
+1. **Nueva arquitectura de 6 agentes primarios**: Se añaden moctezuma (Strategic Commander), tlaloc (Rain God Builder) y mictlantecuhtli (Underworld Judge) a los existentes. Cada agente tiene permisos especializados según su rol.
+2. **Plugin SDD Pipeline rediseñado**: Estado en memoria sin persistencia entre sesiones. Eliminada la gestión de permisos a nivel plugin. Añadida validación de subagentes y anti-content-generation.
+3. **Nuevo comando /design**: Fan-out paralelo a 3 subagentes UI/UX con detección automática de interfaces.
+4. **Comandos reasignados**: `/build` y `/code-simplify` ahora usan tlaloc; `/plan` usa moctezuma; `/review` usa tezcatlipoca; `/test` usa mictlantecuhtli.
+5. **Configuración centralizada**: Modelos, colores y temperature ahora en `opencode.json`, no en frontmatter. Verifica que tu config incluya los 6 agentes y 8 providers.
+6. **Optimización de tokens**: ~1,000 tokens menos por sesión gracias a compresión de tablas, fusión de reglas y reducción de KNOWLEDGE paths.
+7. **Documentación actualizada**: README.md, USER_GUIDE.md y documentos de opencode/ actualizados con 6 agentes primarios.
 
 **Al actualizar desde 1.x.x a 2.0.0:**
 
@@ -727,21 +955,20 @@ Nuevas secciones agregadas al `.gitignore`:
 
 **Al actualizar desde 2.0.0 a 2.1.0:**
 
-1. **Nuevos skills disponibles**: `xlsx` y `excel-analysis` se instalan automáticamente al actualizar. Solo reinicia OpenCode para que se carguen.
-2. **Nuevos servidores MCP**: `opencode.json` incluye dos nuevos servidores:
-   - `excel`: Habilitado por defecto. Ejecuta `uvx excel-mcp-server stdio` para verificar que funciona.
-   - `jupyter`: Deshabilitado por defecto. Para activarlo, inicia un servidor Jupyter (Docker o local), cambia `"enabled": false` a `"enabled": true` en `opencode.json`, y reinicia OpenCode.
-3. **Documentación MCP**: La guía `docs/opencode/03-mcp-servers.md` ha sido ampliada con la configuración detallada de ambos servidores.
-4. **Revisa conteo de skills**: El total real es 43 (42 ingeniería + 1 meta-skill). Verifica que `README.md` y `USER_GUIDE.md` reflejen este número.
-5. **Nueva fase Extra**: Las skills de hojas de cálculo ahora aparecen en una sección "Extra" en `USER_GUIDE.md` y en el meta-skill.
+1. **Nuevos skills disponibles**: `xlsx` y `excel-analysis` se instalan automáticamente. Solo reinicia OpenCode.
+2. **Nuevos servidores MCP**: `opencode.json` incluye dos nuevos servidores: `excel` (habilitado) y `jupyter` (deshabilitado).
+3. **Documentación MCP**: La guía `docs/opencode/03-mcp-servers.md` ampliada con configuración detallada.
+4. **Revisa conteo de skills**: El total real es 43 (42 ingeniería + 1 meta-skill).
+5. **Nueva fase Extra**: Skills de hojas de cálculo en sección "Extra" de USER_GUIDE.md y meta-skill.
 
 #### Para Versiones Futuras
-Al actualizar de 2.1.0 en adelante:
+Al actualizar de 2.2.0 en adelante:
 
 1. **Revisa el CHANGELOG** para cambios rupturantes
 2. **Ejecuta lint/typecheck** después de actualizar skills
 3. **Verifica comandos personalizados** en tu configuración de OpenCode
 4. **Revisa nuevas integraciones** en la documentación del proyecto
+5. **Verifica que los modelos opencode-go** sigan siendo accesibles desde tu cuenta
 
 ### Contribuyendo al CHANGELOG
 
