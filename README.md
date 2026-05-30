@@ -56,9 +56,9 @@ Seis agentes primarios orquestan el ciclo SDD, cada uno con un rol y permisos es
   </tr>
   <tr><td colspan="2"><b>Rol:</b> <code>Arquitecto de sistemas y diseñador de especificaciones</code></td></tr>
   <tr><td colspan="2"><b>Prompt:</b> <a href="agents/quetzalcoatl.md"><code>agents/quetzalcoatl.md</code></a></td></tr>
-  <tr><td colspan="2"><b>Modelo por defecto:</b> <code>MiniMax M2.7</code></td></tr>
-  <tr><td colspan="2"><b>Modelos recomendados:</b> <code>MiniMax M2.7</code> <code>Gemini 3.1 Pro</code> <code>Qwen3.5 Plus</code></td></tr>
-  <tr><td colspan="2"><b>Guía de modelos:</b> MiniMax M2.7 como default por su excelente razonamiento arquitectónico. Gemini 3.1 Pro para especificaciones complejas. Qwen3.5 Plus como alternativa sólida.</td></tr>
+  <tr><td colspan="2"><b>Modelo por defecto:</b> <code>Qwen3.6 Plus</code></td></tr>
+  <tr><td colspan="2"><b>Modelos recomendados:</b> <code>Qwen3.6 Plus</code> <code>Deepseek V4 pro</code> <code>Gemini 3.1 Pro</code></td></tr>
+  <tr><td colspan="2"><b>Guía de modelos:</b> Qwen3.6 Plus como default por su excelente razonamiento arquitectónico. Deepseek V4 pro para especificaciones complejas. Gemini 3.1 Pro como alternativa de respaldo.</td></tr>
 </table>
 
 ### Moctezuma ⚔️ — Estratega y Comandante
@@ -113,9 +113,9 @@ Seis agentes primarios orquestan el ciclo SDD, cada uno con un rol y permisos es
   </tr>
   <tr><td colspan="2"><b>Rol:</b> <code>Validador de calidad y guardián del despliegue</code></td></tr>
   <tr><td colspan="2"><b>Prompt:</b> <a href="agents/mictlantecuhtli.md"><code>agents/mictlantecuhtli.md</code></a></td></tr>
-  <tr><td colspan="2"><b>Modelo por defecto:</b> <code>DeepSeek V4 Flash</code></td></tr>
-  <tr><td colspan="2"><b>Modelos recomendados:</b> <code>DeepSeek V4 Flash</code> <code>Gemini 2.5 Pro</code> <code>Qwen3.6 Plus</code></td></tr>
-  <tr><td colspan="2"><b>Guía de modelos:</b> DeepSeek V4 Flash para ejecución rápida de tests. Gemini 2.5 Pro para análisis profundo de calidad. Qwen3.6 Plus para validación exhaustiva pre-despliegue.</td></tr>
+  <tr><td colspan="2"><b>Modelo por defecto:</b> <code>MiMo-V2.5</code></td></tr>
+  <tr><td colspan="2"><b>Modelos recomendados:</b> <code>MiMo-V2.5</code> <code>DeepSeek V4 Flash</code> <code>Qwen3.6 Plus</code></td></tr>
+  <tr><td colspan="2"><b>Guía de modelos:</b> MiMo-V2.5 para ejecución rápida de tests con razonamiento profundo. DeepSeek V4 Flash para validación general. Qwen3.6 Plus para validación exhaustiva pre-despliegue.</td></tr>
 </table>
 
 ### Tezcatlipoca 🔮 — El Espejo Humeante
@@ -132,9 +132,9 @@ Seis agentes primarios orquestan el ciclo SDD, cada uno con un rol y permisos es
   </tr>
   <tr><td colspan="2"><b>Rol:</b> <code>Crítico de código y auditor de calidad</code></td></tr>
   <tr><td colspan="2"><b>Prompt:</b> <a href="agents/tezcatlipoca.md"><code>agents/tezcatlipoca.md</code></a></td></tr>
-  <tr><td colspan="2"><b>Modelo por defecto:</b> <code>GLM-5.1</code></td></tr>
-  <tr><td colspan="2"><b>Modelos recomendados:</b> <code>GLM-5.1</code> <code>Qwen3.7 Max</code> <code>Claude 3.5 Opus</code></td></tr>
-  <tr><td colspan="2"><b>Guía de modelos:</b> GLM-5.1 para revisiones generales. Qwen3.7 Max cuando se necesita análisis de seguridad profundo. Claude 3.5 Opus para la revisión más rigurosa pre-merge.</td></tr>
+  <tr><td colspan="2"><b>Modelo por defecto:</b> <code>Qwen3.7 Max</code></td></tr>
+  <tr><td colspan="2"><b>Modelos recomendados:</b> <code>Qwen3.7 Max</code> <code>Deepseek V4 pro</code> <code>Claude 3.5 Opus</code></td></tr>
+  <tr><td colspan="2"><b>Guía de modelos:</b> Qwen3.7 Max para revisiones rigurosas y análisis de seguridad profundo. Deepseek V4 pro como alternativa de velocidad. Claude 3.5 Opus para la revisión más rigurosa pre-merge.</td></tr>
 </table>
 
 Además, más de **90 subagentes especializados** están disponibles para tareas concretas: revisión de código, auditoría de seguridad, optimización de BD, diseño UI/UX, debugging, y más. Se invocan vía `task()` desde los agentes principales o directamente por el usuario. Ver el [catálogo completo](docs/opencode/09-agent-index.md).
