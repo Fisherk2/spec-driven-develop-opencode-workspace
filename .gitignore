@@ -69,7 +69,7 @@ postgresql.conf.local
 
 # Documentación generada - Excluye archivos generados automáticamente
 docs/build/
-*.html
+#*.html
 *.png.temp
 diagrams/generated/
 mermaid-output/
