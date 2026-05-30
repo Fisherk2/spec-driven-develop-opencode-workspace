@@ -318,12 +318,14 @@
     "tlaloc": {
       "model": "opencode/mimo-v2.5-free",
       "color": "#0066cc",
-      "temperature": 0.2
+      "temperature": 0.2,
+      "steps": 40
     },
     "mictlantecuhtli": {
       "model": "opencode/mimo-v2.5-free",
       "color": "#2d2d2d",
-      "temperature": 0.2
+      "temperature": 0.2,
+      "steps": 40
     },
     "tezcatlipoca": {
       "model": "opencode/big-pickle",
